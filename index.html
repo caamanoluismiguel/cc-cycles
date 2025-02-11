@@ -23,31 +23,37 @@
       background: #fff;
       border-radius: 8px;
       padding: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
+    /* Header Styles */
     header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 2em;
     }
-    header h1 {
-      font-size: 2.5em;
+    header .site-title {
+      font-size: 3em;
+      font-weight: bold;
+      color: #222;
       margin-bottom: 0.3em;
-      color: #2193b0;
     }
-    header p {
-      font-size: 1.1em;
+    header .bible-verse {
+      font-size: 1.2em;
+      font-style: italic;
+      color: #444;
       margin-bottom: 0.5em;
     }
-    header .intro {
-      font-size: 1em;
-      color: #555;
+    header .intro-text {
+      font-size: 1.1em;
+      color: #333;
+      margin-bottom: 1em;
     }
+    /* Section Styles */
     .section {
       background: #f7f7f7;
       border-radius: 8px;
       padding: 15px;
       margin-bottom: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
     h2 {
       font-size: 1.8em;
@@ -125,9 +131,9 @@
 <body>
   <div class="container">
     <header>
-      <h1>Classical Kids Study Hub</h1>
-      <p>1 Corinthians 10:31 – "So whether you eat or drink, or whatever you do, do it all for the glory of God."</p>
-      <p class="intro">Welcome! Choose your cycle, week, and topic below to start your 15‑minute study session and fun activities.</p>
+      <h1 class="site-title">Classical Kids Study Hub</h1>
+      <p class="bible-verse">1 Corinthians 10:31 – "So whether you eat or drink, or whatever you do, do it all for the glory of God."</p>
+      <p class="intro-text">Welcome! Please choose your cycle, week, and topic below to start your 15‑minute study session and fun activities.</p>
     </header>
     
     <!-- Login Section -->
@@ -162,7 +168,6 @@
         <option value="math">Math</option>
         <option value="english">English</option>
         <option value="latin">Latin</option>
-        <option value="timeline">Timeline</option>
         <option value="finearts">Fine Arts</option>
       </select>
       <button id="startStudyBtn">Start Study Session</button>

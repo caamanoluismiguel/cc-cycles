@@ -6,13 +6,14 @@ let username = "";
 let currentCycle = "";
 let currentWeek = "";
 let currentTopic = "";
-const topicsOrder = ["history", "science", "geography", "math", "english", "latin", "timeline", "finearts"];
+// Updated topicsOrder without "timeline"
+const topicsOrder = ["history", "science", "geography", "math", "english", "latin", "finearts"];
 
 let totalPoints = 0;
 let badges = [];
 let userProgress = [];
 let studyTimer = null;
-let quizEnabled = false; // For enabling quiz after 5 minutes
+let quizEnabled = false; // Flag for enabling quiz after 5 minutes
 let sessionStartTime = null; // To record session start time
 
 // 2. Get DOM Elements
@@ -63,22 +64,23 @@ async function loadCycleData(cycleNumber) {
   return data;
 }
 
-// Utility: Map selected topic (lowercase) to JSON subject key.
+// 4. Utilities
+
+// Map selected topic (from lowercase) to JSON subject key.
 function mapSubjectKey(topic) {
   if (topic === "finearts") return "Fine_Arts";
   if (topic === "english") return "English";
   if (topic === "latin") return "Latin";
-  if (topic === "timeline") return "Timeline";
   return topic.charAt(0).toUpperCase() + topic.slice(1);
 }
 
-// Utility: Remove leading "Paragraph X:" from a text string.
+// Remove leading "Paragraph X:" from a text string.
 function cleanText(text) {
   if (!text) return "";
   return text.replace(/^Paragraph\s*\d+:\s*/, '');
 }
 
-// 4. Retrieve Foundation Content from the JSON structure.
+// 5. Retrieve Foundation Content from JSON.
 async function getFoundationContent(cycle, week, subjectType) {
   const data = await loadCycleData(cycle);
   const cycleKey = "Cycle" + cycle;  // e.g., "Cycle1"
@@ -92,7 +94,7 @@ async function getFoundationContent(cycle, week, subjectType) {
   }
 }
 
-// 5. Generate Study Content HTML.
+// 6. Generate Study Content HTML.
 async function generateStudyContent(topic, cycle, week) {
   const subjectData = await getFoundationContent(cycle, week, topic);
   if (!subjectData) {
@@ -110,12 +112,11 @@ function generateDetailedContent(subjectData, subjectType, cycle, week) {
     math: "🔢",
     english: "📝",
     latin: "📚",
-    timeline: "⏳",
     finearts: "🎨"
   };
   const icon = icons[subjectType.toLowerCase()] || "📗";
   
-  // Select fields to display.
+  // Choose fields to display.
   const fields = [
     { label: "Introduction", value: cleanText(subjectData.Introduction) },
     { label: "Deep Dive", value: cleanText(subjectData.Deep_Dive) },
@@ -123,7 +124,7 @@ function generateDetailedContent(subjectData, subjectType, cycle, week) {
     { label: "Concluding Exhortation & Prayer", value: cleanText(subjectData.Concluding_Exhortation_Prayer) }
   ];
   
-  let html = `<p><strong>Cycle:</strong> ${cycle} | <strong>Week:</strong> ${week}</p>
+  let html = `<p><strong>Cycle:</strong> ${currentCycle} | <strong>Week:</strong> ${currentWeek}</p>
               <h3>${icon} <strong>${subjectType.charAt(0).toUpperCase() + subjectType.slice(1)} Lesson</strong></h3>`;
   fields.forEach(field => {
     if (field.value) {
@@ -136,7 +137,7 @@ function generateDetailedContent(subjectData, subjectType, cycle, week) {
   return html;
 }
 
-// 6. Timer Function (15-minute session; quiz enabled after 5 minutes)
+// 7. Timer Function (15-minute session; quiz enabled after 5 minutes)
 function startTimer(duration) {
   clearInterval(studyTimer);
   let timer = duration;
@@ -163,7 +164,7 @@ function startTimer(duration) {
   }, 1000);
 }
 
-// 7. Record Session Duration and Log Session Data.
+// 8. Log Session Data
 function logSession() {
   const endTime = new Date();
   const durationSeconds = Math.round((endTime - sessionStartTime) / 1000);
@@ -187,7 +188,7 @@ function updateProgressLog() {
   progressLog.innerHTML = logHtml;
 }
 
-// 8. Event Listeners
+// 9. Event Listeners
 
 // (A) Login Handler
 loginBtn.addEventListener("click", () => {
@@ -230,10 +231,12 @@ takeQuizBtn.addEventListener("click", () => {
   quizSection.classList.remove("hidden");
 });
 
-// (D) Next Topic Handler
+// (D) Next Topic Handler – DISABLED for now (button hidden)
+nextTopicBtn.style.display = "none";
+// If you wish to re-enable it later, remove the line above and uncomment the code below:
+/*
 nextTopicBtn.addEventListener("click", async () => {
   clearInterval(studyTimer);
-  timeDisplay.textContent = "Session complete!";
   logSession();
   awardPoints(10);
   const currentIndex = topicsOrder.indexOf(currentTopic);
@@ -251,14 +254,29 @@ nextTopicBtn.addEventListener("click", async () => {
   progressBar.style.width = "0%";
   timeDisplay.textContent = "";
   takeQuizBtn.disabled = true;
-  quizEnabled = false;
+  quizEnabled = false; // Reset flag for new topic
+  sessionStartTime = new Date(); // Reset session start time
   startTimer(900);
 });
+*/
 
-// (E) Back Button Handler
-backBtn.addEventListener("click", () => {
+// (E) Back Button Handler – If on first topic, return to selection screen; otherwise, load previous topic.
+backBtn.addEventListener("click", async () => {
   clearInterval(studyTimer);
-  if (confirm("Are you sure you want to exit the current session? Your progress will not be logged.")) {
+  const currentIndex = topicsOrder.indexOf(currentTopic);
+  if (currentIndex > 0) {
+    currentTopic = topicsOrder[currentIndex - 1];
+    studyContentElem.innerHTML = "<p>Loading content...</p>";
+    const lessonHtml = await generateStudyContent(currentTopic, currentCycle, currentWeek);
+    studyContentElem.innerHTML = lessonHtml;
+    progressBar.style.width = "0%";
+    timeDisplay.textContent = "";
+    takeQuizBtn.disabled = true;
+    quizEnabled = false; // Reset flag for new topic
+    sessionStartTime = new Date(); // Reset session start time
+    startTimer(900);
+  } else {
+    // If on the first topic, return to the selection screen.
     studySection.classList.add("hidden");
     selectionSection.classList.remove("hidden");
   }
@@ -304,7 +322,7 @@ viewLogBtn.addEventListener("click", () => {
   }
 });
 
-// 9. Points, Badges, and Progress Functions
+// 10. Points, Badges, and Progress Functions
 function awardPoints(points) {
   totalPoints += points;
   totalPointsDisplay.textContent = totalPoints;
@@ -323,4 +341,74 @@ function checkBadges() {
 
 function capitalizeFirst(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// 11. Topic-Specific Quiz Content Generator (Simplified for a 10-year-old)
+function generateQuizContent(topic, cycle, week) {
+  let questions = [];
+  const topicKey = topic.toLowerCase();
+  switch (topicKey) {
+    case "history":
+      questions = [
+        "What is one cool fact you learned about history?",
+        "Can you name one person or event from the lesson?",
+        "Why do you think history is interesting?"
+      ];
+      break;
+    case "geography":
+      questions = [
+        "What is one interesting place you learned about?",
+        "Can you name a river or mountain from the lesson?",
+        "Why do you think learning about places is fun?"
+      ];
+      break;
+    case "science":
+      questions = [
+        "What is one new thing you learned about animals or plants?",
+        "Can you share one fun fact from the science lesson?",
+        "Why do you think science is cool?"
+      ];
+      break;
+    case "math":
+      questions = [
+        "What is one math fact you remember from today?",
+        "How do numbers help you in everyday life?",
+        "What is your favorite part of math?"
+      ];
+      break;
+    case "english":
+      questions = [
+        "What is one new word or rule you learned today?",
+        "Can you make a sentence with a new word?",
+        "Why is it important to use words carefully?"
+      ];
+      break;
+    case "latin":
+      questions = [
+        "What is one Latin word you learned today?",
+        "Can you explain what a noun case is?",
+        "Why might learning Latin be fun?"
+      ];
+      break;
+    case "finearts":
+      questions = [
+        "What is one shape or color you learned about in art?",
+        "Can you draw something using basic shapes?",
+        "Why do you think art is fun?"
+      ];
+      break;
+    default:
+      questions = [
+        "What did you like about this lesson?",
+        "What is one thing you learned today?",
+        "Why is learning fun?"
+      ];
+  }
+  
+  let quizHtml = "";
+  questions.forEach((q, idx) => {
+    quizHtml += `<p><strong>Question ${idx + 1}:</strong> ${q}</p>
+                 <input type="text" id="quizAnswer${idx + 1}" placeholder="Your answer here"><br>`;
+  });
+  return quizHtml;
 }
