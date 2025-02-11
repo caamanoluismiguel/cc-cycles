@@ -12,7 +12,8 @@ let totalPoints = 0;
 let badges = [];
 let userProgress = [];
 let studyTimer = null;
-let quizEnabled = false; // flag to indicate quiz button can be enabled
+let quizEnabled = false; // For enabling quiz after 5 minutes
+let sessionStartTime = null; // To record session start time
 
 // 2. Get DOM Elements
 const loginSection = document.getElementById("loginSection");
@@ -28,6 +29,7 @@ const nextTopicBtn = document.getElementById("nextTopicBtn");
 const backBtn = document.getElementById("backBtn");
 const submitQuizBtn = document.getElementById("submitQuizBtn");
 const newSessionBtn = document.getElementById("newSessionBtn");
+const viewLogBtn = document.getElementById("viewLogBtn");
 
 const studyContentElem = document.getElementById("studyContent");
 const progressBar = document.getElementById("progressBar");
@@ -70,7 +72,7 @@ function mapSubjectKey(topic) {
   return topic.charAt(0).toUpperCase() + topic.slice(1);
 }
 
-// Utility: Remove a leading "Paragraph X:" if present.
+// Utility: Remove leading "Paragraph X:" from a text string.
 function cleanText(text) {
   if (!text) return "";
   return text.replace(/^Paragraph\s*\d+:\s*/, '');
@@ -100,7 +102,6 @@ async function generateStudyContent(topic, cycle, week) {
 }
 
 // Generates detailed lesson content HTML using selected fields.
-// This version shows only a few fields and removes the "Paragraph X:" prefix.
 function generateDetailedContent(subjectData, subjectType, cycle, week) {
   const icons = {
     history: "📜",
@@ -113,7 +114,8 @@ function generateDetailedContent(subjectData, subjectType, cycle, week) {
     finearts: "🎨"
   };
   const icon = icons[subjectType.toLowerCase()] || "📗";
-  // Choose fields to display.
+  
+  // Select fields to display.
   const fields = [
     { label: "Introduction", value: cleanText(subjectData.Introduction) },
     { label: "Deep Dive", value: cleanText(subjectData.Deep_Dive) },
@@ -134,12 +136,12 @@ function generateDetailedContent(subjectData, subjectType, cycle, week) {
   return html;
 }
 
-// 6. Timer Function (10-minute session; quiz enabled after 5 minutes)
+// 6. Timer Function (15-minute session; quiz enabled after 5 minutes)
 function startTimer(duration) {
   clearInterval(studyTimer);
   let timer = duration;
   const totalTime = duration;
-  quizEnabled = false; // reset flag for each session
+  quizEnabled = false;
   studyTimer = setInterval(() => {
     const minutes = String(Math.floor(timer / 60)).padStart(2, "0");
     const seconds = String(timer % 60).padStart(2, "0");
@@ -147,7 +149,7 @@ function startTimer(duration) {
     const progressPercent = ((totalTime - timer) / totalTime) * 100;
     progressBar.style.width = progressPercent + "%";
     
-    // Enable quiz after 5 minutes (when 300 seconds or less remain)
+    // Enable quiz after 5 minutes (when remaining time ≤ 300 sec)
     if (!quizEnabled && timer <= 300) {
       quizEnabled = true;
       takeQuizBtn.disabled = false;
@@ -161,7 +163,31 @@ function startTimer(duration) {
   }, 1000);
 }
 
-// 7. Event Listeners
+// 7. Record Session Duration and Log Session Data.
+function logSession() {
+  const endTime = new Date();
+  const durationSeconds = Math.round((endTime - sessionStartTime) / 1000);
+  const sessionLog = {
+    date: sessionStartTime.toLocaleString() + " - " + endTime.toLocaleTimeString(),
+    duration: durationSeconds,
+    cycle: currentCycle,
+    week: currentWeek,
+    topic: capitalizeFirst(currentTopic)
+  };
+  userProgress.push(sessionLog);
+}
+
+function updateProgressLog() {
+  let logHtml = "";
+  userProgress.forEach((session, i) => {
+    logHtml += `<p>
+      <strong>Session ${i + 1}:</strong> ${session.date} | Cycle ${session.cycle}, Week ${session.week}, Topic: ${session.topic} | Duration: ${session.duration} sec
+    </p>`;
+  });
+  progressLog.innerHTML = logHtml;
+}
+
+// 8. Event Listeners
 
 // (A) Login Handler
 loginBtn.addEventListener("click", () => {
@@ -181,6 +207,7 @@ startStudyBtn.addEventListener("click", async () => {
   currentCycle = document.getElementById("cycleSelect").value;
   currentWeek = document.getElementById("weekSelect").value;
   currentTopic = document.getElementById("topicSelect").value;
+  sessionStartTime = new Date(); // Record start time
   selectionSection.classList.add("hidden");
   studySection.classList.remove("hidden");
   studyContentElem.innerHTML = "<p>Loading content...</p>";
@@ -188,8 +215,8 @@ startStudyBtn.addEventListener("click", async () => {
   studyContentElem.innerHTML = lessonHtml;
   progressBar.style.width = "0%";
   timeDisplay.textContent = "";
-  takeQuizBtn.disabled = true; // initially disabled
-  startTimer(600); // 10-minute timer
+  takeQuizBtn.disabled = true; // Initially disabled
+  startTimer(900); // 15-minute timer
 });
 
 // (C) Take Quiz Handler
@@ -224,8 +251,8 @@ nextTopicBtn.addEventListener("click", async () => {
   progressBar.style.width = "0%";
   timeDisplay.textContent = "";
   takeQuizBtn.disabled = true;
-  quizEnabled = false; // reset flag for next topic
-  startTimer(600);
+  quizEnabled = false;
+  startTimer(900);
 });
 
 // (E) Back Button Handler
@@ -267,7 +294,17 @@ newSessionBtn.addEventListener("click", () => {
   quizFeedback.textContent = "";
 });
 
-// 8. Points, Badges, and Progress Functions
+// (H) View Logs Button Handler
+viewLogBtn.addEventListener("click", () => {
+  if (progressSection.classList.contains("hidden")) {
+    updateProgressLog();
+    progressSection.classList.remove("hidden");
+  } else {
+    progressSection.classList.add("hidden");
+  }
+});
+
+// 9. Points, Badges, and Progress Functions
 function awardPoints(points) {
   totalPoints += points;
   totalPointsDisplay.textContent = totalPoints;
@@ -284,102 +321,6 @@ function checkBadges() {
   badgesEarnedDisplay.innerHTML = badges.map(b => `<span class="badge">${b}</span>`).join("");
 }
 
-function logSession() {
-  const sessionLog = {
-    date: new Date().toLocaleString(),
-    cycle: currentCycle,
-    week: currentWeek,
-    topic: capitalizeFirst(currentTopic),
-    completed: true
-  };
-  userProgress.push(sessionLog);
-}
-
-function updateProgressLog() {
-  let logHtml = "";
-  userProgress.forEach((session, i) => {
-    logHtml += `<p><strong>Session ${i + 1}:</strong> ${session.date} | Cycle ${session.cycle}, Week ${session.week}, Topic: ${session.topic} | Quiz Score: ${session.quizScore || 0}</p>`;
-  });
-  progressLog.innerHTML = logHtml;
-}
-
 function capitalizeFirst(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-// 9. Topic-Specific Quiz Content Generator (Simplified for a 10-year-old)
-function generateQuizContent(topic, cycle, week) {
-  let questions = [];
-  const topicKey = topic.toLowerCase();
-  switch (topicKey) {
-    case "history":
-      questions = [
-        "What did you learn about the history story?",
-        "What was the most fun part of the history lesson?",
-        "Why do you think learning history is important?"
-      ];
-      break;
-    case "geography":
-      questions = [
-        "What did you learn about the places and lands?",
-        "Can you name one cool fact about the geography lesson?",
-        "Why do you think maps are useful?"
-      ];
-      break;
-    case "science":
-      questions = [
-        "What did you learn about animals or plants?",
-        "Can you tell one new thing about science?",
-        "Why is it important to learn about living things?"
-      ];
-      break;
-    case "math":
-      questions = [
-        "What did you learn about numbers today?",
-        "How do you use math in your daily life?",
-        "What is one fun math fact you remember?"
-      ];
-      break;
-    case "english":
-      questions = [
-        "What did you learn about how words work together?",
-        "Can you give an example of a sentence you learned about?",
-        "Why is it important to use words carefully?"
-      ];
-      break;
-    case "latin":
-      questions = [
-        "What did you learn about Latin words?",
-        "What is one Latin word you remember?",
-        "Why do you think learning Latin can be fun?"
-      ];
-      break;
-    case "timeline":
-      questions = [
-        "What did you learn about the order of events?",
-        "Why is it important to know what happened first?",
-        "Can you name one event you found interesting?"
-      ];
-      break;
-    case "finearts":
-      questions = [
-        "What did you learn about drawing shapes?",
-        "What is your favorite shape from the art lesson?",
-        "How can drawing help you share your ideas?"
-      ];
-      break;
-    default:
-      questions = [
-        "What is one thing you learned today?",
-        "How can this lesson help you in school?",
-        "What was the best part of the lesson?"
-      ];
-  }
-  
-  let quizHtml = "";
-  questions.forEach((q, idx) => {
-    quizHtml += `<p><strong>Question ${idx + 1}:</strong> ${q}</p>
-                 <input type="text" id="quizAnswer${idx + 1}" placeholder="Your answer here"><br>`;
-  });
-  return quizHtml;
 }
