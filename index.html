@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Classical Kids Study Hub</title>
+  <link rel="icon" href="fav.ico" type="image/x-icon">
   <style>
     /* Base Styles */
     * {
@@ -13,25 +14,23 @@
     }
     body {
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      background-color: #f5f5f5;
+      background-color: #f7f7f7;
       color: #333;
       line-height: 1.6;
     }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
     
-    /* Header / Navigation */
+    /* Sticky Header */
     header {
+      position: sticky;
+      top: 0;
       background-color: #fff;
       border-bottom: 1px solid #eaeaea;
       padding: 10px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      z-index: 1000;
     }
-    .nav-container {
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -42,14 +41,14 @@
       color: #0056b3;
     }
     
-    /* Container */
+    /* Main Container */
     .container {
-      max-width: 1200px;
-      margin: 20px auto;
+      max-width: 800px;
+      margin: 40px auto;
       background: #fff;
-      padding: 20px 30px;
+      padding: 30px;
       border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     
     /* Hero Section */
@@ -66,41 +65,42 @@
     .hero .bible-verse {
       font-size: 1.2em;
       font-style: italic;
-      color: #777;
+      color: #666;
       margin-bottom: 1em;
     }
     .hero .intro-text {
       font-size: 1.1em;
-      max-width: 700px;
+      max-width: 600px;
       margin: 0 auto;
       color: #555;
     }
     
-    /* Sections */
+    /* Section Card Styles */
     .section {
       background: #fff;
       border: 1px solid #eaeaea;
       border-radius: 8px;
       padding: 20px;
       margin-bottom: 30px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
-    h2 {
+    .section h2 {
       font-size: 1.8em;
       margin-bottom: 15px;
       color: #0056b3;
     }
-    h3 {
+    .section h3 {
       font-size: 1.6em;
       margin-bottom: 10px;
       color: #0056b3;
     }
-    label {
+    .section label {
       display: block;
       margin-bottom: 5px;
       font-weight: bold;
     }
-    input[type="text"], select {
+    .section input[type="text"],
+    .section select {
       width: 100%;
       padding: 12px;
       margin-bottom: 15px;
@@ -108,7 +108,7 @@
       border-radius: 4px;
       font-size: 1em;
     }
-    button {
+    .section button {
       padding: 12px 20px;
       border: none;
       border-radius: 4px;
@@ -120,13 +120,14 @@
       margin-bottom: 10px;
       transition: background 0.3s ease;
     }
-    button:hover {
+    .section button:hover {
       background-color: #004080;
     }
-    button:disabled {
+    .section button:disabled {
       background-color: #ccc;
       cursor: not-allowed;
     }
+    
     .hidden {
       display: none;
     }
@@ -155,8 +156,8 @@
     /* Logs Section */
     #progressSection {
       background: #f0f0f0;
-      border-radius: 4px;
       padding: 15px;
+      border-radius: 4px;
       margin-top: 20px;
       max-height: 300px;
       overflow-y: auto;
@@ -165,9 +166,9 @@
 </head>
 <body>
   <header>
-    <div class="nav-container">
+    <div class="header-container">
       <div class="logo">Classical Kids Study Hub</div>
-      <!-- Optional navigation links could go here -->
+      <!-- (Optional navigation items) -->
     </div>
   </header>
   
@@ -177,7 +178,7 @@
       <h1>Classical Kids Study Hub</h1>
       <p class="bible-verse">1 Corinthians 10:31 – "So whether you eat or drink, or whatever you do, do it all for the glory of God."</p>
       <p class="intro-text">
-        This study hub is a labor of love—a companion guide created by a devoted dad to help our family follow a daily routine of exploring the foundations of classical conversations. It provides a clear, structured path to review key ideas and practice essential skills while complementing the full, in-depth study of the curriculum.
+        This study hub is a labor of love—a companion guide created by a devoted dad to help our family follow a daily routine of exploring the foundations of classical conversations. It provides a clear, structured way to review key ideas and practice essential skills, serving as a practical guide to the curriculum.
       </p>
     </section>
     
@@ -228,7 +229,8 @@
       </div>
       <div id="timeDisplay"></div>
       <button id="takeQuizBtn" disabled>Take Quiz</button>
-      <button id="nextTopicBtn" style="display:none;">Next Topic</button>
+      <!-- Next Topic is hidden as per current request -->
+      <button id="nextTopicBtn" style="display: none;">Next Topic</button>
       <button id="backBtn">Back</button>
     </section>
     
