@@ -40,6 +40,9 @@ const totalPointsDisplay = document.getElementById("totalPoints");
 const badgesEarnedDisplay = document.getElementById("badgesEarned");
 const progressLog = document.getElementById("progressLog");
 
+// Hide Next Topic button (disabled for now)
+nextTopicBtn.style.display = "none";
+
 // 3. Lazy-load Cycle Data from GitHub
 async function loadCycleData(cycleNumber) {
   if (cycleDataCache[cycleNumber]) {
@@ -66,7 +69,7 @@ async function loadCycleData(cycleNumber) {
 
 // 4. Utilities
 
-// Map selected topic (from lowercase) to JSON subject key.
+// Map selected topic (lowercase) to JSON subject key.
 function mapSubjectKey(topic) {
   if (topic === "finearts") return "Fine_Arts";
   if (topic === "english") return "English";
@@ -74,7 +77,7 @@ function mapSubjectKey(topic) {
   return topic.charAt(0).toUpperCase() + topic.slice(1);
 }
 
-// Remove leading "Paragraph X:" from a text string.
+// Remove any leading "Paragraph X:" from text.
 function cleanText(text) {
   if (!text) return "";
   return text.replace(/^Paragraph\s*\d+:\s*/, '');
@@ -83,8 +86,8 @@ function cleanText(text) {
 // 5. Retrieve Foundation Content from JSON.
 async function getFoundationContent(cycle, week, subjectType) {
   const data = await loadCycleData(cycle);
-  const cycleKey = "Cycle" + cycle;  // e.g., "Cycle1"
-  const weekKey = "Week" + week;       // e.g., "Week1"
+  const cycleKey = "Cycle" + cycle;   // e.g., "Cycle1"
+  const weekKey = "Week" + week;        // e.g., "Week1"
   const subjectKey = mapSubjectKey(subjectType); // e.g., "History" or "Fine_Arts"
   console.log(`Looking for ${cycleKey} -> ${weekKey} -> ${subjectKey}`);
   if (data[cycleKey] && data[cycleKey][weekKey] && data[cycleKey][weekKey][subjectKey]) {
@@ -116,7 +119,7 @@ function generateDetailedContent(subjectData, subjectType, cycle, week) {
   };
   const icon = icons[subjectType.toLowerCase()] || "📗";
   
-  // Choose fields to display.
+  // Choose which fields to display.
   const fields = [
     { label: "Introduction", value: cleanText(subjectData.Introduction) },
     { label: "Deep Dive", value: cleanText(subjectData.Deep_Dive) },
@@ -231,34 +234,8 @@ takeQuizBtn.addEventListener("click", () => {
   quizSection.classList.remove("hidden");
 });
 
-// (D) Next Topic Handler – DISABLED for now (button hidden)
-nextTopicBtn.style.display = "none";
-// If you wish to re-enable it later, remove the line above and uncomment the code below:
-/*
-nextTopicBtn.addEventListener("click", async () => {
-  clearInterval(studyTimer);
-  logSession();
-  awardPoints(10);
-  const currentIndex = topicsOrder.indexOf(currentTopic);
-  if (currentIndex < topicsOrder.length - 1) {
-    currentTopic = topicsOrder[currentIndex + 1];
-  } else {
-    alert("You have completed all topics for this week!");
-    studySection.classList.add("hidden");
-    selectionSection.classList.remove("hidden");
-    return;
-  }
-  studyContentElem.innerHTML = "<p>Loading content...</p>";
-  const lessonHtml = await generateStudyContent(currentTopic, currentCycle, currentWeek);
-  studyContentElem.innerHTML = lessonHtml;
-  progressBar.style.width = "0%";
-  timeDisplay.textContent = "";
-  takeQuizBtn.disabled = true;
-  quizEnabled = false; // Reset flag for new topic
-  sessionStartTime = new Date(); // Reset session start time
-  startTimer(900);
-});
-*/
+// (D) Next Topic Handler – (Next Topic button is hidden/disabled for now)
+// nextTopicBtn.style.display = "none"; // Already set at the top
 
 // (E) Back Button Handler – If on first topic, return to selection screen; otherwise, load previous topic.
 backBtn.addEventListener("click", async () => {
