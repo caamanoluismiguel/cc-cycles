@@ -1,391 +1,328 @@
-// main.js
+document.addEventListener("DOMContentLoaded", function() {
+  // 1. Global Variables
+  const cycleDataCache = {};
+  let username = "";
+  let currentCycle = "";
+  let currentWeek = "";
+  let currentTopic = "";
+  const topicsOrder = ["history", "science", "geography", "math", "english", "latin", "finearts"];
 
-// 1. Global Variables
-const cycleDataCache = {};
-let username = "";
-let currentCycle = "";
-let currentWeek = "";
-let currentTopic = "";
-// Updated topicsOrder without "timeline"
-const topicsOrder = ["history", "science", "geography", "math", "english", "latin", "finearts"];
-
-let totalPoints = 0;
-let badges = [];
-let userProgress = [];
-let studyTimer = null;
-let quizEnabled = false; // Flag for enabling quiz after 5 minutes
-let sessionStartTime = null; // To record session start time
-
-// 2. Get DOM Elements
-const loginSection = document.getElementById("loginSection");
-const selectionSection = document.getElementById("selectionSection");
-const studySection = document.getElementById("studySection");
-const quizSection = document.getElementById("quizSection");
-const progressSection = document.getElementById("progressSection");
-
-const loginBtn = document.getElementById("loginBtn");
-const startStudyBtn = document.getElementById("startStudyBtn");
-const takeQuizBtn = document.getElementById("takeQuizBtn");
-const nextTopicBtn = document.getElementById("nextTopicBtn");
-const backBtn = document.getElementById("backBtn");
-const submitQuizBtn = document.getElementById("submitQuizBtn");
-const newSessionBtn = document.getElementById("newSessionBtn");
-const viewLogBtn = document.getElementById("viewLogBtn");
-
-const studyContentElem = document.getElementById("studyContent");
-const progressBar = document.getElementById("progressBar");
-const timeDisplay = document.getElementById("timeDisplay");
-const quizFeedback = document.getElementById("quizFeedback");
-const totalPointsDisplay = document.getElementById("totalPoints");
-const badgesEarnedDisplay = document.getElementById("badgesEarned");
-const progressLog = document.getElementById("progressLog");
-
-// Hide Next Topic button (disabled for now)
-nextTopicBtn.style.display = "none";
-
-// 3. Lazy-load Cycle Data from GitHub
-async function loadCycleData(cycleNumber) {
-  if (cycleDataCache[cycleNumber]) {
-    return cycleDataCache[cycleNumber];
-  }
-  const urlMap = {
-    "1": "https://raw.githubusercontent.com/caamanoluismiguel/cc-cycles/refs/heads/main/Cycle_1.json",
-    "2": "https://raw.githubusercontent.com/caamanoluismiguel/cc-cycles/refs/heads/main/Cycle_2.json",
-    "3": "https://raw.githubusercontent.com/caamanoluismiguel/cc-cycles/refs/heads/main/Cycle_3.json"
-  };
-  const url = urlMap[cycleNumber];
-  if (!url) {
-    throw new Error(`No URL defined for cycle ${cycleNumber}`);
-  }
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Failed to load cycle ${cycleNumber} data: ${response.status}`);
-  }
-  const data = await response.json();
-  console.log(`Loaded cycle ${cycleNumber} data:`, data);
-  cycleDataCache[cycleNumber] = data;
-  return data;
-}
-
-// 4. Utilities
-
-// Map selected topic (lowercase) to JSON subject key.
-function mapSubjectKey(topic) {
-  if (topic === "finearts") return "Fine_Arts";
-  if (topic === "english") return "English";
-  if (topic === "latin") return "Latin";
-  return topic.charAt(0).toUpperCase() + topic.slice(1);
-}
-
-// Remove any leading "Paragraph X:" from text.
-function cleanText(text) {
-  if (!text) return "";
-  return text.replace(/^Paragraph\s*\d+:\s*/, '');
-}
-
-// 5. Retrieve Foundation Content from JSON.
-async function getFoundationContent(cycle, week, subjectType) {
-  const data = await loadCycleData(cycle);
-  const cycleKey = "Cycle" + cycle;   // e.g., "Cycle1"
-  const weekKey = "Week" + week;        // e.g., "Week1"
-  const subjectKey = mapSubjectKey(subjectType); // e.g., "History" or "Fine_Arts"
-  console.log(`Looking for ${cycleKey} -> ${weekKey} -> ${subjectKey}`);
-  if (data[cycleKey] && data[cycleKey][weekKey] && data[cycleKey][weekKey][subjectKey]) {
-    return data[cycleKey][weekKey][subjectKey];
-  } else {
-    return null;
-  }
-}
-
-// 6. Generate Study Content HTML.
-async function generateStudyContent(topic, cycle, week) {
-  const subjectData = await getFoundationContent(cycle, week, topic);
-  if (!subjectData) {
-    return `<p>No data found for ${topic} in Cycle ${cycle}, Week ${week}.</p>`;
-  }
-  return generateDetailedContent(subjectData, topic, cycle, week);
-}
-
-// Generates detailed lesson content HTML using selected fields.
-function generateDetailedContent(subjectData, subjectType, cycle, week) {
-  const icons = {
-    history: "📜",
-    science: "🔬",
-    geography: "🌍",
-    math: "🔢",
-    english: "📝",
-    latin: "📚",
-    finearts: "🎨"
-  };
-  const icon = icons[subjectType.toLowerCase()] || "📗";
+  let totalPoints = 0; // Not used in homework
+  let badges = [];     // Not used in homework
+  let userProgress = [];
+  let studyTimer = null;
+  let sessionStartTime = null; // To record session start time
   
-  // Choose which fields to display.
-  const fields = [
-    { label: "Introduction", value: cleanText(subjectData.Introduction) },
-    { label: "Deep Dive", value: cleanText(subjectData.Deep_Dive) },
-    { label: "Significance", value: cleanText(subjectData.Significance) },
-    { label: "Concluding Exhortation & Prayer", value: cleanText(subjectData.Concluding_Exhortation_Prayer) }
-  ];
-  
-  let html = `<p><strong>Cycle:</strong> ${currentCycle} | <strong>Week:</strong> ${currentWeek}</p>
-              <h3>${icon} <strong>${subjectType.charAt(0).toUpperCase() + subjectType.slice(1)} Lesson</strong></h3>`;
-  fields.forEach(field => {
-    if (field.value) {
+  // For homework, we no longer use quizTaken or award points.
+  window.currentLessonData = null; // For homework generation
+
+  // 2. Get DOM Elements
+  const loginSection = document.getElementById("loginSection");
+  const selectionSection = document.getElementById("selectionSection");
+  const studySection = document.getElementById("studySection");
+  const progressSection = document.getElementById("progressSection");
+
+  const loginBtn = document.getElementById("loginBtn");
+  const startStudyBtn = document.getElementById("startStudyBtn");
+  const homeworkBtn = document.getElementById("homeworkBtn"); // Homework button
+  const backBtn = document.getElementById("backBtn");
+  const viewLogBtn = document.getElementById("viewLogBtn");
+  const newSessionBtn = document.getElementById("newSessionBtn");
+
+  const studyContentElem = document.getElementById("studyContent");
+  const progressBar = document.getElementById("progressBar");
+  const timeDisplay = document.getElementById("timeDisplay");
+  const totalPointsDisplay = document.getElementById("totalPoints");
+  const badgesEarnedDisplay = document.getElementById("badgesEarned");
+  const progressLog = document.getElementById("progressLog");
+
+  // Modal elements for Homework
+  const homeworkModal = document.getElementById("homeworkModal");
+  const homeworkContentElem = document.getElementById("homeworkContent");
+  const submitHomeworkBtn = document.getElementById("submitHomeworkBtn");
+  const homeworkFeedback = document.getElementById("homeworkFeedback");
+  const modalClose = document.querySelector(".modal-content .close");
+
+  // 3. Helper Functions
+
+  function mapSubjectKey(topic) {
+    if (topic === "finearts") return "Fine_Arts";
+    if (topic === "english") return "English";
+    if (topic === "latin") return "Latin";
+    return topic.charAt(0).toUpperCase() + topic.slice(1);
+  }
+
+  function cleanText(text) {
+    if (!text) return "";
+    return text.replace(/^Paragraph\s*\d+:\s*/i, '');
+  }
+
+  function getFirstSentence(text) {
+    if (!text) return "";
+    let sentence = text.split('. ')[0];
+    return sentence.endsWith('.') ? sentence : sentence + ".";
+  }
+
+  // Shuffle an array (Fisher–Yates)
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  // Truncate text to a maximum length.
+  function truncateText(text, maxLength = 50) {
+    if (!text) return "";
+    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+  }
+
+  // 4. Lazy-load Cycle Data from GitHub.
+  async function loadCycleData(cycleNumber) {
+    if (cycleDataCache[cycleNumber]) return cycleDataCache[cycleNumber];
+    const urlMap = {
+      "1": "https://raw.githubusercontent.com/caamanoluismiguel/cc-cycles/refs/heads/main/Cycle_1.json",
+      "2": "https://raw.githubusercontent.com/caamanoluismiguel/cc-cycles/refs/heads/main/Cycle_2.json",
+      "3": "https://raw.githubusercontent.com/caamanoluismiguel/cc-cycles/refs/heads/main/Cycle_3.json"
+    };
+    const url = urlMap[cycleNumber];
+    if (!url) throw new Error(`No URL defined for cycle ${cycleNumber}`);
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Failed to load cycle ${cycleNumber} data: ${response.status}`);
+    const data = await response.json();
+    console.log(`Loaded cycle ${cycleNumber} data:`, data);
+    cycleDataCache[cycleNumber] = data;
+    return data;
+  }
+
+  // 5. Retrieve Lesson Content from JSON.
+  async function getFoundationContent(cycle, week, subjectType) {
+    const data = await loadCycleData(cycle);
+    const cycleKey = "Cycle" + cycle;
+    const weekKey = "Week" + week;
+    const subjectKey = mapSubjectKey(subjectType);
+    console.log(`Looking for ${cycleKey} -> ${weekKey} -> ${subjectKey}`);
+    if (data[cycleKey] && data[cycleKey][weekKey] && data[cycleKey][weekKey][subjectKey])
+      return data[cycleKey][weekKey][subjectKey];
+    else return null;
+  }
+
+  // 6. Generate Study Content HTML.
+  async function generateStudyContent(topic, cycle, week) {
+    const subjectData = await getFoundationContent(cycle, week, topic);
+    window.currentLessonData = subjectData; // Save for homework generation.
+    if (!subjectData)
+      return `<p>No data found for ${topic} in Cycle ${cycle}, Week ${week}.</p>`;
+    return generateDetailedContent(subjectData, topic, cycle, week);
+  }
+
+  // 7. Generate Detailed Lesson Content HTML.
+  function generateDetailedContent(subjectData, subjectType, cycle, week) {
+    const icons = {
+      history: "📜",
+      science: "🔬",
+      geography: "🌍",
+      math: "🔢",
+      english: "📝",
+      latin: "📚",
+      finearts: "🎨"
+    };
+    const icon = icons[subjectType.toLowerCase()] || "📗";
+    const fields = [
+      { label: "Introduction", text: cleanText(subjectData.Introduction) },
+      { label: "Deep Dive", text: cleanText(subjectData.Deep_Dive) },
+      { label: "Significance", text: cleanText(subjectData.Significance) },
+      { label: "Concluding Exhortation & Prayer", text: cleanText(subjectData.Concluding_Exhortation_Prayer) }
+    ].filter(f => f.text);
+    
+    let html = `<p><strong>Cycle:</strong> ${currentCycle} | <strong>Week:</strong> ${currentWeek}</p>
+                <h3>${icon} <strong>${subjectType.charAt(0).toUpperCase() + subjectType.slice(1)} Lesson</strong></h3>`;
+    fields.forEach(field => {
       html += `<div style="margin-bottom: 1em;">
                  <h4 style="margin-bottom: 0.5em;">${field.label}:</h4>
-                 <p style="line-height: 1.5; margin: 0;">${field.value}</p>
+                 <p style="line-height: 1.5;">${field.text}</p>
                </div>`;
-    }
-  });
-  return html;
-}
+    });
+    return html;
+  }
 
-// 7. Timer Function (15-minute session; quiz enabled after 5 minutes)
-function startTimer(duration) {
-  clearInterval(studyTimer);
-  let timer = duration;
-  const totalTime = duration;
-  quizEnabled = false;
-  studyTimer = setInterval(() => {
-    const minutes = String(Math.floor(timer / 60)).padStart(2, "0");
-    const seconds = String(timer % 60).padStart(2, "0");
-    timeDisplay.textContent = `Time Remaining: ${minutes}:${seconds}`;
-    const progressPercent = ((totalTime - timer) / totalTime) * 100;
-    progressBar.style.width = progressPercent + "%";
-    
-    // Enable quiz after 5 minutes (when remaining time ≤ 300 sec)
-    if (!quizEnabled && timer <= 300) {
-      quizEnabled = true;
-      takeQuizBtn.disabled = false;
-    }
-    
-    if (--timer < 0) {
+  // 8. Generate Generic Homework Content.
+  function generateHomeworkContent(topic, cycle, week) {
+    return `
+      <p><em>Homework Assignment:</em> Now that you have studied today's lesson on <strong>${mapSubjectKey(topic)}</strong>, choose one of the following creative activities:</p>
+      <ul style="margin-left: 20px;">
+        <li>Draw a picture representing this idea.</li>
+        <li>Write a short story about how this idea can help you.</li>
+        <li>Create a simple poster or presentation summarizing the lesson.</li>
+      </ul>
+      <p>Then answer the following questions in your own words:</p>
+      <p><strong>1. What is one key idea you learned today?</strong></p>
+      <textarea id="response0" rows="3" placeholder="Type your answer here..."></textarea>
+      <p><strong>2. How will you apply what you learned in your daily life?</strong></p>
+      <textarea id="response1" rows="3" placeholder="Type your answer here..."></textarea>
+      <p><strong>3. Which creative activity did you choose and why?</strong></p>
+      <textarea id="response2" rows="3" placeholder="Type your answer here..."></textarea>
+    `;
+  }
+
+  // 9. Timer Function (15 minutes)
+  function startTimer(duration) {
+    clearInterval(studyTimer);
+    let timer = duration;
+    const totalTime = duration;
+    homeworkBtn.disabled = false;
+    studyTimer = setInterval(() => {
+      const minutes = String(Math.floor(timer / 60)).padStart(2, "0");
+      const seconds = String(timer % 60).padStart(2, "0");
+      timeDisplay.textContent = `Time Remaining: ${minutes}:${seconds}`;
+      const progressPercent = ((totalTime - timer) / totalTime) * 100;
+      progressBar.style.width = progressPercent + "%";
+      if (--timer < 0) {
+        clearInterval(studyTimer);
+        timeDisplay.textContent = "Session complete!";
+      }
+    }, 1000);
+  }
+
+  // 10. Log Session Data and Save Locally
+  function logSession() {
+    const endTime = new Date();
+    const durationSeconds = Math.round((endTime - sessionStartTime) / 1000);
+    const sessionLog = {
+      date: sessionStartTime.toLocaleString() + " - " + endTime.toLocaleTimeString(),
+      duration: durationSeconds,
+      cycle: currentCycle,
+      week: currentWeek,
+      topic: capitalizeFirst(currentTopic)
+    };
+    userProgress.push(sessionLog);
+    localStorage.setItem("studyLogs", JSON.stringify(userProgress));
+  }
+
+  function updateProgressLog() {
+    const storedLogs = localStorage.getItem("studyLogs");
+    if (storedLogs) userProgress = JSON.parse(storedLogs);
+    let logHtml = "";
+    userProgress.forEach((session, i) => {
+      logHtml += `<p>
+        <strong>Session ${i + 1}:</strong> ${session.date} | Cycle ${session.cycle}, Week ${session.week}, Topic: ${session.topic} | Duration: ${session.duration} sec
+      </p>`;
+    });
+    progressLog.innerHTML = logHtml;
+  }
+
+  // 11. Utility Functions
+  function capitalizeFirst(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  // 12. Event Listeners
+
+  // (A) Login Handler
+  if (loginBtn) {
+    loginBtn.addEventListener("click", () => {
+      const inputName = document.getElementById("username").value.trim();
+      if (!inputName) {
+        alert("Please enter your name.");
+        return;
+      }
+      username = inputName;
+      alert("Welcome, " + username + "!");
+      loginSection.classList.add("hidden");
+      selectionSection.classList.remove("hidden");
+    });
+  }
+
+  // (B) Start Study Session Handler
+  if (startStudyBtn) {
+    startStudyBtn.addEventListener("click", async () => {
+      currentCycle = document.getElementById("cycleSelect").value;
+      currentWeek = document.getElementById("weekSelect").value;
+      currentTopic = document.getElementById("topicSelect").value;
+      sessionStartTime = new Date();
+      selectionSection.classList.add("hidden");
+      studySection.classList.remove("hidden");
+      studyContentElem.innerHTML = "<p>Loading content...</p>";
+      const lessonHtml = await generateStudyContent(currentTopic, currentCycle, currentWeek);
+      studyContentElem.innerHTML = lessonHtml;
+      progressBar.style.width = "0%";
+      timeDisplay.textContent = "";
+      homeworkBtn.disabled = false;
+      startTimer(900);
+    });
+  }
+
+  // (C) Homework Button Handler – Open homework modal.
+  if (homeworkBtn) {
+    homeworkBtn.addEventListener("click", () => {
       clearInterval(studyTimer);
-      timeDisplay.textContent = "Session complete!";
-      takeQuizBtn.disabled = false;
-    }
-  }, 1000);
-}
-
-// 8. Log Session Data
-function logSession() {
-  const endTime = new Date();
-  const durationSeconds = Math.round((endTime - sessionStartTime) / 1000);
-  const sessionLog = {
-    date: sessionStartTime.toLocaleString() + " - " + endTime.toLocaleTimeString(),
-    duration: durationSeconds,
-    cycle: currentCycle,
-    week: currentWeek,
-    topic: capitalizeFirst(currentTopic)
-  };
-  userProgress.push(sessionLog);
-}
-
-function updateProgressLog() {
-  let logHtml = "";
-  userProgress.forEach((session, i) => {
-    logHtml += `<p>
-      <strong>Session ${i + 1}:</strong> ${session.date} | Cycle ${session.cycle}, Week ${session.week}, Topic: ${session.topic} | Duration: ${session.duration} sec
-    </p>`;
-  });
-  progressLog.innerHTML = logHtml;
-}
-
-// 9. Event Listeners
-
-// (A) Login Handler
-loginBtn.addEventListener("click", () => {
-  const inputName = document.getElementById("username").value.trim();
-  if (!inputName) {
-    alert("Please enter your name.");
-    return;
+      logSession();
+      const homeworkHtml = generateHomeworkContent(currentTopic, currentCycle, currentWeek);
+      homeworkContentElem.innerHTML = homeworkHtml;
+      homeworkFeedback.classList.add("hidden");
+      submitHomeworkBtn.disabled = false;
+      homeworkModal.style.display = "block";
+    });
   }
-  username = inputName;
-  alert("Welcome, " + username + "!");
-  loginSection.classList.add("hidden");
-  selectionSection.classList.remove("hidden");
-});
 
-// (B) Start Study Session Handler
-startStudyBtn.addEventListener("click", async () => {
-  currentCycle = document.getElementById("cycleSelect").value;
-  currentWeek = document.getElementById("weekSelect").value;
-  currentTopic = document.getElementById("topicSelect").value;
-  sessionStartTime = new Date(); // Record start time
-  selectionSection.classList.add("hidden");
-  studySection.classList.remove("hidden");
-  studyContentElem.innerHTML = "<p>Loading content...</p>";
-  const lessonHtml = await generateStudyContent(currentTopic, currentCycle, currentWeek);
-  studyContentElem.innerHTML = lessonHtml;
-  progressBar.style.width = "0%";
-  timeDisplay.textContent = "";
-  takeQuizBtn.disabled = true; // Initially disabled
-  startTimer(900); // 15-minute timer
-});
+  // (D) Back Button Handler – Always return to the selection screen.
+  if (backBtn) {
+    backBtn.addEventListener("click", () => {
+      clearInterval(studyTimer);
+      studySection.classList.add("hidden");
+      selectionSection.classList.remove("hidden");
+    });
+  }
 
-// (C) Take Quiz Handler
-takeQuizBtn.addEventListener("click", () => {
-  clearInterval(studyTimer);
-  timeDisplay.textContent = "Session complete!";
-  logSession();
-  awardPoints(10);
-  document.getElementById("quizContent").innerHTML = generateQuizContent(currentTopic, currentCycle, currentWeek);
-  studySection.classList.add("hidden");
-  quizSection.classList.remove("hidden");
-});
+  // (E) Homework Submit Handler – Collect responses and display a thank-you message.
+  if (submitHomeworkBtn) {
+    submitHomeworkBtn.addEventListener("click", () => {
+      const response0 = document.getElementById("response0").value.trim();
+      const response1 = document.getElementById("response1").value.trim();
+      const response2 = document.getElementById("response2").value.trim();
+      if (!response0 || !response1 || !response2) {
+        homeworkFeedback.textContent = "Please answer all questions.";
+        homeworkFeedback.classList.remove("hidden");
+        return;
+      }
+      homeworkFeedback.innerHTML = `<strong>Thank you, ${username}!</strong> Your homework has been submitted.`;
+      homeworkFeedback.classList.remove("hidden");
+      submitHomeworkBtn.disabled = true;
+      updateProgressLog();
+      progressSection.classList.remove("hidden");
+      // The modal remains open until the user clicks the close button.
+    });
+  }
 
-// (D) Next Topic Handler – (Next Topic button is hidden/disabled for now)
-// nextTopicBtn.style.display = "none"; // Already set at the top
+  // (F) New Session Handler
+  if (newSessionBtn) {
+    newSessionBtn.addEventListener("click", () => {
+      progressSection.classList.add("hidden");
+      selectionSection.classList.remove("hidden");
+      homeworkContentElem.innerHTML = "";
+      homeworkFeedback.textContent = "";
+    });
+  }
 
-// (E) Back Button Handler – If on first topic, return to selection screen; otherwise, load previous topic.
-backBtn.addEventListener("click", async () => {
-  clearInterval(studyTimer);
-  const currentIndex = topicsOrder.indexOf(currentTopic);
-  if (currentIndex > 0) {
-    currentTopic = topicsOrder[currentIndex - 1];
-    studyContentElem.innerHTML = "<p>Loading content...</p>";
-    const lessonHtml = await generateStudyContent(currentTopic, currentCycle, currentWeek);
-    studyContentElem.innerHTML = lessonHtml;
-    progressBar.style.width = "0%";
-    timeDisplay.textContent = "";
-    takeQuizBtn.disabled = true;
-    quizEnabled = false; // Reset flag for new topic
-    sessionStartTime = new Date(); // Reset session start time
-    startTimer(900);
-  } else {
-    // If on the first topic, return to the selection screen.
-    studySection.classList.add("hidden");
-    selectionSection.classList.remove("hidden");
+  // (G) View Logs Button Handler
+  if (viewLogBtn) {
+    viewLogBtn.addEventListener("click", () => {
+      if (progressSection.classList.contains("hidden")) {
+        updateProgressLog();
+        progressSection.classList.remove("hidden");
+      } else {
+        progressSection.classList.add("hidden");
+      }
+    });
+  }
+
+  // (H) Modal Close Handler – Closes the homework modal and resumes timer.
+  if (modalClose) {
+    modalClose.addEventListener("click", () => {
+      homeworkModal.style.display = "none";
+      sessionStartTime = new Date();
+      startTimer(900);
+    });
   }
 });
-
-// (F) Quiz Submit Handler
-submitQuizBtn.addEventListener("click", () => {
-  const answer1 = (document.getElementById("quizAnswer1") || {}).value.trim() || "";
-  const answer2 = (document.getElementById("quizAnswer2") || {}).value.trim() || "";
-  const answer3 = (document.getElementById("quizAnswer3") || {}).value.trim() || "";
-  let score = 0;
-  if (answer1) score += 10;
-  if (answer2) score += 10;
-  if (answer3) score += 10;
-  if (score === 0) {
-    quizFeedback.textContent = "Please answer all questions.";
-    return;
-  } else {
-    quizFeedback.innerHTML = `<strong>Great job, ${username}!</strong> You scored <strong>${score}</strong> points.`;
-    awardPoints(score);
-  }
-  userProgress[userProgress.length - 1].quizScore = score;
-  quizSection.classList.add("hidden");
-  updateProgressLog();
-  progressSection.classList.remove("hidden");
-});
-
-// (G) New Session Handler
-newSessionBtn.addEventListener("click", () => {
-  progressSection.classList.add("hidden");
-  selectionSection.classList.remove("hidden");
-  document.getElementById("quizContent").innerHTML = "";
-  quizFeedback.textContent = "";
-});
-
-// (H) View Logs Button Handler
-viewLogBtn.addEventListener("click", () => {
-  if (progressSection.classList.contains("hidden")) {
-    updateProgressLog();
-    progressSection.classList.remove("hidden");
-  } else {
-    progressSection.classList.add("hidden");
-  }
-});
-
-// 10. Points, Badges, and Progress Functions
-function awardPoints(points) {
-  totalPoints += points;
-  totalPointsDisplay.textContent = totalPoints;
-  checkBadges();
-}
-
-function checkBadges() {
-  if (totalPoints >= 30 && !badges.includes("30+ Points")) {
-    badges.push("30+ Points");
-  }
-  if (totalPoints >= 50 && !badges.includes("50+ Points")) {
-    badges.push("50+ Points");
-  }
-  badgesEarnedDisplay.innerHTML = badges.map(b => `<span class="badge">${b}</span>`).join("");
-}
-
-function capitalizeFirst(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-// 11. Topic-Specific Quiz Content Generator (Simplified for a 10-year-old)
-function generateQuizContent(topic, cycle, week) {
-  let questions = [];
-  const topicKey = topic.toLowerCase();
-  switch (topicKey) {
-    case "history":
-      questions = [
-        "What is one cool fact you learned about history?",
-        "Can you name one person or event from the lesson?",
-        "Why do you think history is interesting?"
-      ];
-      break;
-    case "geography":
-      questions = [
-        "What is one interesting place you learned about?",
-        "Can you name a river or mountain from the lesson?",
-        "Why do you think learning about places is fun?"
-      ];
-      break;
-    case "science":
-      questions = [
-        "What is one new thing you learned about animals or plants?",
-        "Can you share one fun fact from the science lesson?",
-        "Why do you think science is cool?"
-      ];
-      break;
-    case "math":
-      questions = [
-        "What is one math fact you remember from today?",
-        "How do numbers help you in everyday life?",
-        "What is your favorite part of math?"
-      ];
-      break;
-    case "english":
-      questions = [
-        "What is one new word or rule you learned today?",
-        "Can you make a sentence with a new word?",
-        "Why is it important to use words carefully?"
-      ];
-      break;
-    case "latin":
-      questions = [
-        "What is one Latin word you learned today?",
-        "Can you explain what a noun case is?",
-        "Why might learning Latin be fun?"
-      ];
-      break;
-    case "finearts":
-      questions = [
-        "What is one shape or color you learned about in art?",
-        "Can you draw something using basic shapes?",
-        "Why do you think art is fun?"
-      ];
-      break;
-    default:
-      questions = [
-        "What did you like about this lesson?",
-        "What is one thing you learned today?",
-        "Why is learning fun?"
-      ];
-  }
-  
-  let quizHtml = "";
-  questions.forEach((q, idx) => {
-    quizHtml += `<p><strong>Question ${idx + 1}:</strong> ${q}</p>
-                 <input type="text" id="quizAnswer${idx + 1}" placeholder="Your answer here"><br>`;
-  });
-  return quizHtml;
-}
