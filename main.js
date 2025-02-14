@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const homeworkModal = document.getElementById("homeworkModal");
   const homeworkContentElem = document.getElementById("homeworkContent");
   const submitHomeworkBtn = document.getElementById("submitHomeworkBtn");
+  const nextLessonBtn = document.getElementById("nextLessonBtn");
   const homeworkFeedback = document.getElementById("homeworkFeedback");
   const modalClose = document.querySelector(".modal-content .close");
 
@@ -147,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return html;
   }
 
-  // 8. Generate Generic Homework Content.
+  // 8. Generate Homework Content (Generic)
   function generateHomeworkContent(topic, cycle, week) {
     return `
       <p><em>Homework Assignment:</em> Now that you have studied today's lesson on <strong>${mapSubjectKey(topic)}</strong>, choose one of the following creative activities:</p>
@@ -295,7 +296,28 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // (F) New Session Handler
+  // (F) Next Lesson Button Handler – In the modal, go to the next lesson topic.
+  if (nextLessonBtn) {
+    nextLessonBtn.addEventListener("click", async () => {
+      let currentIndex = topicsOrder.indexOf(currentTopic);
+      if (currentIndex < topicsOrder.length - 1) {
+        currentTopic = topicsOrder[currentIndex + 1];
+        homeworkModal.style.display = "none";
+        studyContentElem.innerHTML = "<p>Loading content...</p>";
+        const lessonHtml = await generateStudyContent(currentTopic, currentCycle, currentWeek);
+        studyContentElem.innerHTML = lessonHtml;
+        sessionStartTime = new Date();
+        startTimer(900);
+      } else {
+        alert("You have completed all topics for this week!");
+        homeworkModal.style.display = "none";
+        studySection.classList.add("hidden");
+        selectionSection.classList.remove("hidden");
+      }
+    });
+  }
+
+  // (G) New Session Handler
   if (newSessionBtn) {
     newSessionBtn.addEventListener("click", () => {
       progressSection.classList.add("hidden");
@@ -305,7 +327,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // (G) View Logs Button Handler
+  // (H) View Logs Button Handler
   if (viewLogBtn) {
     viewLogBtn.addEventListener("click", () => {
       if (progressSection.classList.contains("hidden")) {
@@ -317,7 +339,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // (H) Modal Close Handler – Closes the homework modal and resumes timer.
+  // (I) Modal Close Handler – Closes the homework modal and resumes timer.
   if (modalClose) {
     modalClose.addEventListener("click", () => {
       homeworkModal.style.display = "none";
