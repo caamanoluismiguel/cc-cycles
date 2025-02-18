@@ -1,47 +1,357 @@
-/* Responsive header fix for mobile screens */
-@media (max-width: 600px) {
-  .header-container {
-    /* Stack elements vertically */
-    flex-direction: column;
-    align-items: center; /* Center them horizontally */
-  }
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
-  .header-links {
-    /* Allow buttons to wrap and center them */
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 10px;
-    width: 100%;
-  }
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  .header-button {
-    /* Space out buttons vertically on small screens */
-    margin-bottom: 10px;
-  }
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+  line-height: 1.6;
+}
+/* UNIVERSAL BUTTON STYLE */
+button {
+  background-color: #0056b3;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 0.5rem 0.5rem 0.5rem 0; /* slight margin for spacing */
+}
+
+button:hover {
+  background-color: #004080;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* HEADER & BACK LINKS (anchors) */
+.header-button,
+.back-button {
+  display: inline-block;
+  background-color: #0056b3;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 0.5rem 0.5rem 0.5rem 0;
+}
+
+.header-button:hover,
+.back-button:hover {
+  background-color: #004080;
+  transform: translateY(-2px);
 }
 
 
-.footer-container {
+/* HEADER */
+header {
+  background-color: #0056b3;
+  padding: 1rem;
+}
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Nav links: hidden by default (shown via JS after login) */
+.header-links {
+  display: none;
+  gap: 1rem;
+}
+.header-button {
+  text-decoration: none;
+  background-color: #004080;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.header-button:hover,
+.header-button:focus {
+  background-color: #003366;
+  transform: translateY(-2px);
+}
+
+/* HERO SECTION */
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 3rem 1rem;
+  background: url('heroimage.jpg') no-repeat center/cover;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #0056b3;
+}
+.hero .bible-verse {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #444;
+  margin-bottom: 1rem;
+}
+.hero .intro-text {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0.5rem auto 2rem auto;
+  color: #555;
+}
+
+/* LOGIN FORM */
+.login-form {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+}
+.login-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.login-form input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.login-form button {
+  background-color: #0056b3;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.login-form button:hover {
+  background-color: #004080;
+  transform: translateY(-2px);
+}
+.login-feedback {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+/* Stack the "Choose Your Study Plan" form like the login form */
+.study-plan-stack {
+  max-width: 400px;    /* same as login form width */
+  margin: 0 auto;      /* center horizontally */
+  text-align: left;    /* left-align labels & selects */
+}
+
+.study-plan-stack label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600; /* same style as login form label */
+}
+
+.study-plan-stack select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* Buttons row under the stacked form */
+.study-plan-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center; /* center them horizontally, if desired */
+  margin-top: 1rem;
+}
+
+
+/* CONTAINER & SECTION */
+.container {
   max-width: 800px;
+  margin: 3rem auto; /* increased margin for better spacing from header */
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.section {
+  margin-bottom: 2rem;
+}
+.section h2 {
+  color: #0056b3;
+  margin-bottom: 1rem;
+}
+
+/* STUDY PLAN FORM LAYOUT */
+.study-plan-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+}
+.study-plan-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* BACK BUTTON (and any other .back-button usage) */
+.back-button {
+  background-color: #0056b3;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+  margin-top: 1rem;
+}
+.back-button:hover,
+.back-button:focus {
+  background-color: #004080;
+  transform: translateY(-2px);
+}
+
+/* HIDDEN UTILITY */
+.hidden {
+  display: none !important;
+}
+
+/* PROGRESS BAR */
+#progressBarContainer {
+  background: #ddd;
+  border-radius: 4px;
+  height: 20px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+#progressBar {
+  background: #0056b3;
+  height: 100%;
+  width: 0%;
+  transition: width 1s;
+}
+#timeDisplay {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-size: 1.2em;
+}
+
+/* LOGS SECTION */
+#progressSection {
+  background: #f0f0f0;
+  padding: 1rem;
+  border-radius: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* MODAL */
+.modal {
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+  display: none;
+}
+.modal-content {
+  background: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  margin: 10% auto;
+  position: relative;
+}
+.modal-content .close {
+  color: #aaa;
+  float: right;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: -0.5rem;
+}
+.modal-content .close:hover,
+.modal-content .close:focus {
+  color: #0056b3;
+}
+.modal-content button {
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  background-color: #0056b3;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.modal-content button:hover {
+  background-color: #004080;
+  transform: translateY(-2px);
+}
+.modal-content button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #fff;
+  margin-top: 2rem;
+}
+.footer-container {
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Custom styling for the Google Translate widget */
+/* GOOGLE TRANSLATE WIDGET OVERRIDES */
 .translate-widget {
   margin-bottom: 10px;
 }
-
-/* Hide the default top banner */
 .goog-te-banner-frame.skiptranslate { 
   display: none !important; 
 }
 body { 
   top: 0px !important; 
 }
-
-/* Override the simple widget style */
 .goog-te-gadget-simple {
   background-color: #0056b3 !important;
   border: none !important;
@@ -49,22 +359,16 @@ body {
   padding: 5px 10px !important;
   display: inline-block;
 }
-
-/* Style the text inside the widget */
 .goog-te-gadget-simple a.goog-te-menu-value span {
   color: #fff !important;
   font-size: 1em !important;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-family: 'Open Sans', sans-serif !important;
 }
-
-/* Add a down arrow after the text */
 .goog-te-gadget-simple a.goog-te-menu-value span:after {
   content: " ▼";
   font-size: 0.8em;
   color: #fff;
 }
-
-/* Hide the Google icon if present */
 .goog-te-gadget-icon {
   display: none !important;
 }
