@@ -14,3 +14,58 @@
     margin-bottom: 10px;
   }
 }
+
+/* Footer styling */
+footer {
+  background-color: #fff;
+  border-top: 1px solid #eaeaea;
+  padding: 20px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.footer-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Custom styling for the Google Translate widget */
+.translate-widget {
+  margin-bottom: 10px;
+}
+
+/* Hide the default top banner */
+.goog-te-banner-frame.skiptranslate { 
+  display: none !important; 
+}
+body { 
+  top: 0px !important; 
+}
+
+/* Override the simple widget style */
+.goog-te-gadget-simple {
+  background-color: #0056b3 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  padding: 5px 10px !important;
+  display: inline-block;
+}
+
+/* Style the text inside the widget */
+.goog-te-gadget-simple a.goog-te-menu-value span {
+  color: #fff !important;
+  font-size: 1em !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+/* Add a down arrow after the text */
+.goog-te-gadget-simple a.goog-te-menu-value span:after {
+  content: " ▼";
+  font-size: 0.8em;
+  color: #fff;
+}
+
+/* Hide the Google icon if present */
+.goog-te-gadget-icon {
+  display: none !important;
+}

@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Classical Kids Study Hub</title>
   <link rel="icon" href="fav.ico" type="image/x-icon">
-  <link rel="stylesheet" href="styles.css">
-
   <style>
     /* Base Styles */
     * {
@@ -356,5 +355,27 @@
   </div>
   
   <script src="./main.js"></script>
+  <footer>
+  <div class="footer-container">
+    <div class="translate-widget">
+      <div id="google_translate_element"></div>
+    </div>
+    <p>© 2025 Classical Kids Study Hub. All rights reserved.</p>
+  </div>
+</footer>
+
+
+<!-- Google Translate Widget Scripts -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,es',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
