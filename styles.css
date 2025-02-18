@@ -1,28 +1,27 @@
-/* Responsive header fix for small screens */
+/* Responsive header fix for mobile screens */
 @media (max-width: 600px) {
   .header-container {
+    /* Stack elements vertically */
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center; /* Center them horizontally */
   }
+
   .header-links {
+    /* Allow buttons to wrap and center them */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
     margin-top: 10px;
     width: 100%;
-    flex-wrap: wrap;
-    justify-content: flex-start;
   }
+
   .header-button {
+    /* Space out buttons vertically on small screens */
     margin-bottom: 10px;
   }
 }
 
-/* Footer styling */
-footer {
-  background-color: #fff;
-  border-top: 1px solid #eaeaea;
-  padding: 20px;
-  text-align: center;
-  margin-top: 40px;
-}
 
 .footer-container {
   max-width: 800px;
