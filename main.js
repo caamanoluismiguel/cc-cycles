@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function() {
   let studyTimer = null;
   let sessionStartTime = null; // To record session start time
   
-  // For homework, we no longer use quizTaken or award points.
   window.currentLessonData = null; // For homework generation
 
   // 2. Get DOM Elements
@@ -44,27 +43,33 @@ document.addEventListener("DOMContentLoaded", function() {
   const homeworkFeedback = document.getElementById("homeworkFeedback");
   const modalClose = document.querySelector(".modal-content .close");
 
-  // 3. Helper Functions
+  // Check for stored username to keep user logged in
+  if (localStorage.getItem("username")) {
+    username = localStorage.getItem("username");
+    document.getElementById("loggedInLinks").style.display = "flex";
+  }
+  // If returning via hash "#selectionSection", show the selection section
+  if (window.location.hash === "#selectionSection" && username) {
+    loginSection.classList.add("hidden");
+    selectionSection.classList.remove("hidden");
+  }
 
+  // 3. Helper Functions
   function mapSubjectKey(topic) {
     if (topic === "finearts") return "Fine_Arts";
     if (topic === "english") return "English";
     if (topic === "latin") return "Latin";
     return topic.charAt(0).toUpperCase() + topic.slice(1);
   }
-
   function cleanText(text) {
     if (!text) return "";
     return text.replace(/^Paragraph\s*\d+:\s*/i, '');
   }
-
   function getFirstSentence(text) {
     if (!text) return "";
     let sentence = text.split('. ')[0];
     return sentence.endsWith('.') ? sentence : sentence + ".";
   }
-
-  // Shuffle an array (Fisher–Yates)
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -72,13 +77,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     return array;
   }
-
-  // Truncate text to a maximum length.
   function truncateText(text, maxLength = 50) {
     if (!text) return "";
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
   }
-
   // 4. Lazy-load Cycle Data from GitHub.
   async function loadCycleData(cycleNumber) {
     if (cycleDataCache[cycleNumber]) return cycleDataCache[cycleNumber];
@@ -96,7 +98,6 @@ document.addEventListener("DOMContentLoaded", function() {
     cycleDataCache[cycleNumber] = data;
     return data;
   }
-
   // 5. Retrieve Lesson Content from JSON.
   async function getFoundationContent(cycle, week, subjectType) {
     const data = await loadCycleData(cycle);
@@ -108,16 +109,14 @@ document.addEventListener("DOMContentLoaded", function() {
       return data[cycleKey][weekKey][subjectKey];
     else return null;
   }
-
   // 6. Generate Study Content HTML.
   async function generateStudyContent(topic, cycle, week) {
     const subjectData = await getFoundationContent(cycle, week, topic);
-    window.currentLessonData = subjectData; // Save for homework generation.
+    window.currentLessonData = subjectData;
     if (!subjectData)
       return `<p>No data found for ${topic} in Cycle ${cycle}, Week ${week}.</p>`;
     return generateDetailedContent(subjectData, topic, cycle, week);
   }
-
   // 7. Generate Detailed Lesson Content HTML.
   function generateDetailedContent(subjectData, subjectType, cycle, week) {
     const icons = {
@@ -147,7 +146,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     return html;
   }
-
   // 8. Generate Homework Content (Generic)
   function generateHomeworkContent(topic, cycle, week) {
     return `
@@ -166,7 +164,6 @@ document.addEventListener("DOMContentLoaded", function() {
       <textarea id="response2" rows="3" placeholder="Type your answer here..."></textarea>
     `;
   }
-
   // 9. Timer Function (15 minutes)
   function startTimer(duration) {
     clearInterval(studyTimer);
@@ -185,7 +182,6 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }, 1000);
   }
-
   // 10. Log Session Data and Save Locally
   function logSession() {
     const endTime = new Date();
@@ -200,7 +196,6 @@ document.addEventListener("DOMContentLoaded", function() {
     userProgress.push(sessionLog);
     localStorage.setItem("studyLogs", JSON.stringify(userProgress));
   }
-
   function updateProgressLog() {
     const storedLogs = localStorage.getItem("studyLogs");
     if (storedLogs) userProgress = JSON.parse(storedLogs);
@@ -212,14 +207,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     progressLog.innerHTML = logHtml;
   }
-
   // 11. Utility Functions
   function capitalizeFirst(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
-
   // 12. Event Listeners
-
   // (A) Login Handler
   if (loginBtn) {
     loginBtn.addEventListener("click", () => {
@@ -229,12 +221,13 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
       }
       username = inputName;
+      localStorage.setItem("username", username);
       alert("Welcome, " + username + "!");
+      document.getElementById("loggedInLinks").style.display = "flex";
       loginSection.classList.add("hidden");
       selectionSection.classList.remove("hidden");
     });
   }
-
   // (B) Start Study Session Handler
   if (startStudyBtn) {
     startStudyBtn.addEventListener("click", async () => {
@@ -253,7 +246,6 @@ document.addEventListener("DOMContentLoaded", function() {
       startTimer(900);
     });
   }
-
   // (C) Homework Button Handler – Open homework modal.
   if (homeworkBtn) {
     homeworkBtn.addEventListener("click", () => {
@@ -266,7 +258,6 @@ document.addEventListener("DOMContentLoaded", function() {
       homeworkModal.style.display = "block";
     });
   }
-
   // (D) Back Button Handler – Always return to the selection screen.
   if (backBtn) {
     backBtn.addEventListener("click", () => {
@@ -275,7 +266,6 @@ document.addEventListener("DOMContentLoaded", function() {
       selectionSection.classList.remove("hidden");
     });
   }
-
   // (E) Homework Submit Handler – Collect responses and display a thank-you message.
   if (submitHomeworkBtn) {
     submitHomeworkBtn.addEventListener("click", () => {
@@ -292,10 +282,8 @@ document.addEventListener("DOMContentLoaded", function() {
       submitHomeworkBtn.disabled = true;
       updateProgressLog();
       progressSection.classList.remove("hidden");
-      // The modal remains open until the user clicks the close button.
     });
   }
-
   // (F) Next Lesson Button Handler – In the modal, go to the next lesson topic.
   if (nextLessonBtn) {
     nextLessonBtn.addEventListener("click", async () => {
@@ -316,7 +304,6 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
   }
-
   // (G) New Session Handler
   if (newSessionBtn) {
     newSessionBtn.addEventListener("click", () => {
@@ -326,7 +313,6 @@ document.addEventListener("DOMContentLoaded", function() {
       homeworkFeedback.textContent = "";
     });
   }
-
   // (H) View Logs Button Handler
   if (viewLogBtn) {
     viewLogBtn.addEventListener("click", () => {
@@ -338,7 +324,6 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
   }
-
   // (I) Modal Close Handler – Closes the homework modal and resumes timer.
   if (modalClose) {
     modalClose.addEventListener("click", () => {

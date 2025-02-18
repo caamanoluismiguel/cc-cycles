@@ -34,11 +34,38 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      width: 100%;
     }
     .logo {
       font-size: 1.8em;
       font-weight: bold;
       color: #0056b3;
+      text-decoration: none;
+    }
+    /* Header links: hidden until login */
+    #loggedInLinks {
+      display: none;
+    }
+    .header-links {
+      display: flex;
+      gap: 10px;
+    }
+    .header-button {
+      text-decoration: none;
+      background-color: #0056b3;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+      font-size: 1em;
+    }
+    .header-button:hover {
+      background-color: #004080;
+    }
+    .header-button.disabled {
+      background-color: #ccc;
+      pointer-events: none;
+      cursor: default;
     }
     
     /* Main Container */
@@ -163,7 +190,7 @@
       overflow-y: auto;
     }
     
-    /* Modal Styles for Homework Assignment (Coursera-Inspired) */
+    /* Modal Styles for Homework Assignment */
     .modal {
       position: fixed;
       z-index: 2000;
@@ -201,7 +228,6 @@
     .modal-content .close:focus {
       color: #0056b3;
     }
-    /* Modal Button Styling */
     .modal-content button {
       padding: 12px 20px;
       border: none;
@@ -221,7 +247,6 @@
       background-color: #ccc;
       cursor: not-allowed;
     }
-    /* Textarea styling for homework answers */
     .modal-content textarea {
       width: 100%;
       padding: 10px;
@@ -230,7 +255,6 @@
       border-radius: 4px;
       font-size: 1em;
     }
-    /* Additional styling for homework list indent */
     .modal-content ul {
       margin-left: 20px;
     }
@@ -239,7 +263,11 @@
 <body>
   <header>
     <div class="header-container">
-      <div class="logo">Classical Kids Study Hub</div>
+      <a href="index.html#selectionSection" class="logo">Classical Kids Study Hub</a>
+      <div id="loggedInLinks" class="header-links" style="display: none;">
+        <a href="parents-guide.html" class="header-button">Parents Guide</a>
+        <a href="resources.html" class="header-button">Resources</a>
+      </div>
     </div>
   </header>
   
@@ -247,7 +275,9 @@
     <!-- Hero Section -->
     <section class="hero">
       <h1>Foundations</h1>
-      <p class="bible-verse">6 And these words that I command you today shall be on your heart. 7 You shall teach them diligently to your children, and shall talk of them when you sit in your house, and when you walk by the way, and when you lie down, and when you rise. Deut 6:6-7</p>
+      <p class="bible-verse">
+        6 And these words that I command you today shall be on your heart. 7 You shall teach them diligently to your children, and shall talk of them when you sit in your house, and when you walk by the way, and when you lie down, and when you rise. Deut 6:6-7
+      </p>
       <p class="intro-text">
         This study hub is a labor of love—a companion guide created by a devoted dad to help our family follow a daily routine of exploring the foundations of classical conversations. It provides a clear, structured path to review key ideas and practice essential skills.
       </p>
@@ -299,7 +329,6 @@
         <div id="progressBar"></div>
       </div>
       <div id="timeDisplay"></div>
-      <!-- Homework button replaces quiz -->
       <button id="homeworkBtn" disabled>Homework</button>
       <button id="backBtn">Back</button>
     </section>
