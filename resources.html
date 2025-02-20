@@ -1,175 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Resources - Classical Kids Study Hub</title>
   <link rel="icon" href="fav.ico" type="image/x-icon">
+  <!-- Optional external stylesheet if you have one -->
   <link rel="stylesheet" href="styles.css">
-  <script>
-    // If user is not logged in, redirect to index
-    if (!localStorage.getItem("username")) {
-      window.location.href = "index.html";
+  <style>
+    /* Basic reset & styling */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-  </script>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #333;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #0056b3;
+      text-decoration: none;
+    }
+    .header-links {
+      display: flex;
+      gap: 10px;
+    }
+    .header-button {
+      background: #0056b3;
+      color: #fff;
+      padding: 8px 12px;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    .header-button:hover {
+      background: #003d99;
+    }
+
+    main {
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 30px;
+      /* Left-align text */
+      text-align: left;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #0056b3;
+      text-align: center; /* Keep the main title centered if you like */
+    }
+    .top-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+    .btn {
+      background: #0056b3;
+      color: #fff;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-decoration: none; /* for link usage */
+      display: inline-block;
+    }
+    .btn:hover {
+      background: #003d99;
+    }
+    h2, h3 {
+      color: #0056b3;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+      list-style: disc;
+    }
+    ul li {
+      margin-bottom: 0.3rem;
+    }
+    .resource-group {
+      margin-bottom: 1.5rem;
+    }
+    .disclaimer {
+      font-style: italic;
+      font-size: 0.9rem;
+      margin-top: 1.5rem;
+      border-top: 1px solid #ddd;
+      padding-top: 1rem;
+      color: #555;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
+  <!-- Top Navigation -->
   <header>
     <div class="header-container">
       <a href="index.html" class="logo" translate="no">Classical Kids Study Hub</a>
-      <!-- Display nav only if logged in -->
-      <nav class="header-links" id="navLinks" style="display: flex;">
+      <nav class="header-links">
+        <a href="index.html" class="header-button">Home</a>
         <a href="parents-guide.html" class="header-button">Parents Guide</a>
-        <a href="resources.html" class="header-button">Resources</a>
+        <a href="resources.html" class="header-button" style="opacity:0.9;">Resources</a>
       </nav>
     </div>
   </header>
-  
+
   <main>
     <div class="container">
-      <h1>Recommended Reading</h1>
+      <h1>Educational Resources</h1>
+      <div class="top-buttons">
+        <!-- Button to go directly to classical_math.html -->
+        <a href="classical_math.html" class="btn">Math Practice</a>
+        <!-- Back to Menu -->
+        <a href="index.html" class="btn">Back to Menu</a>
+      </div>
 
-      <!-- Ages 5–7 Section -->
-      <section class="section">
-        <h2>Ages 5–7 (Early Grammar Stage) <span style="font-size:1.2em;">👶📖</span></h2>
+      <!-- All recommended reading content, left-aligned -->
+      <h2>Recommended Reading</h2>
+
+      <!-- Ages 5–7 -->
+      <div class="resource-group">
+        <h3>Ages 5–7 (Early Grammar Stage) 👶📖</h3>
         <p><strong>Focus:</strong> Foundational stories with biblical themes, strong moral lessons, and exposure to rich language.</p>
-        <ul style="list-style: disc; margin-left:1.5rem;">
-          <li><strong>The Jesus Storybook Bible</strong> – Sally Lloyd-Jones <em>(Must be read alongside Scripture for theological accuracy.)</em></li>
-          <li><strong>A Child’s Garden of Verses</strong> – Robert Louis Stevenson <em>(Classic poetry that fosters appreciation for beauty.)</em></li>
-          <li><strong>Little Pilgrim’s Progress</strong> – Helen L. Taylor <em>(A child-friendly retelling of The Pilgrim’s Progress.)</em></li>
-          <li><strong>The Complete Tales of Beatrix Potter</strong> – Beatrix Potter <em>(Wholesome stories that teach responsibility and consequences.)</em></li>
-          <li><strong>Aesop’s Fables</strong> – Aesop <em>(Classic fables with moral lessons, framed biblically.)</em></li>
-          <li><strong>Winnie-the-Pooh</strong> – A.A. Milne <em>(Gentle, wise, and joyful storytelling.)</em></li>
-          <li><strong>The Tale of Despereaux</strong> – Kate DiCamillo <em>(Themes of redemption, sacrifice, and courage.)</em></li>
-          <li><strong>The Story of Doctor Dolittle</strong> – Hugh Lofting <em>(A fun animal adventure with some evolutionary concepts.)</em></li>
-          <li><strong>Charlotte’s Web</strong> – E.B. White <em>(Sacrificial love and friendship beautifully portrayed.)</em></li>
-          <li><strong>Blueberries for Sal</strong> – Robert McCloskey <em>(A delightful family-centered story.)</em></li>
-          <li><strong>The House at Pooh Corner</strong> – A.A. Milne <em>(Continuing themes of friendship and kindness.)</em></li>
-          <li><strong>Caps for Sale</strong> – Esphyr Slobodkina <em>(Lessons in patience and problem-solving.)</em></li>
-          <li><strong>Make Way for Ducklings</strong> – Robert McCloskey <em>(Themes of family, responsibility, and perseverance.)</em></li>
-          <li><strong>Curious George</strong> – H.A. Rey <em>(Encourages curiosity and problem-solving.)</em></li>
-          <li><strong>The Velveteen Rabbit</strong> – Margery Williams <em>(A profound allegory about love and selflessness.)</em></li>
-          <li><strong>Frog and Toad Are Friends</strong> – Arnold Lobel <em>(Teaches friendship and loyalty.)</em></li>
-          <li><strong>The Snowy Day</strong> – Ezra Jack Keats <em>(Encourages wonder in God's creation.)</em></li>
-          <li><strong>The Little Engine That Could</strong> – Watty Piper <em>(A classic lesson on perseverance.)</em></li>
-          <li><strong>The Story of Ping</strong> – Marjorie Flack <em>(Teaches obedience and responsibility.)</em></li>
-          <li><strong>Peter Rabbit’s Giant Treasury</strong> – Beatrix Potter <em>(Classic British storytelling with moral lessons.)</em></li>
+        <ul>
+          <li><strong>The Jesus Storybook Bible</strong> – Sally Lloyd-Jones (Must be read alongside Scripture for theological accuracy.)</li>
+          <li><strong>A Child’s Garden of Verses</strong> – Robert Louis Stevenson (Classic poetry that fosters appreciation for beauty.)</li>
+          <li><strong>Little Pilgrim’s Progress</strong> – Helen L. Taylor (A child-friendly retelling of The Pilgrim’s Progress.)</li>
+          <li><strong>The Complete Tales of Beatrix Potter</strong> – Beatrix Potter (Wholesome stories that teach responsibility and consequences.)</li>
+          <li><strong>Aesop’s Fables</strong> – Aesop (Classic fables with moral lessons, framed biblically.)</li>
+          <li><strong>Winnie-the-Pooh</strong> – A.A. Milne (Gentle, wise, and joyful storytelling.)</li>
+          <li><strong>The Tale of Despereaux</strong> – Kate DiCamillo (Themes of redemption, sacrifice, and courage.)</li>
+          <li><strong>The Story of Doctor Dolittle</strong> – Hugh Lofting (A fun animal adventure with some evolutionary concepts.)</li>
+          <li><strong>Charlotte’s Web</strong> – E.B. White (Sacrificial love and friendship beautifully portrayed.)</li>
+          <li><strong>Blueberries for Sal</strong> – Robert McCloskey (A delightful family-centered story.)</li>
+          <li><strong>The House at Pooh Corner</strong> – A.A. Milne (Continuing themes of friendship and kindness.)</li>
+          <li><strong>Caps for Sale</strong> – Esphyr Slobodkina (Lessons in patience and problem-solving.)</li>
+          <li><strong>Make Way for Ducklings</strong> – Robert McCloskey (Themes of family, responsibility, and perseverance.)</li>
+          <li><strong>Curious George</strong> – H.A. Rey (Encourages curiosity and problem-solving.)</li>
+          <li><strong>The Velveteen Rabbit</strong> – Margery Williams (A profound allegory about love and selflessness.)</li>
+          <li><strong>Frog and Toad Are Friends</strong> – Arnold Lobel (Teaches friendship and loyalty.)</li>
+          <li><strong>The Snowy Day</strong> – Ezra Jack Keats (Encourages wonder in God's creation.)</li>
+          <li><strong>The Little Engine That Could</strong> – Watty Piper (A classic lesson on perseverance.)</li>
+          <li><strong>The Story of Ping</strong> – Marjorie Flack (Teaches obedience and responsibility.)</li>
+          <li><strong>Peter Rabbit’s Giant Treasury</strong> – Beatrix Potter (Classic British storytelling with moral lessons.)</li>
         </ul>
-      </section>
+      </div>
 
-      <!-- Ages 8–10 Section -->
-      <section class="section">
-        <h2>Ages 8–10 (Late Grammar Stage) <span style="font-size:1.2em;">🧒📚</span></h2>
+      <!-- Ages 8–10 -->
+      <div class="resource-group">
+        <h3>Ages 8–10 (Late Grammar Stage) 🧒📚</h3>
         <p><strong>Focus:</strong> Stronger narratives with Christian virtues, adventure, and wisdom.</p>
-        <ul style="list-style: disc; margin-left:1.5rem;">
-          <li><strong>Dangerous Journey</strong> – Oliver Hunkin <em>(A beautifully illustrated retelling of The Pilgrim’s Progress.)</em></li>
-          <li><strong>The Chronicles of Narnia</strong> – C.S. Lewis <em>(Christian allegory with profound biblical themes.)</em></li>
-          <li><strong>Little House on the Prairie</strong> – Laura Ingalls Wilder <em>(Emphasizes faith, family, and hard work.)</em></li>
-          <li><strong>Missionary Stories with the Millers</strong> – Mildred A. Martin <em>(Engaging missionary tales.)</em></li>
-          <li><strong>The Swiss Family Robinson</strong> – Johann Wyss <em>(Adventure with Christian values.)</em></li>
-          <li><strong>Tales of the Kingdom</strong> – David & Karen Mains <em>(Christian allegory with rich biblical imagery.)</em></li>
-          <li><strong>The Secret Garden</strong> – Frances Hodgson Burnett <em>(Themes of redemption and renewal.)</em></li>
-          <li><strong>The Green Ember (series)</strong> – S.D. Smith <em>(Christian allegory about courage and loyalty.)</em></li>
-          <li><strong>The Wind in the Willows</strong> – Kenneth Grahame <em>(Explores morality, virtue, and folly.)</em></li>
-          <li><strong>King Arthur and His Knights of the Round Table</strong> – Roger Lancelyn Green <em>(Explores heroism and honor.)</em></li>
-          <li><strong>Harry Potter and the Sorcerer’s Stone</strong> – J.K. Rowling <em>(Courage, sacrifice, and friendship.)</em></li>
-          <li><strong>The Mysterious Benedict Society</strong> – Trenton Lee Stewart <em>(Promotes wisdom and discernment.)</em></li>
-          <li><strong>The Wingfeather Saga</strong> – Andrew Peterson <em>(Christian allegory with deep biblical themes.)</em></li>
-          <li><strong>Island of the Blue Dolphins</strong> – Scott O’Dell <em>(Resilience and faith under adversity.)</em></li>
-          <li><strong>Black Beauty</strong> – Anna Sewell <em>(Kindness, justice, and compassion.)</em></li>
-          <li><strong>The Boxcar Children</strong> – Gertrude Chandler Warner <em>(Themes of perseverance and family.)</em></li>
-          <li><strong>Where the Red Fern Grows</strong> – Wilson Rawls <em>(Loyalty, love, and responsibility.)</em></li>
-          <li><strong>The Tale of Peter Rabbit</strong> – Beatrix Potter <em>(Classic moral lessons.)</em></li>
+        <ul>
+          <li><strong>Dangerous Journey</strong> – Oliver Hunkin (A beautifully illustrated retelling of The Pilgrim’s Progress.)</li>
+          <li><strong>The Chronicles of Narnia</strong> – C.S. Lewis (Christian allegory with profound biblical themes.)</li>
+          <li><strong>Little House on the Prairie</strong> – Laura Ingalls Wilder (Emphasizes faith, family, and hard work.)</li>
+          <li><strong>Missionary Stories with the Millers</strong> – Mildred A. Martin (Engaging missionary tales.)</li>
+          <li><strong>The Swiss Family Robinson</strong> – Johann Wyss (Adventure with Christian values.)</li>
+          <li><strong>Tales of the Kingdom</strong> – David &amp; Karen Mains (Christian allegory with rich biblical imagery.)</li>
+          <li><strong>The Secret Garden</strong> – Frances Hodgson Burnett (Themes of redemption and renewal.)</li>
+          <li><strong>The Green Ember (series)</strong> – S.D. Smith (Christian allegory about courage and loyalty.)</li>
+          <li><strong>The Wind in the Willows</strong> – Kenneth Grahame (Explores morality, virtue, and folly.)</li>
+          <li><strong>King Arthur and His Knights of the Round Table</strong> – Roger Lancelyn Green (Explores heroism and honor.)</li>
+          <li><strong>Harry Potter and the Sorcerer’s Stone</strong> – J.K. Rowling (Courage, sacrifice, and friendship.)</li>
+          <li><strong>The Mysterious Benedict Society</strong> – Trenton Lee Stewart (Promotes wisdom and discernment.)</li>
+          <li><strong>The Wingfeather Saga</strong> – Andrew Peterson (Christian allegory with deep biblical themes.)</li>
+          <li><strong>Island of the Blue Dolphins</strong> – Scott O’Dell (Resilience and faith under adversity.)</li>
+          <li><strong>Black Beauty</strong> – Anna Sewell (Kindness, justice, and compassion.)</li>
+          <li><strong>The Boxcar Children</strong> – Gertrude Chandler Warner (Themes of perseverance and family.)</li>
+          <li><strong>Where the Red Fern Grows</strong> – Wilson Rawls (Loyalty, love, and responsibility.)</li>
+          <li><strong>The Tale of Peter Rabbit</strong> – Beatrix Potter (Classic moral lessons.)</li>
         </ul>
-      </section>
+      </div>
 
-      <!-- Ages 11–13 Section -->
-      <section class="section">
-        <h2>Ages 11–13 (Dialectic Stage) <span style="font-size:1.2em;">👦📖</span></h2>
+      <!-- Ages 11–13 -->
+      <div class="resource-group">
+        <h3>Ages 11–13 (Dialectic Stage) 👦📖</h3>
         <p><strong>Focus:</strong> Deeper moral complexity, Christian virtue, and discernment.</p>
-        <ul style="list-style: disc; margin-left:1.5rem;">
-          <li><strong>The Pilgrim’s Progress</strong> – John Bunyan <em>(Essential Christian allegory.)</em></li>
-          <li><strong>Treasure Island</strong> – Robert Louis Stevenson <em>(Adventure with strong moral lessons.)</em></li>
-          <li><strong>Harry Potter (series)</strong> – J.K. Rowling <em>(Sacrifice, courage, and wisdom.)</em></li>
-          <li><strong>Anne of Green Gables</strong> – L.M. Montgomery <em>(Faith, virtue, and growing in grace.)</em></li>
-          <li><strong>The Hobbit</strong> – J.R.R. Tolkien <em>(Providence and humility.)</em></li>
-          <li><strong>Dr. Jekyll and Mr. Hyde</strong> – Robert Louis Stevenson <em>(A deep look at human depravity.)</em></li>
-          <li><strong>Twenty Thousand Leagues Under the Sea</strong> – Jules Verne <em>(Exploration and scientific wonder.)</em></li>
-          <li><strong>Journey to the Center of the Earth</strong> – Jules Verne <em>(Encourages curiosity and adventure.)</em></li>
-          <li><strong>The Chronicles of Prydain</strong> – Lloyd Alexander <em>(Fantasy with deep moral themes.)</em></li>
-          <li><strong>The Giver</strong> – Lois Lowry <em>(Explores free will and truth.)</em></li>
-          <li><strong>Robin Hood</strong> – Howard Pyle <em>(Justice and heroism.)</em></li>
-          <li><strong>Hatchet</strong> – Gary Paulsen <em>(Survival and responsibility.)</em></li>
-          <li><strong>Number the Stars</strong> – Lois Lowry <em>(Courage in the face of evil.)</em></li>
-          <li><strong>Old Yeller</strong> – Fred Gipson <em>(Sacrifice and loyalty.)</em></li>
-          <li><strong>Little Women</strong> – Louisa May Alcott <em>(Faith, virtue, and wisdom.)</em></li>
-          <li><strong>Tom Sawyer</strong> – Mark Twain <em>(Maturity and moral growth.)</em></li>
-          <li><strong>The Jungle Book</strong> – Rudyard Kipling <em>(Moral dilemmas and responsibility.)</em></li>
-          <li><strong>Brave New World</strong> – Aldous Huxley <em>(A critique of godless society.)</em></li>
-          <li><strong>Anne Frank: The Diary of a Young Girl</strong> – Anne Frank <em>(A young girl's faith in adversity.)</em></li>
-          <li><strong>The Call of the Wild</strong> – Jack London <em>(Survival, loyalty, and endurance.)</em></li>
+        <ul>
+          <li><strong>The Pilgrim’s Progress</strong> – John Bunyan (Essential Christian allegory.)</li>
+          <li><strong>Treasure Island</strong> – Robert Louis Stevenson (Adventure with strong moral lessons.)</li>
+          <li><strong>Harry Potter (series)</strong> – J.K. Rowling (Sacrifice, courage, and wisdom.)</li>
+          <li><strong>Anne of Green Gables</strong> – L.M. Montgomery (Faith, virtue, and growing in grace.)</li>
+          <li><strong>The Hobbit</strong> – J.R.R. Tolkien (Providence and humility.)</li>
+          <li><strong>Dr. Jekyll and Mr. Hyde</strong> – Robert Louis Stevenson (A deep look at human depravity.)</li>
+          <li><strong>Twenty Thousand Leagues Under the Sea</strong> – Jules Verne (Exploration and scientific wonder.)</li>
+          <li><strong>Journey to the Center of the Earth</strong> – Jules Verne (Encourages curiosity and adventure.)</li>
+          <li><strong>The Chronicles of Prydain</strong> – Lloyd Alexander (Fantasy with deep moral themes.)</li>
+          <li><strong>The Giver</strong> – Lois Lowry (Explores free will and truth.)</li>
+          <li><strong>Robin Hood</strong> – Howard Pyle (Justice and heroism.)</li>
+          <li><strong>Hatchet</strong> – Gary Paulsen (Survival and responsibility.)</li>
+          <li><strong>Number the Stars</strong> – Lois Lowry (Courage in the face of evil.)</li>
+          <li><strong>Old Yeller</strong> – Fred Gipson (Sacrifice and loyalty.)</li>
+          <li><strong>Little Women</strong> – Louisa May Alcott (Faith, virtue, and wisdom.)</li>
+          <li><strong>Tom Sawyer</strong> – Mark Twain (Maturity and moral growth.)</li>
+          <li><strong>The Jungle Book</strong> – Rudyard Kipling (Moral dilemmas and responsibility.)</li>
+          <li><strong>Brave New World</strong> – Aldous Huxley (A critique of godless society.)</li>
+          <li><strong>Anne Frank: The Diary of a Young Girl</strong> – Anne Frank (A young girl's faith in adversity.)</li>
+          <li><strong>The Call of the Wild</strong> – Jack London (Survival, loyalty, and endurance.)</li>
         </ul>
-      </section>
+      </div>
 
-      <!-- Ages 17–18 Section -->
-      <section class="section">
-        <h2>Ages 17–18 (Advanced Rhetoric Stage) <span style="font-size:1.2em;">👩‍🎓📚</span></h2>
+      <!-- Ages 17–18 -->
+      <div class="resource-group">
+        <h3>Ages 17–18 (Advanced Rhetoric Stage) 👩‍🎓📚</h3>
         <p><strong>Focus:</strong> Theology, philosophy, apologetics, and literature that challenges Christian worldview thinking.</p>
-        <ul style="list-style: disc; margin-left:1.5rem;">
-          <li><strong>The Institutes of the Christian Religion</strong> – John Calvin <em>(Essential for understanding Reformed theology.)</em></li>
-          <li><strong>Bondage of the Will</strong> – Martin Luther <em>(Defends the biblical doctrine of total depravity.)</em></li>
-          <li><strong>The Holiness of God</strong> – R.C. Sproul <em>(Explores the majesty and fear of the Lord.)</em></li>
-          <li><strong>The Abolition of Man</strong> – C.S. Lewis <em>(Critique of moral relativism, defending biblical objectivity.)</em></li>
-          <li><strong>1984</strong> – George Orwell <em>(A critique of authoritarianism and the dangers of losing truth.)</em></li>
-          <li><strong>Pilgrim’s Regress</strong> – C.S. Lewis <em>(An allegory of intellectual and spiritual journey.)</em></li>
-          <li><strong>Spiritual Disciplines for the Christian Life</strong> – Donald Whitney <em>(A practical guide to biblical growth.)</em></li>
-          <li><strong>The Reformed Pastor</strong> – Richard Baxter <em>(A model for deep Christian discipleship.)</em></li>
-          <li><strong>The Brothers Karamazov</strong> – Fyodor Dostoevsky <em>(A masterwork on human depravity and redemption.)</em></li>
-          <li><strong>Les Misérables</strong> – Victor Hugo <em>(An epic story of grace and justice.)</em></li>
-          <li><strong>The Count of Monte Cristo</strong> – Alexandre Dumas <em>(A brilliant story of justice, but needs discussion on Christian forgiveness.)</em></li>
-          <li><strong>The Federalist Papers</strong> – Alexander Hamilton, James Madison, John Jay <em>(Understanding government through a biblical lens.)</em></li>
-          <li><strong>The Republic</strong> – Plato <em>(Important for seeing non-Christian views on justice and virtue.)</em></li>
-          <li><strong>The Cost of Discipleship</strong> – Dietrich Bonhoeffer <em>(A profound challenge to follow Christ at all costs.)</em></li>
-          <li><strong>A Tale of Two Cities</strong> – Charles Dickens <em>(Sacrifice and redemption in revolutionary France.)</em></li>
-          <li><strong>Frankenstein</strong> – Mary Shelley <em>(Ethics of creation, playing God, and consequences of human pride.)</em></li>
-          <li><strong>The Weight of Glory</strong> – C.S. Lewis <em>(Deep reflections on eternity and our longings for heaven.)</em></li>
-          <li><strong>The Pursuit of God</strong> – A.W. Tozer <em>(Encourages deepening one’s relationship with God.)</em></li>
-          <li><strong>Desiring God</strong> – John Piper <em>(A call to delight in Christ-centered living.)</em></li>
-          <li><strong>Heaven</strong> – Randy Alcorn <em>(A biblical exploration of the afterlife and eternity.)</em></li>
+        <ul>
+          <li><strong>The Institutes of the Christian Religion</strong> – John Calvin (Essential for understanding Reformed theology.)</li>
+          <li><strong>Bondage of the Will</strong> – Martin Luther (Defends the biblical doctrine of total depravity.)</li>
+          <li><strong>The Holiness of God</strong> – R.C. Sproul (Explores the majesty and fear of the Lord.)</li>
+          <li><strong>The Abolition of Man</strong> – C.S. Lewis (Critique of moral relativism, defending biblical objectivity.)</li>
+          <li><strong>1984</strong> – George Orwell (A critique of authoritarianism and the dangers of losing truth.)</li>
+          <li><strong>Pilgrim’s Regress</strong> – C.S. Lewis (An allegory of intellectual and spiritual journey.)</li>
+          <li><strong>Spiritual Disciplines for the Christian Life</strong> – Donald Whitney (A practical guide to biblical growth.)</li>
+          <li><strong>The Reformed Pastor</strong> – Richard Baxter (A model for deep Christian discipleship.)</li>
+          <li><strong>The Brothers Karamazov</strong> – Fyodor Dostoevsky (A masterwork on human depravity and redemption.)</li>
+          <li><strong>Les Misérables</strong> – Victor Hugo (An epic story of grace and justice.)</li>
+          <li><strong>The Count of Monte Cristo</strong> – Alexandre Dumas (A brilliant story of justice, but needs discussion on Christian forgiveness.)</li>
+          <li><strong>The Federalist Papers</strong> – Alexander Hamilton, James Madison, John Jay (Understanding government through a biblical lens.)</li>
+          <li><strong>The Republic</strong> – Plato (Important for seeing non-Christian views on justice and virtue.)</li>
+          <li><strong>The Cost of Discipleship</strong> – Dietrich Bonhoeffer (A profound challenge to follow Christ at all costs.)</li>
+          <li><strong>A Tale of Two Cities</strong> – Charles Dickens (Sacrifice and redemption in revolutionary France.)</li>
+          <li><strong>Frankenstein</strong> – Mary Shelley (Ethics of creation, playing God, and consequences of human pride.)</li>
+          <li><strong>The Weight of Glory</strong> – C.S. Lewis (Deep reflections on eternity and our longings for heaven.)</li>
+          <li><strong>The Pursuit of God</strong> – A.W. Tozer (Encourages deepening one’s relationship with God.)</li>
+          <li><strong>Desiring God</strong> – John Piper (A call to delight in Christ-centered living.)</li>
+          <li><strong>Heaven</strong> – Randy Alcorn (A biblical exploration of the afterlife and eternity.)</li>
         </ul>
-      </section>
+      </div>
 
-      <!-- Disclaimer Section -->
-      <section class="section" style="border-top: 1px solid #ccc; padding-top: 1rem;">
-        <h2>Disclaimer</h2>
-        <p>
-          As Christians, we approach literature with wisdom and discernment, recognizing that while some books contain problematic elements, 
-          they also provide valuable insights into human nature, morality, and virtue. As Nancy Pearcey argues in <em>Total Truth</em>, 
-          Christians should engage with culture and art critically, rather than avoiding it altogether.
-        </p>
-        <p>
-          This list is not meant to condemn certain books but to equip readers to think biblically about what they read—avoiding exposure 
-          to inappropriate content for their age while appreciating artistry and truth where it can be found.
-        </p>
-      </section>
-      
-      <!-- Back to Menu Button -->
-      <a href="index.html#selectionSection" class="back-button">Back to Menu</a>
+      <!-- Disclaimer -->
+      <div class="disclaimer">
+        <p><strong>Disclaimer:</strong> As Christians, we approach literature with wisdom and discernment, recognizing that while some books contain problematic elements, they also provide valuable insights into human nature, morality, and virtue. As Nancy Pearcey argues in <em>Total Truth</em>, Christians should engage with culture and art critically, rather than avoiding it altogether.</p>
+        <p>This list is not meant to condemn certain books but to equip readers to think biblically about what they read—avoiding exposure to inappropriate content for their age while appreciating artistry and truth where it can be found.</p>
+      </div>
     </div>
   </main>
 
   <footer>
-    <div class="footer-container">
-      <div class="translate-widget">
-        <div id="google_translate_element"></div>
-      </div>
+    <div style="text-align:center; margin-top:30px;">
+      <div id="google_translate_element"></div>
+      <p>© 2025 Classical Kids Study Hub. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- Google Translate Widget Scripts -->
+  <!-- Google Translate Scripts -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
-      new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+      new google.translate.TranslateElement({ pageLanguage:'en' }, 'google_translate_element');
     }
   </script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
