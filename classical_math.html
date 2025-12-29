@@ -1,808 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Classical Math Practice - Classical Kids Study Hub</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Practice - Classical Kids Study Hub</title>
   <link rel="icon" href="fav.ico" type="image/x-icon">
-  <!-- Optional external stylesheet -->
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Basic reset & styling */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      color: #333;
+    .game-selector {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
     }
-    header {
-      background: #fff;
-      border-bottom: 1px solid #ddd;
-      padding: 10px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    .header-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #0056b3;
-      text-decoration: none;
-    }
-    .header-links {
-      display: flex;
-      gap: 10px;
-    }
-    .header-button {
-      background: #0056b3;
-      color: #fff;
-      padding: 8px 12px;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: background 0.3s;
-    }
-    .header-button:hover {
-      background: #003d99;
-    }
-
-    main {
-      padding: 20px;
-    }
-    .math-container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 30px;
-      text-align: center;
-    }
-    h2 { margin-bottom: 1rem; }
-    .section { margin-bottom: 2rem; }
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .btn {
-      background: #0056b3;
-      color: #fff;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
+    
+    .game-card {
+      background: white;
+      padding: 2rem 1rem;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
       cursor: pointer;
-      transition: background 0.3s;
+      transition: all var(--transition);
+      text-align: center;
+      border: 3px solid transparent;
     }
-    .btn:hover {
-      background: #003d99;
+    
+    .game-card:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: var(--shadow-xl);
     }
-    .info {
+    
+    .game-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      animation: bounce 2s infinite;
+    }
+    
+    .game-title {
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--text);
+    }
+    
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .stat-box {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      padding: 1.5rem;
+      border-radius: var(--radius-lg);
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      font-family: 'Fredoka', sans-serif;
+    }
+    
+    .stat-label {
+      font-size: 0.875rem;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .problem-display {
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 3rem 2rem;
+      background: linear-gradient(135deg, var(--primary-light), var(--purple-light));
+      border-radius: var(--radius-xl);
+      color: white;
+      margin: 2rem 0;
+      min-height: 150px;
       display: flex;
-      justify-content: space-around;
       align-items: center;
-      background: #e9f2fa;
-      padding: 10px;
-      border-radius: 6px;
-      margin-bottom: 20px;
-      font-weight: bold;
+      justify-content: center;
     }
-    .progress-container {
-      width: 80%;
-      height: 20px;
-      background: #ddd;
-      border-radius: 10px;
-      margin: 0 auto 20px;
-      overflow: hidden;
-    }
-    #progressBar {
-      width: 0%;
-      height: 100%;
-      background-color: #0056b3;
-      transition: width 0.3s ease;
-    }
-    #problem {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-      min-height: 40px;
-    }
-    .lesson-text {
-      text-align: left;
-      font-size: 1rem;
-      max-height: 200px;
-      overflow-y: auto;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background: #fcfcfc;
-      margin-top: 20px;
-    }
-    #feedback {
-      margin-top: 10px;
-      font-size: 1rem;
-      min-height: 24px;
-    }
-    .correct {
-      color: green;
-      animation: pop 0.5s ease;
-    }
-    .incorrect {
-      color: red;
-      animation: shake 0.5s ease;
-    }
-    @keyframes pop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-    @keyframes shake {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      50% { transform: translateX(5px); }
-      75% { transform: translateX(-5px); }
-      100% { transform: translateX(0); }
-    }
-    #graphContainer {
-      margin: 20px auto;
+    
+    .canvas-container {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      margin: 2rem 0;
       text-align: center;
     }
-    #graphCanvas {
-      width: 400px;
-      height: 400px;
-      border: 1px solid #ccc;
-      background: #fff;
-      display: block;
-      margin: 0 auto;
+    
+    #mathCanvas {
+      border: 2px solid var(--gray-300);
+      border-radius: var(--radius-md);
+      max-width: 100%;
+      height: auto;
     }
-    /* Make the answer input bigger */
-    .answerArea input {
-      width: 60%;
+    
+    .answer-section {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    
+    .answer-input {
+      width: 100%;
       max-width: 400px;
-      padding: 10px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    #end h2 {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-    }
-    footer {
+      padding: 1.5rem;
+      font-size: 2rem;
       text-align: center;
-      margin-top: 40px;
-      color: #555;
+      border: 3px solid var(--primary);
+      border-radius: var(--radius-lg);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
     }
-    .hidden { display: none; }
+    
+    .answer-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.2);
+    }
+    
+    .feedback {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin: 1rem 0;
+      min-height: 50px;
+      animation: fadeInUp 0.3s ease;
+    }
   </style>
 </head>
 <body>
-  <!-- Top Nav -->
-  <header>
+  <div id="confettiContainer"></div>
+
+  <!-- Header -->
+  <header class="header">
     <div class="header-container">
-      <a href="index.html" class="logo" translate="no">Classical Kids Study Hub</a>
-      <nav class="header-links">
-        <a href="index.html" class="header-button">Home</a>
-        <a href="parents-guide.html" class="header-button">Parents Guide</a>
-        <a href="resources.html" class="header-button">Resources</a>
+      <a href="index.html" class="logo">
+        <span class="logo-icon">📚</span>
+        <span data-i18n="hero_title">Classical Kids</span>
+      </a>
+      
+      <nav class="nav-desktop">
+        <a href="index.html" class="nav-link">
+          <span>🏠</span>
+          <span data-i18n="nav_home">Home</span>
+        </a>
+        <a href="parents-guide.html" class="nav-link">
+          <span>👨‍👩‍👧‍👦</span>
+          <span data-i18n="nav_guide">Parents Guide</span>
+        </a>
+        <a href="resources.html" class="nav-link">
+          <span>📖</span>
+          <span data-i18n="nav_resources">Resources</span>
+        </a>
+        <a href="classical_math.html" class="nav-link active">
+          <span>🔢</span>
+          <span data-i18n="nav_math">Math Practice</span>
+        </a>
+        <a href="dashboard.html" class="nav-link">
+          <span>📊</span>
+          <span data-i18n="nav_dashboard">Dashboard</span>
+        </a>
       </nav>
+      
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="switchLanguage('en')">🇺🇸 EN</button>
+        <button class="lang-btn" onclick="switchLanguage('es')">🇪🇸 ES</button>
+      </div>
+      
+      <button class="mobile-nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
 
-  <main>
-    <div class="math-container">
-      <h2>Classical Math Practice</h2>
-      <h3 id="welcomeUser" style="margin-bottom:1rem;"></h3>
-
-      <!-- MENU SECTION -->
-      <section id="menu" class="section">
-        <p>Select a topic to begin:</p>
-        <div id="modeButtons" class="buttons">
-          <button data-mode="counting" class="btn">Counting</button>
-          <button data-mode="addition" class="btn">Addition</button>
-          <button data-mode="subtraction" class="btn">Subtraction</button>
-          <button data-mode="multiplication" class="btn">Multiplication</button>
-          <button data-mode="division" class="btn">Division</button>
-          <button data-mode="fractions" class="btn">Fractions</button>
-          <button data-mode="geometry" class="btn">Geometry</button>
-          <button data-mode="time" class="btn">Time</button>
-          <button data-mode="money" class="btn">Money</button>
-          <button data-mode="measurement" class="btn">Measurement</button>
-          <button data-mode="patterns" class="btn">Patterns</button>
-        </div>
-      </section>
-
-      <!-- LESSON SECTION -->
-      <section id="lesson" class="section hidden">
-        <h2 id="lessonTitle"></h2>
-        <div id="lessonText" class="lesson-text"></div>
-        <button id="startPractice" class="btn">Begin Practice</button>
-      </section>
-
-      <!-- PRACTICE SECTION -->
-      <section id="practice" class="section hidden">
-        <div class="info">
-          <span>Time: <span id="time">15:00</span></span>
-          <span>Score: <span id="score">0</span></span>
-          <span>Streak: <span id="streak">0</span></span>
-          <span>Level: <span id="level">1</span></span>
-          <span>High: <span id="highScore">0</span></span>
-        </div>
-        <div class="progress-container">
-          <div id="progressBar"></div>
-        </div>
-        <div id="graphContainer" class="hidden">
-          <canvas id="graphCanvas" width="400" height="400"></canvas>
-        </div>
-        <div id="problem"></div>
-        <div class="answerArea">
-          <input id="answerInput" placeholder="Your answer" />
-          <button id="submitAnswer" class="btn">Submit Answer</button>
-        </div>
-        <div id="feedback"></div>
-        <!-- "Change Topic" button -->
-        <button id="changeTopicBtn" class="btn" style="margin-top:1rem;">Change Topic</button>
-      </section>
-
-      <!-- END SECTION -->
-      <section id="end" class="section hidden">
-        <h2>Practice Complete!</h2>
-        <p>Your final score: <span id="finalScore">0</span></p>
-        <p>High score: <span id="finalHighScore">0</span></p>
-        <button id="restartPractice" class="btn">Return to Menu</button>
-      </section>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>🔢 <span data-i18n="math_title">Math Practice</span></h1>
+      <p data-i18n="math_subtitle">Master arithmetic through fun games</p>
     </div>
-  </main>
+  </section>
 
-  <footer>
-    <div id="google_translate_element"></div>
-    <p>© 2025 Classical Kids Study Hub. All rights reserved.</p>
-  </footer>
+  <div class="container">
+    <!-- Game Selection -->
+    <section id="gameSelection">
+      <h2 style="text-align: center; margin-bottom: 2rem;">
+        <span data-i18n="select_game">Select a Game</span>
+      </h2>
+      
+      <div class="game-selector">
+        <div class="game-card" onclick="startGame('counting')">
+          <div class="game-icon">🍎</div>
+          <div class="game-title" data-i18n="counting">Counting</div>
+        </div>
+        <div class="game-card" onclick="startGame('addition')">
+          <div class="game-icon">➕</div>
+          <div class="game-title" data-i18n="addition">Addition</div>
+        </div>
+        <div class="game-card" onclick="startGame('subtraction')">
+          <div class="game-icon">➖</div>
+          <div class="game-title" data-i18n="subtraction">Subtraction</div>
+        </div>
+        <div class="game-card" onclick="startGame('multiplication')">
+          <div class="game-icon">✖️</div>
+          <div class="game-title" data-i18n="multiplication">Multiplication</div>
+        </div>
+        <div class="game-card" onclick="startGame('division')">
+          <div class="game-icon">➗</div>
+          <div class="game-title" data-i18n="division">Division</div>
+        </div>
+        <div class="game-card" onclick="startGame('fractions')">
+          <div class="game-icon">½</div>
+          <div class="game-title" data-i18n="fractions">Fractions</div>
+        </div>
+        <div class="game-card" onclick="startGame('geometry')">
+          <div class="game-icon">🔺</div>
+          <div class="game-title" data-i18n="geometry">Geometry</div>
+        </div>
+        <div class="game-card" onclick="startGame('time')">
+          <div class="game-icon">🕐</div>
+          <div class="game-title" data-i18n="time">Time</div>
+        </div>
+        <div class="game-card" onclick="startGame('money')">
+          <div class="game-icon">💰</div>
+          <div class="game-title" data-i18n="money">Money</div>
+        </div>
+        <div class="game-card" onclick="startGame('measurement')">
+          <div class="game-icon">📏</div>
+          <div class="game-title" data-i18n="measurement">Measurement</div>
+        </div>
+        <div class="game-card" onclick="startGame('patterns')">
+          <div class="game-icon">🔢</div>
+          <div class="game-title" data-i18n="patterns">Patterns</div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Google Translate Scripts -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({pageLanguage:'en'}, 'google_translate_element');
-    }
-  </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <!-- Game Play -->
+    <section id="gamePlay" class="hidden">
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+          <h2 id="gameTitle" style="margin: 0;"></h2>
+          <button class="btn btn-secondary btn-sm" onclick="backToSelection()">
+            ← <span data-i18n="back">Back</span>
+          </button>
+        </div>
+        
+        <div class="stats-bar">
+          <div class="stat-box">
+            <div class="stat-value" id="score">0</div>
+            <div class="stat-label" data-i18n="score">Score</div>
+          </div>
+          <div class="stat-box" style="background: linear-gradient(135deg, var(--success), var(--success-light));">
+            <div class="stat-value" id="streak">0</div>
+            <div class="stat-label" data-i18n="streak">Streak</div>
+          </div>
+          <div class="stat-box" style="background: linear-gradient(135deg, var(--warning), var(--warning-light));">
+            <div class="stat-value" id="level">1</div>
+            <div class="stat-label" data-i18n="level">Level</div>
+          </div>
+        </div>
+        
+        <div class="canvas-container hidden" id="canvasContainer">
+          <canvas id="mathCanvas" width="400" height="400"></canvas>
+        </div>
+        
+        <div class="problem-display" id="problemDisplay">
+          Ready? Let's go!
+        </div>
+        
+        <div class="answer-section">
+          <input 
+            type="text" 
+            class="answer-input" 
+            id="answerInput" 
+            placeholder="Your answer..."
+            onkeypress="if(event.key==='Enter') checkAnswer()"
+          >
+        </div>
+        
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <button class="btn btn-success btn-lg" onclick="checkAnswer()">
+            ✓ <span data-i18n="confirm">Check Answer</span>
+          </button>
+          <button class="btn btn-secondary" onclick="newProblem()">
+            ↻ <span data-i18n="next">Next Problem</span>
+          </button>
+        </div>
+        
+        <div class="feedback" id="feedback"></div>
+      </div>
+    </section>
+  </div>
 
-  <!-- Inline JS: multi-topic logic + bigger input + "Change Topic" -->
-  <script>
-    document.addEventListener("DOMContentLoaded",()=>{
-      // Greet user
-      const userName=localStorage.getItem("username")||"Guest";
-      document.getElementById("welcomeUser").textContent=`Welcome, ${userName}!`;
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <div class="bottom-nav-icon">🏠</div>
+      <div data-i18n="nav_home">Home</div>
+    </a>
+    <a href="resources.html" class="bottom-nav-item">
+      <div class="bottom-nav-icon">📖</div>
+      <div data-i18n="nav_resources">Resources</div>
+    </a>
+    <a href="classical_math.html" class="bottom-nav-item active">
+      <div class="bottom-nav-icon">🔢</div>
+      <div data-i18n="nav_math">Math</div>
+    </a>
+    <a href="dashboard.html" class="bottom-nav-item">
+      <div class="bottom-nav-icon">📊</div>
+      <div data-i18n="nav_dashboard">Dashboard</div>
+    </a>
+    <a href="#" class="bottom-nav-item">
+      <div class="bottom-nav-icon">⚙️</div>
+      <div>Settings</div>
+    </a>
+  </nav>
 
-      // Sections
-      const menuSection=document.getElementById("menu");
-      const lessonSection=document.getElementById("lesson");
-      const practiceSection=document.getElementById("practice");
-      const endSection=document.getElementById("end");
-
-      // UI
-      const modeButtons=document.querySelectorAll("#modeButtons button");
-      const lessonTitleElem=document.getElementById("lessonTitle");
-      const lessonTextElem=document.getElementById("lessonText");
-      const startPracticeBtn=document.getElementById("startPractice");
-      const timeElem=document.getElementById("time");
-      const scoreElem=document.getElementById("score");
-      const streakElem=document.getElementById("streak");
-      const levelElem=document.getElementById("level");
-      const highScoreElem=document.getElementById("highScore");
-      const progressBar=document.getElementById("progressBar");
-      const problemElem=document.getElementById("problem");
-      const answerInput=document.getElementById("answerInput");
-      const submitAnswerBtn=document.getElementById("submitAnswer");
-      const feedbackElem=document.getElementById("feedback");
-      const finalScoreElem=document.getElementById("finalScore");
-      const finalHighScoreElem=document.getElementById("finalHighScore");
-      const graphContainer=document.getElementById("graphContainer");
-      const graphCanvas=document.getElementById("graphCanvas");
-      const changeTopicBtn=document.getElementById("changeTopicBtn");
-
-      // State
-      let currentMode="";
-      let score=0;
-      let streak=0;
-      let currentAnswer=0;
-      let timeLeft=900; // 15 min
-      let timerInterval=null;
-      let questionCount=0;
-      const maxQuestions=50;
-      let difficulty=1;
-
-      // Lessons
-      const lessons={
-        counting:{title:"Counting",text:"<p>Counting is the start of math.</p>"},
-        addition:{title:"Addition",text:"<p>Addition combines numbers into a total.</p>"},
-        subtraction:{title:"Subtraction",text:"<p>Subtraction finds what's left after removing something.</p>"},
-        multiplication:{title:"Multiplication",text:"<p>Multiplication is repeated addition.</p>"},
-        division:{title:"Division",text:"<p>Division splits a whole into equal parts.</p>"},
-        fractions:{title:"Fractions",text:"<p>Fractions can be a bar or a grid. Enter answer as 'numerator/denom'.</p>"},
-        geometry:{title:"Geometry",text:"<p>We'll draw polygons, guess how many sides they have.</p>"},
-        time:{title:"Time",text:"<p>We'll draw a clock. Answer in 'H:MM' format.</p>"},
-        money:{title:"Money",text:"<p>Count coins in cents.</p>"},
-        measurement:{title:"Measurement",text:"<p>Add or subtract cm. We'll show bars.</p>"},
-        patterns:{title:"Patterns",text:"<p>Arithmetic sequences. Find the next term.</p>"}
-      };
-
-      // Select topic => show lesson
-      modeButtons.forEach(btn=>{
-        btn.addEventListener("click",()=>{
-          currentMode=btn.getAttribute("data-mode");
-          menuSection.classList.add("hidden");
-          lessonSection.classList.remove("hidden");
-          lessonTitleElem.textContent=lessons[currentMode]?.title||"Math Practice";
-          lessonTextElem.innerHTML=lessons[currentMode]?.text||"<p>Let's begin!</p>";
-        });
-      });
-
-      // Begin practice
-      startPracticeBtn.addEventListener("click",()=>{
-        score=0; streak=0; timeLeft=900; questionCount=0; difficulty=1;
-        scoreElem.textContent=score;
-        streakElem.textContent=streak;
-        timeElem.textContent=formatTime(timeLeft);
-        feedbackElem.textContent="";
-        lessonSection.classList.add("hidden");
-        endSection.classList.add("hidden");
-        practiceSection.classList.remove("hidden");
-        graphContainer.classList.add("hidden");
-        startTimer();
-        generateProblem();
-      });
-
-      // "Change Topic"
-      changeTopicBtn.addEventListener("click",()=>{
-        clearInterval(timerInterval);
-        practiceSection.classList.add("hidden");
-        menuSection.classList.remove("hidden");
-      });
-
-      // Submit answer
-      submitAnswerBtn.addEventListener("click",checkAnswer);
-      answerInput.addEventListener("keypress", e=>{
-        if(e.key==="Enter") checkAnswer();
-      });
-
-      // End => Return to menu
-      document.getElementById("restartPractice").addEventListener("click",()=>{
-        endSection.classList.add("hidden");
-        menuSection.classList.remove("hidden");
-      });
-
-      // Timer
-      function startTimer(){
-        clearInterval(timerInterval);
-        timerInterval=setInterval(()=>{
-          timeLeft--;
-          timeElem.textContent=formatTime(timeLeft);
-          if(timeLeft<=0) endPractice();
-        },1000);
-      }
-      function endPractice(){
-        clearInterval(timerInterval);
-        practiceSection.classList.add("hidden");
-        endSection.classList.remove("hidden");
-        finalScoreElem.textContent=score;
-        if(score>getHighScore()) setHighScore(score);
-        finalHighScoreElem.textContent=getHighScore();
-      }
-
-      // Generate problem for each topic
-      function generateProblem(){
-        questionCount++;
-        if(questionCount>maxQuestions){
-          endPractice();
-          return;
-        }
-        feedbackElem.textContent="";
-        let problemText="";
-        graphContainer.classList.add("hidden");
-
-        switch(currentMode){
-          case "counting": problemText=genCounting(); break;
-          case "addition": problemText=genAddition(); break;
-          case "subtraction": problemText=genSubtraction(); break;
-          case "multiplication": problemText=genMultiplication(); break;
-          case "division": problemText=genDivision(); break;
-          case "fractions": problemText=genFractions(); break;
-          case "geometry": problemText=genGeometry(); break;
-          case "time": problemText=genTime(); break;
-          case "money": problemText=genMoney(); break;
-          case "measurement": problemText=genMeasurement(); break;
-          case "patterns": problemText=genPatterns(); break;
-          default:
-            problemText="No logic found for this topic.";
-            currentAnswer=null;
-        }
-        problemElem.textContent=problemText;
-        answerInput.value="";
-        answerInput.focus();
-        updateProgress();
-      }
-
-      // Example logic
-      function genCounting(){
-        const count=Math.floor(Math.random()*5+1);
-        currentAnswer=count;
-        let icons="";
-        for(let i=0;i<count;i++){ icons+="🍎 "; }
-        return `Count the apples: ${icons}`;
-      }
-      function genAddition(){
-        const a=Math.floor(Math.random()*10+1);
-        const b=Math.floor(Math.random()*10+1);
-        currentAnswer=a+b;
-        return `What is ${a} + ${b}?`;
-      }
-      function genSubtraction(){
-        const a=Math.floor(Math.random()*10+5);
-        const b=Math.floor(Math.random()*(a-1)+1);
-        currentAnswer=a-b;
-        return `What is ${a} - ${b}?`;
-      }
-      function genMultiplication(){
-        const a=Math.floor(Math.random()*5+1);
-        const b=Math.floor(Math.random()*5+1);
-        currentAnswer=a*b;
-        return `What is ${a} × ${b}?`;
-      }
-      function genDivision(){
-        const divisor=Math.floor(Math.random()*5+2);
-        const quotient=Math.floor(Math.random()*5+1);
-        const dividend=divisor*quotient;
-        currentAnswer=quotient;
-        return `What is ${dividend} ÷ ${divisor}?`;
-      }
-      function genFractions(){
-        return (Math.random()<0.5)? genFractionBar() : genFractionGrid();
-      }
-      function genFractionBar(){
-        const width=Math.floor(Math.random()*4+3);
-        const numerator=Math.floor(Math.random()*(width-1)+1);
-        currentAnswer=`${numerator}/${width}`;
-        graphContainer.classList.remove("hidden");
-        drawFractionBar(numerator,width);
-        return "Look at the bar and type the fraction (e.g. 2/3)";
-      }
-      function genFractionGrid(){
-        const rows=Math.floor(Math.random()*3+2);
-        const cols=Math.floor(Math.random()*3+2);
-        const total=rows*cols;
-        const colored=Math.floor(Math.random()*(total-1)+1);
-        currentAnswer=`${colored}/${total}`;
-        graphContainer.classList.remove("hidden");
-        drawFractionGrid(rows,cols,colored);
-        return "Look at the grid and type the fraction (e.g. 3/9)";
-      }
-      function genGeometry(){
-        graphContainer.classList.remove("hidden");
-        const sidesArr=[3,4,5,6,8];
-        const pick=sidesArr[Math.floor(Math.random()*sidesArr.length)];
-        currentAnswer=pick;
-        drawPolygon(pick);
-        return `How many sides does this shape have?`;
-      }
-      function genTime(){
-        graphContainer.classList.remove("hidden");
-        const hour=Math.floor(Math.random()*12+1);
-        const minute=Math.floor(Math.random()*60);
-        const addM=Math.floor(Math.random()*20+5);
-        const curTime=formatTimeSimple(hour,minute);
-        const newTime=addMinutesToTime(hour,minute,addM);
-        currentAnswer=newTime;
-        drawClock(hour,minute);
-        return `It is ${curTime}. What time will it be in ${addM} minutes? (H:MM)`;
-      }
-      function genMoney(){
-        graphContainer.classList.remove("hidden");
-        const pennies=Math.floor(Math.random()*3);
-        const nickels=Math.floor(Math.random()*3);
-        const dimes=Math.floor(Math.random()*3);
-        const quarters=Math.floor(Math.random()*3);
-        currentAnswer=pennies+nickels*5+dimes*10+quarters*25;
-        drawMoneyDiagram(pennies,nickels,dimes,quarters);
-        return `You have ${pennies} pennies, ${nickels} nickels, ${dimes} dimes, ${quarters} quarters. Total cents?`;
-      }
-      function genMeasurement(){
-        graphContainer.classList.remove("hidden");
-        let op=(Math.random()<0.5)? "+" : "-";
-        let a=Math.floor(Math.random()*10+1);
-        let b=Math.floor(Math.random()*10+1);
-        if(op==="+") currentAnswer=a+b;
-        else{
-          if(b>a)[a,b]=[b,a];
-          currentAnswer=a-b;
-        }
-        drawMeasurementDiagram(a,b,op);
-        return (op==="+")? `What is ${a} cm + ${b} cm?` : `What is ${a} cm - ${b} cm?`;
-      }
-      function genPatterns(){
-        const start=Math.floor(Math.random()*5+1);
-        const diff=Math.floor(Math.random()*5+1);
-        const seq=[start,start+diff,start+2*diff];
-        currentAnswer=start+3*diff;
-        return `Complete the sequence: ${seq.join(", ")}, ?`;
-      }
-
-      // CHECK ANSWER
-      function checkAnswer(){
-        const userResp=answerInput.value.trim();
-        if(!userResp) return;
-        if(currentMode==="fractions"){
-          if(userResp===currentAnswer) correct();
-          else wrong();
-        } else if(["counting","addition","subtraction","multiplication","division","measurement","patterns"].includes(currentMode)){
-          const userNum=parseFloat(userResp);
-          if(isNaN(userNum)){
-            feedbackElem.textContent="Please enter a valid number.";
-            return;
-          }
-          if(userNum===currentAnswer) correct();
-          else wrong();
-        } else if(currentMode==="geometry"){
-          const userNum=parseFloat(userResp);
-          if(isNaN(userNum)){
-            feedbackElem.textContent="Please enter a valid number of sides.";
-            return;
-          }
-          if(userNum===currentAnswer) correct();
-          else wrong();
-        } else if(currentMode==="time"){
-          if(userResp===currentAnswer) correct();
-          else wrong();
-        } else if(currentMode==="money"){
-          const userNum=parseFloat(userResp);
-          if(isNaN(userNum)){
-            feedbackElem.textContent="Please enter a valid number of cents.";
-            return;
-          }
-          if(userNum===currentAnswer) correct();
-          else wrong();
-        } else{
-          feedbackElem.textContent="No check logic for this topic yet.";
-        }
-      }
-      function correct(){
-        score++; streak++;
-        feedbackElem.textContent="Correct!";
-        feedbackElem.classList.remove("incorrect");
-        feedbackElem.classList.add("correct");
-        if(streak%3===0 && difficulty<3) difficulty++;
-        setTimeout(()=>{
-          feedbackElem.classList.remove("correct","incorrect");
-          scoreElem.textContent=score;
-          streakElem.textContent=streak;
-          generateProblem();
-        },1200);
-      }
-      function wrong(){
-        streak=0;
-        feedbackElem.textContent=`Incorrect. The correct answer was ${currentAnswer}.`;
-        feedbackElem.classList.remove("correct");
-        feedbackElem.classList.add("incorrect");
-        if(difficulty>1) difficulty--;
-        setTimeout(()=>{
-          feedbackElem.classList.remove("correct","incorrect");
-          scoreElem.textContent=score;
-          streakElem.textContent=streak;
-          generateProblem();
-        },1200);
-      }
-
-      function updateProgress(){
-        const progressPercent=(questionCount/maxQuestions)*100;
-        progressBar.style.width=progressPercent+"%";
-        levelElem.textContent=difficulty;
-      }
-
-      // UTILS
-      function formatTime(sec){
-        const m=Math.floor(sec/60), s=sec%60;
-        return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
-      }
-      function getHighScore(){
-        return parseInt(localStorage.getItem(`highScore_${userName}_${currentMode}`))||0;
-      }
-      function setHighScore(val){
-        localStorage.setItem(`highScore_${userName}_${currentMode}`,val);
-      }
-      function randomInt(min,max){
-        return Math.floor(Math.random()*(max-min+1))+min;
-      }
-      function formatTimeSimple(hour,minute){
-        let minStr=minute<10?"0"+minute:minute;
-        return `${hour}:${minStr}`;
-      }
-      function addMinutesToTime(hour,minute,addM){
-        let total=hour*60+minute+addM;
-        let newHour=Math.floor(total/60)%12;
-        if(newHour===0) newHour=12;
-        let newMin=total%60;
-        return formatTimeSimple(newHour,newMin);
-      }
-
-      // VISUALS
-      function drawFractionBar(numerator,denominator){
-        const ctx=graphCanvas.getContext("2d");
-        ctx.clearRect(0,0,400,400);
-        const cellW=60, cellH=150;
-        const totalW=denominator*cellW;
-        const offsetX=(400-totalW)/2;
-        const offsetY=(400-cellH)/2;
-        for(let i=0;i<denominator;i++){
-          ctx.lineWidth=2;
-          ctx.strokeStyle="#000";
-          ctx.strokeRect(offsetX+i*cellW,offsetY,cellW,cellH);
-          if(i<numerator){
-            ctx.fillStyle="#0052cc";
-            ctx.fillRect(offsetX+i*cellW,offsetY,cellW,cellH);
-          }
-        }
-      }
-      function drawFractionGrid(rows,cols,filled){
-        graphContainer.classList.remove("hidden");
-        const ctx=graphCanvas.getContext("2d");
-        ctx.clearRect(0,0,400,400);
-        const cellSize=60;
-        const totalW=cols*cellSize;
-        const totalH=rows*cellSize;
-        const offsetX=(400-totalW)/2;
-        const offsetY=(400-totalH)/2;
-        const squares=[];
-        for(let r=0;r<rows;r++){
-          for(let c=0;c<cols;c++){
-            squares.push({r,c});
-          }
-        }
-        shuffleArray(squares);
-        const colored=squares.slice(0,filled);
-        for(let r=0;r<rows;r++){
-          for(let c=0;c<cols;c++){
-            const x=offsetX+c*cellSize, y=offsetY+r*cellSize;
-            ctx.lineWidth=2;
-            ctx.strokeStyle="#000";
-            ctx.strokeRect(x,y,cellSize,cellSize);
-          }
-        }
-        ctx.fillStyle="#0052cc";
-        colored.forEach(sq=>{
-          const x=offsetX+sq.c*cellSize, y=offsetY+sq.r*cellSize;
-          ctx.fillRect(x,y,cellSize,cellSize);
-        });
-      }
-      function shuffleArray(arr){
-        for(let i=arr.length-1;i>0;i--){
-          const j=Math.floor(Math.random()*(i+1));
-          [arr[i],arr[j]]=[arr[j],arr[i]];
-        }
-      }
-      function drawPolygon(sides){
-        graphContainer.classList.remove("hidden");
-        const ctx=graphCanvas.getContext("2d");
-        ctx.clearRect(0,0,400,400);
-        const centerX=200, centerY=200;
-        const radius=100;
-        const angleStep=(2*Math.PI)/sides;
-        ctx.beginPath();
-        for(let i=0;i<sides;i++){
-          const x=centerX+radius*Math.cos(i*angleStep - Math.PI/2);
-          const y=centerY+radius*Math.sin(i*angleStep - Math.PI/2);
-          if(i===0) ctx.moveTo(x,y);
-          else ctx.lineTo(x,y);
-        }
-        ctx.closePath();
-        ctx.lineWidth=2;
-        ctx.strokeStyle="#000";
-        ctx.stroke();
-      }
-      function drawClock(hour,minute){
-        graphContainer.classList.remove("hidden");
-        const ctx=graphCanvas.getContext("2d");
-        ctx.clearRect(0,0,400,400);
-        const centerX=200, centerY=200;
-        const radius=100;
-        ctx.beginPath();
-        ctx.arc(centerX,centerY,radius,0,2*Math.PI);
-        ctx.strokeStyle="#0052cc";
-        ctx.lineWidth=3;
-        ctx.stroke();
-        for(let i=0;i<12;i++){
-          const angle=i*Math.PI/6 - Math.PI/2;
-          const x1=centerX+(radius-10)*Math.cos(angle);
-          const y1=centerY+(radius-10)*Math.sin(angle);
-          const x2=centerX+radius*Math.cos(angle);
-          const y2=centerY+radius*Math.sin(angle);
-          ctx.beginPath();
-          ctx.moveTo(x1,y1);
-          ctx.lineTo(x2,y2);
-          ctx.strokeStyle="#000";
-          ctx.lineWidth=2;
-          ctx.stroke();
-        }
-        let hourAngle=((hour%12)+(minute/60))*Math.PI/6 - Math.PI/2;
-        ctx.beginPath();
-        ctx.moveTo(centerX,centerY);
-        ctx.lineTo(centerX+(radius-40)*Math.cos(hourAngle), centerY+(radius-40)*Math.sin(hourAngle));
-        ctx.strokeStyle="#000";
-        ctx.lineWidth=3;
-        ctx.stroke();
-        let minuteAngle=minute*Math.PI/30 - Math.PI/2;
-        ctx.beginPath();
-        ctx.moveTo(centerX,centerY);
-        ctx.lineTo(centerX+(radius-20)*Math.cos(minuteAngle), centerY+(radius-20)*Math.sin(minuteAngle));
-        ctx.strokeStyle="#000";
-        ctx.lineWidth=2;
-        ctx.stroke();
-      }
-      function drawMoneyDiagram(pennies,nickels,dimes,quarters){
-        graphContainer.classList.remove("hidden");
-        const ctx=graphCanvas.getContext("2d");
-        ctx.clearRect(0,0,400,400);
-        const coinRadius=15;
-        let startX=30,startY=40;
-        ctx.font="14px Arial";
-        drawCoinSet(ctx,"1¢",pennies,startX,startY,coinRadius,"#b87333");
-        startY+=50;
-        drawCoinSet(ctx,"5¢",nickels,startX,startY,coinRadius,"#c0c0c0");
-        startY+=50;
-        drawCoinSet(ctx,"10¢",dimes,startX,startY,coinRadius,"#aaaaaa");
-        startY+=50;
-        drawCoinSet(ctx,"25¢",quarters,startX,startY,coinRadius,"#888888");
-      }
-      function drawCoinSet(ctx,label,count,startX,startY,r,fillColor){
-        for(let i=0;i<count;i++){
-          const x=startX+i*(r*2+10);
-          const y=startY;
-          ctx.beginPath();
-          ctx.arc(x,y,r,0,2*Math.PI);
-          ctx.fillStyle=fillColor;
-          ctx.fill();
-          ctx.stroke();
-          ctx.fillStyle="#000";
-          ctx.fillText(label,x-10,y+4);
-        }
-      }
-      function drawMeasurementDiagram(a,b,op){
-        graphContainer.classList.remove("hidden");
-        const ctx=graphCanvas.getContext("2d");
-        ctx.clearRect(0,0,400,400);
-        const factor=20;
-        const barHeight=25;
-        const offsetX=30, offsetY=180;
-        if(op==="+"){
-          ctx.fillStyle="#0052cc";
-          ctx.fillRect(offsetX,offsetY,a*factor,barHeight);
-          ctx.fillStyle="#000";
-          ctx.fillText(`${a} cm`,offsetX+(a*factor)/2-10,offsetY-5);
-
-          ctx.fillStyle="#28a745";
-          ctx.fillRect(offsetX+a*factor+10,offsetY,b*factor,barHeight);
-          ctx.fillStyle="#000";
-          ctx.fillText(`${b} cm`,offsetX+a*factor+10+(b*factor)/2-10,offsetY-5);
-        } else {
-          ctx.fillStyle="#0052cc";
-          ctx.fillRect(offsetX,offsetY,a*factor,barHeight);
-          ctx.fillStyle="#000";
-          ctx.fillText(`${a} cm`,offsetX+(a*factor)/2-10,offsetY-5);
-
-          ctx.fillStyle="#dc3545";
-          ctx.fillRect(offsetX,offsetY,b*factor,barHeight);
-          ctx.fillStyle="#000";
-          ctx.fillText(`-${b} cm`,offsetX+(b*factor)/2-15,offsetY+barHeight+15);
-        }
-      }
-    });
-  </script>
+  <script src="js/i18n.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/math-games.js"></script>
 </body>
 </html>

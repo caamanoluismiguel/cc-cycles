@@ -2,124 +2,286 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Parents Guide - Classical Kids Study Hub</title>
   <link rel="icon" href="fav.ico" type="image/x-icon">
   <link rel="stylesheet" href="styles.css">
-  <script>
-    // If user is not logged in, redirect to index
-    if (!localStorage.getItem("username")) {
-      window.location.href = "index.html";
+  <style>
+    .trivium-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
     }
-  </script>
+    
+    .stage-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      transition: all var(--transition);
+      border-top: 5px solid var(--primary);
+    }
+    
+    .stage-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    .stage-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .stage-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    
+    .stage-age {
+      text-align: center;
+      color: var(--text-light);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    
+    .tip-card {
+      background: linear-gradient(135deg, var(--success-light), var(--success));
+      color: white;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      margin: 1rem 0;
+    }
+  </style>
 </head>
 <body>
-  <header>
+  <div id="confettiContainer"></div>
+
+  <header class="header">
     <div class="header-container">
-      <a href="index.html" class="logo" translate="no">Classical Kids Study Hub</a>
-      <!-- Display nav only if logged in -->
-      <nav class="header-links" id="navLinks" style="display: flex;">
-        <a href="parents-guide.html" class="header-button">Parents Guide</a>
-        <a href="resources.html" class="header-button">Resources</a>
+      <a href="index.html" class="logo">
+        <span class="logo-icon">📚</span>
+        <span data-i18n="hero_title">Classical Kids</span>
+      </a>
+      
+      <nav class="nav-desktop">
+        <a href="index.html" class="nav-link">
+          <span>🏠</span>
+          <span data-i18n="nav_home">Home</span>
+        </a>
+        <a href="parents-guide.html" class="nav-link active">
+          <span>👨‍👩‍👧‍👦</span>
+          <span data-i18n="nav_guide">Parents Guide</span>
+        </a>
+        <a href="resources.html" class="nav-link">
+          <span>📖</span>
+          <span data-i18n="nav_resources">Resources</span>
+        </a>
+        <a href="classical_math.html" class="nav-link">
+          <span>🔢</span>
+          <span data-i18n="nav_math">Math Practice</span>
+        </a>
+        <a href="dashboard.html" class="nav-link">
+          <span>📊</span>
+          <span data-i18n="nav_dashboard">Dashboard</span>
+        </a>
       </nav>
+      
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="switchLanguage('en')">🇺🇸 EN</button>
+        <button class="lang-btn" onclick="switchLanguage('es')">🇪🇸 ES</button>
+      </div>
+      
+      <button class="mobile-nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
-  
-  <main>
-    <div class="container">
-      <h1>Everyday Teaching: A Parent-to-Parent Guide to the Trivium</h1>
-      
-      <!-- Introduction Section -->
-      <section class="guide-section" style="margin-bottom: 2rem;">
-        <h2>Introduction</h2>
-        <p>
-          Hi there! Every day brings moments to teach our kids—even when it’s not planned. 
-          Our family journey in classical conversations starts with a simple question: 
-          <strong>"What is the purpose of our lives?"</strong> And we believe it’s to 
-          <strong>glorify God and enjoy Him forever</strong>. This idea guides everything we do.
-        </p>
-      </section>
 
-      <!-- The Trivium Section -->
-      <section class="guide-section" style="margin-bottom: 2rem;">
-        <h2>What is the Trivium?</h2>
-        <p>
-          The <strong>Trivium—Grammar, Logic, and Rhetoric</strong> is a simple way to think about learning together:
-        </p>
-        <ul style="list-style: disc; margin-left: 1.5rem;">
-          <li><strong>Grammar:</strong> We start by gathering the facts...</li>
-          <li><strong>Logic:</strong> Next, we ask “why” and “how”...</li>
-          <li><strong>Rhetoric:</strong> Finally, we learn to share what we’ve learned...</li>
-        </ul>
-      </section>
-
-      <!-- Everyday Moments Section -->
-      <section class="guide-section" style="margin-bottom: 2rem;">
-        <h2>Everyday Moments Turned into Lessons</h2>
-        <p>
-          Let me share a fun example. When we got our Roomba (we call him <strong>Robbie</strong>), 
-          we didn’t just watch him clean. We sat down with the kids, looked at his parts—his 
-          <em>brain (the control system)</em>, his <em>legs (wheels)</em>, his <em>eyes (sensors)</em>—and talked 
-          about his purpose. We compared that to our own lives: just as Robbie is built to sweep and mop, 
-          we’re made to <strong>glorify God and enjoy Him</strong>. This simple chat turned an everyday moment 
-          into a rich conversation about how God made us with purpose.
-        </p>
-        <p>
-          I’ll be honest—we’re not perfect at classical conversations. We struggle, get frustrated, and learn along the way. 
-          But that’s okay. Every day is a chance to grow, and we do it all by God’s grace.
-        </p>
-      </section>
-
-      <!-- Practical Tips Section -->
-      <section class="guide-section" style="margin-bottom: 2rem;">
-        <h2>Practical Tips for Busy Parents</h2>
-        <ul style="list-style: disc; margin-left: 1.5rem;">
-          <li>
-            <strong>Turn “Car Time” into “Class Time”:</strong> 
-            Use a few minutes during your drive to sing memory songs or share a cool fact from the day.
-          </li>
-          <li>
-            <strong>Have Mini-Debates at Mealtimes:</strong> 
-            Pick a simple topic—maybe how Robbie works or something interesting from your day—and ask everyone what they think.
-          </li>
-          <li>
-            <strong>Set Small, Achievable Goals:</strong> 
-            Each week, choose one or two small things to focus on, like a Bible verse or a new set of words.
-          </li>
-        </ul>
-      </section>
-
-      <!-- Final Encouragement Section -->
-      <section class="guide-section" style="margin-bottom: 2rem;">
-        <h2>Final Encouragement</h2>
-        <p>
-          Remember, this isn’t about being perfect—it’s about progress and enjoying the journey together. 
-          Tools like <a href="index.html#selectionSection" style="color: #0056b3; text-decoration: underline;">Classical Kids Study Hub</a> 
-          are here to guide us through the lessons, but you’re the heart of your child’s learning. 
-          Every day, even in the messiness, is a chance to grow in wisdom and faith. 
-          Let's embrace these moments, knowing our purpose is to glorify God and enjoy Him every step of the way.
-        </p>
-      </section>
-      
-      <!-- Back to Menu Button -->
-      <a href="index.html#selectionSection" class="back-button">Back to Menu</a>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>👨‍👩‍👧‍👦 Parents Guide</h1>
+      <p>Understanding the Classical Education Model</p>
     </div>
-  </main>
+  </section>
 
-  <footer>
-    <div class="footer-container">
-      <div class="translate-widget">
-        <div id="google_translate_element"></div>
+  <div class="container">
+    <!-- Introduction -->
+    <div class="card" style="margin-bottom: 3rem;">
+      <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Welcome to Classical Education</h2>
+      <p style="font-size: 1.125rem; line-height: 1.8; color: var(--text);">
+        Classical education follows the <strong>Trivium</strong> - a three-stage learning model that aligns with natural child development. Each stage builds upon the previous, creating a strong foundation for lifelong learning.
+      </p>
+    </div>
+
+    <!-- Trivium Stages -->
+    <h2 style="text-align: center; margin-bottom: 2rem;">The Three Stages of Learning</h2>
+    
+    <div class="trivium-grid">
+      <div class="stage-card" style="border-top-color: var(--primary);">
+        <div class="stage-icon">🌱</div>
+        <div class="stage-title">Grammar Stage</div>
+        <div class="stage-age">Ages 5-10</div>
+        <p style="line-height: 1.8; margin-bottom: 1rem;">
+          Children naturally absorb information like sponges. This stage focuses on building knowledge through memorization and repetition.
+        </p>
+        <h4 style="color: var(--primary); margin: 1.5rem 0 0.75rem;">Key Focus:</h4>
+        <ul style="line-height: 1.8; padding-left: 1.5rem;">
+          <li>Memory work</li>
+          <li>Facts and information</li>
+          <li>Songs and chants</li>
+          <li>Basic skills</li>
+        </ul>
+      </div>
+
+      <div class="stage-card" style="border-top-color: var(--success);">
+        <div class="stage-icon">🔍</div>
+        <div class="stage-title">Dialectic Stage</div>
+        <div class="stage-age">Ages 11-13</div>
+        <p style="line-height: 1.8; margin-bottom: 1rem;">
+          Students begin asking "why?" and challenging ideas. This stage develops critical thinking and logical reasoning.
+        </p>
+        <h4 style="color: var(--success); margin: 1.5rem 0 0.75rem;">Key Focus:</h4>
+        <ul style="line-height: 1.8; padding-left: 1.5rem;">
+          <li>Logical thinking</li>
+          <li>Debate and discussion</li>
+          <li>Cause and effect</li>
+          <li>Analysis</li>
+        </ul>
+      </div>
+
+      <div class="stage-card" style="border-top-color: var(--warning);">
+        <div class="stage-icon">🎓</div>
+        <div class="stage-title">Rhetoric Stage</div>
+        <div class="stage-age">Ages 14-18</div>
+        <p style="line-height: 1.8; margin-bottom: 1rem;">
+          Students learn to express knowledge persuasively and beautifully. This stage emphasizes communication and wisdom.
+        </p>
+        <h4 style="color: var(--warning); margin: 1.5rem 0 0.75rem;">Key Focus:</h4>
+        <ul style="line-height: 1.8; padding-left: 1.5rem;">
+          <li>Eloquent expression</li>
+          <li>Written communication</li>
+          <li>Public speaking</li>
+          <li>Original thought</li>
+        </ul>
       </div>
     </div>
-  </footer>
 
-  <!-- Google Translate Widget Scripts -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    <!-- Practical Tips -->
+    <div style="margin: 4rem 0;">
+      <h2 style="margin-bottom: 2rem;">💡 Practical Tips for Parents</h2>
+      
+      <div class="tip-card">
+        <h3 style="margin-bottom: 1rem;">✅ Set a Consistent Schedule</h3>
+        <p style="opacity: 0.95; line-height: 1.6;">
+          Use the 15-minute timer feature daily. Consistency builds habits and makes learning natural.
+        </p>
+      </div>
+      
+      <div class="tip-card" style="background: linear-gradient(135deg, var(--primary-light), var(--primary));">
+        <h3 style="margin-bottom: 1rem;">📚 Read Together</h3>
+        <p style="opacity: 0.95; line-height: 1.6;">
+          Use our age-appropriate book recommendations. Reading together strengthens bonds and comprehension.
+        </p>
+      </div>
+      
+      <div class="tip-card" style="background: linear-gradient(135deg, var(--warning-light), var(--warning));">
+        <h3 style="margin-bottom: 1rem;">🎯 Celebrate Progress</h3>
+        <p style="opacity: 0.95; line-height: 1.6;">
+          Use the dashboard to track achievements. Celebrate small wins to build confidence and motivation.
+        </p>
+      </div>
+      
+      <div class="tip-card" style="background: linear-gradient(135deg, var(--purple-light), var(--purple));">
+        <h3 style="margin-bottom: 1rem;">🌟 Make it Fun</h3>
+        <p style="opacity: 0.95; line-height: 1.6;">
+          Use math games and memory work songs. Learning should be joyful, not a chore.
+        </p>
+      </div>
+    </div>
+
+    <!-- Weekly Schedule -->
+    <div class="card">
+      <h2 style="color: var(--primary); margin-bottom: 1.5rem;">📅 Suggested Weekly Schedule</h2>
+      
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="background: var(--gray-100);">
+              <th style="padding: 1rem; text-align: left; border: 1px solid var(--gray-200);">Day</th>
+              <th style="padding: 1rem; text-align: left; border: 1px solid var(--gray-200);">Focus</th>
+              <th style="padding: 1rem; text-align: left; border: 1px solid var(--gray-200);">Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 1rem; border: 1px solid var(--gray-200); font-weight: 600;">Monday</td>
+              <td style="padding: 1rem; border: 1px solid var(--gray-200);">Memory Work Review</td>
+              <td style="padding: 1rem; border: 1px solid var(--gray-200);">15 minutes</td>
+            </tr>
+            <tr style="background: var(--gray-50);">
+              <td style="padding: 1rem; border: 1px solid var(--gray-200); font-weight: 600;">Tuesday</td>
+              <td style="padding: 1rem; border: 1px solid var(--gray-200);">Math Practice</td>
+              <td style="padding: 1rem; border: 1px solid var(--gray-200);">15 minutes</td>
+            </tr>
+            <tr>
+              <td style="padding: 1rem; border: 1px solid var(--gray-200); font-weight: 600;">Wednesday</td>
+              <td style="padding: 1rem; border: 1px solid var(--gray-200);">Reading & Discussion</td>
+              <td style="padding: 1rem; border: 1px solid var(--gray-200);">20 minutes</td>
+            </tr>
+            <tr style="background: var(--gray-50);">
+              <td style="padding: 1rem; border: 1px solid var(--gray-200); font-weight: 600;">Thursday</td>
+              <td style="padding: 1rem; border: 1px solid var(--gray-200);">Memory Work Practice</td>
+              <td style="padding: 1rem; border: 1px solid var(--gray-200);">15 minutes</td>
+            </tr>
+            <tr>
+              <td style="padding: 1rem; border: 1px solid var(--gray-200); font-weight: 600;">Friday</td>
+              <td style="padding: 1rem; border: 1px solid var(--gray-200);">Review & Fun Games</td>
+              <td style="padding: 1rem; border: 1px solid var(--gray-200);">20 minutes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <div class="bottom-nav-icon">🏠</div>
+      <div data-i18n="nav_home">Home</div>
+    </a>
+    <a href="resources.html" class="bottom-nav-item">
+      <div class="bottom-nav-icon">📖</div>
+      <div data-i18n="nav_resources">Resources</div>
+    </a>
+    <a href="classical_math.html" class="bottom-nav-item">
+      <div class="bottom-nav-icon">🔢</div>
+      <div data-i18n="nav_math">Math</div>
+    </a>
+    <a href="dashboard.html" class="bottom-nav-item">
+      <div class="bottom-nav-icon">📊</div>
+      <div data-i18n="nav_dashboard">Dashboard</div>
+    </a>
+    <a href="#" class="bottom-nav-item">
+      <div class="bottom-nav-icon">⚙️</div>
+      <div>Settings</div>
+    </a>
+  </nav>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/confetti.js"></script>
+  <script>
+    function switchLanguage(lang) {
+      window.i18n.setLanguage(lang);
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
     }
   </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

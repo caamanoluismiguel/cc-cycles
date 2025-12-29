@@ -1,293 +1,522 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resources - Classical Kids Study Hub</title>
   <link rel="icon" href="fav.ico" type="image/x-icon">
-  <!-- Optional external stylesheet if you have one -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles-contest.css">
   <style>
-    /* Basic reset & styling */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      color: #333;
-    }
-    header {
-      background: #fff;
-      border-bottom: 1px solid #ddd;
-      padding: 10px;
+    .search-bar {
       position: sticky;
-      top: 0;
-      z-index: 1000;
+      top: 70px;
+      z-index: 90;
+      background: white;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-xl);
+      margin-bottom: 2rem;
     }
-    .header-container {
-      max-width: 1200px;
-      margin: 0 auto;
+    
+    .search-input {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3rem;
+      font-size: 1.125rem;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      transition: var(--transition);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cpath d='m21 21-4.35-4.35'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 1rem center;
+      background-size: 1.5rem;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+    }
+    
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    
+    .filter-tab {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid var(--gray-200);
+      background: white;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 0.5rem;
     }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #0056b3;
-      text-decoration: none;
+    
+    .filter-tab:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
     }
-    .header-links {
-      display: flex;
-      gap: 10px;
+    
+    .filter-tab.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      border-color: var(--primary);
     }
-    .header-button {
-      background: #0056b3;
-      color: #fff;
-      padding: 8px 12px;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: background 0.3s;
-    }
-    .header-button:hover {
-      background: #003d99;
-    }
-
-    main {
-      padding: 20px;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 30px;
-      /* Left-align text */
-      text-align: left;
-    }
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      color: #0056b3;
-      text-align: center; /* Keep the main title centered if you like */
-    }
-    .top-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 1.5rem;
-    }
-    .btn {
-      background: #0056b3;
-      color: #fff;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
+    
+    .book-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
       cursor: pointer;
-      transition: background 0.3s;
-      text-decoration: none; /* for link usage */
-      display: inline-block;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
     }
-    .btn:hover {
-      background: #003d99;
+    
+    .book-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
     }
-    h2, h3 {
-      color: #0056b3;
-      margin-top: 1rem;
+    
+    .book-cover {
+      height: 200px;
+      background: linear-gradient(135deg, var(--primary-light), var(--purple-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .book-cover::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .book-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .book-title {
+      font-size: 1.25rem;
+      font-weight: 700;
       margin-bottom: 0.5rem;
+      color: var(--text);
     }
-    p {
-      line-height: 1.5;
-      margin-bottom: 1rem;
+    
+    .book-author {
+      color: var(--text-light);
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
     }
-    ul {
-      margin-left: 1.5rem;
-      margin-bottom: 1rem;
-      list-style: disc;
+    
+    .book-description {
+      font-size: 0.875rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      flex: 1;
     }
-    ul li {
-      margin-bottom: 0.3rem;
+    
+    .book-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--primary-light);
+      color: white;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 1rem;
     }
-    .resource-group {
-      margin-bottom: 1.5rem;
+    
+    .playlist-section {
+      margin-top: 3rem;
     }
-    .disclaimer {
-      font-style: italic;
-      font-size: 0.9rem;
-      margin-top: 1.5rem;
-      border-top: 1px solid #ddd;
-      padding-top: 1rem;
-      color: #555;
+    
+    .cycle-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--gray-200);
     }
-    footer {
+    
+    .cycle-tab {
+      padding: 1rem 2rem;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-weight: 700;
+      font-size: 1.125rem;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-light);
+    }
+    
+    .cycle-tab:hover {
+      color: var(--primary);
+    }
+    
+    .cycle-tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    
+    .playlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+    
+    .playlist-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: var(--radius-lg);
+      border-left: 4px solid var(--primary);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .playlist-card:hover {
+      transform: translateX(8px);
+      box-shadow: var(--shadow-lg);
+      border-left-width: 6px;
+    }
+    
+    .empty-state {
       text-align: center;
-      margin-top: 40px;
-      color: #555;
+      padding: 4rem 2rem;
+      color: var(--text-light);
+    }
+    
+    .empty-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
     }
   </style>
 </head>
 <body>
-  <!-- Top Navigation -->
-  <header>
+  <div id="confettiContainer"></div>
+
+  <!-- Header -->
+  <header class="header">
     <div class="header-container">
-      <a href="index.html" class="logo" translate="no">Classical Kids Study Hub</a>
-      <nav class="header-links">
-        <a href="index.html" class="header-button">Home</a>
-        <a href="parents-guide.html" class="header-button">Parents Guide</a>
-        <a href="resources.html" class="header-button" style="opacity:0.9;">Resources</a>
+      <a href="index.html" class="logo">
+        <span class="logo-icon">📚</span>
+        <span data-i18n="hero_title">Classical Kids</span>
+      </a>
+      
+      <nav class="nav-desktop">
+        <a href="index.html" class="nav-link">
+          <span>🏠</span>
+          <span data-i18n="nav_home">Home</span>
+        </a>
+        <a href="parents-guide.html" class="nav-link">
+          <span>👨‍👩‍👧‍👦</span>
+          <span data-i18n="nav_guide">Parents Guide</span>
+        </a>
+        <a href="resources.html" class="nav-link active">
+          <span>📖</span>
+          <span data-i18n="nav_resources">Resources</span>
+        </a>
+        <a href="classical_math.html" class="nav-link">
+          <span>🔢</span>
+          <span data-i18n="nav_math">Math Practice</span>
+        </a>
+        <a href="dashboard.html" class="nav-link">
+          <span>📊</span>
+          <span data-i18n="nav_dashboard">Dashboard</span>
+        </a>
       </nav>
+      
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="switchLanguage('en')">🇺🇸 EN</button>
+        <button class="lang-btn" onclick="switchLanguage('es')">🇪🇸 ES</button>
+      </div>
+      
+      <button class="mobile-nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
 
-  <main>
-    <div class="container">
-      <h1>Educational Resources</h1>
-      <div class="top-buttons">
-        <!-- Button to go directly to classical_math.html -->
-        <a href="classical_math.html" class="btn">Math Practice</a>
-        <!-- Back to Menu -->
-        <a href="index.html" class="btn">Back to Menu</a>
-      </div>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>📚 <span data-i18n="resources_title">Educational Resources</span></h1>
+      <p style="font-size: 1.125rem; opacity: 0.95;">Books and materials for every age and stage</p>
+    </div>
+  </section>
 
-      <!-- All recommended reading content, left-aligned -->
-      <h2>Recommended Reading</h2>
-
-      <!-- Ages 5–7 -->
-      <div class="resource-group">
-        <h3>Ages 5–7 (Early Grammar Stage) 👶📖</h3>
-        <p><strong>Focus:</strong> Foundational stories with biblical themes, strong moral lessons, and exposure to rich language.</p>
-        <ul>
-          <li><strong>The Jesus Storybook Bible</strong> – Sally Lloyd-Jones (Must be read alongside Scripture for theological accuracy.)</li>
-          <li><strong>A Child’s Garden of Verses</strong> – Robert Louis Stevenson (Classic poetry that fosters appreciation for beauty.)</li>
-          <li><strong>Little Pilgrim’s Progress</strong> – Helen L. Taylor (A child-friendly retelling of The Pilgrim’s Progress.)</li>
-          <li><strong>The Complete Tales of Beatrix Potter</strong> – Beatrix Potter (Wholesome stories that teach responsibility and consequences.)</li>
-          <li><strong>Aesop’s Fables</strong> – Aesop (Classic fables with moral lessons, framed biblically.)</li>
-          <li><strong>Winnie-the-Pooh</strong> – A.A. Milne (Gentle, wise, and joyful storytelling.)</li>
-          <li><strong>The Tale of Despereaux</strong> – Kate DiCamillo (Themes of redemption, sacrifice, and courage.)</li>
-          <li><strong>The Story of Doctor Dolittle</strong> – Hugh Lofting (A fun animal adventure with some evolutionary concepts.)</li>
-          <li><strong>Charlotte’s Web</strong> – E.B. White (Sacrificial love and friendship beautifully portrayed.)</li>
-          <li><strong>Blueberries for Sal</strong> – Robert McCloskey (A delightful family-centered story.)</li>
-          <li><strong>The House at Pooh Corner</strong> – A.A. Milne (Continuing themes of friendship and kindness.)</li>
-          <li><strong>Caps for Sale</strong> – Esphyr Slobodkina (Lessons in patience and problem-solving.)</li>
-          <li><strong>Make Way for Ducklings</strong> – Robert McCloskey (Themes of family, responsibility, and perseverance.)</li>
-          <li><strong>Curious George</strong> – H.A. Rey (Encourages curiosity and problem-solving.)</li>
-          <li><strong>The Velveteen Rabbit</strong> – Margery Williams (A profound allegory about love and selflessness.)</li>
-          <li><strong>Frog and Toad Are Friends</strong> – Arnold Lobel (Teaches friendship and loyalty.)</li>
-          <li><strong>The Snowy Day</strong> – Ezra Jack Keats (Encourages wonder in God's creation.)</li>
-          <li><strong>The Little Engine That Could</strong> – Watty Piper (A classic lesson on perseverance.)</li>
-          <li><strong>The Story of Ping</strong> – Marjorie Flack (Teaches obedience and responsibility.)</li>
-          <li><strong>Peter Rabbit’s Giant Treasury</strong> – Beatrix Potter (Classic British storytelling with moral lessons.)</li>
-        </ul>
-      </div>
-
-      <!-- Ages 8–10 -->
-      <div class="resource-group">
-        <h3>Ages 8–10 (Late Grammar Stage) 🧒📚</h3>
-        <p><strong>Focus:</strong> Stronger narratives with Christian virtues, adventure, and wisdom.</p>
-        <ul>
-          <li><strong>Dangerous Journey</strong> – Oliver Hunkin (A beautifully illustrated retelling of The Pilgrim’s Progress.)</li>
-          <li><strong>The Chronicles of Narnia</strong> – C.S. Lewis (Christian allegory with profound biblical themes.)</li>
-          <li><strong>Little House on the Prairie</strong> – Laura Ingalls Wilder (Emphasizes faith, family, and hard work.)</li>
-          <li><strong>Missionary Stories with the Millers</strong> – Mildred A. Martin (Engaging missionary tales.)</li>
-          <li><strong>The Swiss Family Robinson</strong> – Johann Wyss (Adventure with Christian values.)</li>
-          <li><strong>Tales of the Kingdom</strong> – David &amp; Karen Mains (Christian allegory with rich biblical imagery.)</li>
-          <li><strong>The Secret Garden</strong> – Frances Hodgson Burnett (Themes of redemption and renewal.)</li>
-          <li><strong>The Green Ember (series)</strong> – S.D. Smith (Christian allegory about courage and loyalty.)</li>
-          <li><strong>The Wind in the Willows</strong> – Kenneth Grahame (Explores morality, virtue, and folly.)</li>
-          <li><strong>King Arthur and His Knights of the Round Table</strong> – Roger Lancelyn Green (Explores heroism and honor.)</li>
-          <li><strong>Harry Potter and the Sorcerer’s Stone</strong> – J.K. Rowling (Courage, sacrifice, and friendship.)</li>
-          <li><strong>The Mysterious Benedict Society</strong> – Trenton Lee Stewart (Promotes wisdom and discernment.)</li>
-          <li><strong>The Wingfeather Saga</strong> – Andrew Peterson (Christian allegory with deep biblical themes.)</li>
-          <li><strong>Island of the Blue Dolphins</strong> – Scott O’Dell (Resilience and faith under adversity.)</li>
-          <li><strong>Black Beauty</strong> – Anna Sewell (Kindness, justice, and compassion.)</li>
-          <li><strong>The Boxcar Children</strong> – Gertrude Chandler Warner (Themes of perseverance and family.)</li>
-          <li><strong>Where the Red Fern Grows</strong> – Wilson Rawls (Loyalty, love, and responsibility.)</li>
-          <li><strong>The Tale of Peter Rabbit</strong> – Beatrix Potter (Classic moral lessons.)</li>
-        </ul>
-      </div>
-
-      <!-- Ages 11–13 -->
-      <div class="resource-group">
-        <h3>Ages 11–13 (Dialectic Stage) 👦📖</h3>
-        <p><strong>Focus:</strong> Deeper moral complexity, Christian virtue, and discernment.</p>
-        <ul>
-          <li><strong>The Pilgrim’s Progress</strong> – John Bunyan (Essential Christian allegory.)</li>
-          <li><strong>Treasure Island</strong> – Robert Louis Stevenson (Adventure with strong moral lessons.)</li>
-          <li><strong>Harry Potter (series)</strong> – J.K. Rowling (Sacrifice, courage, and wisdom.)</li>
-          <li><strong>Anne of Green Gables</strong> – L.M. Montgomery (Faith, virtue, and growing in grace.)</li>
-          <li><strong>The Hobbit</strong> – J.R.R. Tolkien (Providence and humility.)</li>
-          <li><strong>Dr. Jekyll and Mr. Hyde</strong> – Robert Louis Stevenson (A deep look at human depravity.)</li>
-          <li><strong>Twenty Thousand Leagues Under the Sea</strong> – Jules Verne (Exploration and scientific wonder.)</li>
-          <li><strong>Journey to the Center of the Earth</strong> – Jules Verne (Encourages curiosity and adventure.)</li>
-          <li><strong>The Chronicles of Prydain</strong> – Lloyd Alexander (Fantasy with deep moral themes.)</li>
-          <li><strong>The Giver</strong> – Lois Lowry (Explores free will and truth.)</li>
-          <li><strong>Robin Hood</strong> – Howard Pyle (Justice and heroism.)</li>
-          <li><strong>Hatchet</strong> – Gary Paulsen (Survival and responsibility.)</li>
-          <li><strong>Number the Stars</strong> – Lois Lowry (Courage in the face of evil.)</li>
-          <li><strong>Old Yeller</strong> – Fred Gipson (Sacrifice and loyalty.)</li>
-          <li><strong>Little Women</strong> – Louisa May Alcott (Faith, virtue, and wisdom.)</li>
-          <li><strong>Tom Sawyer</strong> – Mark Twain (Maturity and moral growth.)</li>
-          <li><strong>The Jungle Book</strong> – Rudyard Kipling (Moral dilemmas and responsibility.)</li>
-          <li><strong>Brave New World</strong> – Aldous Huxley (A critique of godless society.)</li>
-          <li><strong>Anne Frank: The Diary of a Young Girl</strong> – Anne Frank (A young girl's faith in adversity.)</li>
-          <li><strong>The Call of the Wild</strong> – Jack London (Survival, loyalty, and endurance.)</li>
-        </ul>
-      </div>
-
-      <!-- Ages 17–18 -->
-      <div class="resource-group">
-        <h3>Ages 17–18 (Advanced Rhetoric Stage) 👩‍🎓📚</h3>
-        <p><strong>Focus:</strong> Theology, philosophy, apologetics, and literature that challenges Christian worldview thinking.</p>
-        <ul>
-          <li><strong>The Institutes of the Christian Religion</strong> – John Calvin (Essential for understanding Reformed theology.)</li>
-          <li><strong>Bondage of the Will</strong> – Martin Luther (Defends the biblical doctrine of total depravity.)</li>
-          <li><strong>The Holiness of God</strong> – R.C. Sproul (Explores the majesty and fear of the Lord.)</li>
-          <li><strong>The Abolition of Man</strong> – C.S. Lewis (Critique of moral relativism, defending biblical objectivity.)</li>
-          <li><strong>1984</strong> – George Orwell (A critique of authoritarianism and the dangers of losing truth.)</li>
-          <li><strong>Pilgrim’s Regress</strong> – C.S. Lewis (An allegory of intellectual and spiritual journey.)</li>
-          <li><strong>Spiritual Disciplines for the Christian Life</strong> – Donald Whitney (A practical guide to biblical growth.)</li>
-          <li><strong>The Reformed Pastor</strong> – Richard Baxter (A model for deep Christian discipleship.)</li>
-          <li><strong>The Brothers Karamazov</strong> – Fyodor Dostoevsky (A masterwork on human depravity and redemption.)</li>
-          <li><strong>Les Misérables</strong> – Victor Hugo (An epic story of grace and justice.)</li>
-          <li><strong>The Count of Monte Cristo</strong> – Alexandre Dumas (A brilliant story of justice, but needs discussion on Christian forgiveness.)</li>
-          <li><strong>The Federalist Papers</strong> – Alexander Hamilton, James Madison, John Jay (Understanding government through a biblical lens.)</li>
-          <li><strong>The Republic</strong> – Plato (Important for seeing non-Christian views on justice and virtue.)</li>
-          <li><strong>The Cost of Discipleship</strong> – Dietrich Bonhoeffer (A profound challenge to follow Christ at all costs.)</li>
-          <li><strong>A Tale of Two Cities</strong> – Charles Dickens (Sacrifice and redemption in revolutionary France.)</li>
-          <li><strong>Frankenstein</strong> – Mary Shelley (Ethics of creation, playing God, and consequences of human pride.)</li>
-          <li><strong>The Weight of Glory</strong> – C.S. Lewis (Deep reflections on eternity and our longings for heaven.)</li>
-          <li><strong>The Pursuit of God</strong> – A.W. Tozer (Encourages deepening one’s relationship with God.)</li>
-          <li><strong>Desiring God</strong> – John Piper (A call to delight in Christ-centered living.)</li>
-          <li><strong>Heaven</strong> – Randy Alcorn (A biblical exploration of the afterlife and eternity.)</li>
-        </ul>
-      </div>
-
-      <!-- Disclaimer -->
-      <div class="disclaimer">
-        <p><strong>Disclaimer:</strong> As Christians, we approach literature with wisdom and discernment, recognizing that while some books contain problematic elements, they also provide valuable insights into human nature, morality, and virtue. As Nancy Pearcey argues in <em>Total Truth</em>, Christians should engage with culture and art critically, rather than avoiding it altogether.</p>
-        <p>This list is not meant to condemn certain books but to equip readers to think biblically about what they read—avoiding exposure to inappropriate content for their age while appreciating artistry and truth where it can be found.</p>
+  <div class="container">
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input 
+        type="text" 
+        class="search-input" 
+        id="searchInput"
+        placeholder="Search books by title, author, or age..."
+        data-i18n-placeholder="search_books"
+      >
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterBooks('all')">
+          📚 All Books
+        </button>
+        <button class="filter-tab" onclick="filterBooks('5-7')">
+          👶 Ages 5-7
+        </button>
+        <button class="filter-tab" onclick="filterBooks('8-10')">
+          🧒 Ages 8-10
+        </button>
+        <button class="filter-tab" onclick="filterBooks('11-13')">
+          👦 Ages 11-13
+        </button>
+        <button class="filter-tab" onclick="filterBooks('14-16')">
+          👨 Ages 14-16
+        </button>
+        <button class="filter-tab" onclick="filterBooks('17-18')">
+          🎓 Ages 17-18
+        </button>
       </div>
     </div>
-  </main>
 
-  <footer>
-    <div style="text-align:center; margin-top:30px;">
-      <div id="google_translate_element"></div>
-      <p>© 2025 Classical Kids Study Hub. All rights reserved.</p>
-    </div>
-  </footer>
+    <!-- Books Section -->
+    <section id="booksSection">
+      <h2 style="margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span data-i18n="books_by_age">Books by Age</span>
+        <span id="bookCount" style="background: var(--primary-light); color: white; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 1rem;"></span>
+      </h2>
+      
+      <div class="card-grid" id="booksGrid"></div>
+      
+      <div id="emptyState" class="empty-state hidden">
+        <div class="empty-icon">🔍</div>
+        <h3>No books found</h3>
+        <p>Try a different search term or filter</p>
+      </div>
+    </section>
 
-  <!-- Google Translate Scripts -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({ pageLanguage:'en' }, 'google_translate_element');
+    <!-- Memory Work Playlists -->
+    <section class="playlist-section">
+      <h2 style="margin-bottom: 2rem;">
+        🎵 <span data-i18n="memory_work">Memory Work Playlists</span>
+      </h2>
+      
+      <div class="cycle-tabs">
+        <button class="cycle-tab active" onclick="showCycle(1)">
+          🏛️ Cycle 1
+        </button>
+        <button class="cycle-tab" onclick="showCycle(2)">
+          🏰 Cycle 2
+        </button>
+        <button class="cycle-tab" onclick="showCycle(3)">
+          🗽 Cycle 3
+        </button>
+      </div>
+      
+      <div id="playlistsGrid" class="playlist-grid"></div>
+    </section>
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <div class="bottom-nav-icon">🏠</div>
+      <div data-i18n="nav_home">Home</div>
+    </a>
+    <a href="resources.html" class="bottom-nav-item active">
+      <div class="bottom-nav-icon">📖</div>
+      <div data-i18n="nav_resources">Resources</div>
+    </a>
+    <a href="classical_math.html" class="bottom-nav-item">
+      <div class="bottom-nav-icon">🔢</div>
+      <div data-i18n="nav_math">Math</div>
+    </a>
+    <a href="dashboard.html" class="bottom-nav-item">
+      <div class="bottom-nav-icon">📊</div>
+      <div data-i18n="nav_dashboard">Dashboard</div>
+    </a>
+    <a href="#" class="bottom-nav-item">
+      <div class="bottom-nav-icon">⚙️</div>
+      <div>Settings</div>
+    </a>
+  </nav>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/resources-data.js"></script>
+  <script>
+    let currentFilter = 'all';
+    let currentCycle = 1;
+    let allBooks = [];
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadBooks();
+      loadPlaylists();
+      setupSearch();
+    });
+
+    function loadBooks() {
+      // Get books from resources-data.js
+      allBooks = Object.entries(BOOKS_DATA).flatMap(([age, books]) => 
+        books.map(book => ({ ...book, age }))
+      );
+      
+      displayBooks();
+    }
+
+    function displayBooks() {
+      const grid = document.getElementById('booksGrid');
+      const emptyState = document.getElementById('emptyState');
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      
+      let filtered = allBooks.filter(book => {
+        const matchesFilter = currentFilter === 'all' || book.age === currentFilter;
+        const matchesSearch = !searchTerm || 
+          book.title.toLowerCase().includes(searchTerm) ||
+          book.author.toLowerCase().includes(searchTerm) ||
+          book.description.toLowerCase().includes(searchTerm);
+        return matchesFilter && matchesSearch;
+      });
+      
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        document.getElementById('bookCount').textContent = '0';
+        return;
+      }
+      
+      emptyState.classList.add('hidden');
+      document.getElementById('bookCount').textContent = filtered.length;
+      
+      grid.innerHTML = filtered.map((book, index) => {
+        const colors = [
+          'linear-gradient(135deg, #4A90E2, #7DB3F5)',
+          'linear-gradient(135deg, #10B981, #6EE7B7)',
+          'linear-gradient(135deg, #F59E0B, #FCD34D)',
+          'linear-gradient(135deg, #8B5CF6, #A78BFA)',
+          'linear-gradient(135deg, #FB7185, #FECDD3)'
+        ];
+        const color = colors[index % colors.length];
+        
+        return `
+          <div class="book-card" style="animation: fadeInUp 0.6s ease ${index * 0.05}s backwards;">
+            <div class="book-cover" style="background: ${color};">
+              📖
+            </div>
+            <div class="book-content">
+              <div class="book-title">${book.title}</div>
+              <div class="book-author">${book.author}</div>
+              <div class="book-description">${book.description}</div>
+              <div class="book-badge">Ages ${book.age}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterBooks(age) {
+      currentFilter = age;
+      
+      // Update active tab
+      document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      displayBooks();
+      
+      // Small confetti
+      createConfetti(20, 1500);
+    }
+
+    function setupSearch() {
+      const searchInput = document.getElementById('searchInput');
+      let searchTimeout;
+      
+      searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          displayBooks();
+        }, 300);
+      });
+    }
+
+    function loadPlaylists() {
+      showCycle(1);
+    }
+
+    function showCycle(cycle) {
+      currentCycle = cycle;
+      
+      // Update tabs
+      document.querySelectorAll('.cycle-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      const grid = document.getElementById('playlistsGrid');
+      const playlists = MEMORY_PLAYLISTS[`cycle${cycle}`];
+      
+      grid.innerHTML = Object.entries(playlists).map(([week, data]) => `
+        <a href="${data.url}" target="_blank" class="playlist-card">
+          <div>
+            <div style="font-weight: 700; margin-bottom: 0.5rem;">Week ${week}</div>
+            <div style="font-size: 0.875rem; color: var(--text-light);">${data.topics.join(', ')}</div>
+          </div>
+          <div style="font-size: 1.5rem;">▶️</div>
+        </a>
+      `).join('');
+      
+      createConfetti(15, 1000);
+    }
+
+    function switchLanguage(lang) {
+      window.i18n.setLanguage(lang);
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      showToast(lang === 'en' ? 'Language changed 🇺🇸' : 'Idioma cambiado 🇪🇸', 'success');
+    }
+
+    function showToast(message, type) {
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        position: fixed; bottom: 100px; right: 20px; background: white;
+        padding: 1rem 1.5rem; border-radius: 1rem;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2); font-weight: 600;
+        z-index: 10000; animation: slideInRight 0.3s ease;
+      `;
+      const colors = { success: '#10B981', error: '#EF4444', warning: '#F59E0B', info: '#3B82F6' };
+      toast.style.borderLeft = `4px solid ${colors[type]}`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
     }
   </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
