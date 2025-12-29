@@ -2,447 +2,255 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Classical Kids Study Hub - Home</title>
-  <link rel="icon" href="fav.ico" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0056b3">
+  <meta name="description" content="Classical Kids Study Hub - A companion guide for Classical Conversations curriculum">
+  <title>Classical Kids Study Hub</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    /* Study Session Specific Styles */
-    .cycle-selector {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-    
-    .cycle-card {
-      background: white;
-      padding: 2rem;
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      cursor: pointer;
-      transition: all var(--transition);
-      text-align: center;
-      border: 3px solid transparent;
-    }
-    
-    .cycle-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: var(--shadow-xl);
-    }
-    
-    .cycle-card.selected {
-      border-color: var(--primary);
-      background: linear-gradient(135deg, var(--primary-light), var(--purple-light));
-      color: white;
-      box-shadow: 0 8px 20px rgba(74, 144, 226, 0.4);
-    }
-    
-    .cycle-icon {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-      animation: bounce 2s infinite;
-    }
-    
-    .week-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-    
-    .week-btn {
-      aspect-ratio: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: white;
-      border: 2px solid var(--gray-200);
-      border-radius: var(--radius-lg);
-      cursor: pointer;
-      transition: all var(--transition);
-      font-weight: 700;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .week-btn:hover {
-      transform: scale(1.1);
-      border-color: var(--primary);
-      box-shadow: var(--shadow-lg);
-    }
-    
-    .week-btn.completed::after {
-      content: '✓';
-      position: absolute;
-      top: 4px;
-      right: 4px;
-      background: var(--success);
-      color: white;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      font-size: 0.75rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .week-btn.selected {
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      color: white;
-      border-color: var(--primary);
-      transform: scale(1.15);
-    }
-    
-    .timer-display {
-      font-size: 4rem;
-      font-weight: 700;
-      font-family: 'Fredoka', sans-serif;
-      text-align: center;
-      background: linear-gradient(135deg, var(--primary), var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin: 2rem 0;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.8; }
-    }
-    
-    .timer-controls {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    
-    .memory-card {
-      background: white;
-      padding: 1.5rem;
-      border-radius: var(--radius-lg);
-      border-left: 4px solid var(--primary);
-      margin-bottom: 1rem;
-      box-shadow: var(--shadow);
-      transition: all var(--transition);
-    }
-    
-    .memory-card:hover {
-      transform: translateX(8px);
-      box-shadow: var(--shadow-lg);
-    }
-    
-    .homework-input {
-      width: 100%;
-      min-height: 150px;
-      padding: 1.5rem;
-      border: 2px solid var(--gray-200);
-      border-radius: var(--radius-lg);
-      font-family: inherit;
-      font-size: 1rem;
-      resize: vertical;
-      transition: var(--transition);
-    }
-    
-    .homework-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
-    }
-    
-    .floating-action {
-      position: fixed;
-      bottom: 100px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(135deg, var(--success), var(--success-light));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: white;
-      box-shadow: var(--shadow-xl);
-      cursor: pointer;
-      transition: all var(--transition);
-      z-index: 98;
-    }
-    
-    .floating-action:hover {
-      transform: scale(1.1) rotate(90deg);
-    }
-    
-    @media (max-width: 767px) {
-      .floating-action {
-        bottom: 100px;
-      }
-    }
-  </style>
 </head>
 <body>
-  <!-- Confetti Container -->
-  <div id="confettiContainer"></div>
-
-  <!-- Header -->
+  <!-- HEADER -->
   <header class="header">
     <div class="header-container">
-      <a href="index-contest.html" class="logo">
-        <span class="logo-icon">📚</span>
-        <span data-i18n="hero_title">Classical Kids</span>
+      <a href="index.html" class="logo">
+        <span class="logo-emoji">📚</span>
+        <span data-i18n="appName">Classical Kids</span>
       </a>
       
-      <nav class="nav-desktop">
-        <a href="index-contest.html" class="nav-link active">
-          <span>🏠</span>
-          <span data-i18n="nav_home">Home</span>
-        </a>
-        <a href="parents-guide-contest.html" class="nav-link">
-          <span>👨‍👩‍👧‍👦</span>
-          <span data-i18n="nav_guide">Parents Guide</span>
-        </a>
-        <a href="resources-contest.html" class="nav-link">
-          <span>📖</span>
-          <span data-i18n="nav_resources">Resources</span>
-        </a>
-        <a href="math-contest.html" class="nav-link">
-          <span>🔢</span>
-          <span data-i18n="nav_math">Math Practice</span>
-        </a>
-        <a href="dashboard-contest.html" class="nav-link">
-          <span>📊</span>
-          <span data-i18n="nav_dashboard">Dashboard</span>
-        </a>
-      </nav>
-      
+      <!-- Language Toggle -->
       <div class="lang-toggle">
-        <button class="lang-btn active" onclick="switchLanguage('en')">🇺🇸 EN</button>
-        <button class="lang-btn" onclick="switchLanguage('es')">🇪🇸 ES</button>
+        <button class="lang-btn active" data-lang="en" onclick="i18n.setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="es" onclick="i18n.setLang('es')">ES</button>
       </div>
       
-      <button class="mobile-nav-toggle" onclick="toggleMobileMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <!-- Desktop Nav -->
+      <nav class="header-links">
+        <a href="index.html" class="header-button active" data-i18n="home">Home</a>
+        <a href="resources.html" class="header-button" data-i18n="resources">Resources</a>
+        <a href="classical_math.html" class="header-button" data-i18n="math">Math</a>
+        <a href="dashboard.html" class="header-button" data-i18n="dashboard">Dashboard</a>
+        <a href="parents-guide.html" class="header-button" data-i18n="parents">Parents</a>
+      </nav>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1 data-i18n="hero_title">Classical Kids Study Hub</h1>
-      <p data-i18n="hero_subtitle">Your companion for Classical Conversations</p>
-      <div class="hero-buttons">
-        <button class="btn btn-primary btn-lg" onclick="showSection('study')">
-          <span data-i18n="start_session">Start Study Session</span>
-          <span>✨</span>
-        </button>
-        <button class="btn btn-secondary btn-lg" onclick="showSection('homework')">
-          <span>📝 Homework</span>
-        </button>
-      </div>
+  <main class="main">
+    <!-- WELCOME SCREEN (Before Login) -->
+    <div id="welcomeScreen">
+      <section class="hero">
+        <h1 data-i18n="appName">Classical Kids Study Hub</h1>
+        <p class="hero-subtitle">"Train up a child in the way he should go..." — Proverbs 22:6</p>
+        
+        <form class="login-form" id="loginForm">
+          <label class="form-label" data-i18n="enterName">What's your name?</label>
+          <input type="text" id="nameInput" class="form-input" data-i18n-placeholder="namePlaceholder" placeholder="Enter your name" required autocomplete="name">
+          <button type="submit" class="btn btn-warning btn-lg btn-block" style="margin-top: var(--space-md);">
+            <span data-i18n="startLearning">Start Learning</span> 🚀
+          </button>
+        </form>
+      </section>
     </div>
-  </section>
 
-  <div class="container">
-    <!-- Welcome Section -->
-    <section id="welcomeSection" class="demo-section">
-      <div class="card" style="text-align: center; padding: 3rem;">
-        <h2 style="margin-bottom: 1rem;">
-          <span data-i18n="welcome_back">Welcome back</span>, 
-          <span id="userName" style="color: var(--primary);">Student</span>! 👋
-        </h2>
-        <p style="font-size: 1.125rem; color: var(--text-light); margin-bottom: 2rem;">
-          Ready to learn something amazing today?
-        </p>
-        
-        <div class="card-grid" style="margin-top: 2rem;">
-          <div class="card" style="cursor: pointer; border: 2px solid var(--primary);" onclick="showSection('study')">
-            <div style="font-size: 3rem; margin-bottom: 1rem;">📚</div>
-            <h3 style="color: var(--primary);">Start Lesson</h3>
-            <p style="color: var(--text-light); font-size: 0.875rem;">Continue your studies</p>
-          </div>
-          
-          <div class="card" style="cursor: pointer; border: 2px solid var(--success);" onclick="window.location='math-contest.html'">
-            <div style="font-size: 3rem; margin-bottom: 1rem;">🎮</div>
-            <h3 style="color: var(--success);">Math Games</h3>
-            <p style="color: var(--text-light); font-size: 0.875rem;">Practice with fun</p>
-          </div>
-          
-          <div class="card" style="cursor: pointer; border: 2px solid var(--warning);" onclick="window.location='resources-contest.html'">
-            <div style="font-size: 3rem; margin-bottom: 1rem;">📖</div>
-            <h3 style="color: var(--warning);">Resources</h3>
-            <p style="color: var(--text-light); font-size: 0.875rem;">Books & materials</p>
+    <!-- MAIN APP (After Login) -->
+    <div id="mainApp" class="hidden">
+      
+      <!-- HOME SCREEN -->
+      <section id="homeScreen" class="container">
+        <div class="text-center" style="margin-bottom: var(--space-xl);">
+          <h2><span data-i18n="welcomeBack">Welcome back</span>, <span id="displayName">Student</span>! 👋</h2>
+        </div>
+
+        <!-- Continue Card -->
+        <div id="continueCard" class="card card-body hidden" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; margin-bottom: var(--space-xl); cursor: pointer;">
+          <div style="display: flex; align-items: center; gap: var(--space-lg);">
+            <div style="font-size: 2.5rem;">▶️</div>
+            <div style="flex: 1;">
+              <div style="font-size: 0.75rem; opacity: 0.9; text-transform: uppercase;" data-i18n="continue">Continue</div>
+              <div style="font-family: var(--font-display); font-size: 1.25rem;" id="continueTitle">Cycle 1 • Week 1</div>
+              <div style="font-size: 0.875rem; opacity: 0.9;" id="continueMeta">History</div>
+            </div>
+            <div style="font-size: 1.5rem;">→</div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Study Session Section -->
-    <section id="studySection" class="demo-section hidden">
-      <!-- Step 1: Select Cycle -->
-      <div id="cycleStep" class="card">
-        <h2 style="text-align: center; margin-bottom: 2rem;">
-          🎯 <span data-i18n="select_cycle">Select Your Cycle</span>
-        </h2>
-        
-        <div class="cycle-selector">
-          <div class="cycle-card" onclick="selectCycle(1)">
+        <!-- Cycle Selection -->
+        <h3 class="text-center mb-md" data-i18n="chooseCycle">Choose Your Cycle</h3>
+        <div class="cycle-grid" id="cycleGrid">
+          <div class="cycle-card" data-cycle="1">
             <div class="cycle-icon">🏛️</div>
-            <h3>Cycle 1</h3>
-            <p style="color: var(--text-light); font-size: 0.875rem;">Ancient History</p>
+            <div class="cycle-name"><span data-i18n="cycle">Cycle</span> 1</div>
+            <div class="cycle-desc" data-i18n="cycle1Name">Ancient History</div>
           </div>
-          
-          <div class="cycle-card" onclick="selectCycle(2)">
+          <div class="cycle-card" data-cycle="2">
             <div class="cycle-icon">🏰</div>
-            <h3>Cycle 2</h3>
-            <p style="color: var(--text-light); font-size: 0.875rem;">Medieval to Modern</p>
+            <div class="cycle-name"><span data-i18n="cycle">Cycle</span> 2</div>
+            <div class="cycle-desc" data-i18n="cycle2Name">Medieval → Modern</div>
           </div>
-          
-          <div class="cycle-card" onclick="selectCycle(3)">
+          <div class="cycle-card" data-cycle="3">
             <div class="cycle-icon">🗽</div>
-            <h3>Cycle 3</h3>
-            <p style="color: var(--text-light); font-size: 0.875rem;">US History</p>
+            <div class="cycle-name"><span data-i18n="cycle">Cycle</span> 3</div>
+            <div class="cycle-desc" data-i18n="cycle3Name">US History</div>
           </div>
         </div>
-      </div>
 
-      <!-- Step 2: Select Week -->
-      <div id="weekStep" class="card hidden">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-          <h2 style="margin: 0;">
-            📅 <span data-i18n="select_week">Select Week</span>
-          </h2>
-          <button class="btn btn-secondary btn-sm" onclick="backToSection('cycle')">
-            ← Back
-          </button>
+        <!-- Quick Stats -->
+        <div class="stats-grid" style="margin-top: var(--space-xl);">
+          <div class="stat-card primary">
+            <div class="value" id="statTime">0</div>
+            <div class="label" data-i18n="totalMinutes">Minutes</div>
+          </div>
+          <div class="stat-card success">
+            <div class="value" id="statLessons">0</div>
+            <div class="label" data-i18n="lessonsCompleted">Lessons</div>
+          </div>
+          <div class="stat-card warning">
+            <div class="value" id="statStreak">0🔥</div>
+            <div class="label" data-i18n="dayStreak">Streak</div>
+          </div>
         </div>
-        
+      </section>
+
+      <!-- WEEK SELECTION SCREEN -->
+      <section id="weekScreen" class="container hidden">
+        <button class="btn btn-primary mb-lg" onclick="showScreen('home')">← <span data-i18n="back">Back</span></button>
+        <h2 class="text-center mb-lg" id="weekScreenTitle" data-i18n="selectWeek">Select Week</h2>
         <div class="week-grid" id="weekGrid"></div>
-      </div>
+      </section>
 
-      <!-- Step 3: Study Timer -->
-      <div id="timerStep" class="card hidden">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-          <h2 style="margin: 0;">
-            ⏱️ <span>Study Session</span>
-          </h2>
-          <button class="btn btn-secondary btn-sm" onclick="backToSection('week')">
-            ← Back
-          </button>
-        </div>
+      <!-- LESSON SCREEN -->
+      <section id="lessonScreen" class="container hidden">
+        <button class="btn btn-primary mb-lg" onclick="showScreen('week')">← <span data-i18n="back">Back</span></button>
         
-        <div style="text-align: center; background: linear-gradient(135deg, var(--primary-light), var(--purple-light)); padding: 3rem; border-radius: var(--radius-xl); color: white; margin-bottom: 2rem;">
-          <div style="font-size: 1.5rem; opacity: 0.9; margin-bottom: 1rem;">
-            Cycle <span id="displayCycle">1</span> - Week <span id="displayWeek">1</span>
+        <!-- Topic Tabs -->
+        <div class="topic-tabs-wrap">
+          <div class="topic-tabs" id="topicTabs">
+            <button class="topic-tab active" data-topic="history">
+              <span class="topic-icon">📜</span>
+              <span data-i18n="history">History</span>
+            </button>
+            <button class="topic-tab" data-topic="science">
+              <span class="topic-icon">🔬</span>
+              <span data-i18n="science">Science</span>
+            </button>
+            <button class="topic-tab" data-topic="geography">
+              <span class="topic-icon">🌍</span>
+              <span data-i18n="geography">Geography</span>
+            </button>
+            <button class="topic-tab" data-topic="math">
+              <span class="topic-icon">🔢</span>
+              <span data-i18n="mathTopic">Math</span>
+            </button>
+            <button class="topic-tab" data-topic="english">
+              <span class="topic-icon">📝</span>
+              <span data-i18n="english">English</span>
+            </button>
+            <button class="topic-tab" data-topic="latin">
+              <span class="topic-icon">📚</span>
+              <span data-i18n="latin">Latin</span>
+            </button>
+            <button class="topic-tab" data-topic="finearts">
+              <span class="topic-icon">🎨</span>
+              <span data-i18n="fineArts">Fine Arts</span>
+            </button>
           </div>
+        </div>
+
+        <!-- Timer Card -->
+        <div class="timer-card" id="timerCard">
           <div class="timer-display" id="timerDisplay">15:00</div>
+          <div style="opacity: 0.9; font-size: 0.875rem;">
+            <span id="timerCycleBadge">Cycle 1</span> • <span id="timerWeekBadge">Week 1</span>
+          </div>
           <div class="timer-controls">
-            <button class="btn btn-lg" onclick="startTimer()" id="startBtn" style="background: white; color: var(--primary);">
-              ▶️ <span data-i18n="start_timer">Start</span>
-            </button>
-            <button class="btn btn-warning btn-lg hidden" onclick="pauseTimer()" id="pauseBtn">
-              ⏸️ <span data-i18n="pause">Pause</span>
-            </button>
-            <button class="btn btn-success btn-lg hidden" onclick="completeSession()" id="completeBtn">
-              ✓ <span data-i18n="complete_session">Complete</span>
-            </button>
+            <button class="timer-btn" id="btnResetTimer" title="Reset">🔄</button>
+            <button class="timer-btn primary" id="btnPlayPause" title="Play/Pause">▶️</button>
+            <button class="timer-btn" id="btnComplete" title="Complete">✓</button>
           </div>
         </div>
-        
-        <!-- Memory Work Display -->
-        <div id="memoryWork">
-          <h3 style="margin-bottom: 1.5rem;">📝 This Week's Memory Work</h3>
-          <div class="memory-card">
-            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">History</h4>
-            <p style="margin: 0;">Timeline event for this week will appear here</p>
-          </div>
-          <div class="memory-card">
-            <h4 style="color: var(--success); margin-bottom: 0.5rem;">Science</h4>
-            <p style="margin: 0;">Science fact for this week will appear here</p>
-          </div>
-          <div class="memory-card">
-            <h4 style="color: var(--warning); margin-bottom: 0.5rem;">Geography</h4>
-            <p style="margin: 0;">Geography location for this week will appear here</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Homework Section -->
-    <section id="homeworkSection" class="demo-section hidden">
-      <div class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-          <h2 style="margin: 0;">
-            📝 <span>Homework & Notes</span>
-          </h2>
-          <button class="btn btn-secondary btn-sm" onclick="showSection('welcome')">
-            ← Back
-          </button>
+        <!-- Lesson Content -->
+        <div class="card lesson-card" id="lessonCard">
+          <div class="lesson-header">
+            <div style="font-size: 0.875rem; opacity: 0.9;" id="lessonMeta">Cycle 1 • Week 1</div>
+            <h2 id="lessonTitle">📜 History</h2>
+          </div>
+          <div id="lessonBody">
+            <div class="lesson-section text-center">
+              <p data-i18n="loading">Loading...</p>
+            </div>
+          </div>
         </div>
-        
-        <div style="margin-bottom: 2rem;">
-          <label class="form-label" style="font-size: 1.125rem; font-weight: 700;">
-            What did you learn today?
-          </label>
-          <textarea 
-            class="homework-input" 
-            id="homeworkText"
-            placeholder="Write your notes, homework, or reflections here..."
-          ></textarea>
-        </div>
-        
-        <div style="display: flex; gap: 1rem; justify-content: flex-end;">
-          <button class="btn btn-secondary" onclick="clearHomework()">
-            Clear
-          </button>
-          <button class="btn btn-success btn-lg" onclick="saveHomework()">
-            💾 Save Progress
-          </button>
-        </div>
-        
-        <!-- Previous Entries -->
-        <div id="homeworkHistory" style="margin-top: 3rem;"></div>
-      </div>
-    </section>
-  </div>
 
-  <!-- Floating Action Button -->
-  <div class="floating-action" onclick="showSection('homework')" title="Quick Notes">
-    ✏️
-  </div>
+        <!-- Homework Section -->
+        <div class="homework-card" id="homeworkCard">
+          <div class="homework-header" onclick="toggleHomework()">
+            <div style="display: flex; align-items: center; gap: var(--space-sm);">
+              <span>✏️</span>
+              <span data-i18n="homework">Homework & Reflection</span>
+            </div>
+            <span id="homeworkToggle">▼</span>
+          </div>
+          <div class="homework-body">
+            <div class="homework-content">
+              <p style="color: var(--text-muted); margin-bottom: var(--space-lg);" data-i18n="homeworkIntro">Take a moment to reflect on what you learned...</p>
+              
+              <div class="mb-lg">
+                <label class="form-label">1. <span data-i18n="question1">What is one key idea you learned today?</span></label>
+                <textarea class="homework-textarea" id="hw1"></textarea>
+              </div>
+              
+              <div class="mb-lg">
+                <label class="form-label">2. <span data-i18n="question2">How will you apply this in your daily life?</span></label>
+                <textarea class="homework-textarea" id="hw2"></textarea>
+              </div>
+              
+              <div class="mb-lg">
+                <label class="form-label">3. <span data-i18n="question3">Which creative activity did you choose and why?</span></label>
+                <textarea class="homework-textarea" id="hw3"></textarea>
+              </div>
+              
+              <div style="display: flex; gap: var(--space-md);">
+                <button class="btn btn-danger btn-sm" onclick="clearHomework()" data-i18n="clear">Clear</button>
+                <button class="btn btn-success btn-block" onclick="submitHomework()">
+                  ✓ <span data-i18n="submitHomework">Submit & Continue</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
 
-  <!-- Bottom Navigation -->
+  <!-- BOTTOM NAVIGATION (Mobile) -->
   <nav class="bottom-nav">
-    <a href="index-contest.html" class="bottom-nav-item active">
-      <div class="bottom-nav-icon">🏠</div>
-      <div data-i18n="nav_home">Home</div>
+    <a href="index.html" class="nav-item active">
+      <span class="nav-icon">🏠</span>
+      <span data-i18n="home">Home</span>
     </a>
-    <a href="resources-contest.html" class="bottom-nav-item">
-      <div class="bottom-nav-icon">📖</div>
-      <div data-i18n="nav_resources">Resources</div>
+    <a href="resources.html" class="nav-item">
+      <span class="nav-icon">📖</span>
+      <span data-i18n="resources">Resources</span>
     </a>
-    <a href="math-contest.html" class="bottom-nav-item">
-      <div class="bottom-nav-icon">🔢</div>
-      <div data-i18n="nav_math">Math</div>
+    <a href="classical_math.html" class="nav-item">
+      <span class="nav-icon">🔢</span>
+      <span data-i18n="math">Math</span>
     </a>
-    <a href="dashboard-contest.html" class="bottom-nav-item">
-      <div class="bottom-nav-icon">📊</div>
-      <div data-i18n="nav_dashboard">Dashboard</div>
+    <a href="dashboard.html" class="nav-item">
+      <span class="nav-icon">📊</span>
+      <span data-i18n="dashboard">Dashboard</span>
     </a>
-    <a href="#" class="bottom-nav-item" onclick="event.preventDefault(); showSettings()">
-      <div class="bottom-nav-icon">⚙️</div>
-      <div>Settings</div>
+    <a href="parents-guide.html" class="nav-item">
+      <span class="nav-icon">👨‍👩‍👧</span>
+      <span data-i18n="parents">Parents</span>
     </a>
   </nav>
 
-  <script src="js/i18n.js"></script>
-  <script src="js/confetti.js"></script>
-  <script src="js/main.js"></script>
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

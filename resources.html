@@ -3,520 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0056b3">
   <title>Resources - Classical Kids Study Hub</title>
-  <link rel="icon" href="fav.ico" type="image/x-icon">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .search-bar {
-      position: sticky;
-      top: 70px;
-      z-index: 90;
-      background: white;
-      padding: 1.5rem;
-      box-shadow: var(--shadow);
-      border-radius: var(--radius-xl);
-      margin-bottom: 2rem;
-    }
-    
-    .search-input {
-      width: 100%;
-      padding: 1rem 1rem 1rem 3rem;
-      font-size: 1.125rem;
-      border: 2px solid var(--gray-200);
-      border-radius: var(--radius-lg);
-      transition: var(--transition);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cpath d='m21 21-4.35-4.35'%3E%3C/path%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: 1rem center;
-      background-size: 1.5rem;
-    }
-    
-    .search-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
-    }
-    
-    .filter-tabs {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-top: 1rem;
-    }
-    
-    .filter-tab {
-      padding: 0.75rem 1.5rem;
-      border: 2px solid var(--gray-200);
-      background: white;
-      border-radius: var(--radius-full);
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .filter-tab:hover {
-      border-color: var(--primary);
-      transform: translateY(-2px);
-    }
-    
-    .filter-tab.active {
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      color: white;
-      border-color: var(--primary);
-    }
-    
-    .book-card {
-      background: white;
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: all var(--transition);
-      cursor: pointer;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .book-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-xl);
-    }
-    
-    .book-cover {
-      height: 200px;
-      background: linear-gradient(135deg, var(--primary-light), var(--purple-light));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .book-cover::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
-      animation: float 6s ease-in-out infinite;
-    }
-    
-    .book-content {
-      padding: 1.5rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .book-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: var(--text);
-    }
-    
-    .book-author {
-      color: var(--text-light);
-      font-size: 0.875rem;
-      margin-bottom: 0.75rem;
-    }
-    
-    .book-description {
-      font-size: 0.875rem;
-      color: var(--text-light);
-      line-height: 1.6;
-      flex: 1;
-    }
-    
-    .book-badge {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      background: var(--primary-light);
-      color: white;
-      border-radius: var(--radius-full);
-      font-size: 0.75rem;
-      font-weight: 600;
-      margin-top: 1rem;
-    }
-    
-    .playlist-section {
-      margin-top: 3rem;
-    }
-    
-    .cycle-tabs {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      border-bottom: 2px solid var(--gray-200);
-    }
-    
-    .cycle-tab {
-      padding: 1rem 2rem;
-      background: none;
-      border: none;
-      border-bottom: 3px solid transparent;
-      font-weight: 700;
-      font-size: 1.125rem;
-      cursor: pointer;
-      transition: var(--transition);
-      color: var(--text-light);
-    }
-    
-    .cycle-tab:hover {
-      color: var(--primary);
-    }
-    
-    .cycle-tab.active {
-      color: var(--primary);
-      border-bottom-color: var(--primary);
-    }
-    
-    .playlist-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1rem;
-    }
-    
-    .playlist-card {
-      background: white;
-      padding: 1.5rem;
-      border-radius: var(--radius-lg);
-      border-left: 4px solid var(--primary);
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .playlist-card:hover {
-      transform: translateX(8px);
-      box-shadow: var(--shadow-lg);
-      border-left-width: 6px;
-    }
-    
-    .empty-state {
-      text-align: center;
-      padding: 4rem 2rem;
-      color: var(--text-light);
-    }
-    
-    .empty-icon {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-      opacity: 0.5;
-    }
-  </style>
 </head>
 <body>
-  <div id="confettiContainer"></div>
-
-  <!-- Header -->
   <header class="header">
     <div class="header-container">
-      <a href="index.html" class="logo">
-        <span class="logo-icon">📚</span>
-        <span data-i18n="hero_title">Classical Kids</span>
-      </a>
-      
-      <nav class="nav-desktop">
-        <a href="index.html" class="nav-link">
-          <span>🏠</span>
-          <span data-i18n="nav_home">Home</span>
-        </a>
-        <a href="parents-guide.html" class="nav-link">
-          <span>👨‍👩‍👧‍👦</span>
-          <span data-i18n="nav_guide">Parents Guide</span>
-        </a>
-        <a href="resources.html" class="nav-link active">
-          <span>📖</span>
-          <span data-i18n="nav_resources">Resources</span>
-        </a>
-        <a href="classical_math.html" class="nav-link">
-          <span>🔢</span>
-          <span data-i18n="nav_math">Math Practice</span>
-        </a>
-        <a href="dashboard.html" class="nav-link">
-          <span>📊</span>
-          <span data-i18n="nav_dashboard">Dashboard</span>
-        </a>
-      </nav>
-      
+      <a href="index.html" class="logo"><span class="logo-emoji">📚</span><span>Classical Kids</span></a>
       <div class="lang-toggle">
-        <button class="lang-btn active" onclick="switchLanguage('en')">🇺🇸 EN</button>
-        <button class="lang-btn" onclick="switchLanguage('es')">🇪🇸 ES</button>
+        <button class="lang-btn active" data-lang="en" onclick="i18n.setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="es" onclick="i18n.setLang('es')">ES</button>
       </div>
-      
-      <button class="mobile-nav-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <nav class="header-links">
+        <a href="index.html" class="header-button">Home</a>
+        <a href="resources.html" class="header-button active">Resources</a>
+        <a href="classical_math.html" class="header-button">Math</a>
+        <a href="dashboard.html" class="header-button">Dashboard</a>
+        <a href="parents-guide.html" class="header-button">Parents</a>
+      </nav>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>📚 <span data-i18n="resources_title">Educational Resources</span></h1>
-      <p style="font-size: 1.125rem; opacity: 0.95;">Books and materials for every age and stage</p>
-    </div>
-  </section>
+  <main class="main">
+    <div class="container">
+      <h1 class="text-center mb-lg">📖 <span data-i18n="educationalResources">Educational Resources</span></h1>
+      
+      <div class="text-center mb-lg">
+        <a href="classical_math.html" class="btn btn-primary">🔢 Math Practice</a>
+        <a href="index.html" class="btn btn-warning" style="margin-left:var(--space-sm);">🏠 Back to Menu</a>
+      </div>
 
-  <div class="container">
-    <!-- Search Bar -->
-    <div class="search-bar">
-      <input 
-        type="text" 
-        class="search-input" 
-        id="searchInput"
-        placeholder="Search books by title, author, or age..."
-        data-i18n-placeholder="search_books"
-      >
-      <div class="filter-tabs">
-        <button class="filter-tab active" onclick="filterBooks('all')">
-          📚 All Books
-        </button>
-        <button class="filter-tab" onclick="filterBooks('5-7')">
-          👶 Ages 5-7
-        </button>
-        <button class="filter-tab" onclick="filterBooks('8-10')">
-          🧒 Ages 8-10
-        </button>
-        <button class="filter-tab" onclick="filterBooks('11-13')">
-          👦 Ages 11-13
-        </button>
-        <button class="filter-tab" onclick="filterBooks('14-16')">
-          👨 Ages 14-16
-        </button>
-        <button class="filter-tab" onclick="filterBooks('17-18')">
-          🎓 Ages 17-18
-        </button>
+      <div class="card card-body">
+        <h2 data-i18n="recommendedReading">📚 Recommended Reading</h2>
+
+        <div class="resource-group">
+          <h3>👶📖 Ages 5–7 (Early Grammar Stage)</h3>
+          <p><strong>Focus:</strong> Foundational stories with biblical themes, strong moral lessons, and exposure to rich language.</p>
+          <ul class="resource-list">
+            <li><strong>The Jesus Storybook Bible</strong> – Sally Lloyd-Jones</li>
+            <li><strong>A Child's Garden of Verses</strong> – Robert Louis Stevenson</li>
+            <li><strong>Little Pilgrim's Progress</strong> – Helen L. Taylor</li>
+            <li><strong>The Complete Tales of Beatrix Potter</strong> – Beatrix Potter</li>
+            <li><strong>Aesop's Fables</strong> – Aesop</li>
+            <li><strong>Winnie-the-Pooh</strong> – A.A. Milne</li>
+            <li><strong>Charlotte's Web</strong> – E.B. White</li>
+            <li><strong>The Velveteen Rabbit</strong> – Margery Williams</li>
+            <li><strong>Frog and Toad Are Friends</strong> – Arnold Lobel</li>
+            <li><strong>The Little Engine That Could</strong> – Watty Piper</li>
+          </ul>
+        </div>
+
+        <div class="resource-group">
+          <h3>🧒📚 Ages 8–10 (Late Grammar Stage)</h3>
+          <p><strong>Focus:</strong> Stronger narratives with Christian virtues, adventure, and wisdom.</p>
+          <ul class="resource-list">
+            <li><strong>The Chronicles of Narnia</strong> – C.S. Lewis</li>
+            <li><strong>Little House on the Prairie</strong> – Laura Ingalls Wilder</li>
+            <li><strong>The Swiss Family Robinson</strong> – Johann Wyss</li>
+            <li><strong>The Secret Garden</strong> – Frances Hodgson Burnett</li>
+            <li><strong>The Green Ember series</strong> – S.D. Smith</li>
+            <li><strong>The Wind in the Willows</strong> – Kenneth Grahame</li>
+            <li><strong>The Wingfeather Saga</strong> – Andrew Peterson</li>
+            <li><strong>Island of the Blue Dolphins</strong> – Scott O'Dell</li>
+            <li><strong>Black Beauty</strong> – Anna Sewell</li>
+            <li><strong>Where the Red Fern Grows</strong> – Wilson Rawls</li>
+          </ul>
+        </div>
+
+        <div class="resource-group">
+          <h3>👦📖 Ages 11–13 (Dialectic Stage)</h3>
+          <p><strong>Focus:</strong> Deeper moral complexity, Christian virtue, and discernment.</p>
+          <ul class="resource-list">
+            <li><strong>The Pilgrim's Progress</strong> – John Bunyan</li>
+            <li><strong>Treasure Island</strong> – Robert Louis Stevenson</li>
+            <li><strong>Anne of Green Gables</strong> – L.M. Montgomery</li>
+            <li><strong>The Hobbit</strong> – J.R.R. Tolkien</li>
+            <li><strong>Twenty Thousand Leagues Under the Sea</strong> – Jules Verne</li>
+            <li><strong>The Chronicles of Prydain</strong> – Lloyd Alexander</li>
+            <li><strong>The Giver</strong> – Lois Lowry</li>
+            <li><strong>Robin Hood</strong> – Howard Pyle</li>
+            <li><strong>Little Women</strong> – Louisa May Alcott</li>
+            <li><strong>The Call of the Wild</strong> – Jack London</li>
+          </ul>
+        </div>
+
+        <div class="resource-group">
+          <h3>👩‍🎓📚 Ages 17–18 (Advanced Rhetoric Stage)</h3>
+          <p><strong>Focus:</strong> Theology, philosophy, apologetics, and challenging literature.</p>
+          <ul class="resource-list">
+            <li><strong>The Institutes of the Christian Religion</strong> – John Calvin</li>
+            <li><strong>The Holiness of God</strong> – R.C. Sproul</li>
+            <li><strong>The Abolition of Man</strong> – C.S. Lewis</li>
+            <li><strong>1984</strong> – George Orwell</li>
+            <li><strong>The Brothers Karamazov</strong> – Fyodor Dostoevsky</li>
+            <li><strong>Les Misérables</strong> – Victor Hugo</li>
+            <li><strong>The Count of Monte Cristo</strong> – Alexandre Dumas</li>
+            <li><strong>The Federalist Papers</strong> – Hamilton, Madison, Jay</li>
+            <li><strong>The Cost of Discipleship</strong> – Dietrich Bonhoeffer</li>
+            <li><strong>Desiring God</strong> – John Piper</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:var(--space-xl);padding-top:var(--space-lg);border-top:1px solid var(--border);font-style:italic;color:var(--text-muted);">
+          <p><strong>Disclaimer:</strong> As Christians, we approach literature with wisdom and discernment, recognizing that while some books contain problematic elements, they also provide valuable insights into human nature, morality, and virtue.</p>
+        </div>
       </div>
     </div>
+  </main>
 
-    <!-- Books Section -->
-    <section id="booksSection">
-      <h2 style="margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span data-i18n="books_by_age">Books by Age</span>
-        <span id="bookCount" style="background: var(--primary-light); color: white; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 1rem;"></span>
-      </h2>
-      
-      <div class="card-grid" id="booksGrid"></div>
-      
-      <div id="emptyState" class="empty-state hidden">
-        <div class="empty-icon">🔍</div>
-        <h3>No books found</h3>
-        <p>Try a different search term or filter</p>
-      </div>
-    </section>
-
-    <!-- Memory Work Playlists -->
-    <section class="playlist-section">
-      <h2 style="margin-bottom: 2rem;">
-        🎵 <span data-i18n="memory_work">Memory Work Playlists</span>
-      </h2>
-      
-      <div class="cycle-tabs">
-        <button class="cycle-tab active" onclick="showCycle(1)">
-          🏛️ Cycle 1
-        </button>
-        <button class="cycle-tab" onclick="showCycle(2)">
-          🏰 Cycle 2
-        </button>
-        <button class="cycle-tab" onclick="showCycle(3)">
-          🗽 Cycle 3
-        </button>
-      </div>
-      
-      <div id="playlistsGrid" class="playlist-grid"></div>
-    </section>
-  </div>
-
-  <!-- Bottom Nav -->
   <nav class="bottom-nav">
-    <a href="index.html" class="bottom-nav-item">
-      <div class="bottom-nav-icon">🏠</div>
-      <div data-i18n="nav_home">Home</div>
-    </a>
-    <a href="resources.html" class="bottom-nav-item active">
-      <div class="bottom-nav-icon">📖</div>
-      <div data-i18n="nav_resources">Resources</div>
-    </a>
-    <a href="classical_math.html" class="bottom-nav-item">
-      <div class="bottom-nav-icon">🔢</div>
-      <div data-i18n="nav_math">Math</div>
-    </a>
-    <a href="dashboard.html" class="bottom-nav-item">
-      <div class="bottom-nav-icon">📊</div>
-      <div data-i18n="nav_dashboard">Dashboard</div>
-    </a>
-    <a href="#" class="bottom-nav-item">
-      <div class="bottom-nav-icon">⚙️</div>
-      <div>Settings</div>
-    </a>
+    <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
+    <a href="resources.html" class="nav-item active"><span class="nav-icon">📖</span><span>Resources</span></a>
+    <a href="classical_math.html" class="nav-item"><span class="nav-icon">🔢</span><span>Math</span></a>
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span>Dashboard</span></a>
+    <a href="parents-guide.html" class="nav-item"><span class="nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
   </nav>
 
-  <script src="js/i18n.js"></script>
-  <script src="js/confetti.js"></script>
-  <script src="js/resources-data.js"></script>
-  <script>
-    let currentFilter = 'all';
-    let currentCycle = 1;
-    let allBooks = [];
-
-    // Initialize
-    document.addEventListener('DOMContentLoaded', () => {
-      loadBooks();
-      loadPlaylists();
-      setupSearch();
-    });
-
-    function loadBooks() {
-      // Get books from resources-data.js
-      allBooks = Object.entries(BOOKS_DATA).flatMap(([age, books]) => 
-        books.map(book => ({ ...book, age }))
-      );
-      
-      displayBooks();
-    }
-
-    function displayBooks() {
-      const grid = document.getElementById('booksGrid');
-      const emptyState = document.getElementById('emptyState');
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      
-      let filtered = allBooks.filter(book => {
-        const matchesFilter = currentFilter === 'all' || book.age === currentFilter;
-        const matchesSearch = !searchTerm || 
-          book.title.toLowerCase().includes(searchTerm) ||
-          book.author.toLowerCase().includes(searchTerm) ||
-          book.description.toLowerCase().includes(searchTerm);
-        return matchesFilter && matchesSearch;
-      });
-      
-      if (filtered.length === 0) {
-        grid.innerHTML = '';
-        emptyState.classList.remove('hidden');
-        document.getElementById('bookCount').textContent = '0';
-        return;
-      }
-      
-      emptyState.classList.add('hidden');
-      document.getElementById('bookCount').textContent = filtered.length;
-      
-      grid.innerHTML = filtered.map((book, index) => {
-        const colors = [
-          'linear-gradient(135deg, #4A90E2, #7DB3F5)',
-          'linear-gradient(135deg, #10B981, #6EE7B7)',
-          'linear-gradient(135deg, #F59E0B, #FCD34D)',
-          'linear-gradient(135deg, #8B5CF6, #A78BFA)',
-          'linear-gradient(135deg, #FB7185, #FECDD3)'
-        ];
-        const color = colors[index % colors.length];
-        
-        return `
-          <div class="book-card" style="animation: fadeInUp 0.6s ease ${index * 0.05}s backwards;">
-            <div class="book-cover" style="background: ${color};">
-              📖
-            </div>
-            <div class="book-content">
-              <div class="book-title">${book.title}</div>
-              <div class="book-author">${book.author}</div>
-              <div class="book-description">${book.description}</div>
-              <div class="book-badge">Ages ${book.age}</div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function filterBooks(age) {
-      currentFilter = age;
-      
-      // Update active tab
-      document.querySelectorAll('.filter-tab').forEach(tab => {
-        tab.classList.remove('active');
-      });
-      event.target.classList.add('active');
-      
-      displayBooks();
-      
-      // Small confetti
-      createConfetti(20, 1500);
-    }
-
-    function setupSearch() {
-      const searchInput = document.getElementById('searchInput');
-      let searchTimeout;
-      
-      searchInput.addEventListener('input', () => {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-          displayBooks();
-        }, 300);
-      });
-    }
-
-    function loadPlaylists() {
-      showCycle(1);
-    }
-
-    function showCycle(cycle) {
-      currentCycle = cycle;
-      
-      // Update tabs
-      document.querySelectorAll('.cycle-tab').forEach(tab => {
-        tab.classList.remove('active');
-      });
-      event.target.classList.add('active');
-      
-      const grid = document.getElementById('playlistsGrid');
-      const playlists = MEMORY_PLAYLISTS[`cycle${cycle}`];
-      
-      grid.innerHTML = Object.entries(playlists).map(([week, data]) => `
-        <a href="${data.url}" target="_blank" class="playlist-card">
-          <div>
-            <div style="font-weight: 700; margin-bottom: 0.5rem;">Week ${week}</div>
-            <div style="font-size: 0.875rem; color: var(--text-light);">${data.topics.join(', ')}</div>
-          </div>
-          <div style="font-size: 1.5rem;">▶️</div>
-        </a>
-      `).join('');
-      
-      createConfetti(15, 1000);
-    }
-
-    function switchLanguage(lang) {
-      window.i18n.setLanguage(lang);
-      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      showToast(lang === 'en' ? 'Language changed 🇺🇸' : 'Idioma cambiado 🇪🇸', 'success');
-    }
-
-    function showToast(message, type) {
-      const toast = document.createElement('div');
-      toast.style.cssText = `
-        position: fixed; bottom: 100px; right: 20px; background: white;
-        padding: 1rem 1.5rem; border-radius: 1rem;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2); font-weight: 600;
-        z-index: 10000; animation: slideInRight 0.3s ease;
-      `;
-      const colors = { success: '#10B981', error: '#EF4444', warning: '#F59E0B', info: '#3B82F6' };
-      toast.style.borderLeft = `4px solid ${colors[type]}`;
-      toast.textContent = message;
-      document.body.appendChild(toast);
-      setTimeout(() => {
-        toast.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-      }, 3000);
-    }
-  </script>
+  <script src="i18n.js"></script>
 </body>
 </html>

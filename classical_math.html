@@ -2,330 +2,472 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0056b3">
   <title>Math Practice - Classical Kids Study Hub</title>
-  <link rel="icon" href="fav.ico" type="image/x-icon">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔢</text></svg>">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .game-selector {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-    
-    .game-card {
-      background: white;
-      padding: 2rem 1rem;
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      cursor: pointer;
-      transition: all var(--transition);
-      text-align: center;
-      border: 3px solid transparent;
-    }
-    
-    .game-card:hover {
-      transform: translateY(-8px) scale(1.05);
-      box-shadow: var(--shadow-xl);
-    }
-    
-    .game-icon {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-      animation: bounce 2s infinite;
-    }
-    
-    .game-title {
-      font-weight: 700;
-      font-size: 1.125rem;
-      color: var(--text);
-    }
-    
-    .stats-bar {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-    
-    .stat-box {
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      color: white;
-      padding: 1.5rem;
-      border-radius: var(--radius-lg);
-      text-align: center;
-    }
-    
-    .stat-value {
-      font-size: 2.5rem;
-      font-weight: 700;
-      font-family: 'Fredoka', sans-serif;
-    }
-    
-    .stat-label {
-      font-size: 0.875rem;
-      opacity: 0.9;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    .problem-display {
-      font-size: 3rem;
-      font-weight: 700;
-      text-align: center;
-      padding: 3rem 2rem;
-      background: linear-gradient(135deg, var(--primary-light), var(--purple-light));
-      border-radius: var(--radius-xl);
-      color: white;
-      margin: 2rem 0;
-      min-height: 150px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .canvas-container {
-      background: white;
-      padding: 2rem;
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow);
-      margin: 2rem 0;
-      text-align: center;
-    }
-    
-    #mathCanvas {
-      border: 2px solid var(--gray-300);
-      border-radius: var(--radius-md);
-      max-width: 100%;
-      height: auto;
-    }
-    
-    .answer-section {
-      text-align: center;
-      margin: 2rem 0;
-    }
-    
-    .answer-input {
-      width: 100%;
-      max-width: 400px;
-      padding: 1.5rem;
-      font-size: 2rem;
-      text-align: center;
-      border: 3px solid var(--primary);
-      border-radius: var(--radius-lg);
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 700;
-    }
-    
-    .answer-input:focus {
-      outline: none;
-      box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.2);
-    }
-    
-    .feedback {
-      font-size: 1.5rem;
-      font-weight: 700;
-      text-align: center;
-      margin: 1rem 0;
-      min-height: 50px;
-      animation: fadeInUp 0.3s ease;
-    }
-  </style>
 </head>
 <body>
-  <div id="confettiContainer"></div>
-
-  <!-- Header -->
   <header class="header">
     <div class="header-container">
-      <a href="index.html" class="logo">
-        <span class="logo-icon">📚</span>
-        <span data-i18n="hero_title">Classical Kids</span>
-      </a>
-      
-      <nav class="nav-desktop">
-        <a href="index.html" class="nav-link">
-          <span>🏠</span>
-          <span data-i18n="nav_home">Home</span>
-        </a>
-        <a href="parents-guide.html" class="nav-link">
-          <span>👨‍👩‍👧‍👦</span>
-          <span data-i18n="nav_guide">Parents Guide</span>
-        </a>
-        <a href="resources.html" class="nav-link">
-          <span>📖</span>
-          <span data-i18n="nav_resources">Resources</span>
-        </a>
-        <a href="classical_math.html" class="nav-link active">
-          <span>🔢</span>
-          <span data-i18n="nav_math">Math Practice</span>
-        </a>
-        <a href="dashboard.html" class="nav-link">
-          <span>📊</span>
-          <span data-i18n="nav_dashboard">Dashboard</span>
-        </a>
-      </nav>
-      
+      <a href="index.html" class="logo"><span class="logo-emoji">📚</span><span>Classical Kids</span></a>
       <div class="lang-toggle">
-        <button class="lang-btn active" onclick="switchLanguage('en')">🇺🇸 EN</button>
-        <button class="lang-btn" onclick="switchLanguage('es')">🇪🇸 ES</button>
+        <button class="lang-btn active" data-lang="en" onclick="i18n.setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="es" onclick="i18n.setLang('es')">ES</button>
       </div>
-      
-      <button class="mobile-nav-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <nav class="header-links">
+        <a href="index.html" class="header-button">Home</a>
+        <a href="resources.html" class="header-button">Resources</a>
+        <a href="classical_math.html" class="header-button active">Math</a>
+        <a href="dashboard.html" class="header-button">Dashboard</a>
+        <a href="parents-guide.html" class="header-button">Parents</a>
+      </nav>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>🔢 <span data-i18n="math_title">Math Practice</span></h1>
-      <p data-i18n="math_subtitle">Master arithmetic through fun games</p>
+  <main class="main">
+    <div class="math-container">
+      <h1 class="text-center mb-lg">🔢 <span data-i18n="mathPractice">Math Practice</span></h1>
+      <p id="welcomeUser" class="text-center text-muted mb-lg"></p>
+
+      <!-- MENU -->
+      <section id="menuSection">
+        <p class="text-center mb-lg" data-i18n="selectTopic">Select a topic:</p>
+        <div class="game-menu" id="gameMenu">
+          <div class="game-card" data-mode="counting"><div class="icon">🍎</div><div class="title">Counting</div></div>
+          <div class="game-card" data-mode="addition"><div class="icon">➕</div><div class="title">Addition</div></div>
+          <div class="game-card" data-mode="subtraction"><div class="icon">➖</div><div class="title">Subtraction</div></div>
+          <div class="game-card" data-mode="multiplication"><div class="icon">✖️</div><div class="title">Multiplication</div></div>
+          <div class="game-card" data-mode="division"><div class="icon">➗</div><div class="title">Division</div></div>
+          <div class="game-card" data-mode="fractions"><div class="icon">🥧</div><div class="title">Fractions</div></div>
+          <div class="game-card" data-mode="geometry"><div class="icon">📐</div><div class="title">Geometry</div></div>
+          <div class="game-card" data-mode="time"><div class="icon">🕐</div><div class="title">Time</div></div>
+          <div class="game-card" data-mode="money"><div class="icon">💰</div><div class="title">Money</div></div>
+          <div class="game-card" data-mode="measurement"><div class="icon">📏</div><div class="title">Measurement</div></div>
+          <div class="game-card" data-mode="patterns"><div class="icon">🔢</div><div class="title">Patterns</div></div>
+        </div>
+      </section>
+
+      <!-- LESSON -->
+      <section id="lessonSection" class="hidden">
+        <div class="card card-body text-center">
+          <h2 id="lessonTitle" class="mb-md"></h2>
+          <div id="lessonText" style="text-align:left;margin-bottom:var(--space-lg);line-height:1.8;"></div>
+          <button class="btn btn-success btn-lg" id="startPracticeBtn">Begin Practice 🚀</button>
+        </div>
+      </section>
+
+      <!-- PRACTICE -->
+      <section id="practiceSection" class="hidden">
+        <div class="game-stats">
+          <div class="stat-item"><div class="stat-value" id="timeDisplay">15:00</div><div class="stat-label">Time</div></div>
+          <div class="stat-item"><div class="stat-value" id="scoreDisplay">0</div><div class="stat-label">Score</div></div>
+          <div class="stat-item"><div class="stat-value" id="streakDisplay">0</div><div class="stat-label">Streak</div></div>
+          <div class="stat-item"><div class="stat-value" id="levelDisplay">1</div><div class="stat-label">Level</div></div>
+          <div class="stat-item"><div class="stat-value" id="highScoreDisplay">0</div><div class="stat-label">Best</div></div>
+        </div>
+        <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+        
+        <div class="problem-area">
+          <div class="visual-area hidden" id="visualArea"><canvas id="gameCanvas" width="400" height="300"></canvas></div>
+          <div class="problem-text" id="problemText">?</div>
+          <div class="answer-wrap">
+            <input type="text" id="answerInput" class="answer-input" placeholder="?" autocomplete="off" inputmode="text">
+            <button class="btn btn-primary" id="submitBtn">Submit</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+        
+        <div class="text-center mt-lg">
+          <button class="btn btn-warning" id="changeTopicBtn">← Change Topic</button>
+        </div>
+      </section>
+
+      <!-- END -->
+      <section id="endSection" class="hidden">
+        <div class="card card-body end-screen">
+          <h2>🎉 Practice Complete!</h2>
+          <div class="end-score" id="finalScore">0</div>
+          <p class="end-message" id="endMessage">Great job!</p>
+          <p>High Score: <strong id="finalHighScore">0</strong></p>
+          <button class="btn btn-primary btn-lg mt-lg" id="restartBtn">Return to Menu</button>
+        </div>
+      </section>
     </div>
-  </section>
+  </main>
 
-  <div class="container">
-    <!-- Game Selection -->
-    <section id="gameSelection">
-      <h2 style="text-align: center; margin-bottom: 2rem;">
-        <span data-i18n="select_game">Select a Game</span>
-      </h2>
-      
-      <div class="game-selector">
-        <div class="game-card" onclick="startGame('counting')">
-          <div class="game-icon">🍎</div>
-          <div class="game-title" data-i18n="counting">Counting</div>
-        </div>
-        <div class="game-card" onclick="startGame('addition')">
-          <div class="game-icon">➕</div>
-          <div class="game-title" data-i18n="addition">Addition</div>
-        </div>
-        <div class="game-card" onclick="startGame('subtraction')">
-          <div class="game-icon">➖</div>
-          <div class="game-title" data-i18n="subtraction">Subtraction</div>
-        </div>
-        <div class="game-card" onclick="startGame('multiplication')">
-          <div class="game-icon">✖️</div>
-          <div class="game-title" data-i18n="multiplication">Multiplication</div>
-        </div>
-        <div class="game-card" onclick="startGame('division')">
-          <div class="game-icon">➗</div>
-          <div class="game-title" data-i18n="division">Division</div>
-        </div>
-        <div class="game-card" onclick="startGame('fractions')">
-          <div class="game-icon">½</div>
-          <div class="game-title" data-i18n="fractions">Fractions</div>
-        </div>
-        <div class="game-card" onclick="startGame('geometry')">
-          <div class="game-icon">🔺</div>
-          <div class="game-title" data-i18n="geometry">Geometry</div>
-        </div>
-        <div class="game-card" onclick="startGame('time')">
-          <div class="game-icon">🕐</div>
-          <div class="game-title" data-i18n="time">Time</div>
-        </div>
-        <div class="game-card" onclick="startGame('money')">
-          <div class="game-icon">💰</div>
-          <div class="game-title" data-i18n="money">Money</div>
-        </div>
-        <div class="game-card" onclick="startGame('measurement')">
-          <div class="game-icon">📏</div>
-          <div class="game-title" data-i18n="measurement">Measurement</div>
-        </div>
-        <div class="game-card" onclick="startGame('patterns')">
-          <div class="game-icon">🔢</div>
-          <div class="game-title" data-i18n="patterns">Patterns</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Game Play -->
-    <section id="gamePlay" class="hidden">
-      <div class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-          <h2 id="gameTitle" style="margin: 0;"></h2>
-          <button class="btn btn-secondary btn-sm" onclick="backToSelection()">
-            ← <span data-i18n="back">Back</span>
-          </button>
-        </div>
-        
-        <div class="stats-bar">
-          <div class="stat-box">
-            <div class="stat-value" id="score">0</div>
-            <div class="stat-label" data-i18n="score">Score</div>
-          </div>
-          <div class="stat-box" style="background: linear-gradient(135deg, var(--success), var(--success-light));">
-            <div class="stat-value" id="streak">0</div>
-            <div class="stat-label" data-i18n="streak">Streak</div>
-          </div>
-          <div class="stat-box" style="background: linear-gradient(135deg, var(--warning), var(--warning-light));">
-            <div class="stat-value" id="level">1</div>
-            <div class="stat-label" data-i18n="level">Level</div>
-          </div>
-        </div>
-        
-        <div class="canvas-container hidden" id="canvasContainer">
-          <canvas id="mathCanvas" width="400" height="400"></canvas>
-        </div>
-        
-        <div class="problem-display" id="problemDisplay">
-          Ready? Let's go!
-        </div>
-        
-        <div class="answer-section">
-          <input 
-            type="text" 
-            class="answer-input" 
-            id="answerInput" 
-            placeholder="Your answer..."
-            onkeypress="if(event.key==='Enter') checkAnswer()"
-          >
-        </div>
-        
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <button class="btn btn-success btn-lg" onclick="checkAnswer()">
-            ✓ <span data-i18n="confirm">Check Answer</span>
-          </button>
-          <button class="btn btn-secondary" onclick="newProblem()">
-            ↻ <span data-i18n="next">Next Problem</span>
-          </button>
-        </div>
-        
-        <div class="feedback" id="feedback"></div>
-      </div>
-    </section>
-  </div>
-
-  <!-- Bottom Nav -->
   <nav class="bottom-nav">
-    <a href="index.html" class="bottom-nav-item">
-      <div class="bottom-nav-icon">🏠</div>
-      <div data-i18n="nav_home">Home</div>
-    </a>
-    <a href="resources.html" class="bottom-nav-item">
-      <div class="bottom-nav-icon">📖</div>
-      <div data-i18n="nav_resources">Resources</div>
-    </a>
-    <a href="classical_math.html" class="bottom-nav-item active">
-      <div class="bottom-nav-icon">🔢</div>
-      <div data-i18n="nav_math">Math</div>
-    </a>
-    <a href="dashboard.html" class="bottom-nav-item">
-      <div class="bottom-nav-icon">📊</div>
-      <div data-i18n="nav_dashboard">Dashboard</div>
-    </a>
-    <a href="#" class="bottom-nav-item">
-      <div class="bottom-nav-icon">⚙️</div>
-      <div>Settings</div>
-    </a>
+    <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
+    <a href="resources.html" class="nav-item"><span class="nav-icon">📖</span><span>Resources</span></a>
+    <a href="classical_math.html" class="nav-item active"><span class="nav-icon">🔢</span><span>Math</span></a>
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span>Dashboard</span></a>
+    <a href="parents-guide.html" class="nav-item"><span class="nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
   </nav>
 
-  <script src="js/i18n.js"></script>
-  <script src="js/confetti.js"></script>
-  <script src="js/math-games.js"></script>
+  <script src="i18n.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const userName = localStorage.getItem('ck_username') || 'Student';
+    document.getElementById('welcomeUser').textContent = 'Welcome, ' + userName + '!';
+
+    // Elements
+    const menuSection = document.getElementById('menuSection');
+    const lessonSection = document.getElementById('lessonSection');
+    const practiceSection = document.getElementById('practiceSection');
+    const endSection = document.getElementById('endSection');
+    const lessonTitle = document.getElementById('lessonTitle');
+    const lessonText = document.getElementById('lessonText');
+    const problemText = document.getElementById('problemText');
+    const answerInput = document.getElementById('answerInput');
+    const feedback = document.getElementById('feedback');
+    const visualArea = document.getElementById('visualArea');
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // State
+    let mode = '';
+    let score = 0, streak = 0, level = 1, timeLeft = 900, qCount = 0;
+    let answer = null;
+    let timer = null;
+    const maxQ = 50;
+
+    // Lessons
+    const lessons = {
+      counting: { title: '🍎 Counting', text: '<p>Counting is the foundation of all math! Count objects carefully and enter the total number.</p><p>Tip: Touch each object as you count to avoid mistakes.</p>' },
+      addition: { title: '➕ Addition', text: '<p>Addition means combining numbers together. When you add, you find the total of two or more numbers.</p><p>Example: 3 + 5 = 8 (3 apples plus 5 apples equals 8 apples!)</p>' },
+      subtraction: { title: '➖ Subtraction', text: '<p>Subtraction means taking away. Start with a number and remove some to find what remains.</p><p>Example: 10 - 4 = 6 (10 cookies minus 4 eaten equals 6 left)</p>' },
+      multiplication: { title: '✖️ Multiplication', text: '<p>Multiplication is repeated addition! 3 × 4 means adding 3 four times: 3+3+3+3 = 12</p><p>Practice your times tables to become a math champion!</p>' },
+      division: { title: '➗ Division', text: '<p>Division means sharing equally. If you have 12 cookies and 3 friends, each gets 12 ÷ 3 = 4 cookies.</p><p>Division is the opposite of multiplication.</p>' },
+      fractions: { title: '🥧 Fractions', text: '<p>Fractions show parts of a whole. The top number (numerator) shows how many parts you have. The bottom number (denominator) shows total parts.</p><p>Answer as numerator/denominator (example: 2/3)</p>' },
+      geometry: { title: '📐 Geometry', text: '<p>Geometry is the study of shapes! Count the sides of each polygon.</p><p>Triangle = 3, Square = 4, Pentagon = 5, Hexagon = 6, Octagon = 8</p>' },
+      time: { title: '🕐 Time', text: '<p>Learn to read clocks and calculate time! The short hand shows hours, the long hand shows minutes.</p><p>Answer in H:MM format (example: 3:45)</p>' },
+      money: { title: '💰 Money', text: '<p>Count coins to find the total value in cents.</p><p>Penny = 1¢, Nickel = 5¢, Dime = 10¢, Quarter = 25¢</p>' },
+      measurement: { title: '📏 Measurement', text: '<p>Measurement helps us understand size and length. Add or subtract centimeters to solve problems.</p><p>Look at the bars and calculate the answer.</p>' },
+      patterns: { title: '🔢 Patterns', text: '<p>Find the pattern in the sequence and predict the next number!</p><p>Example: 2, 4, 6, ? → The pattern is +2, so the answer is 8</p>' }
+    };
+
+    // Show sections
+    function showSection(s) {
+      [menuSection, lessonSection, practiceSection, endSection].forEach(el => el.classList.add('hidden'));
+      s.classList.remove('hidden');
+    }
+
+    // Game menu click
+    document.getElementById('gameMenu').addEventListener('click', e => {
+      const card = e.target.closest('.game-card');
+      if (!card) return;
+      mode = card.dataset.mode;
+      lessonTitle.textContent = lessons[mode]?.title || mode;
+      lessonText.innerHTML = lessons[mode]?.text || '<p>Let\'s practice!</p>';
+      showSection(lessonSection);
+    });
+
+    // Start practice
+    document.getElementById('startPracticeBtn').addEventListener('click', startGame);
+    document.getElementById('changeTopicBtn').addEventListener('click', () => { clearInterval(timer); showSection(menuSection); });
+    document.getElementById('restartBtn').addEventListener('click', () => showSection(menuSection));
+    document.getElementById('submitBtn').addEventListener('click', checkAnswer);
+    answerInput.addEventListener('keypress', e => { if (e.key === 'Enter') checkAnswer(); });
+
+    function startGame() {
+      score = 0; streak = 0; level = 1; timeLeft = 900; qCount = 0;
+      updateStats();
+      document.getElementById('highScoreDisplay').textContent = getHighScore();
+      showSection(practiceSection);
+      startTimer();
+      nextProblem();
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        timeLeft--;
+        updateTime();
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+    }
+
+    function updateTime() {
+      const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+      document.getElementById('timeDisplay').textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+    }
+
+    function updateStats() {
+      document.getElementById('scoreDisplay').textContent = score;
+      document.getElementById('streakDisplay').textContent = streak;
+      document.getElementById('levelDisplay').textContent = level;
+      document.getElementById('progressBar').style.width = (qCount / maxQ * 100) + '%';
+    }
+
+    function nextProblem() {
+      qCount++;
+      if (qCount > maxQ) { endGame(); return; }
+      
+      feedback.textContent = '';
+      feedback.className = 'feedback';
+      answerInput.value = '';
+      answerInput.className = 'answer-input';
+      visualArea.classList.add('hidden');
+      
+      let problem = '';
+      switch(mode) {
+        case 'counting': problem = genCounting(); break;
+        case 'addition': problem = genAddition(); break;
+        case 'subtraction': problem = genSubtraction(); break;
+        case 'multiplication': problem = genMultiplication(); break;
+        case 'division': problem = genDivision(); break;
+        case 'fractions': problem = genFractions(); break;
+        case 'geometry': problem = genGeometry(); break;
+        case 'time': problem = genTime(); break;
+        case 'money': problem = genMoney(); break;
+        case 'measurement': problem = genMeasurement(); break;
+        case 'patterns': problem = genPatterns(); break;
+      }
+      
+      problemText.innerHTML = problem;
+      answerInput.focus();
+      updateStats();
+    }
+
+    function checkAnswer() {
+      const userAns = answerInput.value.trim();
+      if (!userAns) return;
+      
+      let isCorrect = false;
+      
+      if (mode === 'fractions' || mode === 'time') {
+        isCorrect = userAns.toLowerCase() === String(answer).toLowerCase();
+      } else {
+        const num = parseFloat(userAns);
+        isCorrect = !isNaN(num) && num === answer;
+      }
+      
+      if (isCorrect) {
+        score++; streak++;
+        if (streak % 3 === 0 && level < 5) level++;
+        answerInput.className = 'answer-input correct';
+        feedback.textContent = ['🎉 Correct!', '⭐ Great!', '🚀 Amazing!', '💪 Perfect!'][Math.floor(Math.random()*4)];
+        feedback.className = 'feedback correct';
+        if (streak % 5 === 0) confetti(30);
+        setTimeout(nextProblem, 800);
+      } else {
+        streak = 0;
+        if (level > 1) level--;
+        answerInput.className = 'answer-input wrong';
+        feedback.textContent = '❌ The answer was: ' + answer;
+        feedback.className = 'feedback wrong';
+        setTimeout(nextProblem, 1500);
+      }
+      updateStats();
+    }
+
+    function endGame() {
+      clearInterval(timer);
+      if (score > getHighScore()) setHighScore(score);
+      document.getElementById('finalScore').textContent = score;
+      document.getElementById('finalHighScore').textContent = getHighScore();
+      document.getElementById('endMessage').textContent = score >= 40 ? '🏆 Champion!' : score >= 25 ? '⭐ Great job!' : '👍 Keep practicing!';
+      showSection(endSection);
+      confetti(100);
+    }
+
+    // PROBLEM GENERATORS
+    function genCounting() {
+      const n = rand(1, 5 + level * 2);
+      answer = n;
+      const items = ['🍎','🍊','⭐','🌟','🎈','🎁','🌸','🐱','🐶','🦋'][rand(0,9)];
+      return 'Count: ' + items.repeat(n).split('').join(' ');
+    }
+
+    function genAddition() {
+      const max = 5 + level * 5;
+      const a = rand(1, max), b = rand(1, max);
+      answer = a + b;
+      return a + ' + ' + b + ' = ?';
+    }
+
+    function genSubtraction() {
+      const max = 5 + level * 5;
+      let a = rand(5, max), b = rand(1, a);
+      answer = a - b;
+      return a + ' − ' + b + ' = ?';
+    }
+
+    function genMultiplication() {
+      const max = 2 + level * 2;
+      const a = rand(1, Math.min(12, max)), b = rand(1, Math.min(12, max));
+      answer = a * b;
+      return a + ' × ' + b + ' = ?';
+    }
+
+    function genDivision() {
+      const divisor = rand(2, 5 + level);
+      const quotient = rand(1, 10);
+      const dividend = divisor * quotient;
+      answer = quotient;
+      return dividend + ' ÷ ' + divisor + ' = ?';
+    }
+
+    function genFractions() {
+      visualArea.classList.remove('hidden');
+      const total = rand(2, 4 + level);
+      const filled = rand(1, total - 1);
+      answer = filled + '/' + total;
+      drawFractionBar(filled, total);
+      return 'What fraction is shaded? (e.g., 2/3)';
+    }
+
+    function genGeometry() {
+      visualArea.classList.remove('hidden');
+      const sides = [3,4,5,6,8][rand(0, 4)];
+      answer = sides;
+      drawPolygon(sides);
+      return 'How many sides?';
+    }
+
+    function genTime() {
+      visualArea.classList.remove('hidden');
+      const h = rand(1, 12), m = rand(0, 11) * 5;
+      const add = rand(5, 30);
+      let totalM = h * 60 + m + add;
+      let newH = Math.floor(totalM / 60) % 12 || 12;
+      let newM = totalM % 60;
+      answer = newH + ':' + String(newM).padStart(2,'0');
+      drawClock(h, m);
+      return 'It is ' + h + ':' + String(m).padStart(2,'0') + '. What time in ' + add + ' min? (H:MM)';
+    }
+
+    function genMoney() {
+      visualArea.classList.remove('hidden');
+      const p = rand(0, 3), n = rand(0, 3), d = rand(0, 3), q = rand(0, 2);
+      answer = p + n*5 + d*10 + q*25;
+      drawMoney(p, n, d, q);
+      return 'Total cents?';
+    }
+
+    function genMeasurement() {
+      visualArea.classList.remove('hidden');
+      const a = rand(2, 10), b = rand(1, 8);
+      const op = Math.random() < 0.5 ? '+' : '-';
+      if (op === '+') answer = a + b;
+      else { answer = Math.abs(a - b); }
+      drawMeasurement(a, b, op);
+      return (op === '+') ? a + ' cm + ' + b + ' cm = ?' : Math.max(a,b) + ' cm − ' + Math.min(a,b) + ' cm = ?';
+    }
+
+    function genPatterns() {
+      const start = rand(1, 5), diff = rand(1, 5);
+      const seq = [start, start+diff, start+2*diff];
+      answer = start + 3*diff;
+      return 'Pattern: ' + seq.join(', ') + ', ?';
+    }
+
+    // DRAWING FUNCTIONS
+    function drawFractionBar(filled, total) {
+      ctx.clearRect(0, 0, 400, 300);
+      const w = 300 / total, h = 80;
+      const x0 = (400 - 300) / 2, y0 = 110;
+      for (let i = 0; i < total; i++) {
+        ctx.fillStyle = i < filled ? '#0056b3' : '#e0e0e0';
+        ctx.fillRect(x0 + i * w, y0, w - 2, h);
+        ctx.strokeStyle = '#333';
+        ctx.strokeRect(x0 + i * w, y0, w - 2, h);
+      }
+    }
+
+    function drawPolygon(sides) {
+      ctx.clearRect(0, 0, 400, 300);
+      const cx = 200, cy = 150, r = 80;
+      ctx.beginPath();
+      for (let i = 0; i < sides; i++) {
+        const angle = (i * 2 * Math.PI / sides) - Math.PI / 2;
+        const x = cx + r * Math.cos(angle);
+        const y = cy + r * Math.sin(angle);
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.fillStyle = '#e3f2fd';
+      ctx.fill();
+      ctx.strokeStyle = '#0056b3';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+
+    function drawClock(h, m) {
+      ctx.clearRect(0, 0, 400, 300);
+      const cx = 200, cy = 150, r = 90;
+      // Face
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, 2*Math.PI);
+      ctx.fillStyle = '#fff'; ctx.fill();
+      ctx.strokeStyle = '#0056b3'; ctx.lineWidth = 4; ctx.stroke();
+      // Ticks
+      for (let i = 0; i < 12; i++) {
+        const a = i * Math.PI / 6 - Math.PI / 2;
+        ctx.beginPath();
+        ctx.moveTo(cx + (r-10) * Math.cos(a), cy + (r-10) * Math.sin(a));
+        ctx.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a));
+        ctx.strokeStyle = '#333'; ctx.lineWidth = 2; ctx.stroke();
+      }
+      // Hour hand
+      const ha = ((h % 12) + m / 60) * Math.PI / 6 - Math.PI / 2;
+      ctx.beginPath(); ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + 40 * Math.cos(ha), cy + 40 * Math.sin(ha));
+      ctx.strokeStyle = '#333'; ctx.lineWidth = 4; ctx.stroke();
+      // Minute hand
+      const ma = m * Math.PI / 30 - Math.PI / 2;
+      ctx.beginPath(); ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + 60 * Math.cos(ma), cy + 60 * Math.sin(ma));
+      ctx.strokeStyle = '#0056b3'; ctx.lineWidth = 3; ctx.stroke();
+      // Center
+      ctx.beginPath(); ctx.arc(cx, cy, 5, 0, 2*Math.PI);
+      ctx.fillStyle = '#333'; ctx.fill();
+    }
+
+    function drawMoney(p, n, d, q) {
+      ctx.clearRect(0, 0, 400, 300);
+      ctx.font = 'bold 14px Nunito';
+      let y = 50;
+      const coins = [[p,'1¢','#b87333'], [n,'5¢','#a0a0a0'], [d,'10¢','#c0c0c0'], [q,'25¢','#d4af37']];
+      coins.forEach(([count, label, color]) => {
+        for (let i = 0; i < count; i++) {
+          ctx.beginPath(); ctx.arc(50 + i * 40, y, 18, 0, 2*Math.PI);
+          ctx.fillStyle = color; ctx.fill();
+          ctx.strokeStyle = '#333'; ctx.stroke();
+          ctx.fillStyle = '#333'; ctx.fillText(label, 40 + i * 40, y + 5);
+        }
+        y += 55;
+      });
+    }
+
+    function drawMeasurement(a, b, op) {
+      ctx.clearRect(0, 0, 400, 300);
+      const scale = 25, h = 30;
+      ctx.fillStyle = '#0056b3';
+      ctx.fillRect(50, 100, a * scale, h);
+      ctx.fillStyle = '#333'; ctx.font = '14px Nunito';
+      ctx.fillText(a + ' cm', 50 + a * scale / 2 - 15, 95);
+      ctx.fillStyle = op === '+' ? '#28a745' : '#dc3545';
+      ctx.fillRect(50 + (op === '+' ? a * scale + 10 : 0), 150, b * scale, h);
+      ctx.fillStyle = '#333';
+      ctx.fillText((op === '+' ? '' : '−') + b + ' cm', 50 + b * scale / 2 - 15, 195);
+    }
+
+    // UTILS
+    function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+    function getHighScore() { return parseInt(localStorage.getItem('mathHigh_' + mode) || '0'); }
+    function setHighScore(val) { localStorage.setItem('mathHigh_' + mode, val); }
+    function confetti(n) {
+      const colors = ['#0056b3','#28a745','#ffc107','#dc3545'];
+      for (let i = 0; i < n; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.style.cssText = 'position:fixed;width:10px;height:10px;top:-10px;left:'+Math.random()*100+'vw;background:'+colors[rand(0,3)]+';z-index:9999;animation:confetti-fall '+(2+Math.random()*2)+'s linear forwards;border-radius:'+(Math.random()>.5?'50%':'0')+';';
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 4000);
+      }
+    }
+  });
+  </script>
 </body>
 </html>

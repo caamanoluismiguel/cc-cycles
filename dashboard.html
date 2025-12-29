@@ -3,327 +3,160 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0056b3">
   <title>Dashboard - Classical Kids Study Hub</title>
-  <link rel="icon" href="fav.ico" type="image/x-icon">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
-    
-    .chart-card {
-      background: white;
-      padding: 2rem;
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-lg);
-    }
-    
-    .chart-card h3 {
-      margin-bottom: 1.5rem;
-      color: var(--primary);
-    }
-    
-    .achievement-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1.5rem;
-    }
-    
-    .streak-calendar {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-    
-    .day-cell {
-      aspect-ratio: 1;
-      border-radius: var(--radius-sm);
-      background: var(--gray-100);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-weight: 600;
-      transition: var(--transition);
-    }
-    
-    .day-cell.completed {
-      background: linear-gradient(135deg, var(--success), var(--success-light));
-      color: white;
-    }
-    
-    .day-cell:hover {
-      transform: scale(1.1);
-    }
-  </style>
 </head>
 <body>
-  <div id="confettiContainer"></div>
-
   <header class="header">
     <div class="header-container">
-      <a href="index.html" class="logo">
-        <span class="logo-icon">📚</span>
-        <span data-i18n="hero_title">Classical Kids</span>
-      </a>
-      
-      <nav class="nav-desktop">
-        <a href="index.html" class="nav-link">
-          <span>🏠</span>
-          <span data-i18n="nav_home">Home</span>
-        </a>
-        <a href="parents-guide.html" class="nav-link">
-          <span>👨‍👩‍👧‍👦</span>
-          <span data-i18n="nav_guide">Parents Guide</span>
-        </a>
-        <a href="resources.html" class="nav-link">
-          <span>📖</span>
-          <span data-i18n="nav_resources">Resources</span>
-        </a>
-        <a href="classical_math.html" class="nav-link">
-          <span>🔢</span>
-          <span data-i18n="nav_math">Math Practice</span>
-        </a>
-        <a href="dashboard.html" class="nav-link active">
-          <span>📊</span>
-          <span data-i18n="nav_dashboard">Dashboard</span>
-        </a>
-      </nav>
-      
+      <a href="index.html" class="logo"><span class="logo-emoji">📚</span><span>Classical Kids</span></a>
       <div class="lang-toggle">
-        <button class="lang-btn active" onclick="switchLanguage('en')">🇺🇸 EN</button>
-        <button class="lang-btn" onclick="switchLanguage('es')">🇪🇸 ES</button>
+        <button class="lang-btn active" data-lang="en" onclick="i18n.setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="es" onclick="i18n.setLang('es')">ES</button>
       </div>
-      
-      <button class="mobile-nav-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <nav class="header-links">
+        <a href="index.html" class="header-button">Home</a>
+        <a href="resources.html" class="header-button">Resources</a>
+        <a href="classical_math.html" class="header-button">Math</a>
+        <a href="dashboard.html" class="header-button active">Dashboard</a>
+        <a href="parents-guide.html" class="header-button">Parents</a>
+      </nav>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>📊 <span data-i18n="dashboard_title">Your Progress</span></h1>
-      <p>Track your learning journey</p>
-    </div>
-  </section>
-
-  <div class="container">
-    <!-- Stats Overview -->
-    <div class="dashboard-grid">
-      <div class="stat-card">
-        <div class="stat-value" id="totalTime">0</div>
-        <div class="stat-label" data-i18n="study_time">Study Time (min)</div>
-        <div class="progress-bar" style="margin-top: 1rem;">
-          <div class="progress-fill" style="width: 65%;"></div>
+  <main class="main">
+    <div class="container">
+      <h1 class="text-center mb-lg">📊 <span data-i18n="dashboard">Dashboard</span></h1>
+      
+      <!-- Stats Cards -->
+      <div class="stats-grid mb-lg">
+        <div class="stat-card primary">
+          <div class="value" id="totalTime">0</div>
+          <div class="label" data-i18n="totalMinutes">Total Minutes</div>
+        </div>
+        <div class="stat-card success">
+          <div class="value" id="totalLessons">0</div>
+          <div class="label" data-i18n="lessonsCompleted">Lessons</div>
+        </div>
+        <div class="stat-card warning">
+          <div class="value" id="currentStreak">0🔥</div>
+          <div class="label" data-i18n="dayStreak">Day Streak</div>
         </div>
       </div>
-      
-      <div class="stat-card" style="background: linear-gradient(135deg, var(--success), var(--success-light));">
-        <div class="stat-value" id="completedLessons">0</div>
-        <div class="stat-label" data-i18n="completed_lessons">Completed Lessons</div>
-        <div class="progress-bar" style="margin-top: 1rem; background: rgba(255,255,255,0.2);">
-          <div class="progress-fill" style="width: 45%; background: white;"></div>
+
+      <!-- Calendar -->
+      <div class="card mb-lg">
+        <div class="card-body">
+          <h3 class="mb-md">📅 <span data-i18n="studyCalendar">Study Calendar</span></h3>
+          <div class="calendar-grid" id="calendarGrid"></div>
         </div>
       </div>
-      
-      <div class="stat-card" style="background: linear-gradient(135deg, var(--warning), var(--warning-light));">
-        <div class="stat-value" id="currentStreak">0🔥</div>
-        <div class="stat-label" data-i18n="current_streak">Day Streak</div>
-        <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;">Keep it up!</p>
+
+      <!-- Recent Sessions -->
+      <div class="card mb-lg">
+        <div class="card-body">
+          <h3 class="mb-md">📝 <span data-i18n="recentSessions">Recent Sessions</span></h3>
+          <div id="sessionList"></div>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="card">
+        <div class="card-body">
+          <h3 class="mb-md">🏆 <span data-i18n="achievements">Achievements</span></h3>
+          <div class="stats-grid" id="achievementsGrid"></div>
+        </div>
       </div>
     </div>
-
-    <!-- Charts -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
-      <div class="chart-card">
-        <h3>Weekly Progress</h3>
-        <canvas id="weeklyChart"></canvas>
-      </div>
-      
-      <div class="chart-card">
-        <h3>Study by Topic</h3>
-        <canvas id="topicChart"></canvas>
-      </div>
-    </div>
-
-    <!-- Streak Calendar -->
-    <div class="card" style="margin-bottom: 3rem;">
-      <h2 style="margin-bottom: 1.5rem;">📅 Study Streak Calendar</h2>
-      <div class="streak-calendar" id="streakCalendar"></div>
-    </div>
-
-    <!-- Achievements -->
-    <div>
-      <h2 style="margin-bottom: 2rem;">🏆 <span data-i18n="achievements">Achievements</span></h2>
-      <div class="achievement-grid" id="achievementsGrid"></div>
-    </div>
-  </div>
+  </main>
 
   <nav class="bottom-nav">
-    <a href="index.html" class="bottom-nav-item">
-      <div class="bottom-nav-icon">🏠</div>
-      <div data-i18n="nav_home">Home</div>
-    </a>
-    <a href="resources.html" class="bottom-nav-item">
-      <div class="bottom-nav-icon">📖</div>
-      <div data-i18n="nav_resources">Resources</div>
-    </a>
-    <a href="classical_math.html" class="bottom-nav-item">
-      <div class="bottom-nav-icon">🔢</div>
-      <div data-i18n="nav_math">Math</div>
-    </a>
-    <a href="dashboard.html" class="bottom-nav-item active">
-      <div class="bottom-nav-icon">📊</div>
-      <div data-i18n="nav_dashboard">Dashboard</div>
-    </a>
-    <a href="#" class="bottom-nav-item">
-      <div class="bottom-nav-icon">⚙️</div>
-      <div>Settings</div>
-    </a>
+    <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
+    <a href="resources.html" class="nav-item"><span class="nav-icon">📖</span><span>Resources</span></a>
+    <a href="classical_math.html" class="nav-item"><span class="nav-icon">🔢</span><span>Math</span></a>
+    <a href="dashboard.html" class="nav-item active"><span class="nav-icon">📊</span><span>Dashboard</span></a>
+    <a href="parents-guide.html" class="nav-item"><span class="nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
   </nav>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/confetti.js"></script>
+  <script src="i18n.js"></script>
   <script>
-    // Load data
-    const sessions = JSON.parse(localStorage.getItem('studySessions') || '[]');
-    const totalMinutes = sessions.reduce((sum, s) => sum + Math.floor(s.duration / 60), 0);
-    const completedCount = sessions.length;
+    const progress = JSON.parse(localStorage.getItem('ck_progress') || '{"sessions":[],"completed":{},"homework":[]}');
+    const sessions = progress.sessions || [];
     
-    // Calculate streak
-    let streak = 0;
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    // Stats
+    const totalMinutes = sessions.reduce((sum, s) => sum + Math.floor((s.duration || 0) / 60), 0);
+    const totalLessons = Object.keys(progress.completed || {}).length;
     
+    // Streak
+    const today = new Date(); today.setHours(0,0,0,0);
     const uniqueDays = [...new Set(sessions.map(s => {
-      const d = new Date(s.date);
-      d.setHours(0, 0, 0, 0);
-      return d.getTime();
-    }))].sort((a, b) => b - a);
+      const d = new Date(s.date); d.setHours(0,0,0,0); return d.getTime();
+    }))].sort((a,b) => b - a);
     
-    for (let i = 0; i < uniqueDays.length; i++) {
-      const dayTime = today.getTime() - (i * 24 * 60 * 60 * 1000);
-      if (uniqueDays.includes(dayTime)) {
-        streak++;
-      } else {
-        break;
-      }
+    let streak = 0;
+    for (let i = 0; i < 30; i++) {
+      if (uniqueDays.includes(today.getTime() - i * 86400000)) streak++;
+      else if (i > 0) break;
     }
     
-    // Update stats
     document.getElementById('totalTime').textContent = totalMinutes;
-    document.getElementById('completedLessons').textContent = completedCount;
+    document.getElementById('totalLessons').textContent = totalLessons;
     document.getElementById('currentStreak').textContent = streak + '🔥';
     
-    // Weekly chart
-    const weeklyCtx = document.getElementById('weeklyChart');
-    new Chart(weeklyCtx, {
-      type: 'line',
-      data: {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        datasets: [{
-          label: 'Study Time (min)',
-          data: [15, 25, 20, 30, 35, 28, 40],
-          borderColor: 'rgb(74, 144, 226)',
-          backgroundColor: 'rgba(74, 144, 226, 0.1)',
-          tension: 0.4,
-          fill: true,
-          borderWidth: 3
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false } }
-      }
-    });
+    // Calendar
+    const cal = document.getElementById('calendarGrid');
+    const days = ['S','M','T','W','T','F','S'];
+    days.forEach(d => { const el = document.createElement('div'); el.className = 'calendar-day header'; el.textContent = d; cal.appendChild(el); });
     
-    // Topic chart
-    const topicCtx = document.getElementById('topicChart');
-    new Chart(topicCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['History', 'Science', 'Math', 'Geography'],
-        datasets: [{
-          data: [30, 25, 25, 20],
-          backgroundColor: [
-            'rgb(74, 144, 226)',
-            'rgb(16, 185, 129)',
-            'rgb(245, 158, 11)',
-            'rgb(139, 92, 246)'
-          ]
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { position: 'bottom' }
-        }
-      }
-    });
+    const now = new Date();
+    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+    const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     
-    // Streak calendar
-    const calendar = document.getElementById('streakCalendar');
-    const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+    for (let i = 0; i < firstDay.getDay(); i++) { const el = document.createElement('div'); el.className = 'calendar-day'; cal.appendChild(el); }
     
-    for (let i = 0; i < 28; i++) {
-      const cell = document.createElement('div');
-      cell.className = 'day-cell';
-      
-      if (i < 7) {
-        cell.textContent = days[i];
-        cell.style.fontWeight = '700';
-        cell.style.color = 'var(--text-light)';
-      } else {
-        const dayNum = i - 6;
-        cell.textContent = dayNum;
-        if (Math.random() > 0.5) {
-          cell.classList.add('completed');
-        }
-      }
-      
-      calendar.appendChild(cell);
+    for (let day = 1; day <= daysInMonth; day++) {
+      const el = document.createElement('div');
+      el.className = 'calendar-day';
+      el.textContent = day;
+      const date = new Date(now.getFullYear(), now.getMonth(), day); date.setHours(0,0,0,0);
+      if (uniqueDays.includes(date.getTime())) el.classList.add('completed');
+      if (day === now.getDate()) el.classList.add('today');
+      cal.appendChild(el);
+    }
+    
+    // Sessions
+    const sessionList = document.getElementById('sessionList');
+    if (sessions.length === 0) {
+      sessionList.innerHTML = '<p class="text-muted text-center">No sessions yet. Start studying!</p>';
+    } else {
+      const icons = {history:'📜',science:'🔬',geography:'🌍',math:'🔢',english:'📝',latin:'📚',finearts:'🎨'};
+      sessionList.innerHTML = sessions.slice(-10).reverse().map(s => {
+        const d = new Date(s.date);
+        return '<div style="display:flex;align-items:center;gap:var(--space-md);padding:var(--space-sm) 0;border-bottom:1px solid var(--border);">' +
+          '<span style="font-size:1.5rem;">' + (icons[s.topic] || '📖') + '</span>' +
+          '<div style="flex:1;"><strong>Cycle ' + s.cycle + ' • Week ' + s.week + '</strong><br><span class="text-muted" style="font-size:0.8rem;">' + d.toLocaleDateString() + '</span></div>' +
+          '<span style="color:var(--secondary);font-weight:700;">' + Math.floor((s.duration||0)/60) + ' min</span></div>';
+      }).join('');
     }
     
     // Achievements
     const achievements = [
-      { icon: '🎯', title: 'First Steps', desc: 'Complete first lesson', unlocked: true },
-      { icon: '⭐', title: 'Rising Star', desc: '7 day streak', unlocked: streak >= 7 },
-      { icon: '🧮', title: 'Math Whiz', desc: '100 problems solved', unlocked: false },
-      { icon: '📚', title: 'Bookworm', desc: 'Read 10 books', unlocked: false },
-      { icon: '🔥', title: 'On Fire', desc: '14 day streak', unlocked: false },
-      { icon: '🏆', title: 'Champion', desc: '30 day streak', unlocked: false }
+      {icon:'🎯',title:'First Steps',desc:'Complete your first lesson',unlocked:totalLessons>=1},
+      {icon:'📚',title:'Bookworm',desc:'Complete 10 lessons',unlocked:totalLessons>=10},
+      {icon:'🔥',title:'On Fire',desc:'3 day streak',unlocked:streak>=3},
+      {icon:'⭐',title:'Rising Star',desc:'7 day streak',unlocked:streak>=7},
+      {icon:'🏆',title:'Champion',desc:'14 day streak',unlocked:streak>=14},
+      {icon:'👑',title:'Master',desc:'Complete a full week',unlocked:Object.keys(progress.completed||{}).filter(k=>k.split('-')[2]).length>=7}
     ];
     
-    const achievementsGrid = document.getElementById('achievementsGrid');
-    achievements.forEach(ach => {
-      const div = document.createElement('div');
-      div.className = 'achievement';
-      div.style.opacity = ach.unlocked ? '1' : '0.5';
-      div.innerHTML = `
-        <div class="achievement-icon" style="background: ${ach.unlocked ? 'linear-gradient(135deg, var(--warning), var(--warning-light))' : 'var(--gray-300)'};">
-          ${ach.unlocked ? ach.icon : '🔒'}
-        </div>
-        <div>
-          <h4>${ach.title}</h4>
-          <p style="font-size: 0.875rem; color: var(--text-light); margin: 0;">${ach.desc}</p>
-        </div>
-      `;
-      achievementsGrid.appendChild(div);
-    });
-    
-    function switchLanguage(lang) {
-      window.i18n.setLanguage(lang);
-      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-    }
+    document.getElementById('achievementsGrid').innerHTML = achievements.map(a => 
+      '<div class="stat-card" style="opacity:' + (a.unlocked ? '1' : '0.4') + ';">' +
+      '<div class="value">' + (a.unlocked ? a.icon : '🔒') + '</div>' +
+      '<div class="label">' + a.title + '</div>' +
+      '<div style="font-size:0.7rem;color:var(--text-muted);">' + a.desc + '</div></div>'
+    ).join('');
   </script>
 </body>
 </html>
