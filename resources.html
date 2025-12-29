@@ -2,125 +2,162 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0056b3">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#4A90D9">
   <title>Resources - Classical Kids Study Hub</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="header">
-    <div class="header-container">
-      <a href="index.html" class="logo"><span class="logo-emoji">📚</span><span>Classical Kids</span></a>
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-icon">📚</div><span>Classical Kids</span></a>
       <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="en" onclick="i18n.setLang('en')">EN</button>
-        <button class="lang-btn" data-lang="es" onclick="i18n.setLang('es')">ES</button>
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
       </div>
-      <nav class="header-links">
-        <a href="index.html" class="header-button">Home</a>
-        <a href="resources.html" class="header-button active">Resources</a>
-        <a href="classical_math.html" class="header-button">Math</a>
-        <a href="dashboard.html" class="header-button">Dashboard</a>
-        <a href="parents-guide.html" class="header-button">Parents</a>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link"><span class="nav-link-icon">🏠</span> Home</a>
+        <a href="resources.html" class="nav-link active"><span class="nav-link-icon">📖</span> Resources</a>
+        <a href="classical_math.html" class="nav-link"><span class="nav-link-icon">🔢</span> Math</a>
+        <a href="dashboard.html" class="nav-link"><span class="nav-link-icon">📊</span> Progress</a>
+        <a href="parents-guide.html" class="nav-link"><span class="nav-link-icon">👨‍👩‍👧</span> Parents</a>
       </nav>
     </div>
   </header>
 
   <main class="main">
+    <div class="resources-hero">
+      <h1>📖 Reading Resources</h1>
+      <p>Curated book recommendations for every stage</p>
+    </div>
+    
     <div class="container">
-      <h1 class="text-center mb-lg">📖 <span data-i18n="educationalResources">Educational Resources</span></h1>
-      
-      <div class="text-center mb-lg">
+      <div class="text-center mb-xl">
         <a href="classical_math.html" class="btn btn-primary">🔢 Math Practice</a>
-        <a href="index.html" class="btn btn-warning" style="margin-left:var(--space-sm);">🏠 Back to Menu</a>
+        <a href="index.html" class="btn btn-ghost" style="margin-left: var(--space-sm);">🏠 Back Home</a>
       </div>
 
-      <div class="card card-body">
-        <h2 data-i18n="recommendedReading">📚 Recommended Reading</h2>
-
-        <div class="resource-group">
-          <h3>👶📖 Ages 5–7 (Early Grammar Stage)</h3>
-          <p><strong>Focus:</strong> Foundational stories with biblical themes, strong moral lessons, and exposure to rich language.</p>
-          <ul class="resource-list">
-            <li><strong>The Jesus Storybook Bible</strong> – Sally Lloyd-Jones</li>
-            <li><strong>A Child's Garden of Verses</strong> – Robert Louis Stevenson</li>
-            <li><strong>Little Pilgrim's Progress</strong> – Helen L. Taylor</li>
-            <li><strong>The Complete Tales of Beatrix Potter</strong> – Beatrix Potter</li>
-            <li><strong>Aesop's Fables</strong> – Aesop</li>
-            <li><strong>Winnie-the-Pooh</strong> – A.A. Milne</li>
-            <li><strong>Charlotte's Web</strong> – E.B. White</li>
-            <li><strong>The Velveteen Rabbit</strong> – Margery Williams</li>
-            <li><strong>Frog and Toad Are Friends</strong> – Arnold Lobel</li>
-            <li><strong>The Little Engine That Could</strong> – Watty Piper</li>
+      <!-- Ages 5-7 -->
+      <div class="age-group expanded" onclick="this.classList.toggle('expanded')">
+        <div class="age-group-header">
+          <div class="age-group-icon">👶</div>
+          <div>
+            <div class="age-group-title">Ages 5–7 (Early Grammar Stage)</div>
+            <div class="age-group-focus">Focus: Foundational stories with biblical themes and rich language</div>
+          </div>
+          <div class="age-group-toggle">▼</div>
+        </div>
+        <div class="age-group-body">
+          <ul class="book-list">
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">The Jesus Storybook Bible</strong><br><span class="book-author">Sally Lloyd-Jones</span></div></li>
+            <li class="book-item"><span class="book-icon">📗</span><div><strong class="book-title">A Child's Garden of Verses</strong><br><span class="book-author">Robert Louis Stevenson</span></div></li>
+            <li class="book-item"><span class="book-icon">📘</span><div><strong class="book-title">Little Pilgrim's Progress</strong><br><span class="book-author">Helen L. Taylor</span></div></li>
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">The Complete Tales of Beatrix Potter</strong><br><span class="book-author">Beatrix Potter</span></div></li>
+            <li class="book-item"><span class="book-icon">📗</span><div><strong class="book-title">Aesop's Fables</strong><br><span class="book-author">Aesop</span></div></li>
+            <li class="book-item"><span class="book-icon">📘</span><div><strong class="book-title">Winnie-the-Pooh</strong><br><span class="book-author">A.A. Milne</span></div></li>
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">Charlotte's Web</strong><br><span class="book-author">E.B. White</span></div></li>
+            <li class="book-item"><span class="book-icon">📗</span><div><strong class="book-title">The Velveteen Rabbit</strong><br><span class="book-author">Margery Williams</span></div></li>
+            <li class="book-item"><span class="book-icon">📘</span><div><strong class="book-title">Frog and Toad Are Friends</strong><br><span class="book-author">Arnold Lobel</span></div></li>
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">The Little Engine That Could</strong><br><span class="book-author">Watty Piper</span></div></li>
           </ul>
         </div>
+      </div>
 
-        <div class="resource-group">
-          <h3>🧒📚 Ages 8–10 (Late Grammar Stage)</h3>
-          <p><strong>Focus:</strong> Stronger narratives with Christian virtues, adventure, and wisdom.</p>
-          <ul class="resource-list">
-            <li><strong>The Chronicles of Narnia</strong> – C.S. Lewis</li>
-            <li><strong>Little House on the Prairie</strong> – Laura Ingalls Wilder</li>
-            <li><strong>The Swiss Family Robinson</strong> – Johann Wyss</li>
-            <li><strong>The Secret Garden</strong> – Frances Hodgson Burnett</li>
-            <li><strong>The Green Ember series</strong> – S.D. Smith</li>
-            <li><strong>The Wind in the Willows</strong> – Kenneth Grahame</li>
-            <li><strong>The Wingfeather Saga</strong> – Andrew Peterson</li>
-            <li><strong>Island of the Blue Dolphins</strong> – Scott O'Dell</li>
-            <li><strong>Black Beauty</strong> – Anna Sewell</li>
-            <li><strong>Where the Red Fern Grows</strong> – Wilson Rawls</li>
+      <!-- Ages 8-10 -->
+      <div class="age-group" onclick="this.classList.toggle('expanded')">
+        <div class="age-group-header">
+          <div class="age-group-icon">🧒</div>
+          <div>
+            <div class="age-group-title">Ages 8–10 (Late Grammar Stage)</div>
+            <div class="age-group-focus">Focus: Stronger narratives with Christian virtues and adventure</div>
+          </div>
+          <div class="age-group-toggle">▼</div>
+        </div>
+        <div class="age-group-body">
+          <ul class="book-list">
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">The Chronicles of Narnia</strong><br><span class="book-author">C.S. Lewis</span></div></li>
+            <li class="book-item"><span class="book-icon">📗</span><div><strong class="book-title">Little House on the Prairie</strong><br><span class="book-author">Laura Ingalls Wilder</span></div></li>
+            <li class="book-item"><span class="book-icon">📘</span><div><strong class="book-title">The Swiss Family Robinson</strong><br><span class="book-author">Johann Wyss</span></div></li>
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">The Secret Garden</strong><br><span class="book-author">Frances Hodgson Burnett</span></div></li>
+            <li class="book-item"><span class="book-icon">📗</span><div><strong class="book-title">The Green Ember Series</strong><br><span class="book-author">S.D. Smith</span></div></li>
+            <li class="book-item"><span class="book-icon">📘</span><div><strong class="book-title">The Wind in the Willows</strong><br><span class="book-author">Kenneth Grahame</span></div></li>
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">The Wingfeather Saga</strong><br><span class="book-author">Andrew Peterson</span></div></li>
+            <li class="book-item"><span class="book-icon">📗</span><div><strong class="book-title">Island of the Blue Dolphins</strong><br><span class="book-author">Scott O'Dell</span></div></li>
+            <li class="book-item"><span class="book-icon">📘</span><div><strong class="book-title">Black Beauty</strong><br><span class="book-author">Anna Sewell</span></div></li>
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">Where the Red Fern Grows</strong><br><span class="book-author">Wilson Rawls</span></div></li>
           </ul>
         </div>
+      </div>
 
-        <div class="resource-group">
-          <h3>👦📖 Ages 11–13 (Dialectic Stage)</h3>
-          <p><strong>Focus:</strong> Deeper moral complexity, Christian virtue, and discernment.</p>
-          <ul class="resource-list">
-            <li><strong>The Pilgrim's Progress</strong> – John Bunyan</li>
-            <li><strong>Treasure Island</strong> – Robert Louis Stevenson</li>
-            <li><strong>Anne of Green Gables</strong> – L.M. Montgomery</li>
-            <li><strong>The Hobbit</strong> – J.R.R. Tolkien</li>
-            <li><strong>Twenty Thousand Leagues Under the Sea</strong> – Jules Verne</li>
-            <li><strong>The Chronicles of Prydain</strong> – Lloyd Alexander</li>
-            <li><strong>The Giver</strong> – Lois Lowry</li>
-            <li><strong>Robin Hood</strong> – Howard Pyle</li>
-            <li><strong>Little Women</strong> – Louisa May Alcott</li>
-            <li><strong>The Call of the Wild</strong> – Jack London</li>
+      <!-- Ages 11-13 -->
+      <div class="age-group" onclick="this.classList.toggle('expanded')">
+        <div class="age-group-header">
+          <div class="age-group-icon">👦</div>
+          <div>
+            <div class="age-group-title">Ages 11–13 (Dialectic Stage)</div>
+            <div class="age-group-focus">Focus: Deeper moral complexity and Christian virtue</div>
+          </div>
+          <div class="age-group-toggle">▼</div>
+        </div>
+        <div class="age-group-body">
+          <ul class="book-list">
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">The Pilgrim's Progress</strong><br><span class="book-author">John Bunyan</span></div></li>
+            <li class="book-item"><span class="book-icon">📗</span><div><strong class="book-title">Treasure Island</strong><br><span class="book-author">Robert Louis Stevenson</span></div></li>
+            <li class="book-item"><span class="book-icon">📘</span><div><strong class="book-title">Anne of Green Gables</strong><br><span class="book-author">L.M. Montgomery</span></div></li>
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">The Hobbit</strong><br><span class="book-author">J.R.R. Tolkien</span></div></li>
+            <li class="book-item"><span class="book-icon">📗</span><div><strong class="book-title">Twenty Thousand Leagues Under the Sea</strong><br><span class="book-author">Jules Verne</span></div></li>
+            <li class="book-item"><span class="book-icon">📘</span><div><strong class="book-title">The Chronicles of Prydain</strong><br><span class="book-author">Lloyd Alexander</span></div></li>
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">The Giver</strong><br><span class="book-author">Lois Lowry</span></div></li>
+            <li class="book-item"><span class="book-icon">📗</span><div><strong class="book-title">Robin Hood</strong><br><span class="book-author">Howard Pyle</span></div></li>
+            <li class="book-item"><span class="book-icon">📘</span><div><strong class="book-title">Little Women</strong><br><span class="book-author">Louisa May Alcott</span></div></li>
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">The Call of the Wild</strong><br><span class="book-author">Jack London</span></div></li>
           </ul>
         </div>
+      </div>
 
-        <div class="resource-group">
-          <h3>👩‍🎓📚 Ages 17–18 (Advanced Rhetoric Stage)</h3>
-          <p><strong>Focus:</strong> Theology, philosophy, apologetics, and challenging literature.</p>
-          <ul class="resource-list">
-            <li><strong>The Institutes of the Christian Religion</strong> – John Calvin</li>
-            <li><strong>The Holiness of God</strong> – R.C. Sproul</li>
-            <li><strong>The Abolition of Man</strong> – C.S. Lewis</li>
-            <li><strong>1984</strong> – George Orwell</li>
-            <li><strong>The Brothers Karamazov</strong> – Fyodor Dostoevsky</li>
-            <li><strong>Les Misérables</strong> – Victor Hugo</li>
-            <li><strong>The Count of Monte Cristo</strong> – Alexandre Dumas</li>
-            <li><strong>The Federalist Papers</strong> – Hamilton, Madison, Jay</li>
-            <li><strong>The Cost of Discipleship</strong> – Dietrich Bonhoeffer</li>
-            <li><strong>Desiring God</strong> – John Piper</li>
+      <!-- Ages 17-18 -->
+      <div class="age-group" onclick="this.classList.toggle('expanded')">
+        <div class="age-group-header">
+          <div class="age-group-icon">👩‍🎓</div>
+          <div>
+            <div class="age-group-title">Ages 17–18 (Advanced Rhetoric Stage)</div>
+            <div class="age-group-focus">Focus: Theology, philosophy, and challenging literature</div>
+          </div>
+          <div class="age-group-toggle">▼</div>
+        </div>
+        <div class="age-group-body">
+          <ul class="book-list">
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">The Institutes of the Christian Religion</strong><br><span class="book-author">John Calvin</span></div></li>
+            <li class="book-item"><span class="book-icon">📗</span><div><strong class="book-title">The Holiness of God</strong><br><span class="book-author">R.C. Sproul</span></div></li>
+            <li class="book-item"><span class="book-icon">📘</span><div><strong class="book-title">The Abolition of Man</strong><br><span class="book-author">C.S. Lewis</span></div></li>
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">1984</strong><br><span class="book-author">George Orwell</span></div></li>
+            <li class="book-item"><span class="book-icon">📗</span><div><strong class="book-title">The Brothers Karamazov</strong><br><span class="book-author">Fyodor Dostoevsky</span></div></li>
+            <li class="book-item"><span class="book-icon">📘</span><div><strong class="book-title">Les Misérables</strong><br><span class="book-author">Victor Hugo</span></div></li>
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">The Count of Monte Cristo</strong><br><span class="book-author">Alexandre Dumas</span></div></li>
+            <li class="book-item"><span class="book-icon">📗</span><div><strong class="book-title">The Federalist Papers</strong><br><span class="book-author">Hamilton, Madison, Jay</span></div></li>
+            <li class="book-item"><span class="book-icon">📘</span><div><strong class="book-title">The Cost of Discipleship</strong><br><span class="book-author">Dietrich Bonhoeffer</span></div></li>
+            <li class="book-item"><span class="book-icon">📕</span><div><strong class="book-title">Desiring God</strong><br><span class="book-author">John Piper</span></div></li>
           </ul>
         </div>
+      </div>
 
-        <div style="margin-top:var(--space-xl);padding-top:var(--space-lg);border-top:1px solid var(--border);font-style:italic;color:var(--text-muted);">
-          <p><strong>Disclaimer:</strong> As Christians, we approach literature with wisdom and discernment, recognizing that while some books contain problematic elements, they also provide valuable insights into human nature, morality, and virtue.</p>
-        </div>
+      <!-- Disclaimer -->
+      <div class="scripture-box mt-xl">
+        <p><em>As Christians, we approach literature with wisdom and discernment, recognizing that while some books contain problematic elements, they also provide valuable insights into human nature, morality, and virtue.</em></p>
+        <span class="scripture-ref">Read with discernment</span>
       </div>
     </div>
   </main>
 
   <nav class="bottom-nav">
-    <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
-    <a href="resources.html" class="nav-item active"><span class="nav-icon">📖</span><span>Resources</span></a>
-    <a href="classical_math.html" class="nav-item"><span class="nav-icon">🔢</span><span>Math</span></a>
-    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span>Dashboard</span></a>
-    <a href="parents-guide.html" class="nav-item"><span class="nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
+    <div class="bottom-nav-inner">
+      <a href="index.html" class="bottom-nav-item"><span class="bottom-nav-icon">🏠</span><span>Home</span></a>
+      <a href="resources.html" class="bottom-nav-item active"><span class="bottom-nav-icon">📖</span><span>Books</span></a>
+      <a href="classical_math.html" class="bottom-nav-item"><span class="bottom-nav-icon">🔢</span><span>Math</span></a>
+      <a href="dashboard.html" class="bottom-nav-item"><span class="bottom-nav-icon">📊</span><span>Progress</span></a>
+      <a href="parents-guide.html" class="bottom-nav-item"><span class="bottom-nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
+    </div>
   </nav>
-
-  <script src="i18n.js"></script>
 </body>
 </html>

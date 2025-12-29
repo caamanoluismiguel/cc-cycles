@@ -2,77 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#0056b3">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#4A90D9">
   <title>Math Practice - Classical Kids Study Hub</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔢</text></svg>">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="header">
-    <div class="header-container">
-      <a href="index.html" class="logo"><span class="logo-emoji">📚</span><span>Classical Kids</span></a>
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-icon">📚</div><span>Classical Kids</span></a>
       <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="en" onclick="i18n.setLang('en')">EN</button>
-        <button class="lang-btn" data-lang="es" onclick="i18n.setLang('es')">ES</button>
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
       </div>
-      <nav class="header-links">
-        <a href="index.html" class="header-button">Home</a>
-        <a href="resources.html" class="header-button">Resources</a>
-        <a href="classical_math.html" class="header-button active">Math</a>
-        <a href="dashboard.html" class="header-button">Dashboard</a>
-        <a href="parents-guide.html" class="header-button">Parents</a>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link"><span class="nav-link-icon">🏠</span> Home</a>
+        <a href="resources.html" class="nav-link"><span class="nav-link-icon">📖</span> Resources</a>
+        <a href="classical_math.html" class="nav-link active"><span class="nav-link-icon">🔢</span> Math</a>
+        <a href="dashboard.html" class="nav-link"><span class="nav-link-icon">📊</span> Progress</a>
+        <a href="parents-guide.html" class="nav-link"><span class="nav-link-icon">👨‍👩‍👧</span> Parents</a>
       </nav>
     </div>
   </header>
 
   <main class="main">
-    <div class="math-container">
-      <h1 class="text-center mb-lg">🔢 <span data-i18n="mathPractice">Math Practice</span></h1>
-      <p id="welcomeUser" class="text-center text-muted mb-lg"></p>
-
-      <!-- MENU -->
+    <div class="container">
+      
+      <!-- MENU SECTION -->
       <section id="menuSection">
-        <p class="text-center mb-lg" data-i18n="selectTopic">Select a topic:</p>
-        <div class="game-menu" id="gameMenu">
-          <div class="game-card" data-mode="counting"><div class="icon">🍎</div><div class="title">Counting</div></div>
-          <div class="game-card" data-mode="addition"><div class="icon">➕</div><div class="title">Addition</div></div>
-          <div class="game-card" data-mode="subtraction"><div class="icon">➖</div><div class="title">Subtraction</div></div>
-          <div class="game-card" data-mode="multiplication"><div class="icon">✖️</div><div class="title">Multiplication</div></div>
-          <div class="game-card" data-mode="division"><div class="icon">➗</div><div class="title">Division</div></div>
-          <div class="game-card" data-mode="fractions"><div class="icon">🥧</div><div class="title">Fractions</div></div>
-          <div class="game-card" data-mode="geometry"><div class="icon">📐</div><div class="title">Geometry</div></div>
-          <div class="game-card" data-mode="time"><div class="icon">🕐</div><div class="title">Time</div></div>
-          <div class="game-card" data-mode="money"><div class="icon">💰</div><div class="title">Money</div></div>
-          <div class="game-card" data-mode="measurement"><div class="icon">📏</div><div class="title">Measurement</div></div>
-          <div class="game-card" data-mode="patterns"><div class="icon">🔢</div><div class="title">Patterns</div></div>
+        <div class="math-hero">
+          <h1>🔢 Math Practice</h1>
+          <p>Choose a topic and sharpen your skills!</p>
+        </div>
+        
+        <div class="game-grid" id="gameGrid">
+          <div class="game-card" data-mode="counting"><div class="game-icon">🍎</div><div class="game-title">Counting</div></div>
+          <div class="game-card" data-mode="addition"><div class="game-icon">➕</div><div class="game-title">Addition</div></div>
+          <div class="game-card" data-mode="subtraction"><div class="game-icon">➖</div><div class="game-title">Subtraction</div></div>
+          <div class="game-card" data-mode="multiplication"><div class="game-icon">✖️</div><div class="game-title">Multiplication</div></div>
+          <div class="game-card" data-mode="division"><div class="game-icon">➗</div><div class="game-title">Division</div></div>
+          <div class="game-card" data-mode="fractions"><div class="game-icon">🥧</div><div class="game-title">Fractions</div></div>
+          <div class="game-card" data-mode="geometry"><div class="game-icon">📐</div><div class="game-title">Geometry</div></div>
+          <div class="game-card" data-mode="time"><div class="game-icon">🕐</div><div class="game-title">Time</div></div>
+          <div class="game-card" data-mode="money"><div class="game-icon">💰</div><div class="game-title">Money</div></div>
+          <div class="game-card" data-mode="measurement"><div class="game-icon">📏</div><div class="game-title">Measurement</div></div>
+          <div class="game-card" data-mode="patterns"><div class="game-icon">🔢</div><div class="game-title">Patterns</div></div>
         </div>
       </section>
 
-      <!-- LESSON -->
+      <!-- LESSON SECTION -->
       <section id="lessonSection" class="hidden">
-        <div class="card card-body text-center">
+        <div class="card card-body-lg text-center">
           <h2 id="lessonTitle" class="mb-md"></h2>
-          <div id="lessonText" style="text-align:left;margin-bottom:var(--space-lg);line-height:1.8;"></div>
-          <button class="btn btn-success btn-lg" id="startPracticeBtn">Begin Practice 🚀</button>
+          <div id="lessonText" class="text-left mb-lg" style="line-height: 1.9;"></div>
+          <button class="btn btn-success btn-lg" id="startBtn">Begin Practice 🚀</button>
         </div>
       </section>
 
-      <!-- PRACTICE -->
-      <section id="practiceSection" class="hidden">
+      <!-- GAME SECTION -->
+      <section id="gameSection" class="hidden">
         <div class="game-stats">
-          <div class="stat-item"><div class="stat-value" id="timeDisplay">15:00</div><div class="stat-label">Time</div></div>
-          <div class="stat-item"><div class="stat-value" id="scoreDisplay">0</div><div class="stat-label">Score</div></div>
-          <div class="stat-item"><div class="stat-value" id="streakDisplay">0</div><div class="stat-label">Streak</div></div>
-          <div class="stat-item"><div class="stat-value" id="levelDisplay">1</div><div class="stat-label">Level</div></div>
-          <div class="stat-item"><div class="stat-value" id="highScoreDisplay">0</div><div class="stat-label">Best</div></div>
+          <div class="stat-item"><div class="stat-value" id="timeVal">15:00</div><div class="stat-label">Time</div></div>
+          <div class="stat-item"><div class="stat-value" id="scoreVal">0</div><div class="stat-label">Score</div></div>
+          <div class="stat-item"><div class="stat-value" id="streakVal">0</div><div class="stat-label">Streak</div></div>
+          <div class="stat-item"><div class="stat-value" id="levelVal">1</div><div class="stat-label">Level</div></div>
+          <div class="stat-item"><div class="stat-value" id="highVal">0</div><div class="stat-label">Best</div></div>
         </div>
-        <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+        
+        <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
         
         <div class="problem-area">
-          <div class="visual-area hidden" id="visualArea"><canvas id="gameCanvas" width="400" height="300"></canvas></div>
+          <div class="problem-visual hidden" id="visualArea"><canvas id="canvas" width="380" height="280"></canvas></div>
           <div class="problem-text" id="problemText">?</div>
-          <div class="answer-wrap">
+          <div class="answer-area">
             <input type="text" id="answerInput" class="answer-input" placeholder="?" autocomplete="off" inputmode="text">
             <button class="btn btn-primary" id="submitBtn">Submit</button>
           </div>
@@ -80,137 +83,123 @@
         </div>
         
         <div class="text-center mt-lg">
-          <button class="btn btn-warning" id="changeTopicBtn">← Change Topic</button>
+          <button class="btn btn-ghost" id="changeBtn">← Change Topic</button>
         </div>
       </section>
 
-      <!-- END -->
+      <!-- END SECTION -->
       <section id="endSection" class="hidden">
-        <div class="card card-body end-screen">
-          <h2>🎉 Practice Complete!</h2>
+        <div class="card card-body-lg end-screen">
+          <div class="end-emoji">🎉</div>
+          <h2>Practice Complete!</h2>
           <div class="end-score" id="finalScore">0</div>
           <p class="end-message" id="endMessage">Great job!</p>
-          <p>High Score: <strong id="finalHighScore">0</strong></p>
-          <button class="btn btn-primary btn-lg mt-lg" id="restartBtn">Return to Menu</button>
+          <p>High Score: <strong id="finalHigh">0</strong></p>
+          <button class="btn btn-primary btn-lg mt-lg" id="menuBtn">Return to Menu</button>
         </div>
       </section>
+      
     </div>
   </main>
 
   <nav class="bottom-nav">
-    <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
-    <a href="resources.html" class="nav-item"><span class="nav-icon">📖</span><span>Resources</span></a>
-    <a href="classical_math.html" class="nav-item active"><span class="nav-icon">🔢</span><span>Math</span></a>
-    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span>Dashboard</span></a>
-    <a href="parents-guide.html" class="nav-item"><span class="nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
+    <div class="bottom-nav-inner">
+      <a href="index.html" class="bottom-nav-item"><span class="bottom-nav-icon">🏠</span><span>Home</span></a>
+      <a href="resources.html" class="bottom-nav-item"><span class="bottom-nav-icon">📖</span><span>Books</span></a>
+      <a href="classical_math.html" class="bottom-nav-item active"><span class="bottom-nav-icon">🔢</span><span>Math</span></a>
+      <a href="dashboard.html" class="bottom-nav-item"><span class="bottom-nav-icon">📊</span><span>Progress</span></a>
+      <a href="parents-guide.html" class="bottom-nav-item"><span class="bottom-nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
+    </div>
   </nav>
 
-  <script src="i18n.js"></script>
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const userName = localStorage.getItem('ck_username') || 'Student';
-    document.getElementById('welcomeUser').textContent = 'Welcome, ' + userName + '!';
-
-    // Elements
-    const menuSection = document.getElementById('menuSection');
-    const lessonSection = document.getElementById('lessonSection');
-    const practiceSection = document.getElementById('practiceSection');
-    const endSection = document.getElementById('endSection');
-    const lessonTitle = document.getElementById('lessonTitle');
-    const lessonText = document.getElementById('lessonText');
-    const problemText = document.getElementById('problemText');
-    const answerInput = document.getElementById('answerInput');
-    const feedback = document.getElementById('feedback');
-    const visualArea = document.getElementById('visualArea');
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-
-    // State
-    let mode = '';
-    let score = 0, streak = 0, level = 1, timeLeft = 900, qCount = 0;
-    let answer = null;
-    let timer = null;
-    const maxQ = 50;
-
-    // Lessons
-    const lessons = {
-      counting: { title: '🍎 Counting', text: '<p>Counting is the foundation of all math! Count objects carefully and enter the total number.</p><p>Tip: Touch each object as you count to avoid mistakes.</p>' },
-      addition: { title: '➕ Addition', text: '<p>Addition means combining numbers together. When you add, you find the total of two or more numbers.</p><p>Example: 3 + 5 = 8 (3 apples plus 5 apples equals 8 apples!)</p>' },
-      subtraction: { title: '➖ Subtraction', text: '<p>Subtraction means taking away. Start with a number and remove some to find what remains.</p><p>Example: 10 - 4 = 6 (10 cookies minus 4 eaten equals 6 left)</p>' },
-      multiplication: { title: '✖️ Multiplication', text: '<p>Multiplication is repeated addition! 3 × 4 means adding 3 four times: 3+3+3+3 = 12</p><p>Practice your times tables to become a math champion!</p>' },
-      division: { title: '➗ Division', text: '<p>Division means sharing equally. If you have 12 cookies and 3 friends, each gets 12 ÷ 3 = 4 cookies.</p><p>Division is the opposite of multiplication.</p>' },
-      fractions: { title: '🥧 Fractions', text: '<p>Fractions show parts of a whole. The top number (numerator) shows how many parts you have. The bottom number (denominator) shows total parts.</p><p>Answer as numerator/denominator (example: 2/3)</p>' },
-      geometry: { title: '📐 Geometry', text: '<p>Geometry is the study of shapes! Count the sides of each polygon.</p><p>Triangle = 3, Square = 4, Pentagon = 5, Hexagon = 6, Octagon = 8</p>' },
-      time: { title: '🕐 Time', text: '<p>Learn to read clocks and calculate time! The short hand shows hours, the long hand shows minutes.</p><p>Answer in H:MM format (example: 3:45)</p>' },
-      money: { title: '💰 Money', text: '<p>Count coins to find the total value in cents.</p><p>Penny = 1¢, Nickel = 5¢, Dime = 10¢, Quarter = 25¢</p>' },
-      measurement: { title: '📏 Measurement', text: '<p>Measurement helps us understand size and length. Add or subtract centimeters to solve problems.</p><p>Look at the bars and calculate the answer.</p>' },
-      patterns: { title: '🔢 Patterns', text: '<p>Find the pattern in the sequence and predict the next number!</p><p>Example: 2, 4, 6, ? → The pattern is +2, so the answer is 8</p>' }
+  (function() {
+    var mode = '', score = 0, streak = 0, level = 1, timeLeft = 900, qCount = 0, answer = null, timer = null;
+    var maxQ = 50;
+    
+    var menuSection = document.getElementById('menuSection');
+    var lessonSection = document.getElementById('lessonSection');
+    var gameSection = document.getElementById('gameSection');
+    var endSection = document.getElementById('endSection');
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    
+    var lessons = {
+      counting: { title: '🍎 Counting', text: '<p><strong>Counting</strong> is the foundation of all math! Count the objects carefully and enter the total.</p><p>💡 <strong>Tip:</strong> Touch each object as you count to avoid mistakes.</p>' },
+      addition: { title: '➕ Addition', text: '<p><strong>Addition</strong> means combining numbers. When you add, you find the total!</p><p>💡 <strong>Example:</strong> 3 + 5 = 8 (3 apples plus 5 apples = 8 apples!)</p>' },
+      subtraction: { title: '➖ Subtraction', text: '<p><strong>Subtraction</strong> means taking away. Start with a number and remove some.</p><p>💡 <strong>Example:</strong> 10 - 4 = 6 (10 cookies minus 4 eaten = 6 left)</p>' },
+      multiplication: { title: '✖️ Multiplication', text: '<p><strong>Multiplication</strong> is repeated addition! 3 × 4 means adding 3 four times.</p><p>💡 <strong>Tip:</strong> Practice times tables to become a math champion!</p>' },
+      division: { title: '➗ Division', text: '<p><strong>Division</strong> means sharing equally. 12 ÷ 3 = 4 means 12 shared among 3.</p><p>💡 <strong>Tip:</strong> Division is the opposite of multiplication!</p>' },
+      fractions: { title: '🥧 Fractions', text: '<p><strong>Fractions</strong> show parts of a whole. The top number shows parts you have, bottom shows total parts.</p><p>💡 <strong>Answer format:</strong> numerator/denominator (example: 2/3)</p>' },
+      geometry: { title: '📐 Geometry', text: '<p><strong>Geometry</strong> is the study of shapes! Count the sides of each polygon.</p><p>💡 Triangle=3, Square=4, Pentagon=5, Hexagon=6, Octagon=8</p>' },
+      time: { title: '🕐 Time', text: '<p>Learn to read clocks! The short hand = hours, the long hand = minutes.</p><p>💡 <strong>Answer format:</strong> H:MM (example: 3:45)</p>' },
+      money: { title: '💰 Money', text: '<p>Count coins to find the total value in cents.</p><p>💡 Penny=1¢, Nickel=5¢, Dime=10¢, Quarter=25¢</p>' },
+      measurement: { title: '📏 Measurement', text: '<p><strong>Measurement</strong> helps us understand size. Add or subtract lengths!</p><p>💡 Look at the bars and calculate the total centimeters.</p>' },
+      patterns: { title: '🔢 Patterns', text: '<p>Find the <strong>pattern</strong> in the sequence and predict the next number!</p><p>💡 <strong>Example:</strong> 2, 4, 6, ? → The pattern is +2, so answer is 8</p>' }
     };
-
-    // Show sections
+    
     function showSection(s) {
-      [menuSection, lessonSection, practiceSection, endSection].forEach(el => el.classList.add('hidden'));
+      [menuSection, lessonSection, gameSection, endSection].forEach(function(el) { el.classList.add('hidden'); });
       s.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    // Game menu click
-    document.getElementById('gameMenu').addEventListener('click', e => {
-      const card = e.target.closest('.game-card');
+    
+    document.getElementById('gameGrid').addEventListener('click', function(e) {
+      var card = e.target.closest('.game-card');
       if (!card) return;
       mode = card.dataset.mode;
-      lessonTitle.textContent = lessons[mode]?.title || mode;
-      lessonText.innerHTML = lessons[mode]?.text || '<p>Let\'s practice!</p>';
+      document.getElementById('lessonTitle').textContent = lessons[mode].title;
+      document.getElementById('lessonText').innerHTML = lessons[mode].text;
       showSection(lessonSection);
     });
-
-    // Start practice
-    document.getElementById('startPracticeBtn').addEventListener('click', startGame);
-    document.getElementById('changeTopicBtn').addEventListener('click', () => { clearInterval(timer); showSection(menuSection); });
-    document.getElementById('restartBtn').addEventListener('click', () => showSection(menuSection));
+    
+    document.getElementById('startBtn').addEventListener('click', startGame);
+    document.getElementById('changeBtn').addEventListener('click', function() { clearInterval(timer); showSection(menuSection); });
+    document.getElementById('menuBtn').addEventListener('click', function() { showSection(menuSection); });
     document.getElementById('submitBtn').addEventListener('click', checkAnswer);
-    answerInput.addEventListener('keypress', e => { if (e.key === 'Enter') checkAnswer(); });
-
+    document.getElementById('answerInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') checkAnswer(); });
+    
     function startGame() {
       score = 0; streak = 0; level = 1; timeLeft = 900; qCount = 0;
       updateStats();
-      document.getElementById('highScoreDisplay').textContent = getHighScore();
-      showSection(practiceSection);
+      document.getElementById('highVal').textContent = getHigh();
+      showSection(gameSection);
       startTimer();
       nextProblem();
     }
-
+    
     function startTimer() {
       clearInterval(timer);
-      timer = setInterval(() => {
+      timer = setInterval(function() {
         timeLeft--;
         updateTime();
         if (timeLeft <= 0) endGame();
       }, 1000);
     }
-
+    
     function updateTime() {
-      const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
-      document.getElementById('timeDisplay').textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+      var m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+      document.getElementById('timeVal').textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
     }
-
+    
     function updateStats() {
-      document.getElementById('scoreDisplay').textContent = score;
-      document.getElementById('streakDisplay').textContent = streak;
-      document.getElementById('levelDisplay').textContent = level;
+      document.getElementById('scoreVal').textContent = score;
+      document.getElementById('streakVal').textContent = streak;
+      document.getElementById('levelVal').textContent = level;
       document.getElementById('progressBar').style.width = (qCount / maxQ * 100) + '%';
     }
-
+    
     function nextProblem() {
       qCount++;
       if (qCount > maxQ) { endGame(); return; }
       
-      feedback.textContent = '';
-      feedback.className = 'feedback';
-      answerInput.value = '';
-      answerInput.className = 'answer-input';
-      visualArea.classList.add('hidden');
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('feedback').className = 'feedback';
+      document.getElementById('answerInput').value = '';
+      document.getElementById('answerInput').className = 'answer-input';
+      document.getElementById('visualArea').classList.add('hidden');
       
-      let problem = '';
+      var problem = '';
       switch(mode) {
         case 'counting': problem = genCounting(); break;
         case 'addition': problem = genAddition(); break;
@@ -225,249 +214,244 @@
         case 'patterns': problem = genPatterns(); break;
       }
       
-      problemText.innerHTML = problem;
-      answerInput.focus();
+      document.getElementById('problemText').innerHTML = problem;
+      document.getElementById('answerInput').focus();
       updateStats();
     }
-
+    
     function checkAnswer() {
-      const userAns = answerInput.value.trim();
+      var userAns = document.getElementById('answerInput').value.trim();
       if (!userAns) return;
       
-      let isCorrect = false;
-      
+      var isCorrect = false;
       if (mode === 'fractions' || mode === 'time') {
         isCorrect = userAns.toLowerCase() === String(answer).toLowerCase();
       } else {
-        const num = parseFloat(userAns);
+        var num = parseFloat(userAns);
         isCorrect = !isNaN(num) && num === answer;
       }
+      
+      var input = document.getElementById('answerInput');
+      var feedback = document.getElementById('feedback');
       
       if (isCorrect) {
         score++; streak++;
         if (streak % 3 === 0 && level < 5) level++;
-        answerInput.className = 'answer-input correct';
-        feedback.textContent = ['🎉 Correct!', '⭐ Great!', '🚀 Amazing!', '💪 Perfect!'][Math.floor(Math.random()*4)];
+        input.className = 'answer-input correct';
+        feedback.textContent = ['🎉 Correct!', '⭐ Awesome!', '🚀 Amazing!', '💪 Perfect!'][Math.floor(Math.random()*4)];
         feedback.className = 'feedback correct';
-        if (streak % 5 === 0) confetti(30);
-        setTimeout(nextProblem, 800);
+        if (streak % 5 === 0) doConfetti(30);
+        setTimeout(nextProblem, 700);
       } else {
         streak = 0;
         if (level > 1) level--;
-        answerInput.className = 'answer-input wrong';
-        feedback.textContent = '❌ The answer was: ' + answer;
+        input.className = 'answer-input wrong';
+        feedback.textContent = '❌ Answer: ' + answer;
         feedback.className = 'feedback wrong';
         setTimeout(nextProblem, 1500);
       }
       updateStats();
     }
-
+    
     function endGame() {
       clearInterval(timer);
-      if (score > getHighScore()) setHighScore(score);
+      if (score > getHigh()) setHigh(score);
       document.getElementById('finalScore').textContent = score;
-      document.getElementById('finalHighScore').textContent = getHighScore();
-      document.getElementById('endMessage').textContent = score >= 40 ? '🏆 Champion!' : score >= 25 ? '⭐ Great job!' : '👍 Keep practicing!';
+      document.getElementById('finalHigh').textContent = getHigh();
+      document.getElementById('endMessage').textContent = score >= 40 ? '🏆 Math Champion!' : score >= 25 ? '⭐ Great job!' : '👍 Keep practicing!';
       showSection(endSection);
-      confetti(100);
+      doConfetti(100);
     }
-
+    
     // PROBLEM GENERATORS
     function genCounting() {
-      const n = rand(1, 5 + level * 2);
+      var n = rand(1, 5 + level * 2);
       answer = n;
-      const items = ['🍎','🍊','⭐','🌟','🎈','🎁','🌸','🐱','🐶','🦋'][rand(0,9)];
-      return 'Count: ' + items.repeat(n).split('').join(' ');
+      var items = ['🍎','🍊','⭐','🌟','🎈','🌸','🦋','🐱','🐶','🎁'][rand(0,9)];
+      var display = '';
+      for (var i = 0; i < n; i++) display += items + ' ';
+      return '<div style="font-size: 2.5rem; line-height: 1.5;">' + display + '</div><div style="margin-top: 1rem;">How many?</div>';
     }
-
+    
     function genAddition() {
-      const max = 5 + level * 5;
-      const a = rand(1, max), b = rand(1, max);
+      var max = 5 + level * 5;
+      var a = rand(1, max), b = rand(1, max);
       answer = a + b;
       return a + ' + ' + b + ' = ?';
     }
-
+    
     function genSubtraction() {
-      const max = 5 + level * 5;
-      let a = rand(5, max), b = rand(1, a);
+      var max = 5 + level * 5;
+      var a = rand(5, max), b = rand(1, a);
       answer = a - b;
       return a + ' − ' + b + ' = ?';
     }
-
+    
     function genMultiplication() {
-      const max = 2 + level * 2;
-      const a = rand(1, Math.min(12, max)), b = rand(1, Math.min(12, max));
+      var max = 2 + level * 2;
+      var a = rand(1, Math.min(12, max)), b = rand(1, Math.min(12, max));
       answer = a * b;
       return a + ' × ' + b + ' = ?';
     }
-
+    
     function genDivision() {
-      const divisor = rand(2, 5 + level);
-      const quotient = rand(1, 10);
-      const dividend = divisor * quotient;
+      var divisor = rand(2, 5 + level);
+      var quotient = rand(1, 10);
+      var dividend = divisor * quotient;
       answer = quotient;
       return dividend + ' ÷ ' + divisor + ' = ?';
     }
-
+    
     function genFractions() {
-      visualArea.classList.remove('hidden');
-      const total = rand(2, 4 + level);
-      const filled = rand(1, total - 1);
+      document.getElementById('visualArea').classList.remove('hidden');
+      var total = rand(2, 4 + level);
+      var filled = rand(1, total - 1);
       answer = filled + '/' + total;
       drawFractionBar(filled, total);
-      return 'What fraction is shaded? (e.g., 2/3)';
+      return 'What fraction is shaded?<br><small>(e.g., 2/3)</small>';
     }
-
+    
     function genGeometry() {
-      visualArea.classList.remove('hidden');
-      const sides = [3,4,5,6,8][rand(0, 4)];
+      document.getElementById('visualArea').classList.remove('hidden');
+      var sides = [3,4,5,6,8][rand(0, 4)];
       answer = sides;
       drawPolygon(sides);
       return 'How many sides?';
     }
-
+    
     function genTime() {
-      visualArea.classList.remove('hidden');
-      const h = rand(1, 12), m = rand(0, 11) * 5;
-      const add = rand(5, 30);
-      let totalM = h * 60 + m + add;
-      let newH = Math.floor(totalM / 60) % 12 || 12;
-      let newM = totalM % 60;
+      document.getElementById('visualArea').classList.remove('hidden');
+      var h = rand(1, 12), m = rand(0, 11) * 5;
+      var add = rand(5, 30);
+      var totalM = h * 60 + m + add;
+      var newH = Math.floor(totalM / 60) % 12 || 12;
+      var newM = totalM % 60;
       answer = newH + ':' + String(newM).padStart(2,'0');
       drawClock(h, m);
-      return 'It is ' + h + ':' + String(m).padStart(2,'0') + '. What time in ' + add + ' min? (H:MM)';
+      return 'It\'s ' + h + ':' + String(m).padStart(2,'0') + '. What time in ' + add + ' min?<br><small>(H:MM)</small>';
     }
-
+    
     function genMoney() {
-      visualArea.classList.remove('hidden');
-      const p = rand(0, 3), n = rand(0, 3), d = rand(0, 3), q = rand(0, 2);
+      document.getElementById('visualArea').classList.remove('hidden');
+      var p = rand(0, 3), n = rand(0, 3), d = rand(0, 3), q = rand(0, 2);
       answer = p + n*5 + d*10 + q*25;
       drawMoney(p, n, d, q);
       return 'Total cents?';
     }
-
+    
     function genMeasurement() {
-      visualArea.classList.remove('hidden');
-      const a = rand(2, 10), b = rand(1, 8);
-      const op = Math.random() < 0.5 ? '+' : '-';
-      if (op === '+') answer = a + b;
-      else { answer = Math.abs(a - b); }
+      document.getElementById('visualArea').classList.remove('hidden');
+      var a = rand(2, 10), b = rand(1, 8);
+      var op = Math.random() < 0.5 ? '+' : '-';
+      answer = op === '+' ? a + b : Math.abs(a - b);
       drawMeasurement(a, b, op);
-      return (op === '+') ? a + ' cm + ' + b + ' cm = ?' : Math.max(a,b) + ' cm − ' + Math.min(a,b) + ' cm = ?';
+      return op === '+' ? a + ' cm + ' + b + ' cm = ?' : Math.max(a,b) + ' cm − ' + Math.min(a,b) + ' cm = ?';
     }
-
+    
     function genPatterns() {
-      const start = rand(1, 5), diff = rand(1, 5);
-      const seq = [start, start+diff, start+2*diff];
+      var start = rand(1, 5), diff = rand(1, 5);
+      var seq = [start, start+diff, start+2*diff];
       answer = start + 3*diff;
       return 'Pattern: ' + seq.join(', ') + ', ?';
     }
-
+    
     // DRAWING FUNCTIONS
     function drawFractionBar(filled, total) {
-      ctx.clearRect(0, 0, 400, 300);
-      const w = 300 / total, h = 80;
-      const x0 = (400 - 300) / 2, y0 = 110;
-      for (let i = 0; i < total; i++) {
-        ctx.fillStyle = i < filled ? '#0056b3' : '#e0e0e0';
-        ctx.fillRect(x0 + i * w, y0, w - 2, h);
-        ctx.strokeStyle = '#333';
-        ctx.strokeRect(x0 + i * w, y0, w - 2, h);
+      ctx.clearRect(0, 0, 380, 280);
+      var w = 300 / total, h = 70;
+      var x0 = (380 - 300) / 2, y0 = 105;
+      for (var i = 0; i < total; i++) {
+        ctx.fillStyle = i < filled ? '#4A90D9' : '#E8E0D8';
+        ctx.fillRect(x0 + i * w, y0, w - 3, h);
+        ctx.strokeStyle = '#2D3748';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x0 + i * w, y0, w - 3, h);
       }
     }
-
+    
     function drawPolygon(sides) {
-      ctx.clearRect(0, 0, 400, 300);
-      const cx = 200, cy = 150, r = 80;
+      ctx.clearRect(0, 0, 380, 280);
+      var cx = 190, cy = 140, r = 80;
       ctx.beginPath();
-      for (let i = 0; i < sides; i++) {
-        const angle = (i * 2 * Math.PI / sides) - Math.PI / 2;
-        const x = cx + r * Math.cos(angle);
-        const y = cy + r * Math.sin(angle);
+      for (var i = 0; i < sides; i++) {
+        var angle = (i * 2 * Math.PI / sides) - Math.PI / 2;
+        var x = cx + r * Math.cos(angle), y = cy + r * Math.sin(angle);
         i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
       }
       ctx.closePath();
-      ctx.fillStyle = '#e3f2fd';
-      ctx.fill();
-      ctx.strokeStyle = '#0056b3';
-      ctx.lineWidth = 3;
-      ctx.stroke();
+      ctx.fillStyle = 'rgba(74,144,217,0.2)'; ctx.fill();
+      ctx.strokeStyle = '#4A90D9'; ctx.lineWidth = 4; ctx.stroke();
     }
-
+    
     function drawClock(h, m) {
-      ctx.clearRect(0, 0, 400, 300);
-      const cx = 200, cy = 150, r = 90;
-      // Face
+      ctx.clearRect(0, 0, 380, 280);
+      var cx = 190, cy = 140, r = 90;
       ctx.beginPath(); ctx.arc(cx, cy, r, 0, 2*Math.PI);
-      ctx.fillStyle = '#fff'; ctx.fill();
-      ctx.strokeStyle = '#0056b3'; ctx.lineWidth = 4; ctx.stroke();
-      // Ticks
-      for (let i = 0; i < 12; i++) {
-        const a = i * Math.PI / 6 - Math.PI / 2;
+      ctx.fillStyle = '#FDF8F3'; ctx.fill();
+      ctx.strokeStyle = '#4A90D9'; ctx.lineWidth = 4; ctx.stroke();
+      for (var i = 0; i < 12; i++) {
+        var a = i * Math.PI / 6 - Math.PI / 2;
         ctx.beginPath();
-        ctx.moveTo(cx + (r-10) * Math.cos(a), cy + (r-10) * Math.sin(a));
-        ctx.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a));
-        ctx.strokeStyle = '#333'; ctx.lineWidth = 2; ctx.stroke();
+        ctx.moveTo(cx + (r-12) * Math.cos(a), cy + (r-12) * Math.sin(a));
+        ctx.lineTo(cx + (r-4) * Math.cos(a), cy + (r-4) * Math.sin(a));
+        ctx.strokeStyle = '#2D3748'; ctx.lineWidth = 2; ctx.stroke();
       }
-      // Hour hand
-      const ha = ((h % 12) + m / 60) * Math.PI / 6 - Math.PI / 2;
+      var ha = ((h % 12) + m / 60) * Math.PI / 6 - Math.PI / 2;
       ctx.beginPath(); ctx.moveTo(cx, cy);
-      ctx.lineTo(cx + 40 * Math.cos(ha), cy + 40 * Math.sin(ha));
-      ctx.strokeStyle = '#333'; ctx.lineWidth = 4; ctx.stroke();
-      // Minute hand
-      const ma = m * Math.PI / 30 - Math.PI / 2;
+      ctx.lineTo(cx + 45 * Math.cos(ha), cy + 45 * Math.sin(ha));
+      ctx.strokeStyle = '#2D3748'; ctx.lineWidth = 5; ctx.stroke();
+      var ma = m * Math.PI / 30 - Math.PI / 2;
       ctx.beginPath(); ctx.moveTo(cx, cy);
-      ctx.lineTo(cx + 60 * Math.cos(ma), cy + 60 * Math.sin(ma));
-      ctx.strokeStyle = '#0056b3'; ctx.lineWidth = 3; ctx.stroke();
-      // Center
-      ctx.beginPath(); ctx.arc(cx, cy, 5, 0, 2*Math.PI);
-      ctx.fillStyle = '#333'; ctx.fill();
+      ctx.lineTo(cx + 65 * Math.cos(ma), cy + 65 * Math.sin(ma));
+      ctx.strokeStyle = '#4A90D9'; ctx.lineWidth = 3; ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx, cy, 6, 0, 2*Math.PI);
+      ctx.fillStyle = '#2D3748'; ctx.fill();
     }
-
+    
     function drawMoney(p, n, d, q) {
-      ctx.clearRect(0, 0, 400, 300);
-      ctx.font = 'bold 14px Nunito';
-      let y = 50;
-      const coins = [[p,'1¢','#b87333'], [n,'5¢','#a0a0a0'], [d,'10¢','#c0c0c0'], [q,'25¢','#d4af37']];
-      coins.forEach(([count, label, color]) => {
-        for (let i = 0; i < count; i++) {
-          ctx.beginPath(); ctx.arc(50 + i * 40, y, 18, 0, 2*Math.PI);
-          ctx.fillStyle = color; ctx.fill();
-          ctx.strokeStyle = '#333'; ctx.stroke();
-          ctx.fillStyle = '#333'; ctx.fillText(label, 40 + i * 40, y + 5);
+      ctx.clearRect(0, 0, 380, 280);
+      ctx.font = 'bold 13px Quicksand';
+      ctx.textAlign = 'center';
+      var y = 40;
+      var coins = [[p,'1¢','#CD7F32'], [n,'5¢','#A8A8A8'], [d,'10¢','#C0C0C0'], [q,'25¢','#FFD700']];
+      coins.forEach(function(c) {
+        for (var i = 0; i < c[0]; i++) {
+          ctx.beginPath(); ctx.arc(50 + i * 45, y, 20, 0, 2*Math.PI);
+          ctx.fillStyle = c[1]; ctx.fill();
+          ctx.strokeStyle = '#2D3748'; ctx.lineWidth = 2; ctx.stroke();
+          ctx.fillStyle = '#2D3748'; ctx.fillText(c[2], 50 + i * 45, y + 5);
         }
         y += 55;
       });
     }
-
+    
     function drawMeasurement(a, b, op) {
-      ctx.clearRect(0, 0, 400, 300);
-      const scale = 25, h = 30;
-      ctx.fillStyle = '#0056b3';
-      ctx.fillRect(50, 100, a * scale, h);
-      ctx.fillStyle = '#333'; ctx.font = '14px Nunito';
-      ctx.fillText(a + ' cm', 50 + a * scale / 2 - 15, 95);
-      ctx.fillStyle = op === '+' ? '#28a745' : '#dc3545';
-      ctx.fillRect(50 + (op === '+' ? a * scale + 10 : 0), 150, b * scale, h);
-      ctx.fillStyle = '#333';
-      ctx.fillText((op === '+' ? '' : '−') + b + ' cm', 50 + b * scale / 2 - 15, 195);
+      ctx.clearRect(0, 0, 380, 280);
+      var scale = 22, h = 30;
+      ctx.fillStyle = '#4A90D9';
+      ctx.fillRect(40, 100, a * scale, h);
+      ctx.font = 'bold 14px Quicksand'; ctx.fillStyle = '#2D3748';
+      ctx.fillText(a + ' cm', 40 + a * scale / 2, 90);
+      ctx.fillStyle = op === '+' ? '#5DB075' : '#F28482';
+      ctx.fillRect(40 + (op === '+' ? a * scale + 5 : 0), 150, b * scale, h);
+      ctx.fillStyle = '#2D3748';
+      ctx.fillText((op === '-' ? '−' : '') + b + ' cm', 40 + b * scale / 2, 195);
     }
-
-    // UTILS
+    
+    // UTILITIES
     function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-    function getHighScore() { return parseInt(localStorage.getItem('mathHigh_' + mode) || '0'); }
-    function setHighScore(val) { localStorage.setItem('mathHigh_' + mode, val); }
-    function confetti(n) {
-      const colors = ['#0056b3','#28a745','#ffc107','#dc3545'];
-      for (let i = 0; i < n; i++) {
-        const c = document.createElement('div');
-        c.className = 'confetti';
-        c.style.cssText = 'position:fixed;width:10px;height:10px;top:-10px;left:'+Math.random()*100+'vw;background:'+colors[rand(0,3)]+';z-index:9999;animation:confetti-fall '+(2+Math.random()*2)+'s linear forwards;border-radius:'+(Math.random()>.5?'50%':'0')+';';
+    function getHigh() { return parseInt(localStorage.getItem('mathHigh_' + mode) || '0'); }
+    function setHigh(v) { localStorage.setItem('mathHigh_' + mode, v); }
+    function doConfetti(n) {
+      var colors = ['#4A90D9','#5DB075','#F5C842','#E8845F','#9B5DE5','#F28482'];
+      for (var i = 0; i < n; i++) {
+        var c = document.createElement('div');
+        c.style.cssText = 'position:fixed;width:' + (6+Math.random()*8) + 'px;height:' + (6+Math.random()*8) + 'px;top:-10px;left:' + Math.random()*100 + 'vw;background:' + colors[rand(0,5)] + ';z-index:9999;pointer-events:none;border-radius:' + (Math.random()>.5?'50%':'2px') + ';animation:confetti-fall ' + (2+Math.random()*2) + 's linear forwards;';
         document.body.appendChild(c);
-        setTimeout(() => c.remove(), 4000);
+        setTimeout(function(el) { el.remove(); }, 4000, c);
       }
     }
-  });
+  })();
   </script>
 </body>
 </html>

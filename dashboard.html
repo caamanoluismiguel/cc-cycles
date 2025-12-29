@@ -2,161 +2,170 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0056b3">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#4A90D9">
   <title>Dashboard - Classical Kids Study Hub</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="header">
-    <div class="header-container">
-      <a href="index.html" class="logo"><span class="logo-emoji">📚</span><span>Classical Kids</span></a>
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-icon">📚</div><span>Classical Kids</span></a>
       <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="en" onclick="i18n.setLang('en')">EN</button>
-        <button class="lang-btn" data-lang="es" onclick="i18n.setLang('es')">ES</button>
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
       </div>
-      <nav class="header-links">
-        <a href="index.html" class="header-button">Home</a>
-        <a href="resources.html" class="header-button">Resources</a>
-        <a href="classical_math.html" class="header-button">Math</a>
-        <a href="dashboard.html" class="header-button active">Dashboard</a>
-        <a href="parents-guide.html" class="header-button">Parents</a>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link"><span class="nav-link-icon">🏠</span> Home</a>
+        <a href="resources.html" class="nav-link"><span class="nav-link-icon">📖</span> Resources</a>
+        <a href="classical_math.html" class="nav-link"><span class="nav-link-icon">🔢</span> Math</a>
+        <a href="dashboard.html" class="nav-link active"><span class="nav-link-icon">📊</span> Progress</a>
+        <a href="parents-guide.html" class="nav-link"><span class="nav-link-icon">👨‍👩‍👧</span> Parents</a>
       </nav>
     </div>
   </header>
 
   <main class="main">
-    <div class="container">
-      <h1 class="text-center mb-lg">📊 <span data-i18n="dashboard">Dashboard</span></h1>
-      
+    <!-- Hero -->
+    <div class="dashboard-hero">
+      <h1>📊 Your Progress</h1>
+      <p id="welcomeMsg">Keep up the great work!</p>
+    </div>
+    
+    <div class="container" style="margin-top: calc(var(--space-xl) * -1);">
       <!-- Stats Cards -->
-      <div class="stats-grid mb-lg">
-        <div class="stat-card primary">
-          <div class="value" id="totalTime">0</div>
-          <div class="label" data-i18n="totalMinutes">Total Minutes</div>
+      <div class="stats-cards">
+        <div class="stats-card highlight">
+          <div class="stats-card-icon">⏱️</div>
+          <div class="stats-card-value" id="totalTime">0</div>
+          <div class="stats-card-label">Minutes</div>
         </div>
-        <div class="stat-card success">
-          <div class="value" id="totalLessons">0</div>
-          <div class="label" data-i18n="lessonsCompleted">Lessons</div>
+        <div class="stats-card success">
+          <div class="stats-card-icon">📚</div>
+          <div class="stats-card-value" id="totalLessons">0</div>
+          <div class="stats-card-label">Lessons</div>
         </div>
-        <div class="stat-card warning">
-          <div class="value" id="currentStreak">0🔥</div>
-          <div class="label" data-i18n="dayStreak">Day Streak</div>
+        <div class="stats-card warning">
+          <div class="stats-card-icon">🔥</div>
+          <div class="stats-card-value" id="dayStreak">0</div>
+          <div class="stats-card-label">Day Streak</div>
         </div>
       </div>
 
       <!-- Calendar -->
-      <div class="card mb-lg">
-        <div class="card-body">
-          <h3 class="mb-md">📅 <span data-i18n="studyCalendar">Study Calendar</span></h3>
-          <div class="calendar-grid" id="calendarGrid"></div>
-        </div>
+      <div class="calendar-card">
+        <h3 class="section-title">📅 Study Calendar</h3>
+        <div class="calendar-grid" id="calendarGrid"></div>
       </div>
 
       <!-- Recent Sessions -->
-      <div class="card mb-lg">
-        <div class="card-body">
-          <h3 class="mb-md">📝 <span data-i18n="recentSessions">Recent Sessions</span></h3>
-          <div id="sessionList"></div>
-        </div>
+      <div class="sessions-card">
+        <h3 class="section-title">📝 Recent Sessions</h3>
+        <div id="sessionsList"></div>
       </div>
 
       <!-- Achievements -->
-      <div class="card">
-        <div class="card-body">
-          <h3 class="mb-md">🏆 <span data-i18n="achievements">Achievements</span></h3>
-          <div class="stats-grid" id="achievementsGrid"></div>
-        </div>
+      <div class="card card-body">
+        <h3 class="section-title">🏆 Achievements</h3>
+        <div class="achievements-grid" id="achievementsGrid"></div>
       </div>
     </div>
   </main>
 
   <nav class="bottom-nav">
-    <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
-    <a href="resources.html" class="nav-item"><span class="nav-icon">📖</span><span>Resources</span></a>
-    <a href="classical_math.html" class="nav-item"><span class="nav-icon">🔢</span><span>Math</span></a>
-    <a href="dashboard.html" class="nav-item active"><span class="nav-icon">📊</span><span>Dashboard</span></a>
-    <a href="parents-guide.html" class="nav-item"><span class="nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
+    <div class="bottom-nav-inner">
+      <a href="index.html" class="bottom-nav-item"><span class="bottom-nav-icon">🏠</span><span>Home</span></a>
+      <a href="resources.html" class="bottom-nav-item"><span class="bottom-nav-icon">📖</span><span>Books</span></a>
+      <a href="classical_math.html" class="bottom-nav-item"><span class="bottom-nav-icon">🔢</span><span>Math</span></a>
+      <a href="dashboard.html" class="bottom-nav-item active"><span class="bottom-nav-icon">📊</span><span>Progress</span></a>
+      <a href="parents-guide.html" class="bottom-nav-item"><span class="bottom-nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
+    </div>
   </nav>
 
-  <script src="i18n.js"></script>
   <script>
-    const progress = JSON.parse(localStorage.getItem('ck_progress') || '{"sessions":[],"completed":{},"homework":[]}');
-    const sessions = progress.sessions || [];
+  (function() {
+    var user = localStorage.getItem('ck_user') || 'Student';
+    var progress = JSON.parse(localStorage.getItem('ck_progress') || '{"sessions":[],"completed":{},"homework":[]}');
+    var sessions = progress.sessions || [];
+    
+    document.getElementById('welcomeMsg').textContent = 'Great work, ' + user + '!';
     
     // Stats
-    const totalMinutes = sessions.reduce((sum, s) => sum + Math.floor((s.duration || 0) / 60), 0);
-    const totalLessons = Object.keys(progress.completed || {}).length;
+    var totalMinutes = sessions.reduce(function(sum, s) { return sum + Math.floor((s.duration || 0) / 60); }, 0);
+    var totalLessons = Object.keys(progress.completed || {}).length;
     
-    // Streak
-    const today = new Date(); today.setHours(0,0,0,0);
-    const uniqueDays = [...new Set(sessions.map(s => {
-      const d = new Date(s.date); d.setHours(0,0,0,0); return d.getTime();
-    }))].sort((a,b) => b - a);
-    
-    let streak = 0;
-    for (let i = 0; i < 30; i++) {
-      if (uniqueDays.includes(today.getTime() - i * 86400000)) streak++;
+    var today = new Date(); today.setHours(0,0,0,0);
+    var days = {};
+    sessions.forEach(function(s) { var d = new Date(s.date); d.setHours(0,0,0,0); days[d.getTime()] = true; });
+    var streak = 0;
+    for (var i = 0; i < 30; i++) {
+      if (days[today.getTime() - i * 86400000]) streak++;
       else if (i > 0) break;
     }
     
     document.getElementById('totalTime').textContent = totalMinutes;
     document.getElementById('totalLessons').textContent = totalLessons;
-    document.getElementById('currentStreak').textContent = streak + '🔥';
+    document.getElementById('dayStreak').textContent = streak;
     
     // Calendar
-    const cal = document.getElementById('calendarGrid');
-    const days = ['S','M','T','W','T','F','S'];
-    days.forEach(d => { const el = document.createElement('div'); el.className = 'calendar-day header'; el.textContent = d; cal.appendChild(el); });
+    var cal = document.getElementById('calendarGrid');
+    ['S','M','T','W','T','F','S'].forEach(function(d) {
+      var el = document.createElement('div');
+      el.className = 'calendar-day header'; el.textContent = d;
+      cal.appendChild(el);
+    });
     
-    const now = new Date();
-    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-    const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+    var now = new Date();
+    var firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+    var daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     
-    for (let i = 0; i < firstDay.getDay(); i++) { const el = document.createElement('div'); el.className = 'calendar-day'; cal.appendChild(el); }
+    for (var i = 0; i < firstDay.getDay(); i++) {
+      var el = document.createElement('div'); el.className = 'calendar-day'; cal.appendChild(el);
+    }
     
-    for (let day = 1; day <= daysInMonth; day++) {
-      const el = document.createElement('div');
-      el.className = 'calendar-day';
-      el.textContent = day;
-      const date = new Date(now.getFullYear(), now.getMonth(), day); date.setHours(0,0,0,0);
-      if (uniqueDays.includes(date.getTime())) el.classList.add('completed');
+    for (var day = 1; day <= daysInMonth; day++) {
+      var el = document.createElement('div');
+      el.className = 'calendar-day'; el.textContent = day;
+      var date = new Date(now.getFullYear(), now.getMonth(), day); date.setHours(0,0,0,0);
+      if (days[date.getTime()]) el.classList.add('completed');
       if (day === now.getDate()) el.classList.add('today');
       cal.appendChild(el);
     }
     
     // Sessions
-    const sessionList = document.getElementById('sessionList');
+    var sessionsList = document.getElementById('sessionsList');
+    var icons = {history:'📜',science:'🔬',geography:'🌍',math:'🔢',english:'📝',latin:'📚',finearts:'🎨'};
+    
     if (sessions.length === 0) {
-      sessionList.innerHTML = '<p class="text-muted text-center">No sessions yet. Start studying!</p>';
+      sessionsList.innerHTML = '<div class="text-center text-muted" style="padding: var(--space-xl);">No sessions yet. Start studying to track your progress!</div>';
     } else {
-      const icons = {history:'📜',science:'🔬',geography:'🌍',math:'🔢',english:'📝',latin:'📚',finearts:'🎨'};
-      sessionList.innerHTML = sessions.slice(-10).reverse().map(s => {
-        const d = new Date(s.date);
-        return '<div style="display:flex;align-items:center;gap:var(--space-md);padding:var(--space-sm) 0;border-bottom:1px solid var(--border);">' +
-          '<span style="font-size:1.5rem;">' + (icons[s.topic] || '📖') + '</span>' +
-          '<div style="flex:1;"><strong>Cycle ' + s.cycle + ' • Week ' + s.week + '</strong><br><span class="text-muted" style="font-size:0.8rem;">' + d.toLocaleDateString() + '</span></div>' +
-          '<span style="color:var(--secondary);font-weight:700;">' + Math.floor((s.duration||0)/60) + ' min</span></div>';
+      sessionsList.innerHTML = sessions.slice(-8).reverse().map(function(s) {
+        var d = new Date(s.date);
+        return '<div class="session-item">' +
+          '<div class="session-icon">' + (icons[s.topic] || '📖') + '</div>' +
+          '<div class="session-info"><div class="session-title">Cycle ' + s.cycle + ' • Week ' + s.week + '</div><div class="session-date">' + d.toLocaleDateString() + '</div></div>' +
+          '<div class="session-duration">' + Math.floor((s.duration||0)/60) + ' min</div></div>';
       }).join('');
     }
     
     // Achievements
-    const achievements = [
-      {icon:'🎯',title:'First Steps',desc:'Complete your first lesson',unlocked:totalLessons>=1},
+    var achievements = [
+      {icon:'🎯',title:'First Steps',desc:'Complete first lesson',unlocked:totalLessons>=1},
       {icon:'📚',title:'Bookworm',desc:'Complete 10 lessons',unlocked:totalLessons>=10},
       {icon:'🔥',title:'On Fire',desc:'3 day streak',unlocked:streak>=3},
       {icon:'⭐',title:'Rising Star',desc:'7 day streak',unlocked:streak>=7},
       {icon:'🏆',title:'Champion',desc:'14 day streak',unlocked:streak>=14},
-      {icon:'👑',title:'Master',desc:'Complete a full week',unlocked:Object.keys(progress.completed||{}).filter(k=>k.split('-')[2]).length>=7}
+      {icon:'👑',title:'Scholar',desc:'30 minutes total',unlocked:totalMinutes>=30}
     ];
     
-    document.getElementById('achievementsGrid').innerHTML = achievements.map(a => 
-      '<div class="stat-card" style="opacity:' + (a.unlocked ? '1' : '0.4') + ';">' +
-      '<div class="value">' + (a.unlocked ? a.icon : '🔒') + '</div>' +
-      '<div class="label">' + a.title + '</div>' +
-      '<div style="font-size:0.7rem;color:var(--text-muted);">' + a.desc + '</div></div>'
-    ).join('');
+    document.getElementById('achievementsGrid').innerHTML = achievements.map(function(a) {
+      return '<div class="achievement-card' + (a.unlocked ? '' : ' locked') + '">' +
+        '<div class="achievement-icon">' + (a.unlocked ? a.icon : '🔒') + '</div>' +
+        '<div class="achievement-title">' + a.title + '</div>' +
+        '<div class="achievement-desc">' + a.desc + '</div></div>';
+    }).join('');
+  })();
   </script>
 </body>
 </html>

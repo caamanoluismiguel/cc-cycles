@@ -2,74 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0056b3">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#4A90D9">
   <title>Parents Guide - Classical Kids Study Hub</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍👩‍👧</text></svg>">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="header">
-    <div class="header-container">
-      <a href="index.html" class="logo"><span class="logo-emoji">📚</span><span>Classical Kids</span></a>
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-icon">📚</div><span>Classical Kids</span></a>
       <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="en" onclick="i18n.setLang('en')">EN</button>
-        <button class="lang-btn" data-lang="es" onclick="i18n.setLang('es')">ES</button>
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
       </div>
-      <nav class="header-links">
-        <a href="index.html" class="header-button">Home</a>
-        <a href="resources.html" class="header-button">Resources</a>
-        <a href="classical_math.html" class="header-button">Math</a>
-        <a href="dashboard.html" class="header-button">Dashboard</a>
-        <a href="parents-guide.html" class="header-button active">Parents</a>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link"><span class="nav-link-icon">🏠</span> Home</a>
+        <a href="resources.html" class="nav-link"><span class="nav-link-icon">📖</span> Resources</a>
+        <a href="classical_math.html" class="nav-link"><span class="nav-link-icon">🔢</span> Math</a>
+        <a href="dashboard.html" class="nav-link"><span class="nav-link-icon">📊</span> Progress</a>
+        <a href="parents-guide.html" class="nav-link active"><span class="nav-link-icon">👨‍👩‍👧</span> Parents</a>
       </nav>
     </div>
   </header>
 
   <main class="main">
+    <div class="parents-hero">
+      <h1>👨‍👩‍👧‍👦 Parents Guide</h1>
+      <p>Supporting your child's classical education journey</p>
+    </div>
+    
     <div class="container">
-      <div class="card card-body text-center mb-lg" style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;">
-        <div style="font-size:4rem;margin-bottom:var(--space-md);">👨‍👩‍👧‍👦</div>
-        <h1 style="color:white;" data-i18n="welcomeParents">Welcome, Parents!</h1>
-        <p style="opacity:0.9;" data-i18n="parentsIntro">A guide to help you support your child's classical education journey</p>
+      
+      <!-- Scripture Quote -->
+      <div class="scripture-box mb-xl">
+        <p>"And these words that I command you today shall be on your heart. You shall teach them diligently to your children, and shall talk of them when you sit in your house, and when you walk by the way, and when you lie down, and when you rise."</p>
+        <span class="scripture-ref">— Deuteronomy 6:6-7</span>
       </div>
 
-      <div class="card card-body mb-lg" style="background:var(--bg-highlight);border-left:4px solid var(--secondary);">
-        <p style="font-style:italic;line-height:1.8;">"And these words that I command you today shall be on your heart. You shall teach them diligently to your children, and shall talk of them when you sit in your house, and when you walk by the way, and when you lie down, and when you rise."</p>
-        <p style="font-weight:700;color:var(--secondary);margin-top:var(--space-sm);">— Deuteronomy 6:6-7</p>
-      </div>
-
-      <div class="card card-body mb-lg">
+      <!-- About Section -->
+      <div class="guide-section">
         <h2>📚 About Classical Kids Study Hub</h2>
         <p><strong>Classical Kids Study Hub</strong> is a labor of love—a companion guide created by a devoted dad to help families follow a daily routine of exploring the foundations of Classical Conversations curriculum.</p>
-        <p>This study hub provides a clear, structured path to review key ideas and practice essential skills across seven subjects: History, Science, Geography, Math, English, Latin, and Fine Arts.</p>
+        <p>This study hub provides a clear, structured path to review key ideas and practice essential skills across seven subjects: <strong>History, Science, Geography, Math, English, Latin, and Fine Arts</strong>.</p>
         <p>Each lesson includes rich content drawn from a Reformed Presbyterian perspective, including:</p>
-        <ul style="margin:var(--space-md) 0 var(--space-md) var(--space-xl);">
+        <ul style="margin: var(--space-md) 0 var(--space-md) var(--space-xl); line-height: 2;">
           <li><strong>Introduction</strong> — An overview of the week's topic</li>
-          <li><strong>Deep Dive</strong> — Detailed exploration of the subject matter</li>
+          <li><strong>Deep Dive</strong> — Detailed exploration of the subject</li>
           <li><strong>Historical Context</strong> — How this topic fits in history</li>
-          <li><strong>Theological Reflection</strong> — Biblical perspective and application</li>
+          <li><strong>Theological Reflection</strong> — Biblical perspective</li>
           <li><strong>Practical Application</strong> — How to apply what's learned</li>
           <li><strong>Concluding Prayer</strong> — A prayer to close each lesson</li>
         </ul>
       </div>
 
-      <div class="card card-body mb-lg">
+      <!-- How to Use -->
+      <div class="guide-section">
         <h2>🎯 How to Use This App</h2>
         <p><strong>Daily Routine Suggestion:</strong></p>
-        <ul style="margin:var(--space-md) 0 var(--space-md) var(--space-xl);">
+        <ul style="margin: var(--space-md) 0 var(--space-md) var(--space-xl); line-height: 2;">
           <li>Set aside 15-20 minutes each day for focused study</li>
           <li>Select the current cycle and week you're studying in CC</li>
           <li>Work through one subject at a time using the topic tabs</li>
           <li>Use the built-in timer to maintain focus</li>
           <li>Complete the reflection homework to reinforce learning</li>
         </ul>
-        <div style="background:var(--accent);padding:var(--space-lg);border-radius:var(--radius-lg);margin:var(--space-lg) 0;">
-          <h4 style="color:var(--text-dark);margin-bottom:var(--space-sm);">💡 Pro Tip</h4>
-          <p style="margin:0;color:var(--text-dark);">The "Continue" button on the home screen remembers exactly where you left off, making it easy to pick up your studies each day with just one tap!</p>
+        
+        <div class="tip-box">
+          <h4>💡 Pro Tip</h4>
+          <p>The "Continue" button on the home screen remembers exactly where you left off, making it easy to pick up your studies each day with just one tap!</p>
         </div>
+        
         <p><strong>Weekly Schedule Example:</strong></p>
-        <ul style="margin:var(--space-md) 0 var(--space-md) var(--space-xl);">
+        <ul style="margin: var(--space-md) 0 var(--space-md) var(--space-xl); line-height: 2;">
           <li><strong>Monday:</strong> History & Geography</li>
           <li><strong>Tuesday:</strong> Science & Math</li>
           <li><strong>Wednesday:</strong> English & Latin</li>
@@ -78,27 +83,33 @@
         </ul>
       </div>
 
-      <div class="card card-body mb-lg">
+      <!-- Three Cycles -->
+      <div class="guide-section">
         <h2>🔄 Understanding the Three Cycles</h2>
         <p>Classical Conversations uses a three-year rotating curriculum:</p>
-        <div style="margin:var(--space-lg) 0;">
-          <h4>🏛️ Cycle 1: Ancient History</h4>
-          <p>Covers creation through the fall of Rome, including ancient civilizations, early church history, and foundational scientific concepts.</p>
+        
+        <div style="margin: var(--space-lg) 0; padding: var(--space-lg); background: rgba(232,132,95,0.1); border-radius: var(--radius-lg); border-left: 4px solid var(--sunset);">
+          <h4 style="color: var(--sunset-dark);">🏛️ Cycle 1: Ancient History</h4>
+          <p style="margin: 0;">Covers creation through the fall of Rome, including ancient civilizations, early church history, and foundational scientific concepts.</p>
         </div>
-        <div style="margin:var(--space-lg) 0;">
-          <h4>🏰 Cycle 2: Medieval to Modern</h4>
-          <p>Explores the Middle Ages through early modern times, including the Renaissance, Reformation, and age of exploration.</p>
+        
+        <div style="margin: var(--space-lg) 0; padding: var(--space-lg); background: rgba(155,93,229,0.1); border-radius: var(--radius-lg); border-left: 4px solid var(--berry);">
+          <h4 style="color: var(--berry-dark);">🏰 Cycle 2: Medieval to Modern</h4>
+          <p style="margin: 0;">Explores the Middle Ages through early modern times, including the Renaissance, Reformation, and age of exploration.</p>
         </div>
-        <div style="margin:var(--space-lg) 0;">
-          <h4>🗽 Cycle 3: US History</h4>
-          <p>Focuses on American history from colonization to modern day, including civics, government, and American geography.</p>
+        
+        <div style="margin: var(--space-lg) 0; padding: var(--space-lg); background: rgba(93,176,117,0.1); border-radius: var(--radius-lg); border-left: 4px solid var(--meadow);">
+          <h4 style="color: var(--meadow-dark);">🗽 Cycle 3: US History</h4>
+          <p style="margin: 0;">Focuses on American history from colonization to modern day, including civics, government, and American geography.</p>
         </div>
-        <p>Each cycle contains 24 weeks of content across all seven subjects, designed to be repeated as children grow, with deeper understanding each time through.</p>
+        
+        <p>Each cycle contains <strong>24 weeks</strong> of content across all seven subjects, designed to be repeated as children grow, with deeper understanding each time through.</p>
       </div>
 
-      <div class="card card-body mb-lg">
+      <!-- Tips for Parents -->
+      <div class="guide-section">
         <h2>💡 Tips for Parent Involvement</h2>
-        <ul style="margin:var(--space-md) 0 var(--space-md) var(--space-xl);line-height:2;">
+        <ul style="margin: var(--space-md) 0 var(--space-md) var(--space-xl); line-height: 2.2;">
           <li><strong>Study Together:</strong> Sit with your child during lessons, especially for younger children</li>
           <li><strong>Discuss the Content:</strong> Use car rides and meal times to review what they've learned</li>
           <li><strong>Celebrate Milestones:</strong> Acknowledge completed weeks and achievements</li>
@@ -106,28 +117,35 @@
           <li><strong>Pray Together:</strong> Use the concluding prayers as family devotional moments</li>
           <li><strong>Be Consistent:</strong> Regular short sessions are better than irregular long ones</li>
         </ul>
-        <div style="background:var(--bg-highlight);padding:var(--space-lg);border-radius:var(--radius-lg);margin-top:var(--space-lg);">
+        
+        <div class="tip-box">
           <h4>🙏 Remember</h4>
-          <p style="margin:0;">The goal is not perfection but faithfulness. Some days will be better than others, and that's okay. What matters is the steady, loving instruction you provide over time.</p>
+          <p>The goal is not perfection but faithfulness. Some days will be better than others, and that's okay. What matters is the steady, loving instruction you provide over time.</p>
         </div>
       </div>
 
-      <div class="card card-body text-center" style="background:var(--bg-highlight);">
-        <p style="font-family:var(--font-display);font-size:1.25rem;">"Train up a child in the way he should go; even when he is old he will not depart from it."</p>
-        <p class="text-muted">— Proverbs 22:6</p>
-        <p style="margin-top:var(--space-lg);font-size:0.875rem;color:var(--text-muted);">© 2025 Classical Kids Study Hub. Made with ❤️ for homeschooling families.</p>
+      <!-- Footer Quote -->
+      <div class="scripture-box">
+        <p>"Train up a child in the way he should go; even when he is old he will not depart from it."</p>
+        <span class="scripture-ref">— Proverbs 22:6</span>
       </div>
+      
+      <div class="text-center mt-xl text-muted">
+        <p>© 2025 Classical Kids Study Hub</p>
+        <p>Made with ❤️ for homeschooling families</p>
+      </div>
+      
     </div>
   </main>
 
   <nav class="bottom-nav">
-    <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
-    <a href="resources.html" class="nav-item"><span class="nav-icon">📖</span><span>Resources</span></a>
-    <a href="classical_math.html" class="nav-item"><span class="nav-icon">🔢</span><span>Math</span></a>
-    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span>Dashboard</span></a>
-    <a href="parents-guide.html" class="nav-item active"><span class="nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
+    <div class="bottom-nav-inner">
+      <a href="index.html" class="bottom-nav-item"><span class="bottom-nav-icon">🏠</span><span>Home</span></a>
+      <a href="resources.html" class="bottom-nav-item"><span class="bottom-nav-icon">📖</span><span>Books</span></a>
+      <a href="classical_math.html" class="bottom-nav-item"><span class="bottom-nav-icon">🔢</span><span>Math</span></a>
+      <a href="dashboard.html" class="bottom-nav-item"><span class="bottom-nav-icon">📊</span><span>Progress</span></a>
+      <a href="parents-guide.html" class="bottom-nav-item active"><span class="bottom-nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
+    </div>
   </nav>
-
-  <script src="i18n.js"></script>
 </body>
 </html>
