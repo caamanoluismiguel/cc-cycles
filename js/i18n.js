@@ -1,237 +1,408 @@
 /**
+ * Classical Kids Study Hub
  * Internationalization (i18n) System
- * English and Spanish translations
+ * English / Spanish Support
  */
 
-const translations = {
-  en: {
-    // Navigation
-    nav_home: 'Home',
-    nav_guide: 'Parents Guide',
-    nav_resources: 'Resources',
-    nav_math: 'Math Practice',
-    nav_dashboard: 'Dashboard',
-    nav_logout: 'Logout',
+const i18n = {
+  currentLang: localStorage.getItem('ck_lang') || 'en',
+  
+  translations: {
+    en: {
+      // General
+      appName: 'Classical Kids Study Hub',
+      home: 'Home',
+      resources: 'Resources',
+      math: 'Math',
+      dashboard: 'Dashboard',
+      parents: 'Parents',
+      back: 'Back',
+      start: 'Start',
+      continue: 'Continue',
+      submit: 'Submit',
+      clear: 'Clear',
+      close: 'Close',
+      loading: 'Loading...',
+      
+      // Login
+      welcome: 'Welcome!',
+      welcomeBack: 'Welcome back',
+      enterName: "What's your name?",
+      namePlaceholder: 'Enter your name',
+      startLearning: 'Start Learning',
+      
+      // Study
+      chooseCycle: 'Choose Your Cycle',
+      cycle: 'Cycle',
+      week: 'Week',
+      selectWeek: 'Select Week',
+      
+      // Cycles
+      cycle1Name: 'Ancient History',
+      cycle2Name: 'Medieval → Modern', 
+      cycle3Name: 'US History',
+      
+      // Topics
+      history: 'History',
+      science: 'Science',
+      geography: 'Geography',
+      mathTopic: 'Math',
+      english: 'English',
+      latin: 'Latin',
+      fineArts: 'Fine Arts',
+      
+      // Lesson sections
+      introduction: 'Introduction',
+      deepDive: 'Deep Dive',
+      historicalContext: 'Historical Context',
+      significance: 'Significance',
+      funFact: 'Fun Fact',
+      theologicalReflection: 'Theological Reflection',
+      practicalApplication: 'Practical Application',
+      assignment: 'Assignment',
+      prayer: 'Prayer',
+      
+      // Timer
+      timeRemaining: 'Time Remaining',
+      pause: 'Pause',
+      play: 'Play',
+      reset: 'Reset',
+      complete: 'Complete',
+      
+      // Homework
+      homework: 'Homework & Reflection',
+      homeworkIntro: 'Take a moment to reflect on what you learned. Choose a creative activity (draw, write a story, or make a poster) and answer these questions:',
+      question1: 'What is one key idea you learned today?',
+      question2: 'How will you apply this in your daily life?',
+      question3: 'Which creative activity did you choose and why?',
+      submitHomework: 'Submit & Continue',
+      
+      // Math Games
+      mathPractice: 'Math Practice',
+      selectTopic: 'Select a topic to begin:',
+      counting: 'Counting',
+      addition: 'Addition',
+      subtraction: 'Subtraction',
+      multiplication: 'Multiplication',
+      division: 'Division',
+      fractions: 'Fractions',
+      geometry: 'Geometry',
+      time: 'Time',
+      money: 'Money',
+      measurement: 'Measurement',
+      patterns: 'Patterns',
+      
+      // Game UI
+      score: 'Score',
+      streak: 'Streak',
+      level: 'Level',
+      highScore: 'High Score',
+      timeLeft: 'Time',
+      correct: 'Correct!',
+      incorrect: 'Incorrect',
+      tryAgain: 'Try Again',
+      nextQuestion: 'Next',
+      changeTopic: 'Change Topic',
+      beginPractice: 'Begin Practice',
+      practiceComplete: 'Practice Complete!',
+      finalScore: 'Your final score',
+      returnToMenu: 'Return to Menu',
+      yourAnswer: 'Your answer',
+      
+      // Game Instructions
+      countApples: 'Count the apples:',
+      whatIs: 'What is',
+      howManySides: 'How many sides does this shape have?',
+      whatTimeIn: 'What time will it be in',
+      minutes: 'minutes',
+      totalCents: 'Total cents?',
+      completeSequence: 'Complete the sequence:',
+      lookAtBar: 'Look at the bar and type the fraction (e.g. 2/3)',
+      lookAtGrid: 'Look at the grid and type the fraction (e.g. 3/9)',
+      
+      // Dashboard
+      totalMinutes: 'Total Minutes',
+      lessonsCompleted: 'Lessons Completed',
+      dayStreak: 'Day Streak',
+      studyCalendar: 'Study Calendar',
+      recentSessions: 'Recent Sessions',
+      achievements: 'Achievements',
+      noSessionsYet: 'No sessions yet. Start studying to track your progress!',
+      
+      // Achievements
+      firstSteps: 'First Steps',
+      firstStepsDesc: 'Complete your first lesson',
+      bookworm: 'Bookworm',
+      bookwormDesc: 'Complete 10 lessons',
+      onFire: 'On Fire',
+      onFireDesc: '3 day streak',
+      risingStar: 'Rising Star',
+      risingStarDesc: '7 day streak',
+      champion: 'Champion',
+      championDesc: '14 day streak',
+      master: 'Master',
+      masterDesc: 'Complete a full week',
+      
+      // Resources
+      educationalResources: 'Educational Resources',
+      recommendedReading: 'Recommended Reading',
+      ages5to7: 'Ages 5-7 (Early Grammar Stage)',
+      ages8to10: 'Ages 8-10 (Late Grammar Stage)',
+      ages11to13: 'Ages 11-13 (Dialectic Stage)',
+      ages17to18: 'Ages 17-18 (Advanced Rhetoric Stage)',
+      focus: 'Focus',
+      disclaimer: 'Disclaimer',
+      
+      // Parents Guide
+      parentsGuide: 'Parents Guide',
+      welcomeParents: 'Welcome, Parents!',
+      parentsIntro: 'A guide to help you support your child\'s classical education journey',
+      aboutApp: 'About Classical Kids Study Hub',
+      howToUse: 'How to Use This App',
+      understandingCycles: 'Understanding the Three Cycles',
+      trackingProgress: 'Tracking Your Child\'s Progress',
+      tipsForParents: 'Tips for Parent Involvement',
+      
+      // Messages
+      greatJob: 'Great job!',
+      excellent: 'Excellent!',
+      amazing: 'Amazing!',
+      perfect: 'Perfect!',
+      keepGoing: 'Keep going!',
+      almostThere: 'Almost there!',
+      timesUp: "Time's up!",
+      lessonComplete: 'Lesson Complete!',
+      homeworkSubmitted: 'Homework Submitted!',
+      
+      // Footer
+      copyright: '© 2025 Classical Kids Study Hub. All rights reserved.',
+      madeWithLove: 'Made with ❤️ for homeschooling families'
+    },
     
-    // Homepage
-    hero_title: 'Classical Kids Study Hub',
-    hero_subtitle: 'Your companion for Classical Conversations',
-    hero_cta: 'Start Learning',
-    hero_cta_secondary: 'Learn More',
-    
-    welcome_back: 'Welcome back',
-    start_session: 'Start Study Session',
-    continue_learning: 'Continue Learning',
-    
-    // Study Session
-    select_cycle: 'Select Cycle',
-    select_week: 'Select Week',
-    select_topic: 'Select Topic',
-    start_timer: 'Start 15-Minute Timer',
-    pause: 'Pause',
-    resume: 'Resume',
-    complete_session: 'Complete Session',
-    
-    // Math Games
-    math_title: 'Math Practice',
-    math_subtitle: 'Master arithmetic through fun games',
-    select_game: 'Select a Game',
-    counting: 'Counting',
-    addition: 'Addition',
-    subtraction: 'Subtraction',
-    multiplication: 'Multiplication',
-    division: 'Division',
-    fractions: 'Fractions',
-    geometry: 'Geometry',
-    time: 'Time',
-    money: 'Money',
-    measurement: 'Measurement',
-    patterns: 'Patterns',
-    
-    score: 'Score',
-    streak: 'Streak',
-    level: 'Level',
-    high_score: 'High Score',
-    correct: 'Correct! Great job!',
-    incorrect: 'Not quite. Try again!',
-    
-    // Resources
-    resources_title: 'Educational Resources',
-    books_by_age: 'Books by Age',
-    memory_work: 'Memory Work',
-    ages: 'Ages',
-    search_books: 'Search books...',
-    filter_by: 'Filter by',
-    
-    // Dashboard
-    dashboard_title: 'Your Progress',
-    study_time: 'Study Time',
-    completed_lessons: 'Completed Lessons',
-    current_streak: 'Current Streak',
-    achievements: 'Achievements',
-    weekly_goal: 'Weekly Goal',
-    
-    // Common
-    loading: 'Loading...',
-    save: 'Save',
-    cancel: 'Cancel',
-    edit: 'Edit',
-    delete: 'Delete',
-    confirm: 'Confirm',
-    back: 'Back',
-    next: 'Next',
-    finish: 'Finish',
-    close: 'Close',
-    
-    // Time
-    days: 'days',
-    hours: 'hours',
-    minutes: 'minutes',
-    seconds: 'seconds',
-    
-    // Messages
-    success_saved: 'Saved successfully!',
-    error_occurred: 'An error occurred',
-    confirm_logout: 'Are you sure you want to logout?',
-    session_complete: 'Session complete! Great work!',
+    es: {
+      // General
+      appName: 'Classical Kids - Centro de Estudio',
+      home: 'Inicio',
+      resources: 'Recursos',
+      math: 'Matemáticas',
+      dashboard: 'Progreso',
+      parents: 'Padres',
+      back: 'Volver',
+      start: 'Comenzar',
+      continue: 'Continuar',
+      submit: 'Enviar',
+      clear: 'Borrar',
+      close: 'Cerrar',
+      loading: 'Cargando...',
+      
+      // Login
+      welcome: '¡Bienvenido!',
+      welcomeBack: 'Bienvenido de nuevo',
+      enterName: '¿Cuál es tu nombre?',
+      namePlaceholder: 'Escribe tu nombre',
+      startLearning: 'Comenzar a Aprender',
+      
+      // Study
+      chooseCycle: 'Elige Tu Ciclo',
+      cycle: 'Ciclo',
+      week: 'Semana',
+      selectWeek: 'Selecciona la Semana',
+      
+      // Cycles
+      cycle1Name: 'Historia Antigua',
+      cycle2Name: 'Medieval → Moderno',
+      cycle3Name: 'Historia de EE.UU.',
+      
+      // Topics
+      history: 'Historia',
+      science: 'Ciencias',
+      geography: 'Geografía',
+      mathTopic: 'Matemáticas',
+      english: 'Inglés',
+      latin: 'Latín',
+      fineArts: 'Bellas Artes',
+      
+      // Lesson sections
+      introduction: 'Introducción',
+      deepDive: 'Profundización',
+      historicalContext: 'Contexto Histórico',
+      significance: 'Importancia',
+      funFact: 'Dato Curioso',
+      theologicalReflection: 'Reflexión Teológica',
+      practicalApplication: 'Aplicación Práctica',
+      assignment: 'Tarea',
+      prayer: 'Oración',
+      
+      // Timer
+      timeRemaining: 'Tiempo Restante',
+      pause: 'Pausar',
+      play: 'Iniciar',
+      reset: 'Reiniciar',
+      complete: 'Completar',
+      
+      // Homework
+      homework: 'Tarea y Reflexión',
+      homeworkIntro: 'Tómate un momento para reflexionar sobre lo que aprendiste. Elige una actividad creativa (dibujar, escribir una historia o hacer un póster) y responde estas preguntas:',
+      question1: '¿Cuál es una idea clave que aprendiste hoy?',
+      question2: '¿Cómo aplicarás esto en tu vida diaria?',
+      question3: '¿Qué actividad creativa elegiste y por qué?',
+      submitHomework: 'Enviar y Continuar',
+      
+      // Math Games
+      mathPractice: 'Práctica de Matemáticas',
+      selectTopic: 'Selecciona un tema para comenzar:',
+      counting: 'Conteo',
+      addition: 'Suma',
+      subtraction: 'Resta',
+      multiplication: 'Multiplicación',
+      division: 'División',
+      fractions: 'Fracciones',
+      geometry: 'Geometría',
+      time: 'Tiempo',
+      money: 'Dinero',
+      measurement: 'Medidas',
+      patterns: 'Patrones',
+      
+      // Game UI
+      score: 'Puntos',
+      streak: 'Racha',
+      level: 'Nivel',
+      highScore: 'Récord',
+      timeLeft: 'Tiempo',
+      correct: '¡Correcto!',
+      incorrect: 'Incorrecto',
+      tryAgain: 'Intenta de nuevo',
+      nextQuestion: 'Siguiente',
+      changeTopic: 'Cambiar Tema',
+      beginPractice: 'Comenzar Práctica',
+      practiceComplete: '¡Práctica Completada!',
+      finalScore: 'Tu puntuación final',
+      returnToMenu: 'Volver al Menú',
+      yourAnswer: 'Tu respuesta',
+      
+      // Game Instructions
+      countApples: 'Cuenta las manzanas:',
+      whatIs: 'Cuánto es',
+      howManySides: '¿Cuántos lados tiene esta figura?',
+      whatTimeIn: '¿Qué hora será en',
+      minutes: 'minutos',
+      totalCents: '¿Total de centavos?',
+      completeSequence: 'Completa la secuencia:',
+      lookAtBar: 'Mira la barra y escribe la fracción (ej. 2/3)',
+      lookAtGrid: 'Mira la cuadrícula y escribe la fracción (ej. 3/9)',
+      
+      // Dashboard
+      totalMinutes: 'Minutos Totales',
+      lessonsCompleted: 'Lecciones Completadas',
+      dayStreak: 'Días Seguidos',
+      studyCalendar: 'Calendario de Estudio',
+      recentSessions: 'Sesiones Recientes',
+      achievements: 'Logros',
+      noSessionsYet: 'Aún no hay sesiones. ¡Comienza a estudiar para seguir tu progreso!',
+      
+      // Achievements
+      firstSteps: 'Primeros Pasos',
+      firstStepsDesc: 'Completa tu primera lección',
+      bookworm: 'Ratón de Biblioteca',
+      bookwormDesc: 'Completa 10 lecciones',
+      onFire: 'En Llamas',
+      onFireDesc: 'Racha de 3 días',
+      risingStar: 'Estrella Naciente',
+      risingStarDesc: 'Racha de 7 días',
+      champion: 'Campeón',
+      championDesc: 'Racha de 14 días',
+      master: 'Maestro',
+      masterDesc: 'Completa una semana entera',
+      
+      // Resources
+      educationalResources: 'Recursos Educativos',
+      recommendedReading: 'Lectura Recomendada',
+      ages5to7: 'Edades 5-7 (Etapa Gramática Temprana)',
+      ages8to10: 'Edades 8-10 (Etapa Gramática Tardía)',
+      ages11to13: 'Edades 11-13 (Etapa Dialéctica)',
+      ages17to18: 'Edades 17-18 (Etapa Retórica Avanzada)',
+      focus: 'Enfoque',
+      disclaimer: 'Aviso',
+      
+      // Parents Guide
+      parentsGuide: 'Guía para Padres',
+      welcomeParents: '¡Bienvenidos, Padres!',
+      parentsIntro: 'Una guía para ayudarles a apoyar el viaje de educación clásica de sus hijos',
+      aboutApp: 'Acerca de Classical Kids',
+      howToUse: 'Cómo Usar Esta Aplicación',
+      understandingCycles: 'Entendiendo los Tres Ciclos',
+      trackingProgress: 'Seguimiento del Progreso de Tu Hijo',
+      tipsForParents: 'Consejos para la Participación de los Padres',
+      
+      // Messages
+      greatJob: '¡Muy bien!',
+      excellent: '¡Excelente!',
+      amazing: '¡Increíble!',
+      perfect: '¡Perfecto!',
+      keepGoing: '¡Sigue así!',
+      almostThere: '¡Ya casi!',
+      timesUp: '¡Se acabó el tiempo!',
+      lessonComplete: '¡Lección Completada!',
+      homeworkSubmitted: '¡Tarea Enviada!',
+      
+      // Footer
+      copyright: '© 2025 Classical Kids Study Hub. Todos los derechos reservados.',
+      madeWithLove: 'Hecho con ❤️ para familias que educan en casa'
+    }
   },
   
-  es: {
-    // Navegación
-    nav_home: 'Inicio',
-    nav_guide: 'Guía para Padres',
-    nav_resources: 'Recursos',
-    nav_math: 'Práctica de Matemáticas',
-    nav_dashboard: 'Panel',
-    nav_logout: 'Cerrar Sesión',
+  // Get translation
+  t(key) {
+    return this.translations[this.currentLang][key] || this.translations['en'][key] || key;
+  },
+  
+  // Set language
+  setLang(lang) {
+    if (this.translations[lang]) {
+      this.currentLang = lang;
+      localStorage.setItem('ck_lang', lang);
+      this.updatePage();
+      return true;
+    }
+    return false;
+  },
+  
+  // Toggle between languages
+  toggle() {
+    const newLang = this.currentLang === 'en' ? 'es' : 'en';
+    this.setLang(newLang);
+  },
+  
+  // Update all elements on page with data-i18n attribute
+  updatePage() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      el.textContent = this.t(key);
+    });
     
-    // Página Principal
-    hero_title: 'Centro de Estudio Classical Kids',
-    hero_subtitle: 'Tu compañero para Classical Conversations',
-    hero_cta: 'Comenzar a Aprender',
-    hero_cta_secondary: 'Saber Más',
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      el.placeholder = this.t(key);
+    });
     
-    welcome_back: 'Bienvenido de nuevo',
-    start_session: 'Iniciar Sesión de Estudio',
-    continue_learning: 'Continuar Aprendiendo',
+    // Update language toggle buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === this.currentLang);
+    });
     
-    // Sesión de Estudio
-    select_cycle: 'Seleccionar Ciclo',
-    select_week: 'Seleccionar Semana',
-    select_topic: 'Seleccionar Tema',
-    start_timer: 'Iniciar Temporizador de 15 Minutos',
-    pause: 'Pausar',
-    resume: 'Reanudar',
-    complete_session: 'Completar Sesión',
-    
-    // Juegos de Matemáticas
-    math_title: 'Práctica de Matemáticas',
-    math_subtitle: 'Domina la aritmética con juegos divertidos',
-    select_game: 'Selecciona un Juego',
-    counting: 'Contar',
-    addition: 'Suma',
-    subtraction: 'Resta',
-    multiplication: 'Multiplicación',
-    division: 'División',
-    fractions: 'Fracciones',
-    geometry: 'Geometría',
-    time: 'Tiempo',
-    money: 'Dinero',
-    measurement: 'Medición',
-    patterns: 'Patrones',
-    
-    score: 'Puntuación',
-    streak: 'Racha',
-    level: 'Nivel',
-    high_score: 'Puntuación Más Alta',
-    correct: '¡Correcto! ¡Buen trabajo!',
-    incorrect: 'No exactamente. ¡Intenta de nuevo!',
-    
-    // Recursos
-    resources_title: 'Recursos Educativos',
-    books_by_age: 'Libros por Edad',
-    memory_work: 'Trabajo de Memoria',
-    ages: 'Edades',
-    search_books: 'Buscar libros...',
-    filter_by: 'Filtrar por',
-    
-    // Panel
-    dashboard_title: 'Tu Progreso',
-    study_time: 'Tiempo de Estudio',
-    completed_lessons: 'Lecciones Completadas',
-    current_streak: 'Racha Actual',
-    achievements: 'Logros',
-    weekly_goal: 'Meta Semanal',
-    
-    // Común
-    loading: 'Cargando...',
-    save: 'Guardar',
-    cancel: 'Cancelar',
-    edit: 'Editar',
-    delete: 'Eliminar',
-    confirm: 'Confirmar',
-    back: 'Atrás',
-    next: 'Siguiente',
-    finish: 'Terminar',
-    close: 'Cerrar',
-    
-    // Tiempo
-    days: 'días',
-    hours: 'horas',
-    minutes: 'minutos',
-    seconds: 'segundos',
-    
-    // Mensajes
-    success_saved: '¡Guardado exitosamente!',
-    error_occurred: 'Ocurrió un error',
-    confirm_logout: '¿Estás seguro de que quieres cerrar sesión?',
-    session_complete: '¡Sesión completa! ¡Buen trabajo!',
+    // Dispatch event for custom updates
+    document.dispatchEvent(new CustomEvent('langchange', { detail: { lang: this.currentLang } }));
+  },
+  
+  // Initialize
+  init() {
+    this.updatePage();
   }
 };
 
-class I18n {
-  constructor() {
-    this.currentLang = localStorage.getItem('language') || 'en';
-    this.translations = translations;
-  }
-
-  setLanguage(lang) {
-    if (this.translations[lang]) {
-      this.currentLang = lang;
-      localStorage.setItem('language', lang);
-      this.updatePageText();
-      document.documentElement.lang = lang;
-    }
-  }
-
-  t(key) {
-    return this.translations[this.currentLang][key] || key;
-  }
-
-  updatePageText() {
-    document.querySelectorAll('[data-i18n]').forEach(element => {
-      const key = element.getAttribute('data-i18n');
-      const translation = this.t(key);
-      
-      if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-        element.placeholder = translation;
-      } else {
-        element.textContent = translation;
-      }
-    });
-  }
-
-  getCurrentLanguage() {
-    return this.currentLang;
-  }
+// Auto-initialize when DOM ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => i18n.init());
+} else {
+  i18n.init();
 }
-
-// Create global instance
-window.i18n = new I18n();
-
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-  window.i18n.updatePageText();
-});
-
-console.log('✨ i18n system loaded');
