@@ -540,34 +540,191 @@ function markComplete() {
 }
 
 // ============================================
-// HOMEWORK
+// CREATIVE MISSIONS
 // ============================================
+var CREATIVE_MISSIONS = {
+  history: {
+    prompt: "Travel back in time with your imagination!",
+    options: [
+      { icon: "🎨", title: "Draw the Scene", desc: "Draw a picture of something from this time period - a person, building, battle, or event." },
+      { icon: "📝", title: "Write a Diary Entry", desc: "Pretend you lived during this time. Write a short diary entry about your day." },
+      { icon: "🎭", title: "Act It Out", desc: "Create a short skit or act out a scene from this historical event for your family." }
+    ]
+  },
+  science: {
+    prompt: "Become a scientist and explore!",
+    options: [
+      { icon: "🔬", title: "Draw & Label", desc: "Draw a diagram of today's concept and label all the important parts." },
+      { icon: "🧪", title: "Mini Experiment", desc: "Try a simple experiment at home that demonstrates what you learned." },
+      { icon: "📊", title: "Teach Someone", desc: "Explain this science concept to a family member using everyday objects." }
+    ]
+  },
+  geography: {
+    prompt: "Explore the world around you!",
+    options: [
+      { icon: "🗺️", title: "Draw the Map", desc: "Draw a map from memory showing the places you learned about today." },
+      { icon: "🏳️", title: "Create a Flag", desc: "Design a flag or symbol that represents this region or country." },
+      { icon: "🍽️", title: "Cultural Connection", desc: "Find something in your home (food, object, music) from this part of the world." }
+    ]
+  },
+  math: {
+    prompt: "Put your math skills to work!",
+    options: [
+      { icon: "📝", title: "Create Word Problems", desc: "Write 3 of your own word problems using today's math concept." },
+      { icon: "🎨", title: "Math Art", desc: "Create artwork using the shapes, patterns, or numbers from today's lesson." },
+      { icon: "🏠", title: "Real World Hunt", desc: "Find 5 examples of this math concept in your house or neighborhood." }
+    ]
+  },
+  english: {
+    prompt: "Express yourself with words!",
+    options: [
+      { icon: "✍️", title: "Write a Story", desc: "Write a short story or paragraph using the grammar or vocabulary from today." },
+      { icon: "📖", title: "Find Examples", desc: "Find 5 examples of today's concept in a book you're reading." },
+      { icon: "🎤", title: "Recite Aloud", desc: "Practice reciting today's content aloud with expression and clarity." }
+    ]
+  },
+  latin: {
+    prompt: "Connect with ancient words!",
+    options: [
+      { icon: "📜", title: "Write in Latin", desc: "Write 3 sentences using the Latin words or phrases you learned." },
+      { icon: "🔍", title: "Word Detective", desc: "Find 5 English words that come from today's Latin vocabulary." },
+      { icon: "🗣️", title: "Pronunciation Practice", desc: "Record yourself saying the Latin words correctly 3 times each." }
+    ]
+  },
+  finearts: {
+    prompt: "Create your own masterpiece!",
+    options: [
+      { icon: "🎨", title: "Create in This Style", desc: "Make your own artwork inspired by the artist or style you studied." },
+      { icon: "🎵", title: "Musical Connection", desc: "Listen to music from this period and describe how it makes you feel." },
+      { icon: "🖼️", title: "Gallery Walk", desc: "Find 3 more examples of this art style online and explain what you notice." }
+    ]
+  }
+};
+
+var selectedMission = null;
+
 window.toggleHomework = function() {
   var card = document.getElementById('homeworkCard');
-  if (card) card.classList.toggle('expanded');
+  if (card) {
+    card.classList.toggle('expanded');
+    if (card.classList.contains('expanded')) {
+      loadMissionOptions();
+    }
+  }
 };
 
-window.clearHomework = function() {
-  ['hw1', 'hw2', 'hw3'].forEach(function(id) { var el = document.getElementById(id); if (el) el.value = ''; });
-  toast(t('cleared'), 'info');
+function loadMissionOptions() {
+  var topic = state.topic || 'history';
+  var missions = CREATIVE_MISSIONS[topic] || CREATIVE_MISSIONS.history;
+  
+  var promptEl = document.getElementById('missionPrompt');
+  var optionsEl = document.getElementById('missionOptions');
+  var workArea = document.getElementById('missionWorkArea');
+  var submitBtn = document.getElementById('submitMissionBtn');
+  
+  if (promptEl) promptEl.textContent = missions.prompt;
+  if (workArea) workArea.style.display = 'none';
+  if (submitBtn) submitBtn.style.display = 'none';
+  selectedMission = null;
+  
+  if (optionsEl) {
+    optionsEl.style.display = 'flex';
+    optionsEl.innerHTML = missions.options.map(function(opt, idx) {
+      return '<div class="mission-option" onclick="selectMission(' + idx + ')">' +
+        '<div class="mission-option-icon">' + opt.icon + '</div>' +
+        '<div class="mission-option-content">' +
+          '<div class="mission-option-title">' + opt.title + '</div>' +
+          '<div class="mission-option-desc">' + opt.desc + '</div>' +
+        '</div>' +
+        '<div class="mission-option-arrow">→</div>' +
+      '</div>';
+    }).join('');
+  }
+}
+
+window.selectMission = function(idx) {
+  var topic = state.topic || 'history';
+  var missions = CREATIVE_MISSIONS[topic] || CREATIVE_MISSIONS.history;
+  var mission = missions.options[idx];
+  
+  if (!mission) return;
+  selectedMission = mission;
+  
+  var optionsEl = document.getElementById('missionOptions');
+  var workArea = document.getElementById('missionWorkArea');
+  var workLabel = document.getElementById('missionWorkLabel');
+  var submitBtn = document.getElementById('submitMissionBtn');
+  var photoPreview = document.getElementById('photoPreview');
+  
+  if (optionsEl) optionsEl.style.display = 'none';
+  if (workArea) workArea.style.display = 'block';
+  if (submitBtn) submitBtn.style.display = 'block';
+  if (photoPreview) photoPreview.innerHTML = '';
+  
+  if (workLabel) {
+    workLabel.innerHTML = '<span class="mission-selected-label">' + mission.icon + ' ' + mission.title + '</span><br><br>' + mission.desc + '<br><br>Tell us about what you created:';
+  }
+  
+  var textarea = document.getElementById('missionWork');
+  if (textarea) { textarea.value = ''; textarea.focus(); }
 };
 
-window.submitHomework = function() {
-  var hw1 = document.getElementById('hw1'), hw2 = document.getElementById('hw2'), hw3 = document.getElementById('hw3');
-  var v1 = hw1 ? hw1.value.trim() : '', v2 = hw2 ? hw2.value.trim() : '', v3 = hw3 ? hw3.value.trim() : '';
+window.resetMission = function() {
+  selectedMission = null;
+  loadMissionOptions();
+};
+
+window.previewMissionPhoto = function(input) {
+  var preview = document.getElementById('photoPreview');
+  if (!preview || !input.files || !input.files[0]) return;
   
-  if (!v1 || !v2 || !v3) { toast(t('answerAll'), 'warning'); return; }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    preview.innerHTML = '<img src="' + e.target.result + '" alt="Your creation">';
+  };
+  reader.readAsDataURL(input.files[0]);
+};
+
+window.submitMission = function() {
+  var textarea = document.getElementById('missionWork');
+  var description = textarea ? textarea.value.trim() : '';
   
-  state.progress.homework.push({ date: new Date().toISOString(), cycle: state.cycle, week: state.week, topic: state.topic, answers: [v1, v2, v3] });
+  if (!description) {
+    toast('Please describe what you created!', 'warning');
+    return;
+  }
+  
+  if (!selectedMission) {
+    toast('Please select a mission first', 'warning');
+    return;
+  }
+  
+  // Save mission completion
+  state.progress.homework.push({
+    date: new Date().toISOString(),
+    cycle: state.cycle,
+    week: state.week,
+    topic: state.topic,
+    mission: selectedMission.title,
+    description: description
+  });
+  
   markComplete();
-  clearHomework();
+  saveState();
   
   var card = document.getElementById('homeworkCard');
   if (card) card.classList.remove('expanded');
   
-  toast(t('homeworkSubmitted') + ' 🎉', 'success');
-  confetti(60);
+  toast('🎨 Mission Complete! Great work!', 'success');
+  confetti(80);
   
+  // Clear for next time
+  if (textarea) textarea.value = '';
+  var photoPreview = document.getElementById('photoPreview');
+  if (photoPreview) photoPreview.innerHTML = '';
+  selectedMission = null;
+  
+  // Move to next topic after delay
   setTimeout(function() {
     var idx = CONFIG.TOPICS.indexOf(state.topic);
     if (idx < CONFIG.TOPICS.length - 1) {
@@ -579,6 +736,10 @@ window.submitHomework = function() {
     }
   }, 1500);
 };
+
+// Legacy support
+window.clearHomework = function() { resetMission(); };
+window.submitHomework = function() { submitMission(); };
 
 // ============================================
 // UI UTILITIES
