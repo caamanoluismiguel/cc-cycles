@@ -5,17 +5,17 @@
 
 const CACHE_NAME = 'classicalkid-v1';
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/classical_math.html',
-  '/essentials.html',
-  '/essentials-data.js',
-  '/dashboard.html',
-  '/resources.html',
-  '/parents-guide.html',
-  '/styles.css',
-  '/js/app.js',
-  '/manifest.json'
+  './',
+  './index.html',
+  './classical_math.html',
+  './essentials.html',
+  './essentials-data.js',
+  './dashboard.html',
+  './resources.html',
+  './parents-guide.html',
+  './styles.css',
+  './js/app.js',
+  './manifest.json'
 ];
 
 // Install - cache core assets
@@ -79,7 +79,7 @@ self.addEventListener('fetch', event => {
       .catch(() => {
         // Offline fallback for HTML pages
         if (event.request.headers.get('accept').includes('text/html')) {
-          return caches.match('/index.html');
+          return caches.match('./index.html');
         }
       })
   );

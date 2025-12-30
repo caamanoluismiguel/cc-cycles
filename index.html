@@ -169,7 +169,7 @@
     // Register Service Worker for offline support
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('./sw.js')
           .then(function(reg) { console.log('📚 ClassicalKid: Offline ready!'); })
           .catch(function(err) { console.log('SW registration failed:', err); });
       });

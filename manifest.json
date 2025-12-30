@@ -2,7 +2,7 @@
   "name": "Classical Kids Study Hub",
   "short_name": "ClassicalKid",
   "description": "A beautiful companion for Classical Conversations homeschool curriculum",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#FDF8F3",
   "theme_color": "#4A90D9",
