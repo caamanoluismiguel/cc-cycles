@@ -1315,7 +1315,35 @@ ESSENTIALS_DATA[18] = {
     { sentence: "Aunque llueva, saldré.", q: "subordinateType", options: ["Temporal", "Causal", "Condicional", "Concesiva"], correct: "Concesiva" }
   ]
 };
-)",
+
+// WEEK 23
+ESSENTIALS_DATA[23] = {
+  title: "Infinitivo Nominal",
+  subtitle: "Verbos que se creen sustantivos",
+  pattern: "Infinitivo",
+  concepts: [
+    {
+      name: "Infinitivo",
+      icon: "📖",
+      definition: "El NOMBRE del verbo. Terminaciones: -ar, -er, -ir",
+      tip: "Puede actuar como SUSTANTIVO (Sujeto u Objeto Directo)."
+    },
+    {
+      name: "Infinitivo como Sujeto",
+      icon: "👤",
+      example: { sentence: "Caminar es bueno.", explanation: "'Caminar' es el SUJETO de la oración." }
+    },
+    {
+      name: "Infinitivo como OD",
+      icon: "🎯",
+      example: { sentence: "Quiero comer.", explanation: "'Comer' es el OD. ¿Qué quiero? Comer." }
+    }
+  ],
+  examples: [
+    {
+      sentence: "Quiero comer.",
+      analysis: {
+        subject: "(Yo)",
         verb: "Quiero",
         directObject: "comer (Infinitivo)",
         infinitiveFunction: "Objeto Directo"
@@ -1341,6 +1369,7 @@ ESSENTIALS_DATA[18] = {
   ]
 };
 
+// WEEK 24
 ESSENTIALS_DATA[24] = {
   title: "La Gran Consolidación Final",
   subtitle: "¡Graduación! Análisis completo de oraciones complejas",
@@ -1373,29 +1402,12 @@ ESSENTIALS_DATA[24] = {
   ],
   examples: [
     {
-      sentence: "Cantar alegra el alma y, aunque llovía fuerte, los músicos siguieron tocando para el público emocionado.",
+      sentence: "Cantar alegra el alma y, aunque llovía, los músicos tocaron.",
       analysis: {
         structure: "Compleja",
-        clause1: {
-          text: "Cantar alegra el alma",
-          subject: "Cantar (Infinitivo Nominal)",
-          verb: "alegra",
-          directObject: "el alma"
-        },
-        conjunction: "y",
-        subordinate: {
-          text: "aunque llovía fuerte",
-          type: "Concesiva"
-        },
-        clause2: {
-          text: "los músicos siguieron tocando para el público emocionado",
-          subject: "los músicos",
-          verb: "siguieron tocando (Perífrasis con Gerundio)",
-          indirectObject: "para el público emocionado",
-          participle: "emocionado (modifica a público)"
-        }
+        explanation: "Coordinación (y) + Subordinación (aunque) + Infinitivo nominal (Cantar)"
       },
-      explanation: "Esta oración tiene: coordinación (y), subordinación (aunque), infinitivo nominal (Cantar), gerundio (tocando), y participio/adjetivo (emocionado)."
+      explanation: "Esta oración combina todos los elementos estudiados."
     }
   ],
   practice: [
