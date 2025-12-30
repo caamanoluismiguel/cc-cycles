@@ -7,21 +7,89 @@
   <title>Math Practice - Classical Kids Study Hub</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔢</text></svg>">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Math Page Specific Enhancements */
+    .game-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .game-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s ease;
+    }
+    .game-card:hover::after {
+      left: 100%;
+    }
+    .game-icon {
+      transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    .game-card:hover .game-icon {
+      transform: scale(1.2) rotate(-5deg);
+    }
+    .problem-area {
+      position: relative;
+    }
+    .streak-fire {
+      position: absolute;
+      top: -30px;
+      right: 20px;
+      font-size: 2rem;
+      animation: fire-bounce 0.5s ease infinite alternate;
+    }
+    @keyframes fire-bounce {
+      from { transform: translateY(0) scale(1); }
+      to { transform: translateY(-5px) scale(1.1); }
+    }
+    .answer-input:focus {
+      animation: input-glow 1.5s ease infinite;
+    }
+    @keyframes input-glow {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(74,144,217,0.15); }
+      50% { box-shadow: 0 0 0 8px rgba(74,144,217,0.1); }
+    }
+    .stat-value {
+      transition: transform 0.3s ease;
+    }
+    .stat-value.bump {
+      animation: stat-bump 0.3s ease;
+    }
+    @keyframes stat-bump {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+    .math-hero {
+      position: relative;
+    }
+    .math-hero .floating-nums {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.15;
+      animation: float-num 4s ease-in-out infinite;
+    }
+    @keyframes float-num {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(10deg); }
+    }
+  </style>
 </head>
 <body>
   <header class="header">
     <div class="header-inner">
       <a href="index.html" class="logo"><div class="logo-icon">📚</div><span>Classical Kids</span></a>
       <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="es">ES</button>
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
       </div>
       <nav class="header-nav">
-        <a href="index.html" class="nav-link"><span class="nav-link-icon">🏠</span> Home</a>
-        <a href="resources.html" class="nav-link"><span class="nav-link-icon">📖</span> Resources</a>
-        <a href="classical_math.html" class="nav-link active"><span class="nav-link-icon">🔢</span> Math</a>
-        <a href="dashboard.html" class="nav-link"><span class="nav-link-icon">📊</span> Progress</a>
-        <a href="parents-guide.html" class="nav-link"><span class="nav-link-icon">👨‍👩‍👧</span> Parents</a>
+        <a href="index.html" class="nav-link"><span class="nav-link-icon">🏠</span> <span data-i18n="home">Home</span></a>
+        <a href="resources.html" class="nav-link"><span class="nav-link-icon">📖</span> <span data-i18n="resources">Resources</span></a>
+        <a href="classical_math.html" class="nav-link active"><span class="nav-link-icon">🔢</span> <span data-i18n="math">Math</span></a>
+        <a href="dashboard.html" class="nav-link"><span class="nav-link-icon">📊</span> <span data-i18n="progress">Progress</span></a>
+        <a href="parents-guide.html" class="nav-link"><span class="nav-link-icon">👨‍👩‍👧</span> <span data-i18n="parents">Parents</span></a>
       </nav>
     </div>
   </header>
@@ -32,22 +100,27 @@
       <!-- MENU SECTION -->
       <section id="menuSection">
         <div class="math-hero">
-          <h1>🔢 Math Practice</h1>
-          <p>Choose a topic and sharpen your skills!</p>
+          <div class="floating-nums" style="top:20%;left:10%;animation-delay:0s;">π</div>
+          <div class="floating-nums" style="top:30%;right:15%;animation-delay:1s;">∑</div>
+          <div class="floating-nums" style="bottom:20%;left:20%;animation-delay:2s;">√</div>
+          <div class="floating-nums" style="bottom:30%;right:10%;animation-delay:0.5s;">∞</div>
+          <h1 data-i18n="mathPractice">🔢 Math Practice</h1>
+          <p data-i18n="mathSubtitle">Choose a topic and sharpen your skills!</p>
         </div>
         
         <div class="game-grid" id="gameGrid">
-          <div class="game-card" data-mode="counting"><div class="game-icon">🍎</div><div class="game-title">Counting</div></div>
-          <div class="game-card" data-mode="addition"><div class="game-icon">➕</div><div class="game-title">Addition</div></div>
-          <div class="game-card" data-mode="subtraction"><div class="game-icon">➖</div><div class="game-title">Subtraction</div></div>
-          <div class="game-card" data-mode="multiplication"><div class="game-icon">✖️</div><div class="game-title">Multiplication</div></div>
-          <div class="game-card" data-mode="division"><div class="game-icon">➗</div><div class="game-title">Division</div></div>
-          <div class="game-card" data-mode="fractions"><div class="game-icon">🥧</div><div class="game-title">Fractions</div></div>
-          <div class="game-card" data-mode="geometry"><div class="game-icon">📐</div><div class="game-title">Geometry</div></div>
-          <div class="game-card" data-mode="time"><div class="game-icon">🕐</div><div class="game-title">Time</div></div>
-          <div class="game-card" data-mode="money"><div class="game-icon">💰</div><div class="game-title">Money</div></div>
-          <div class="game-card" data-mode="measurement"><div class="game-icon">📏</div><div class="game-title">Measurement</div></div>
-          <div class="game-card" data-mode="patterns"><div class="game-icon">🔢</div><div class="game-title">Patterns</div></div>
+          <div class="game-card" data-mode="counting"><div class="game-icon">🍎</div><div class="game-title" data-i18n="counting">Counting</div></div>
+          <div class="game-card" data-mode="addition"><div class="game-icon">➕</div><div class="game-title" data-i18n="addition">Addition</div></div>
+          <div class="game-card" data-mode="subtraction"><div class="game-icon">➖</div><div class="game-title" data-i18n="subtraction">Subtraction</div></div>
+          <div class="game-card" data-mode="multiplication"><div class="game-icon">✖️</div><div class="game-title" data-i18n="multiplication">Multiplication</div></div>
+          <div class="game-card" data-mode="division"><div class="game-icon">➗</div><div class="game-title" data-i18n="division">Division</div></div>
+          <div class="game-card" data-mode="fractions"><div class="game-icon">🥧</div><div class="game-title" data-i18n="fractions">Fractions</div></div>
+          <div class="game-card" data-mode="geometry"><div class="game-icon">📐</div><div class="game-title" data-i18n="geometry">Geometry</div></div>
+          <div class="game-card" data-mode="time"><div class="game-icon">🕐</div><div class="game-title" data-i18n="time">Time</div></div>
+          <div class="game-card" data-mode="money"><div class="game-icon">💰</div><div class="game-title" data-i18n="money">Money</div></div>
+          <div class="game-card" data-mode="measurement"><div class="game-icon">📏</div><div class="game-title" data-i18n="measurement">Measurement</div></div>
+          <div class="game-card" data-mode="patterns"><div class="game-icon">🔢</div><div class="game-title" data-i18n="patterns">Patterns</div></div>
+          <div class="game-card" data-mode="challenge" style="background: linear-gradient(135deg, #9B5DE5, #4A90D9); color: white;"><div class="game-icon">🧠</div><div class="game-title" data-i18n="challenge">Challenge</div></div>
         </div>
       </section>
 
@@ -56,34 +129,35 @@
         <div class="card card-body-lg text-center">
           <h2 id="lessonTitle" class="mb-md"></h2>
           <div id="lessonText" class="text-left mb-lg" style="line-height: 1.9;"></div>
-          <button class="btn btn-success btn-lg" id="startBtn">Begin Practice 🚀</button>
+          <button class="btn btn-success btn-lg" id="startBtn" data-i18n="beginPractice">Begin Practice 🚀</button>
         </div>
       </section>
 
       <!-- GAME SECTION -->
       <section id="gameSection" class="hidden">
         <div class="game-stats">
-          <div class="stat-item"><div class="stat-value" id="timeVal">15:00</div><div class="stat-label">Time</div></div>
-          <div class="stat-item"><div class="stat-value" id="scoreVal">0</div><div class="stat-label">Score</div></div>
-          <div class="stat-item"><div class="stat-value" id="streakVal">0</div><div class="stat-label">Streak</div></div>
-          <div class="stat-item"><div class="stat-value" id="levelVal">1</div><div class="stat-label">Level</div></div>
-          <div class="stat-item"><div class="stat-value" id="highVal">0</div><div class="stat-label">Best</div></div>
+          <div class="stat-item"><div class="stat-value" id="timeVal">15:00</div><div class="stat-label" data-i18n="timeLabel">Time</div></div>
+          <div class="stat-item"><div class="stat-value" id="scoreVal">0</div><div class="stat-label" data-i18n="scoreLabel">Score</div></div>
+          <div class="stat-item"><div class="stat-value" id="streakVal">0</div><div class="stat-label" data-i18n="streakLabel">Streak</div></div>
+          <div class="stat-item"><div class="stat-value" id="levelVal">1</div><div class="stat-label" data-i18n="levelLabel">Level</div></div>
+          <div class="stat-item"><div class="stat-value" id="highVal">0</div><div class="stat-label" data-i18n="bestLabel">Best</div></div>
         </div>
         
         <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
         
         <div class="problem-area">
+          <div id="streakFire" class="streak-fire hidden">🔥</div>
           <div class="problem-visual hidden" id="visualArea"><canvas id="canvas" width="380" height="280"></canvas></div>
           <div class="problem-text" id="problemText">?</div>
           <div class="answer-area">
             <input type="text" id="answerInput" class="answer-input" placeholder="?" autocomplete="off" inputmode="text">
-            <button class="btn btn-primary" id="submitBtn">Submit</button>
+            <button class="btn btn-primary" id="submitBtn" data-i18n="submit">Submit</button>
           </div>
           <div class="feedback" id="feedback"></div>
         </div>
         
         <div class="text-center mt-lg">
-          <button class="btn btn-ghost" id="changeBtn">← Change Topic</button>
+          <button class="btn btn-ghost" id="changeBtn" data-i18n="changeTopic">← Change Topic</button>
         </div>
       </section>
 
@@ -91,11 +165,11 @@
       <section id="endSection" class="hidden">
         <div class="card card-body-lg end-screen">
           <div class="end-emoji">🎉</div>
-          <h2>Practice Complete!</h2>
+          <h2 data-i18n="practiceComplete">Practice Complete!</h2>
           <div class="end-score" id="finalScore">0</div>
           <p class="end-message" id="endMessage">Great job!</p>
-          <p>High Score: <strong id="finalHigh">0</strong></p>
-          <button class="btn btn-primary btn-lg mt-lg" id="menuBtn">Return to Menu</button>
+          <p><span data-i18n="highScore">High Score:</span> <strong id="finalHigh">0</strong></p>
+          <button class="btn btn-primary btn-lg mt-lg" id="menuBtn" data-i18n="returnMenu">Return to Menu</button>
         </div>
       </section>
       
@@ -104,15 +178,63 @@
 
   <nav class="bottom-nav">
     <div class="bottom-nav-inner">
-      <a href="index.html" class="bottom-nav-item"><span class="bottom-nav-icon">🏠</span><span>Home</span></a>
-      <a href="resources.html" class="bottom-nav-item"><span class="bottom-nav-icon">📖</span><span>Books</span></a>
-      <a href="classical_math.html" class="bottom-nav-item active"><span class="bottom-nav-icon">🔢</span><span>Math</span></a>
-      <a href="dashboard.html" class="bottom-nav-item"><span class="bottom-nav-icon">📊</span><span>Progress</span></a>
-      <a href="parents-guide.html" class="bottom-nav-item"><span class="bottom-nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
+      <a href="index.html" class="bottom-nav-item"><span class="bottom-nav-icon">🏠</span><span data-i18n="home">Home</span></a>
+      <a href="resources.html" class="bottom-nav-item"><span class="bottom-nav-icon">📖</span><span data-i18n="books">Books</span></a>
+      <a href="classical_math.html" class="bottom-nav-item active"><span class="bottom-nav-icon">🔢</span><span data-i18n="math">Math</span></a>
+      <a href="dashboard.html" class="bottom-nav-item"><span class="bottom-nav-icon">📊</span><span data-i18n="progress">Progress</span></a>
+      <a href="parents-guide.html" class="bottom-nav-item"><span class="bottom-nav-icon">👨‍👩‍👧</span><span data-i18n="parents">Parents</span></a>
     </div>
   </nav>
 
   <script>
+  // i18n translations
+  var translations = {
+    en: {
+      mathPractice: '🔢 Math Practice',
+      mathSubtitle: 'Choose a topic and sharpen your skills!',
+      counting: 'Counting', addition: 'Addition', subtraction: 'Subtraction',
+      multiplication: 'Multiplication', division: 'Division', fractions: 'Fractions',
+      geometry: 'Geometry', time: 'Time', money: 'Money', measurement: 'Measurement',
+      patterns: 'Patterns', challenge: 'Challenge',
+      beginPractice: 'Begin Practice 🚀', submit: 'Submit', changeTopic: '← Change Topic',
+      timeLabel: 'Time', scoreLabel: 'Score', streakLabel: 'Streak', levelLabel: 'Level', bestLabel: 'Best',
+      practiceComplete: 'Practice Complete!', highScore: 'High Score:', returnMenu: 'Return to Menu',
+      home: 'Home', resources: 'Resources', math: 'Math', progress: 'Progress', parents: 'Parents', books: 'Books'
+    },
+    es: {
+      mathPractice: '🔢 Práctica de Matemáticas',
+      mathSubtitle: '¡Elige un tema y mejora tus habilidades!',
+      counting: 'Contar', addition: 'Suma', subtraction: 'Resta',
+      multiplication: 'Multiplicación', division: 'División', fractions: 'Fracciones',
+      geometry: 'Geometría', time: 'Hora', money: 'Dinero', measurement: 'Medidas',
+      patterns: 'Patrones', challenge: 'Desafío',
+      beginPractice: 'Comenzar Práctica 🚀', submit: 'Enviar', changeTopic: '← Cambiar Tema',
+      timeLabel: 'Tiempo', scoreLabel: 'Puntos', streakLabel: 'Racha', levelLabel: 'Nivel', bestLabel: 'Mejor',
+      practiceComplete: '¡Práctica Completa!', highScore: 'Récord:', returnMenu: 'Volver al Menú',
+      home: 'Inicio', resources: 'Recursos', math: 'Matemáticas', progress: 'Progreso', parents: 'Padres', books: 'Libros'
+    }
+  };
+  var currentLang = localStorage.getItem('ck_lang') || 'en';
+  
+  function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('ck_lang', lang);
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (translations[lang] && translations[lang][key]) {
+        el.textContent = translations[lang][key];
+      }
+    });
+  }
+  
+  // Initialize language on load
+  document.addEventListener('DOMContentLoaded', function() {
+    setLang(currentLang);
+  });
+  
   (function() {
     var mode = '', score = 0, streak = 0, level = 1, timeLeft = 900, qCount = 0, answer = null, timer = null;
     var maxQ = 50;
@@ -135,7 +257,8 @@
       time: { title: '🕐 Time', text: '<p>Learn to read clocks! The short hand = hours, the long hand = minutes.</p><p>💡 <strong>Answer format:</strong> H:MM (example: 3:45)</p>' },
       money: { title: '💰 Money', text: '<p>Count coins to find the total value in cents.</p><p>💡 Penny=1¢, Nickel=5¢, Dime=10¢, Quarter=25¢</p>' },
       measurement: { title: '📏 Measurement', text: '<p><strong>Measurement</strong> helps us understand size. Add or subtract lengths!</p><p>💡 Look at the bars and calculate the total centimeters.</p>' },
-      patterns: { title: '🔢 Patterns', text: '<p>Find the <strong>pattern</strong> in the sequence and predict the next number!</p><p>💡 <strong>Example:</strong> 2, 4, 6, ? → The pattern is +2, so answer is 8</p>' }
+      patterns: { title: '🔢 Patterns', text: '<p>Find the <strong>pattern</strong> in the sequence and predict the next number!</p><p>💡 <strong>Example:</strong> 2, 4, 6, ? → The pattern is +2, so answer is 8</p>' },
+      challenge: { title: '🧠 Challenge Mode', text: '<p><strong>Challenge Mode</strong> mixes ALL operations! You\'ll see addition, subtraction, multiplication, and division.</p><p>💡 <strong>Think carefully!</strong> Read each problem and identify the operation. Includes order of operations!</p><p>🏆 <strong>For advanced learners!</strong></p>' }
     };
     
     function showSection(s) {
@@ -163,6 +286,7 @@
       score = 0; streak = 0; level = 1; timeLeft = 900; qCount = 0;
       updateStats();
       document.getElementById('highVal').textContent = getHigh();
+      document.getElementById('streakFire').classList.add('hidden');
       showSection(gameSection);
       startTimer();
       nextProblem();
@@ -183,10 +307,25 @@
     }
     
     function updateStats() {
-      document.getElementById('scoreVal').textContent = score;
-      document.getElementById('streakVal').textContent = streak;
+      var scoreEl = document.getElementById('scoreVal');
+      var streakEl = document.getElementById('streakVal');
+      scoreEl.textContent = score;
+      streakEl.textContent = streak;
       document.getElementById('levelVal').textContent = level;
       document.getElementById('progressBar').style.width = (qCount / maxQ * 100) + '%';
+      
+      // Bump animation
+      scoreEl.classList.add('bump');
+      setTimeout(function() { scoreEl.classList.remove('bump'); }, 300);
+      
+      // Show fire on streak
+      var fire = document.getElementById('streakFire');
+      if (streak >= 3) {
+        fire.classList.remove('hidden');
+        fire.textContent = streak >= 10 ? '🔥🔥🔥' : streak >= 5 ? '🔥🔥' : '🔥';
+      } else {
+        fire.classList.add('hidden');
+      }
     }
     
     function nextProblem() {
@@ -212,6 +351,7 @@
         case 'money': problem = genMoney(); break;
         case 'measurement': problem = genMeasurement(); break;
         case 'patterns': problem = genPatterns(); break;
+        case 'challenge': problem = genChallenge(); break;
       }
       
       document.getElementById('problemText').innerHTML = problem;
@@ -238,17 +378,17 @@
         score++; streak++;
         if (streak % 3 === 0 && level < 5) level++;
         input.className = 'answer-input correct';
-        feedback.textContent = ['🎉 Correct!', '⭐ Awesome!', '🚀 Amazing!', '💪 Perfect!'][Math.floor(Math.random()*4)];
+        feedback.textContent = ['🎉 Correct!', '⭐ Awesome!', '🚀 Amazing!', '💪 Perfect!', '✨ Brilliant!'][Math.floor(Math.random()*5)];
         feedback.className = 'feedback correct';
-        if (streak % 5 === 0) doConfetti(30);
-        setTimeout(nextProblem, 700);
+        if (streak % 5 === 0) doConfetti(40);
+        setTimeout(nextProblem, 600);
       } else {
         streak = 0;
         if (level > 1) level--;
         input.className = 'answer-input wrong';
         feedback.textContent = '❌ Answer: ' + answer;
         feedback.className = 'feedback wrong';
-        setTimeout(nextProblem, 1500);
+        setTimeout(nextProblem, 1400);
       }
       updateStats();
     }
@@ -258,40 +398,41 @@
       if (score > getHigh()) setHigh(score);
       document.getElementById('finalScore').textContent = score;
       document.getElementById('finalHigh').textContent = getHigh();
-      document.getElementById('endMessage').textContent = score >= 40 ? '🏆 Math Champion!' : score >= 25 ? '⭐ Great job!' : '👍 Keep practicing!';
+      var msg = score >= 45 ? '🏆 Legendary!' : score >= 35 ? '👑 Math Champion!' : score >= 25 ? '⭐ Great job!' : score >= 15 ? '👍 Good effort!' : '💪 Keep practicing!';
+      document.getElementById('endMessage').textContent = msg;
       showSection(endSection);
-      doConfetti(100);
+      doConfetti(120);
     }
     
     // PROBLEM GENERATORS
     function genCounting() {
       var n = rand(1, 5 + level * 2);
       answer = n;
-      var items = ['🍎','🍊','⭐','🌟','🎈','🌸','🦋','🐱','🐶','🎁'][rand(0,9)];
+      var items = ['🍎','🍊','⭐','🌸','🎈','🦋','🐱','🐶','🎁','🌻'][rand(0,9)];
       var display = '';
       for (var i = 0; i < n; i++) display += items + ' ';
-      return '<div style="font-size: 2.5rem; line-height: 1.5;">' + display + '</div><div style="margin-top: 1rem;">How many?</div>';
+      return '<div style="font-size: 2.5rem; line-height: 1.6;">' + display + '</div><div style="margin-top: 1rem;">How many?</div>';
     }
     
     function genAddition() {
       var max = 5 + level * 5;
       var a = rand(1, max), b = rand(1, max);
       answer = a + b;
-      return a + ' + ' + b + ' = ?';
+      return '<span style="color:#5DB075">' + a + '</span> + <span style="color:#4A90D9">' + b + '</span> = ?';
     }
     
     function genSubtraction() {
       var max = 5 + level * 5;
       var a = rand(5, max), b = rand(1, a);
       answer = a - b;
-      return a + ' − ' + b + ' = ?';
+      return '<span style="color:#4A90D9">' + a + '</span> − <span style="color:#E8845F">' + b + '</span> = ?';
     }
     
     function genMultiplication() {
       var max = 2 + level * 2;
       var a = rand(1, Math.min(12, max)), b = rand(1, Math.min(12, max));
       answer = a * b;
-      return a + ' × ' + b + ' = ?';
+      return '<span style="color:#9B5DE5">' + a + '</span> × <span style="color:#F5C842">' + b + '</span> = ?';
     }
     
     function genDivision() {
@@ -299,7 +440,7 @@
       var quotient = rand(1, 10);
       var dividend = divisor * quotient;
       answer = quotient;
-      return dividend + ' ÷ ' + divisor + ' = ?';
+      return '<span style="color:#4A90D9">' + dividend + '</span> ÷ <span style="color:#E8845F">' + divisor + '</span> = ?';
     }
     
     function genFractions() {
@@ -308,7 +449,7 @@
       var filled = rand(1, total - 1);
       answer = filled + '/' + total;
       drawFractionBar(filled, total);
-      return 'What fraction is shaded?<br><small>(e.g., 2/3)</small>';
+      return 'What fraction is shaded?<br><small style="color:#718096">(e.g., 2/3)</small>';
     }
     
     function genGeometry() {
@@ -328,12 +469,14 @@
       var newM = totalM % 60;
       answer = newH + ':' + String(newM).padStart(2,'0');
       drawClock(h, m);
-      return 'It\'s ' + h + ':' + String(m).padStart(2,'0') + '. What time in ' + add + ' min?<br><small>(H:MM)</small>';
+      return 'Clock shows ' + h + ':' + String(m).padStart(2,'0') + '<br>What time in <strong>' + add + ' min</strong>?<br><small style="color:#718096">(H:MM)</small>';
     }
     
     function genMoney() {
       document.getElementById('visualArea').classList.remove('hidden');
-      var p = rand(0, 3), n = rand(0, 3), d = rand(0, 3), q = rand(0, 2);
+      var p = rand(0, 4), n = rand(0, 3), d = rand(0, 3), q = rand(0, 2);
+      // Ensure at least some coins
+      if (p + n + d + q === 0) p = rand(1, 3);
       answer = p + n*5 + d*10 + q*25;
       drawMoney(p, n, d, q);
       return 'Total cents?';
@@ -343,35 +486,97 @@
       document.getElementById('visualArea').classList.remove('hidden');
       var a = rand(2, 10), b = rand(1, 8);
       var op = Math.random() < 0.5 ? '+' : '-';
-      answer = op === '+' ? a + b : Math.abs(a - b);
+      if (op === '-' && b > a) { var t = a; a = b; b = t; }
+      answer = op === '+' ? a + b : a - b;
       drawMeasurement(a, b, op);
-      return op === '+' ? a + ' cm + ' + b + ' cm = ?' : Math.max(a,b) + ' cm − ' + Math.min(a,b) + ' cm = ?';
+      return '<span style="color:#4A90D9">' + a + ' cm</span> ' + (op === '+' ? '+' : '−') + ' <span style="color:#5DB075">' + b + ' cm</span> = ?';
     }
     
     function genPatterns() {
-      var start = rand(1, 5), diff = rand(1, 5);
+      var start = rand(1, 10), diff = rand(1, 5) * (Math.random() < 0.3 ? -1 : 1);
       var seq = [start, start+diff, start+2*diff];
       answer = start + 3*diff;
-      return 'Pattern: ' + seq.join(', ') + ', ?';
+      return 'Pattern: <strong>' + seq.join(', ') + ', ?</strong>';
+    }
+    
+    function genChallenge() {
+      var type = rand(1, 5);
+      var a, b, c, op;
+      
+      switch(type) {
+        case 1: // Two-step: a + b × c
+          a = rand(1, 10); b = rand(2, 5); c = rand(2, 5);
+          answer = a + b * c;
+          return a + ' + ' + b + ' × ' + c + ' = ?<br><small style="color:#718096">Remember: × before +</small>';
+        case 2: // Two-step: a × b - c
+          a = rand(2, 6); b = rand(2, 6); c = rand(1, a*b - 1);
+          answer = a * b - c;
+          return a + ' × ' + b + ' − ' + c + ' = ?';
+        case 3: // Parentheses: (a + b) × c
+          a = rand(1, 8); b = rand(1, 8); c = rand(2, 5);
+          answer = (a + b) * c;
+          return '(' + a + ' + ' + b + ') × ' + c + ' = ?<br><small style="color:#718096">Solve parentheses first!</small>';
+        case 4: // Mixed: a × b + c × d
+          a = rand(2, 5); b = rand(2, 5); c = rand(2, 5); var d = rand(2, 5);
+          answer = a * b + c * d;
+          return a + ' × ' + b + ' + ' + c + ' × ' + d + ' = ?';
+        case 5: // Division + addition
+          a = rand(2, 6); b = rand(2, 12); c = rand(1, 10);
+          var dividend = a * b;
+          answer = b + c;
+          return dividend + ' ÷ ' + a + ' + ' + c + ' = ?';
+        default:
+          return genAddition();
+      }
     }
     
     // DRAWING FUNCTIONS
     function drawFractionBar(filled, total) {
       ctx.clearRect(0, 0, 380, 280);
-      var w = 300 / total, h = 70;
-      var x0 = (380 - 300) / 2, y0 = 105;
+      var w = 280 / total, h = 80;
+      var x0 = (380 - 280) / 2, y0 = 100;
+      
       for (var i = 0; i < total; i++) {
-        ctx.fillStyle = i < filled ? '#4A90D9' : '#E8E0D8';
-        ctx.fillRect(x0 + i * w, y0, w - 3, h);
-        ctx.strokeStyle = '#2D3748';
+        // Gradient fill for filled parts
+        if (i < filled) {
+          var grad = ctx.createLinearGradient(x0 + i * w, y0, x0 + i * w, y0 + h);
+          grad.addColorStop(0, '#6BA3E3');
+          grad.addColorStop(1, '#4A90D9');
+          ctx.fillStyle = grad;
+        } else {
+          ctx.fillStyle = '#F0EBE5';
+        }
+        ctx.fillRect(x0 + i * w + 2, y0, w - 4, h);
+        
+        // Border
+        ctx.strokeStyle = i < filled ? '#3A7BC8' : '#D8D0C8';
         ctx.lineWidth = 2;
-        ctx.strokeRect(x0 + i * w, y0, w - 3, h);
+        ctx.strokeRect(x0 + i * w + 2, y0, w - 4, h);
       }
+      
+      // Label
+      ctx.fillStyle = '#2D3748';
+      ctx.font = 'bold 16px Quicksand';
+      ctx.textAlign = 'center';
+      ctx.fillText(filled + ' out of ' + total + ' shaded', 190, 220);
     }
     
     function drawPolygon(sides) {
       ctx.clearRect(0, 0, 380, 280);
       var cx = 190, cy = 140, r = 80;
+      
+      // Shadow
+      ctx.beginPath();
+      for (var i = 0; i < sides; i++) {
+        var angle = (i * 2 * Math.PI / sides) - Math.PI / 2;
+        var x = cx + 3 + r * Math.cos(angle), y = cy + 3 + r * Math.sin(angle);
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(0,0,0,0.1)';
+      ctx.fill();
+      
+      // Main shape with gradient
       ctx.beginPath();
       for (var i = 0; i < sides; i++) {
         var angle = (i * 2 * Math.PI / sides) - Math.PI / 2;
@@ -379,76 +584,229 @@
         i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
       }
       ctx.closePath();
-      ctx.fillStyle = 'rgba(74,144,217,0.2)'; ctx.fill();
-      ctx.strokeStyle = '#4A90D9'; ctx.lineWidth = 4; ctx.stroke();
+      
+      var grad = ctx.createRadialGradient(cx - 20, cy - 20, 0, cx, cy, r);
+      grad.addColorStop(0, 'rgba(107,163,227,0.4)');
+      grad.addColorStop(1, 'rgba(74,144,217,0.2)');
+      ctx.fillStyle = grad;
+      ctx.fill();
+      
+      ctx.strokeStyle = '#4A90D9';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+      
+      // Dots at vertices
+      for (var i = 0; i < sides; i++) {
+        var angle = (i * 2 * Math.PI / sides) - Math.PI / 2;
+        var x = cx + r * Math.cos(angle), y = cy + r * Math.sin(angle);
+        ctx.beginPath();
+        ctx.arc(x, y, 6, 0, 2 * Math.PI);
+        ctx.fillStyle = '#4A90D9';
+        ctx.fill();
+      }
     }
     
     function drawClock(h, m) {
       ctx.clearRect(0, 0, 380, 280);
-      var cx = 190, cy = 140, r = 90;
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, 2*Math.PI);
-      ctx.fillStyle = '#FDF8F3'; ctx.fill();
-      ctx.strokeStyle = '#4A90D9'; ctx.lineWidth = 4; ctx.stroke();
+      var cx = 190, cy = 140, r = 95;
+      
+      // Shadow
+      ctx.beginPath();
+      ctx.arc(cx + 3, cy + 3, r, 0, 2*Math.PI);
+      ctx.fillStyle = 'rgba(0,0,0,0.1)';
+      ctx.fill();
+      
+      // Clock face
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, 2*Math.PI);
+      var grad = ctx.createRadialGradient(cx - 30, cy - 30, 0, cx, cy, r);
+      grad.addColorStop(0, '#FFFFFF');
+      grad.addColorStop(1, '#F9F5F0');
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.strokeStyle = '#4A90D9';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+      
+      // Hour markers
       for (var i = 0; i < 12; i++) {
         var a = i * Math.PI / 6 - Math.PI / 2;
+        var isHour = i % 3 === 0;
         ctx.beginPath();
-        ctx.moveTo(cx + (r-12) * Math.cos(a), cy + (r-12) * Math.sin(a));
-        ctx.lineTo(cx + (r-4) * Math.cos(a), cy + (r-4) * Math.sin(a));
-        ctx.strokeStyle = '#2D3748'; ctx.lineWidth = 2; ctx.stroke();
+        ctx.moveTo(cx + (r - (isHour ? 18 : 12)) * Math.cos(a), cy + (r - (isHour ? 18 : 12)) * Math.sin(a));
+        ctx.lineTo(cx + (r - 6) * Math.cos(a), cy + (r - 6) * Math.sin(a));
+        ctx.strokeStyle = '#2D3748';
+        ctx.lineWidth = isHour ? 3 : 2;
+        ctx.stroke();
       }
+      
+      // Numbers
+      ctx.fillStyle = '#2D3748';
+      ctx.font = 'bold 14px Quicksand';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      [12,3,6,9].forEach(function(num) {
+        var a = (num % 12) * Math.PI / 6 - Math.PI / 2;
+        ctx.fillText(num, cx + (r - 28) * Math.cos(a), cy + (r - 28) * Math.sin(a));
+      });
+      
+      // Hour hand
       var ha = ((h % 12) + m / 60) * Math.PI / 6 - Math.PI / 2;
-      ctx.beginPath(); ctx.moveTo(cx, cy);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
       ctx.lineTo(cx + 45 * Math.cos(ha), cy + 45 * Math.sin(ha));
-      ctx.strokeStyle = '#2D3748'; ctx.lineWidth = 5; ctx.stroke();
+      ctx.strokeStyle = '#2D3748';
+      ctx.lineWidth = 6;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+      
+      // Minute hand
       var ma = m * Math.PI / 30 - Math.PI / 2;
-      ctx.beginPath(); ctx.moveTo(cx, cy);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
       ctx.lineTo(cx + 65 * Math.cos(ma), cy + 65 * Math.sin(ma));
-      ctx.strokeStyle = '#4A90D9'; ctx.lineWidth = 3; ctx.stroke();
-      ctx.beginPath(); ctx.arc(cx, cy, 6, 0, 2*Math.PI);
-      ctx.fillStyle = '#2D3748'; ctx.fill();
+      ctx.strokeStyle = '#4A90D9';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+      
+      // Center dot
+      ctx.beginPath();
+      ctx.arc(cx, cy, 8, 0, 2*Math.PI);
+      ctx.fillStyle = '#E8845F';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(cx, cy, 4, 0, 2*Math.PI);
+      ctx.fillStyle = '#2D3748';
+      ctx.fill();
     }
     
     function drawMoney(p, n, d, q) {
       ctx.clearRect(0, 0, 380, 280);
-      ctx.font = 'bold 13px Quicksand';
+      
+      var coins = [
+        { count: q, value: '25¢', name: 'Quarter', color: '#C9B037', stroke: '#A89030', size: 28 },
+        { count: d, value: '10¢', name: 'Dime', color: '#C0C0C0', stroke: '#A0A0A0', size: 20 },
+        { count: n, value: '5¢', name: 'Nickel', color: '#B8B8B8', stroke: '#909090', size: 24 },
+        { count: p, value: '1¢', name: 'Penny', color: '#B87333', stroke: '#8B5A2B', size: 22 }
+      ];
+      
+      var y = 45;
       ctx.textAlign = 'center';
-      var y = 40;
-      var coins = [[p,'1¢','#CD7F32'], [n,'5¢','#A8A8A8'], [d,'10¢','#C0C0C0'], [q,'25¢','#FFD700']];
-      coins.forEach(function(c) {
-        for (var i = 0; i < c[0]; i++) {
-          ctx.beginPath(); ctx.arc(50 + i * 45, y, 20, 0, 2*Math.PI);
-          ctx.fillStyle = c[1]; ctx.fill();
-          ctx.strokeStyle = '#2D3748'; ctx.lineWidth = 2; ctx.stroke();
-          ctx.fillStyle = '#2D3748'; ctx.fillText(c[2], 50 + i * 45, y + 5);
+      ctx.textBaseline = 'middle';
+      
+      coins.forEach(function(coin) {
+        if (coin.count > 0) {
+          // Label
+          ctx.fillStyle = '#718096';
+          ctx.font = '12px Quicksand';
+          ctx.textAlign = 'left';
+          ctx.fillText(coin.name + 's:', 20, y);
+          
+          // Draw coins
+          for (var i = 0; i < coin.count; i++) {
+            var cx = 120 + i * (coin.size * 2 + 8);
+            
+            // Shadow
+            ctx.beginPath();
+            ctx.arc(cx + 2, y + 2, coin.size, 0, 2 * Math.PI);
+            ctx.fillStyle = 'rgba(0,0,0,0.15)';
+            ctx.fill();
+            
+            // Coin gradient
+            var grad = ctx.createRadialGradient(cx - coin.size/3, y - coin.size/3, 0, cx, y, coin.size);
+            grad.addColorStop(0, lightenColor(coin.color, 30));
+            grad.addColorStop(0.5, coin.color);
+            grad.addColorStop(1, coin.stroke);
+            
+            ctx.beginPath();
+            ctx.arc(cx, y, coin.size, 0, 2 * Math.PI);
+            ctx.fillStyle = grad;
+            ctx.fill();
+            ctx.strokeStyle = coin.stroke;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Inner ring
+            ctx.beginPath();
+            ctx.arc(cx, y, coin.size - 4, 0, 2 * Math.PI);
+            ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            
+            // Value text
+            ctx.fillStyle = '#FFF';
+            ctx.font = 'bold ' + (coin.size * 0.6) + 'px Quicksand';
+            ctx.textAlign = 'center';
+            ctx.shadowColor = 'rgba(0,0,0,0.3)';
+            ctx.shadowBlur = 2;
+            ctx.fillText(coin.value, cx, y + 1);
+            ctx.shadowBlur = 0;
+          }
+          y += coin.size * 2 + 15;
         }
-        y += 55;
       });
+    }
+    
+    function lightenColor(hex, percent) {
+      var num = parseInt(hex.replace('#', ''), 16);
+      var r = Math.min(255, (num >> 16) + percent);
+      var g = Math.min(255, ((num >> 8) & 0x00FF) + percent);
+      var b = Math.min(255, (num & 0x0000FF) + percent);
+      return '#' + (0x1000000 + r * 0x10000 + g * 0x100 + b).toString(16).slice(1);
     }
     
     function drawMeasurement(a, b, op) {
       ctx.clearRect(0, 0, 380, 280);
-      var scale = 22, h = 30;
-      ctx.fillStyle = '#4A90D9';
-      ctx.fillRect(40, 100, a * scale, h);
-      ctx.font = 'bold 14px Quicksand'; ctx.fillStyle = '#2D3748';
-      ctx.fillText(a + ' cm', 40 + a * scale / 2, 90);
-      ctx.fillStyle = op === '+' ? '#5DB075' : '#F28482';
-      ctx.fillRect(40 + (op === '+' ? a * scale + 5 : 0), 150, b * scale, h);
+      var scale = 22, h = 35;
+      var x0 = 40;
+      
+      // First bar with gradient
+      var grad1 = ctx.createLinearGradient(x0, 100, x0, 100 + h);
+      grad1.addColorStop(0, '#6BA3E3');
+      grad1.addColorStop(1, '#4A90D9');
+      ctx.fillStyle = grad1;
+      ctx.fillRect(x0, 100, a * scale, h);
+      ctx.strokeStyle = '#3A7BC8';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x0, 100, a * scale, h);
+      
+      // Label
+      ctx.fillStyle = '#FFF';
+      ctx.font = 'bold 14px Quicksand';
+      ctx.textAlign = 'center';
+      ctx.fillText(a + ' cm', x0 + a * scale / 2, 100 + h/2 + 1);
+      
+      // Second bar
+      var grad2 = ctx.createLinearGradient(x0, 160, x0, 160 + h);
+      grad2.addColorStop(0, op === '+' ? '#6BC88B' : '#F5A08A');
+      grad2.addColorStop(1, op === '+' ? '#5DB075' : '#F28482');
+      ctx.fillStyle = grad2;
+      ctx.fillRect(x0, 160, b * scale, h);
+      ctx.strokeStyle = op === '+' ? '#4A9660' : '#D67470';
+      ctx.strokeRect(x0, 160, b * scale, h);
+      
+      ctx.fillStyle = '#FFF';
+      ctx.fillText(b + ' cm', x0 + b * scale / 2, 160 + h/2 + 1);
+      
+      // Operation symbol
       ctx.fillStyle = '#2D3748';
-      ctx.fillText((op === '-' ? '−' : '') + b + ' cm', 40 + b * scale / 2, 195);
+      ctx.font = 'bold 24px Quicksand';
+      ctx.fillText(op === '+' ? '+' : '−', 20, 145);
     }
     
     // UTILITIES
     function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
     function getHigh() { return parseInt(localStorage.getItem('mathHigh_' + mode) || '0'); }
     function setHigh(v) { localStorage.setItem('mathHigh_' + mode, v); }
+    
     function doConfetti(n) {
       var colors = ['#4A90D9','#5DB075','#F5C842','#E8845F','#9B5DE5','#F28482'];
       for (var i = 0; i < n; i++) {
         var c = document.createElement('div');
-        c.style.cssText = 'position:fixed;width:' + (6+Math.random()*8) + 'px;height:' + (6+Math.random()*8) + 'px;top:-10px;left:' + Math.random()*100 + 'vw;background:' + colors[rand(0,5)] + ';z-index:9999;pointer-events:none;border-radius:' + (Math.random()>.5?'50%':'2px') + ';animation:confetti-fall ' + (2+Math.random()*2) + 's linear forwards;';
+        var size = 6 + Math.random() * 10;
+        c.style.cssText = 'position:fixed;width:' + size + 'px;height:' + size + 'px;top:-20px;left:' + (Math.random()*100) + 'vw;background:' + colors[rand(0,5)] + ';z-index:9999;pointer-events:none;border-radius:' + (Math.random()>.5?'50%':'2px') + ';animation:confetti-fall ' + (2+Math.random()*2) + 's linear forwards;animation-delay:' + (Math.random()*0.5) + 's;';
         document.body.appendChild(c);
-        setTimeout(function(el) { el.remove(); }, 4000, c);
+        setTimeout(function(el) { el.remove(); }, 4500, c);
       }
     }
   })();
