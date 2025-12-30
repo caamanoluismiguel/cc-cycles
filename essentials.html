@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#9B5DE5">
+  <title>Essentials - Classical Kids Study Hub</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --essentials-primary: #9B5DE5;
+      --essentials-secondary: #6930C3;
+      --essentials-light: #C77DFF;
+      --essentials-accent: #E0AAFF;
+    }
+    
+    .essentials-hero {
+      background: linear-gradient(135deg, var(--essentials-primary), var(--essentials-secondary));
+      border-radius: var(--radius-xl);
+      padding: var(--space-2xl);
+      text-align: center;
+      color: white;
+      margin-bottom: var(--space-xl);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .essentials-hero::before {
+      content: 'S V O';
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: 10rem;
+      opacity: 0.08;
+      white-space: nowrap;
+      animation: grammar-scroll 25s linear infinite;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    @keyframes grammar-scroll {
+      0% { transform: translateY(-50%) translateX(0); }
+      100% { transform: translateY(-50%) translateX(-50%); }
+    }
+    
+    .essentials-hero h1, .essentials-hero p { color: white; position: relative; z-index: 1; }
+    
+    /* Mode Selection */
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+    
+    .mode-card {
+      background: var(--warm-white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl) var(--space-lg);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-smooth);
+      border: 3px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .mode-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(155,93,229,0.15), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .mode-card:hover::after { left: 100%; }
+    .mode-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--essentials-primary);
+    }
+    
+    .mode-icon {
+      font-size: 3rem;
+      margin-bottom: var(--space-sm);
+      display: block;
+    }
+    
+    .mode-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    
+    .mode-desc {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      margin-top: var(--space-xs);
+    }
+    
+    /* Week Grid */
+    .trimester-section {
+      margin-bottom: var(--space-xl);
+    }
+    
+    .trimester-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+      padding: var(--space-md);
+      background: linear-gradient(90deg, rgba(155,93,229,0.1), transparent);
+      border-radius: var(--radius-lg);
+      border-left: 4px solid var(--essentials-primary);
+    }
+    
+    .trimester-icon { font-size: 1.5rem; }
+    .trimester-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--ink);
+    }
+    
+    .week-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: var(--space-sm);
+    }
+    
+    .week-card {
+      background: var(--warm-white);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+      cursor: pointer;
+      transition: all 0.3s var(--ease-smooth);
+      border: 2px solid var(--border);
+      position: relative;
+    }
+    
+    .week-card:hover {
+      border-color: var(--essentials-light);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .week-card.completed {
+      background: linear-gradient(135deg, rgba(93,176,117,0.1), rgba(93,176,117,0.05));
+      border-color: var(--meadow);
+    }
+    
+    .week-card.completed::after {
+      content: '✓';
+      position: absolute;
+      top: 8px; right: 8px;
+      background: var(--meadow);
+      color: white;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    
+    .week-num {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      color: var(--essentials-primary);
+      font-weight: 700;
+    }
+    
+    .week-topic {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-top: var(--space-2xs);
+      line-height: 1.3;
+    }
+    
+    .week-pattern {
+      font-size: 0.7rem;
+      color: var(--ink-muted);
+      margin-top: var(--space-2xs);
+      font-family: monospace;
+      background: var(--parchment);
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    
+    /* Lesson Content */
+    .lesson-nav {
+      display: flex;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      flex-wrap: wrap;
+    }
+    
+    .lesson-tab {
+      padding: var(--space-xs) var(--space-md);
+      background: var(--parchment);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .lesson-tab:hover { border-color: var(--essentials-light); color: var(--ink); }
+    .lesson-tab.active {
+      background: var(--essentials-primary);
+      border-color: var(--essentials-primary);
+      color: white;
+    }
+    
+    .concept-card {
+      background: var(--warm-white);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+      border-left: 4px solid var(--essentials-primary);
+      animation: slide-in 0.4s ease;
+    }
+    
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    .concept-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--essentials-secondary);
+      margin-bottom: var(--space-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    
+    .example-box {
+      background: linear-gradient(135deg, rgba(155,93,229,0.08), rgba(155,93,229,0.02));
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin: var(--space-md) 0;
+    }
+    
+    .example-sentence {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--ink);
+      margin-bottom: var(--space-sm);
+      padding: var(--space-sm);
+      background: white;
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--essentials-light);
+    }
+    
+    .analysis-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      margin: var(--space-xs) 0;
+      font-size: 0.9rem;
+    }
+    
+    .analysis-label {
+      font-weight: 700;
+      color: var(--essentials-primary);
+      min-width: 80px;
+    }
+    
+    /* Practice Mode */
+    .practice-card {
+      background: var(--warm-white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      text-align: center;
+      box-shadow: var(--shadow-card);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .practice-sentence {
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--ink);
+      padding: var(--space-lg);
+      background: var(--parchment);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-lg);
+      line-height: 1.6;
+    }
+    
+    .practice-sentence .highlight {
+      background: var(--essentials-accent);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    
+    .practice-question {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--ink);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-sm);
+      max-width: 400px;
+      margin: 0 auto var(--space-lg);
+    }
+    
+    .option-btn {
+      padding: var(--space-md);
+      background: var(--parchment);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .option-btn:hover {
+      border-color: var(--essentials-light);
+      background: white;
+    }
+    
+    .option-btn.correct {
+      background: rgba(93,176,117,0.2);
+      border-color: var(--meadow);
+      color: var(--meadow-dark);
+    }
+    
+    .option-btn.wrong {
+      background: rgba(242,132,130,0.2);
+      border-color: var(--coral);
+      color: #c0392b;
+    }
+    
+    .option-btn.selected {
+      border-color: var(--essentials-primary);
+      background: rgba(155,93,229,0.1);
+    }
+    
+    /* Pattern Builder */
+    .pattern-display {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      padding: var(--space-lg);
+      background: var(--parchment);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-lg);
+      min-height: 80px;
+      align-items: center;
+    }
+    
+    .pattern-block {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--essentials-primary);
+      color: white;
+      border-radius: var(--radius-md);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: var(--shadow-sm);
+      cursor: grab;
+      transition: transform 0.2s ease;
+    }
+    
+    .pattern-block:hover { transform: scale(1.05); }
+    .pattern-block.subject { background: #4A90D9; }
+    .pattern-block.verb { background: #5DB075; }
+    .pattern-block.object { background: #E8845F; }
+    .pattern-block.complement { background: #9B5DE5; }
+    
+    /* Daily Practice Stats */
+    .daily-stats {
+      display: flex;
+      justify-content: space-around;
+      background: linear-gradient(135deg, var(--essentials-primary), var(--essentials-secondary));
+      padding: var(--space-lg);
+      border-radius: var(--radius-xl);
+      margin-bottom: var(--space-xl);
+      color: white;
+    }
+    
+    .daily-stat {
+      text-align: center;
+    }
+    
+    .daily-stat-value {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+    }
+    
+    .daily-stat-label {
+      font-size: 0.75rem;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    /* Streak indicator */
+    .streak-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: linear-gradient(135deg, #F5C842, #E8845F);
+      color: white;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: var(--space-lg);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-icon">📚</div><span>Classical Kids</span></a>
+      <div class="lang-toggle">
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn active" data-lang="es" onclick="setLang('es')">ES</button>
+      </div>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link"><span class="nav-link-icon">🏠</span> Inicio</a>
+        <a href="essentials.html" class="nav-link active"><span class="nav-link-icon">📝</span> Essentials</a>
+        <a href="classical_math.html" class="nav-link"><span class="nav-link-icon">🔢</span> Matemáticas</a>
+        <a href="dashboard.html" class="nav-link"><span class="nav-link-icon">📊</span> Progreso</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      
+      <!-- MENU SECTION -->
+      <section id="menuSection">
+        <div class="essentials-hero">
+          <h1>📝 Essentials</h1>
+          <p>Gramática y Análisis de Oraciones</p>
+        </div>
+        
+        <!-- Daily Stats -->
+        <div class="daily-stats">
+          <div class="daily-stat">
+            <div class="daily-stat-value" id="todayMinutes">0</div>
+            <div class="daily-stat-label">Minutos Hoy</div>
+          </div>
+          <div class="daily-stat">
+            <div class="daily-stat-value" id="weekProgress">0%</div>
+            <div class="daily-stat-label">Semana</div>
+          </div>
+          <div class="daily-stat">
+            <div class="daily-stat-value" id="totalMastery">0</div>
+            <div class="daily-stat-label">Dominados</div>
+          </div>
+          <div class="daily-stat">
+            <div class="daily-stat-value" id="practiceStreak">0</div>
+            <div class="daily-stat-label">🔥 Racha</div>
+          </div>
+        </div>
+        
+        <!-- Mode Selection -->
+        <h3 class="section-title">🎯 ¿Qué quieres hacer?</h3>
+        <div class="mode-grid">
+          <div class="mode-card" onclick="showLessons()">
+            <span class="mode-icon">📖</span>
+            <div class="mode-title">Aprender</div>
+            <div class="mode-desc">Lecciones por semana</div>
+          </div>
+          <div class="mode-card" onclick="startPractice('identify')">
+            <span class="mode-icon">🔍</span>
+            <div class="mode-title">Identificar</div>
+            <div class="mode-desc">Sujeto, Verbo, Objeto</div>
+          </div>
+          <div class="mode-card" onclick="startPractice('pattern')">
+            <span class="mode-icon">🧩</span>
+            <div class="mode-title">Patrones</div>
+            <div class="mode-desc">S-Vi, S-Vt-OD, etc.</div>
+          </div>
+          <div class="mode-card" onclick="startPractice('analyze')">
+            <span class="mode-icon">📊</span>
+            <div class="mode-title">Análisis</div>
+            <div class="mode-desc">Análisis completo</div>
+          </div>
+          <div class="mode-card" onclick="startPractice('daily')">
+            <span class="mode-icon">⭐</span>
+            <div class="mode-title">Práctica Diaria</div>
+            <div class="mode-desc">10 min de repaso</div>
+          </div>
+          <div class="mode-card" onclick="showQuickRef()">
+            <span class="mode-icon">📋</span>
+            <div class="mode-title">Referencia</div>
+            <div class="mode-desc">Guía rápida</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LESSONS SECTION -->
+      <section id="lessonsSection" class="hidden">
+        <button class="btn btn-ghost mb-lg" onclick="showMenu()">← Volver al Menú</button>
+        
+        <h2 class="section-title">📚 Lecciones por Semana</h2>
+        
+        <!-- Trimester 1 -->
+        <div class="trimester-section">
+          <div class="trimester-header">
+            <span class="trimester-icon">🌱</span>
+            <div>
+              <div class="trimester-title">Trimestre 1: Fundamentos</div>
+              <div class="text-muted" style="font-size: 0.8rem;">Semanas 1-6 · Patrones Básicos</div>
+            </div>
+          </div>
+          <div class="week-cards" id="weeks1to6"></div>
+        </div>
+        
+        <!-- Trimester 2 -->
+        <div class="trimester-section">
+          <div class="trimester-header">
+            <span class="trimester-icon">🌿</span>
+            <div>
+              <div class="trimester-title">Trimestre 2: Desarrollo</div>
+              <div class="text-muted" style="font-size: 0.8rem;">Semanas 7-12 · Patrones Avanzados</div>
+            </div>
+          </div>
+          <div class="week-cards" id="weeks7to12"></div>
+        </div>
+        
+        <!-- Trimester 3 -->
+        <div class="trimester-section">
+          <div class="trimester-header">
+            <span class="trimester-icon">🌳</span>
+            <div>
+              <div class="trimester-title">Trimestre 3: Complejidad</div>
+              <div class="text-muted" style="font-size: 0.8rem;">Semanas 13-18 · Estructuras Compuestas</div>
+            </div>
+          </div>
+          <div class="week-cards" id="weeks13to18"></div>
+        </div>
+        
+        <!-- Trimester 4 -->
+        <div class="trimester-section">
+          <div class="trimester-header">
+            <span class="trimester-icon">🏆</span>
+            <div>
+              <div class="trimester-title">Trimestre 4: Maestría</div>
+              <div class="text-muted" style="font-size: 0.8rem;">Semanas 19-24 · Integración Total</div>
+            </div>
+          </div>
+          <div class="week-cards" id="weeks19to24"></div>
+        </div>
+      </section>
+
+      <!-- LESSON DETAIL -->
+      <section id="lessonDetail" class="hidden">
+        <button class="btn btn-ghost mb-lg" onclick="showLessons()">← Volver a Semanas</button>
+        
+        <div class="card card-body-lg">
+          <div class="lesson-meta" id="lessonWeekNum" style="color: var(--essentials-primary); font-weight: 700; margin-bottom: var(--space-xs);">Semana 1</div>
+          <h2 id="lessonWeekTitle" style="margin-bottom: var(--space-lg);">Introducción a la Gramática</h2>
+          
+          <div class="lesson-nav" id="lessonNav"></div>
+          
+          <div id="lessonContent"></div>
+          
+          <div class="mt-xl" style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
+            <button class="btn btn-ghost" onclick="prevWeek()">← Anterior</button>
+            <button class="btn btn-primary" onclick="startWeekPractice()" style="flex: 1;">Practicar Esta Semana 🎯</button>
+            <button class="btn btn-ghost" onclick="nextWeek()">Siguiente →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRACTICE SECTION -->
+      <section id="practiceSection" class="hidden">
+        <button class="btn btn-ghost mb-lg" onclick="showMenu()">← Salir de Práctica</button>
+        
+        <div class="daily-stats" style="margin-bottom: var(--space-lg);">
+          <div class="daily-stat">
+            <div class="daily-stat-value" id="practiceScore">0</div>
+            <div class="daily-stat-label">Correctas</div>
+          </div>
+          <div class="daily-stat">
+            <div class="daily-stat-value" id="practiceTotal">0</div>
+            <div class="daily-stat-label">Total</div>
+          </div>
+          <div class="daily-stat">
+            <div class="daily-stat-value" id="practiceStreak2">0</div>
+            <div class="daily-stat-label">🔥 Racha</div>
+          </div>
+        </div>
+        
+        <div class="practice-card">
+          <div class="practice-sentence" id="practiceSentence">"El gato duerme."</div>
+          <div class="practice-question" id="practiceQuestion">¿Cuál es el SUJETO?</div>
+          <div class="options-grid" id="practiceOptions"></div>
+          <div class="feedback" id="practiceFeedback"></div>
+        </div>
+        
+        <div class="text-center">
+          <button class="btn btn-primary" id="nextPracticeBtn" onclick="nextPractice()" style="display: none;">Siguiente →</button>
+        </div>
+      </section>
+
+      <!-- QUICK REFERENCE -->
+      <section id="quickRefSection" class="hidden">
+        <button class="btn btn-ghost mb-lg" onclick="showMenu()">← Volver al Menú</button>
+        
+        <h2 class="section-title">📋 Guía Rápida de Patrones</h2>
+        
+        <div class="concept-card">
+          <div class="concept-title">🔹 S-Vi (Sujeto + Verbo Intransitivo)</div>
+          <p>La acción NO pasa a nadie. Se queda en el sujeto.</p>
+          <div class="example-box">
+            <div class="example-sentence">"El pájaro vuela."</div>
+            <div class="analysis-item"><span class="analysis-label">S:</span> El pájaro</div>
+            <div class="analysis-item"><span class="analysis-label">Vi:</span> vuela (¿Vuela qué? Nada. Simplemente vuela)</div>
+          </div>
+        </div>
+        
+        <div class="concept-card">
+          <div class="concept-title">🔹 S-Vt-OD (Sujeto + Verbo Transitivo + Objeto Directo)</div>
+          <p>La acción PASA a algo o alguien. Pregunta: ¿Qué? o ¿A quién?</p>
+          <div class="example-box">
+            <div class="example-sentence">"Juan come una manzana."</div>
+            <div class="analysis-item"><span class="analysis-label">S:</span> Juan</div>
+            <div class="analysis-item"><span class="analysis-label">Vt:</span> come</div>
+            <div class="analysis-item"><span class="analysis-label">OD:</span> una manzana (¿Come qué? → una manzana)</div>
+          </div>
+        </div>
+        
+        <div class="concept-card">
+          <div class="concept-title">🔹 S-Vc-A (Sujeto + Verbo Copulativo + Atributo)</div>
+          <p>Verbos SER, ESTAR, PARECER. El sujeto = atributo.</p>
+          <div class="example-box">
+            <div class="example-sentence">"El cielo es azul."</div>
+            <div class="analysis-item"><span class="analysis-label">S:</span> El cielo</div>
+            <div class="analysis-item"><span class="analysis-label">Vc:</span> es</div>
+            <div class="analysis-item"><span class="analysis-label">A:</span> azul (El cielo = azul)</div>
+          </div>
+        </div>
+        
+        <div class="concept-card">
+          <div class="concept-title">🔹 S-Vt-OD-OI (+ Objeto Indirecto)</div>
+          <p>¿A quién o para quién? El destinatario.</p>
+          <div class="example-box">
+            <div class="example-sentence">"María entregó la carta a su madre."</div>
+            <div class="analysis-item"><span class="analysis-label">S:</span> María</div>
+            <div class="analysis-item"><span class="analysis-label">Vt:</span> entregó</div>
+            <div class="analysis-item"><span class="analysis-label">OD:</span> la carta (¿Qué entregó?)</div>
+            <div class="analysis-item"><span class="analysis-label">OI:</span> a su madre (¿A quién?)</div>
+          </div>
+        </div>
+        
+        <div class="concept-card">
+          <div class="concept-title">🔹 Propósitos de la Oración</div>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-sm); margin-top: var(--space-md);">
+            <div><strong>Declarativo:</strong> Afirma un hecho</div>
+            <div><strong>Interrogativo:</strong> Hace una pregunta</div>
+            <div><strong>Exclamativo:</strong> Expresa emoción</div>
+            <div><strong>Imperativo:</strong> Da una orden</div>
+            <div><strong>Desiderativo:</strong> Expresa deseo</div>
+            <div><strong>Dubitativo:</strong> Expresa duda</div>
+          </div>
+        </div>
+        
+        <div class="concept-card">
+          <div class="concept-title">🔹 Estructuras</div>
+          <div style="margin-top: var(--space-md);">
+            <p><strong>Simple:</strong> Un solo sujeto y verbo</p>
+            <p><strong>Compuesta Coordinada:</strong> Dos oraciones unidas por "y", "o", "pero"</p>
+            <p><strong>Compuesta Subordinada:</strong> Una depende de la otra (que, cuando, porque)</p>
+            <p><strong>Compleja:</strong> Coordinación + Subordinación juntas</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <a href="index.html" class="bottom-nav-item"><span class="bottom-nav-icon">🏠</span><span>Inicio</span></a>
+      <a href="essentials.html" class="bottom-nav-item active"><span class="bottom-nav-icon">📝</span><span>Essentials</span></a>
+      <a href="classical_math.html" class="bottom-nav-item"><span class="bottom-nav-icon">🔢</span><span>Math</span></a>
+      <a href="dashboard.html" class="bottom-nav-item"><span class="bottom-nav-icon">📊</span><span>Progreso</span></a>
+      <a href="parents-guide.html" class="bottom-nav-item"><span class="bottom-nav-icon">👨‍👩‍👧</span><span>Padres</span></a>
+    </div>
+  </nav>
+
+  <script>
+  // CURRICULUM DATA - 24 Weeks
+  var WEEKS = [
+    { num: 1, title: 'Introducción a la Gramática', pattern: 'S + V', topics: ['Estructura', 'Propósito', 'Sujeto', 'Predicado'] },
+    { num: 2, title: 'El Verbo y sus Tiempos', pattern: 'Tiempos', topics: ['Verbo', 'Tiempos Simples', 'Tiempos Compuestos'] },
+    { num: 3, title: 'Patrón S-Vi', pattern: 'S-Vi', topics: ['Verbo Intransitivo', 'Sustantivos', 'Artículos'] },
+    { num: 4, title: 'S-Vi + Pronombres', pattern: 'S-Vi', topics: ['Interrogativo', 'Exclamativo', 'Pronombres'] },
+    { num: 5, title: 'Patrón S-Vt-OD', pattern: 'S-Vt-OD', topics: ['Verbo Transitivo', 'Objeto Directo', 'Imperativo'] },
+    { num: 6, title: 'S-Vt-OD + Adverbios', pattern: 'S-Vt-OD', topics: ['Dubitativo', 'Adverbios'] },
+    { num: 7, title: 'Patrón S-Vc-A', pattern: 'S-Vc-A', topics: ['Verbo Copulativo', 'Atributo', 'Adjetivos'] },
+    { num: 8, title: 'Estructura Compuesta', pattern: 'Coordinada', topics: ['Cláusula Independiente', 'Conjunciones'] },
+    { num: 9, title: 'Patrón S-Vt-OD-OI', pattern: 'S-Vt-OD-OI', topics: ['Objeto Indirecto', 'Preposiciones'] },
+    { num: 10, title: 'Repaso con Imperativo', pattern: 'S-Vt-OD-OI', topics: ['Sujeto Tácito', 'Integración'] },
+    { num: 11, title: 'Patrón S-Vprep-ORég', pattern: 'S-Vprep-ORég', topics: ['Verbo Prepositivo', 'Objeto de Régimen', '1ª Conjugación'] },
+    { num: 12, title: 'Modo Subjuntivo', pattern: 'Subjuntivo', topics: ['2ª y 3ª Conjugación', 'Modo Subjuntivo'] },
+    { num: 13, title: 'Estructura Subordinada + CPS', pattern: 'S-Vp-CPS', topics: ['Subordinación', 'Complemento Predicativo del Sujeto'] },
+    { num: 14, title: 'Modo y Voz', pattern: 'Voz', topics: ['Voz Activa', 'Voz Pasiva', 'Exclamativo Subordinado'] },
+    { num: 15, title: 'Patrón S-Vp-OD-CPO', pattern: 'S-Vp-OD-CPO', topics: ['Complemento Predicativo del Objeto'] },
+    { num: 16, title: 'Imperativo con CPO', pattern: 'S-Vp-OD-CPO', topics: ['Pronombres', 'CPO en Órdenes'] },
+    { num: 17, title: 'Voz Pasiva + Adverbiales', pattern: 'Voz Pasiva', topics: ['Transformación Activa-Pasiva', 'Cláusulas Adverbiales'] },
+    { num: 18, title: 'Repaso del Trimestre', pattern: 'Integración', topics: ['CPS vs CPO', 'Activa vs Pasiva', 'Subordinadas'] },
+    { num: 19, title: 'Cláusulas Adjetivas', pattern: 'Relativas', topics: ['Pronombre Relativo', 'Cláusulas que Modifican'] },
+    { num: 20, title: 'Preposiciones en Preguntas', pattern: 'S-Vprep-ORég', topics: ['Orden Invertido', 'Exclamaciones'] },
+    { num: 21, title: 'Estructura Compleja + Participio', pattern: 'Compleja', topics: ['Coordinación + Subordinación', 'Participio'] },
+    { num: 22, title: 'Estructura Compleja + Gerundio', pattern: 'Compleja', topics: ['Gerundio como Adverbio', 'Formas No Personales'] },
+    { num: 23, title: 'Infinitivo Nominal', pattern: 'Infinitivo', topics: ['Infinitivo como Sujeto', 'Infinitivo como OD'] },
+    { num: 24, title: 'Consolidación Final', pattern: 'TODOS', topics: ['Análisis Completo', 'Integración Total'] }
+  ];
+  
+  // Practice sentences
+  var PRACTICE_SENTENCES = [
+    { sentence: 'El gato duerme.', s: 'El gato', v: 'duerme', pattern: 'S-Vi', type: 'intransitive' },
+    { sentence: 'María come una manzana.', s: 'María', v: 'come', od: 'una manzana', pattern: 'S-Vt-OD', type: 'transitive' },
+    { sentence: 'El cielo es azul.', s: 'El cielo', v: 'es', a: 'azul', pattern: 'S-Vc-A', type: 'copulative' },
+    { sentence: 'Juan entregó la carta a mamá.', s: 'Juan', v: 'entregó', od: 'la carta', oi: 'a mamá', pattern: 'S-Vt-OD-OI', type: 'indirect' },
+    { sentence: 'Los niños juegan.', s: 'Los niños', v: 'juegan', pattern: 'S-Vi', type: 'intransitive' },
+    { sentence: 'Ella está feliz.', s: 'Ella', v: 'está', a: 'feliz', pattern: 'S-Vc-A', type: 'copulative' },
+    { sentence: 'El perro persigue al gato.', s: 'El perro', v: 'persigue', od: 'al gato', pattern: 'S-Vt-OD', type: 'transitive' },
+    { sentence: 'Nosotros hemos comido.', s: 'Nosotros', v: 'hemos comido', pattern: 'S-Vi', type: 'intransitive' },
+    { sentence: 'El estudiante piensa en su tarea.', s: 'El estudiante', v: 'piensa', oreg: 'en su tarea', pattern: 'S-Vprep-ORég', type: 'prepositional' },
+    { sentence: 'Lava el plato.', s: '(Tú)', v: 'Lava', od: 'el plato', pattern: 'S-Vt-OD', type: 'imperative' }
+  ];
+  
+  var currentWeek = 1;
+  var practiceMode = '';
+  var practiceScore = 0;
+  var practiceTotal = 0;
+  var practiceStreak = 0;
+  var currentPracticeIndex = 0;
+  
+  // Initialize
+  document.addEventListener('DOMContentLoaded', function() {
+    loadStats();
+    buildWeekCards();
+  });
+  
+  function loadStats() {
+    var stats = JSON.parse(localStorage.getItem('essentials_stats') || '{"minutes":0,"completed":[],"streak":0}');
+    document.getElementById('todayMinutes').textContent = stats.minutes || 0;
+    document.getElementById('totalMastery').textContent = stats.completed ? stats.completed.length : 0;
+    document.getElementById('practiceStreak').textContent = stats.streak || 0;
+    document.getElementById('weekProgress').textContent = Math.round((stats.completed ? stats.completed.length : 0) / 24 * 100) + '%';
+  }
+  
+  function buildWeekCards() {
+    var stats = JSON.parse(localStorage.getItem('essentials_stats') || '{"completed":[]}');
+    var completed = stats.completed || [];
+    
+    var containers = {
+      '1to6': document.getElementById('weeks1to6'),
+      '7to12': document.getElementById('weeks7to12'),
+      '13to18': document.getElementById('weeks13to18'),
+      '19to24': document.getElementById('weeks19to24')
+    };
+    
+    WEEKS.forEach(function(week) {
+      var containerId = week.num <= 6 ? '1to6' : week.num <= 12 ? '7to12' : week.num <= 18 ? '13to18' : '19to24';
+      var isCompleted = completed.includes(week.num);
+      
+      var card = document.createElement('div');
+      card.className = 'week-card' + (isCompleted ? ' completed' : '');
+      card.onclick = function() { showWeekDetail(week.num); };
+      card.innerHTML = '<div class="week-num">Semana ' + week.num + '</div>' +
+        '<div class="week-topic">' + week.title + '</div>' +
+        '<div class="week-pattern">' + week.pattern + '</div>';
+      
+      containers[containerId].appendChild(card);
+    });
+  }
+  
+  // Navigation
+  function showMenu() {
+    document.querySelectorAll('section').forEach(function(s) { s.classList.add('hidden'); });
+    document.getElementById('menuSection').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  
+  function showLessons() {
+    document.querySelectorAll('section').forEach(function(s) { s.classList.add('hidden'); });
+    document.getElementById('lessonsSection').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  
+  function showQuickRef() {
+    document.querySelectorAll('section').forEach(function(s) { s.classList.add('hidden'); });
+    document.getElementById('quickRefSection').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  
+  function showWeekDetail(num) {
+    currentWeek = num;
+    var week = WEEKS[num - 1];
+    
+    document.getElementById('lessonWeekNum').textContent = 'Semana ' + num;
+    document.getElementById('lessonWeekTitle').textContent = week.title;
+    
+    // Build tabs
+    var nav = document.getElementById('lessonNav');
+    nav.innerHTML = '';
+    week.topics.forEach(function(topic, i) {
+      var tab = document.createElement('button');
+      tab.className = 'lesson-tab' + (i === 0 ? ' active' : '');
+      tab.textContent = topic;
+      tab.onclick = function() {
+        document.querySelectorAll('.lesson-tab').forEach(function(t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        showTopicContent(week, topic);
+      };
+      nav.appendChild(tab);
+    });
+    
+    showTopicContent(week, week.topics[0]);
+    
+    document.querySelectorAll('section').forEach(function(s) { s.classList.add('hidden'); });
+    document.getElementById('lessonDetail').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  
+  function showTopicContent(week, topic) {
+    var content = document.getElementById('lessonContent');
+    // Generate content based on week and topic (simplified for demo)
+    content.innerHTML = '<div class="concept-card">' +
+      '<div class="concept-title">📌 ' + topic + '</div>' +
+      '<p>Contenido detallado para <strong>' + topic + '</strong> en la Semana ' + week.num + '.</p>' +
+      '<p>Patrón de esta semana: <code>' + week.pattern + '</code></p>' +
+      '</div>' +
+      '<div class="example-box">' +
+      '<div class="example-sentence">"Ejemplo de oración para practicar."</div>' +
+      '<p>Analiza esta oración identificando el sujeto, verbo y complementos.</p>' +
+      '</div>';
+  }
+  
+  function prevWeek() {
+    if (currentWeek > 1) showWeekDetail(currentWeek - 1);
+  }
+  
+  function nextWeek() {
+    if (currentWeek < 24) showWeekDetail(currentWeek + 1);
+  }
+  
+  function startWeekPractice() {
+    startPractice('identify');
+  }
+  
+  // Practice Mode
+  function startPractice(mode) {
+    practiceMode = mode;
+    practiceScore = 0;
+    practiceTotal = 0;
+    practiceStreak = 0;
+    currentPracticeIndex = 0;
+    
+    updatePracticeStats();
+    
+    document.querySelectorAll('section').forEach(function(s) { s.classList.add('hidden'); });
+    document.getElementById('practiceSection').classList.remove('hidden');
+    
+    loadPracticeQuestion();
+  }
+  
+  function loadPracticeQuestion() {
+    var sentence = PRACTICE_SENTENCES[currentPracticeIndex % PRACTICE_SENTENCES.length];
+    
+    document.getElementById('practiceSentence').textContent = '"' + sentence.sentence + '"';
+    document.getElementById('practiceFeedback').textContent = '';
+    document.getElementById('nextPracticeBtn').style.display = 'none';
+    
+    var question, options, correct;
+    
+    if (practiceMode === 'identify' || practiceMode === 'daily') {
+      var qTypes = ['subject', 'verb', 'pattern'];
+      var qType = qTypes[Math.floor(Math.random() * qTypes.length)];
+      
+      if (qType === 'subject') {
+        question = '¿Cuál es el SUJETO?';
+        correct = sentence.s;
+        options = [sentence.s, sentence.v, sentence.od || 'ninguno', sentence.a || 'ninguno'].filter(function(o) { return o !== 'ninguno'; });
+      } else if (qType === 'verb') {
+        question = '¿Cuál es el VERBO?';
+        correct = sentence.v;
+        options = [sentence.v, sentence.s, sentence.od || 'ninguno', sentence.a || 'ninguno'].filter(function(o) { return o !== 'ninguno'; });
+      } else {
+        question = '¿Cuál es el PATRÓN?';
+        correct = sentence.pattern;
+        options = ['S-Vi', 'S-Vt-OD', 'S-Vc-A', 'S-Vt-OD-OI'];
+      }
+    } else if (practiceMode === 'pattern') {
+      question = '¿Cuál es el PATRÓN de esta oración?';
+      correct = sentence.pattern;
+      options = ['S-Vi', 'S-Vt-OD', 'S-Vc-A', 'S-Vt-OD-OI', 'S-Vprep-ORég'];
+    } else {
+      question = 'Identifica todos los elementos de esta oración:';
+      correct = sentence.pattern;
+      options = ['S-Vi', 'S-Vt-OD', 'S-Vc-A', 'S-Vt-OD-OI'];
+    }
+    
+    // Shuffle and limit options
+    options = shuffleArray(options.filter(function(v, i, a) { return a.indexOf(v) === i; })).slice(0, 4);
+    if (!options.includes(correct)) {
+      options[Math.floor(Math.random() * options.length)] = correct;
+    }
+    
+    document.getElementById('practiceQuestion').textContent = question;
+    
+    var optionsContainer = document.getElementById('practiceOptions');
+    optionsContainer.innerHTML = '';
+    
+    options.forEach(function(opt) {
+      var btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.textContent = opt;
+      btn.onclick = function() { checkPracticeAnswer(opt, correct, btn); };
+      optionsContainer.appendChild(btn);
+    });
+  }
+  
+  function checkPracticeAnswer(selected, correct, btn) {
+    practiceTotal++;
+    
+    document.querySelectorAll('.option-btn').forEach(function(b) {
+      b.onclick = null;
+      if (b.textContent === correct) b.classList.add('correct');
+    });
+    
+    if (selected === correct) {
+      practiceScore++;
+      practiceStreak++;
+      btn.classList.add('correct');
+      document.getElementById('practiceFeedback').textContent = '✓ ¡Correcto!';
+      document.getElementById('practiceFeedback').style.color = 'var(--meadow)';
+      if (practiceStreak % 5 === 0) doConfetti(30);
+    } else {
+      practiceStreak = 0;
+      btn.classList.add('wrong');
+      document.getElementById('practiceFeedback').textContent = '✗ La respuesta es: ' + correct;
+      document.getElementById('practiceFeedback').style.color = 'var(--coral)';
+    }
+    
+    updatePracticeStats();
+    document.getElementById('nextPracticeBtn').style.display = 'inline-flex';
+  }
+  
+  function nextPractice() {
+    currentPracticeIndex++;
+    if (practiceTotal >= 10 && practiceMode === 'daily') {
+      alert('¡Práctica diaria completada! Puntuación: ' + practiceScore + '/10');
+      showMenu();
+      return;
+    }
+    loadPracticeQuestion();
+  }
+  
+  function updatePracticeStats() {
+    document.getElementById('practiceScore').textContent = practiceScore;
+    document.getElementById('practiceTotal').textContent = practiceTotal;
+    document.getElementById('practiceStreak2').textContent = practiceStreak;
+  }
+  
+  // Utilities
+  function shuffleArray(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = a[i]; a[i] = a[j]; a[j] = temp;
+    }
+    return a;
+  }
+  
+  function setLang(lang) {
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    localStorage.setItem('ck_lang', lang);
+  }
+  
+  function doConfetti(n) {
+    var colors = ['#9B5DE5','#5DB075','#F5C842','#E8845F','#4A90D9','#F28482'];
+    for (var i = 0; i < n; i++) {
+      var c = document.createElement('div');
+      c.style.cssText = 'position:fixed;width:' + (6+Math.random()*8) + 'px;height:' + (6+Math.random()*8) + 'px;top:-10px;left:' + Math.random()*100 + 'vw;background:' + colors[Math.floor(Math.random()*6)] + ';z-index:9999;pointer-events:none;border-radius:' + (Math.random()>.5?'50%':'2px') + ';animation:confetti-fall ' + (2+Math.random()*2) + 's linear forwards;';
+      document.body.appendChild(c);
+      setTimeout(function(el) { el.remove(); }, 4000, c);
+    }
+  }
+  </script>
+</body>
+</html>
