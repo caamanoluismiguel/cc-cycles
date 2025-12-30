@@ -17,20 +17,20 @@
         <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
       </div>
       <nav class="header-nav">
-        <a href="index.html" class="nav-link"><span class="nav-link-icon">🏠</span> Home</a>
+        <a href="index.html" class="nav-link"><span class="nav-link-icon">🏠</span> <span data-i18n="home">Home</span></a>
         <a href="essentials.html" class="nav-link"><span class="nav-link-icon">📝</span> Essentials</a>
-        <a href="resources.html" class="nav-link"><span class="nav-link-icon">📖</span> Resources</a>
+        <a href="resources.html" class="nav-link"><span class="nav-link-icon">📖</span> <span data-i18n="resources">Resources</span></a>
         <a href="classical_math.html" class="nav-link"><span class="nav-link-icon">🔢</span> Math</a>
-        <a href="dashboard.html" class="nav-link"><span class="nav-link-icon">📊</span> Progress</a>
-        <a href="parents-guide.html" class="nav-link active"><span class="nav-link-icon">👨‍👩‍👧</span> Parents</a>
+        <a href="dashboard.html" class="nav-link"><span class="nav-link-icon">📊</span> <span data-i18n="progress">Progress</span></a>
+        <a href="parents-guide.html" class="nav-link active"><span class="nav-link-icon">👨‍👩‍👧</span> <span data-i18n="parents">Parents</span></a>
       </nav>
     </div>
   </header>
 
   <main class="main">
     <div class="parents-hero">
-      <h1>👨‍👩‍👧‍👦 Parents Guide</h1>
-      <p>Supporting your child's classical education journey</p>
+      <h1>👨‍👩‍👧‍👦 <span data-i18n="parentsGuide">Parents Guide</span></h1>
+      <p data-i18n="supportingChild">Supporting your child's classical education journey</p>
     </div>
     
     <div class="container">
@@ -153,25 +153,47 @@
 
   <nav class="bottom-nav">
     <div class="bottom-nav-inner">
-      <a href="index.html" class="bottom-nav-item"><span class="bottom-nav-icon">🏠</span><span>Home</span></a>
+      <a href="index.html" class="bottom-nav-item"><span class="bottom-nav-icon">🏠</span><span data-i18n="home">Home</span></a>
       <a href="essentials.html" class="bottom-nav-item"><span class="bottom-nav-icon">📝</span><span>Essentials</span></a>
       <a href="classical_math.html" class="bottom-nav-item"><span class="bottom-nav-icon">🔢</span><span>Math</span></a>
-      <a href="dashboard.html" class="bottom-nav-item"><span class="bottom-nav-icon">📊</span><span>Progress</span></a>
-      <a href="parents-guide.html" class="bottom-nav-item active"><span class="bottom-nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
+      <a href="dashboard.html" class="bottom-nav-item"><span class="bottom-nav-icon">📊</span><span data-i18n="progress">Progress</span></a>
+      <a href="parents-guide.html" class="bottom-nav-item active"><span class="bottom-nav-icon">👨‍👩‍👧</span><span data-i18n="parents">Parents</span></a>
     </div>
   </nav>
   <script>
+  var TRANSLATIONS = {
+    en: {
+      home: 'Home', resources: 'Resources', progress: 'Progress', parents: 'Parents',
+      parentsGuide: 'Parents Guide', supportingChild: "Supporting your child's classical education journey"
+    },
+    es: {
+      home: 'Inicio', resources: 'Recursos', progress: 'Progreso', parents: 'Padres',
+      parentsGuide: 'Guía para Padres', supportingChild: 'Apoyando el viaje educativo clásico de tu hijo'
+    }
+  };
+  
+  function applyTranslations(lang) {
+    var t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (t[key]) el.textContent = t[key];
+    });
+  }
+  
   window.setLang = function(lang) {
     localStorage.setItem('ck_lang', lang);
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
+    applyTranslations(lang);
   };
+  
   (function() {
     var lang = localStorage.getItem('ck_lang') || 'en';
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
+    applyTranslations(lang);
   })();
   
   window.exportData = function() {

@@ -17,12 +17,12 @@
         <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
       </div>
       <nav class="header-nav">
-        <a href="index.html" class="nav-link"><span class="nav-link-icon">🏠</span> Home</a>
+        <a href="index.html" class="nav-link"><span class="nav-link-icon">🏠</span> <span data-i18n="home">Home</span></a>
         <a href="essentials.html" class="nav-link"><span class="nav-link-icon">📝</span> Essentials</a>
-        <a href="resources.html" class="nav-link"><span class="nav-link-icon">📖</span> Resources</a>
+        <a href="resources.html" class="nav-link"><span class="nav-link-icon">📖</span> <span data-i18n="resources">Resources</span></a>
         <a href="classical_math.html" class="nav-link"><span class="nav-link-icon">🔢</span> Math</a>
-        <a href="dashboard.html" class="nav-link active"><span class="nav-link-icon">📊</span> Progress</a>
-        <a href="parents-guide.html" class="nav-link"><span class="nav-link-icon">👨‍👩‍👧</span> Parents</a>
+        <a href="dashboard.html" class="nav-link active"><span class="nav-link-icon">📊</span> <span data-i18n="progress">Progress</span></a>
+        <a href="parents-guide.html" class="nav-link"><span class="nav-link-icon">👨‍👩‍👧</span> <span data-i18n="parents">Parents</span></a>
       </nav>
     </div>
   </header>
@@ -30,8 +30,8 @@
   <main class="main">
     <!-- Hero -->
     <div class="dashboard-hero">
-      <h1>📊 Your Progress</h1>
-      <p id="welcomeMsg">Keep up the great work!</p>
+      <h1>📊 <span data-i18n="yourProgress">Your Progress</span></h1>
+      <p id="welcomeMsg" data-i18n="keepUpGreatWork">Keep up the great work!</p>
     </div>
     
     <div class="container" style="margin-top: calc(var(--space-xl) * -1);">
@@ -40,35 +40,35 @@
         <div class="stats-card highlight">
           <div class="stats-card-icon">⏱️</div>
           <div class="stats-card-value" id="totalTime">0</div>
-          <div class="stats-card-label">Minutes</div>
+          <div class="stats-card-label" data-i18n="minutes">Minutes</div>
         </div>
         <div class="stats-card success">
           <div class="stats-card-icon">📚</div>
           <div class="stats-card-value" id="totalLessons">0</div>
-          <div class="stats-card-label">Lessons</div>
+          <div class="stats-card-label" data-i18n="lessons">Lessons</div>
         </div>
         <div class="stats-card warning">
           <div class="stats-card-icon">🔥</div>
           <div class="stats-card-value" id="dayStreak">0</div>
-          <div class="stats-card-label">Day Streak</div>
+          <div class="stats-card-label" data-i18n="dayStreak">Day Streak</div>
         </div>
       </div>
 
       <!-- Calendar -->
       <div class="calendar-card">
-        <h3 class="section-title">📅 Study Calendar</h3>
+        <h3 class="section-title">📅 <span data-i18n="studyCalendar">Study Calendar</span></h3>
         <div class="calendar-grid" id="calendarGrid"></div>
       </div>
 
       <!-- Recent Sessions -->
       <div class="sessions-card">
-        <h3 class="section-title">📝 Recent Sessions</h3>
+        <h3 class="section-title">📝 <span data-i18n="recentSessions">Recent Sessions</span></h3>
         <div id="sessionsList"></div>
       </div>
 
       <!-- Achievements -->
       <div class="card card-body">
-        <h3 class="section-title">🏆 Achievements</h3>
+        <h3 class="section-title">🏆 <span data-i18n="achievements">Achievements</span></h3>
         <div class="achievements-grid" id="achievementsGrid"></div>
       </div>
     </div>
@@ -76,30 +76,53 @@
 
   <nav class="bottom-nav">
     <div class="bottom-nav-inner">
-      <a href="index.html" class="bottom-nav-item"><span class="bottom-nav-icon">🏠</span><span>Home</span></a>
+      <a href="index.html" class="bottom-nav-item"><span class="bottom-nav-icon">🏠</span><span data-i18n="home">Home</span></a>
       <a href="essentials.html" class="bottom-nav-item"><span class="bottom-nav-icon">📝</span><span>Essentials</span></a>
       <a href="classical_math.html" class="bottom-nav-item"><span class="bottom-nav-icon">🔢</span><span>Math</span></a>
-      <a href="dashboard.html" class="bottom-nav-item active"><span class="bottom-nav-icon">📊</span><span>Progress</span></a>
-      <a href="parents-guide.html" class="bottom-nav-item"><span class="bottom-nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
+      <a href="dashboard.html" class="bottom-nav-item active"><span class="bottom-nav-icon">📊</span><span data-i18n="progress">Progress</span></a>
+      <a href="parents-guide.html" class="bottom-nav-item"><span class="bottom-nav-icon">👨‍👩‍👧</span><span data-i18n="parents">Parents</span></a>
     </div>
   </nav>
 
   <script>
-  // Language toggle
+  // Translation dictionary
+  var TRANSLATIONS = {
+    en: {
+      home: 'Home', resources: 'Resources', progress: 'Progress', parents: 'Parents',
+      yourProgress: 'Your Progress', keepUpGreatWork: 'Keep up the great work!',
+      minutes: 'Minutes', lessons: 'Lessons', dayStreak: 'Day Streak',
+      studyCalendar: 'Study Calendar', recentSessions: 'Recent Sessions', achievements: 'Achievements'
+    },
+    es: {
+      home: 'Inicio', resources: 'Recursos', progress: 'Progreso', parents: 'Padres',
+      yourProgress: 'Tu Progreso', keepUpGreatWork: '¡Sigue así!',
+      minutes: 'Minutos', lessons: 'Lecciones', dayStreak: 'Racha de Días',
+      studyCalendar: 'Calendario de Estudio', recentSessions: 'Sesiones Recientes', achievements: 'Logros'
+    }
+  };
+  
+  function applyTranslations(lang) {
+    var t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (t[key]) el.textContent = t[key];
+    });
+  }
+  
   window.setLang = function(lang) {
     localStorage.setItem('ck_lang', lang);
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
-    // Reload to apply (simple approach for static pages)
-    location.reload();
+    applyTranslations(lang);
   };
+  
   (function() {
-    // Set active lang button on load
     var lang = localStorage.getItem('ck_lang') || 'en';
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
+    applyTranslations(lang);
   })();
   
   (function() {
