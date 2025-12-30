@@ -446,7 +446,8 @@
     function genFractions() {
       document.getElementById('visualArea').classList.remove('hidden');
       var total = rand(2, 4 + level);
-      var filled = rand(1, total - 1);
+      // Ensure filled can be any value from 1 to total (inclusive), for variety
+      var filled = rand(1, total);
       answer = filled + '/' + total;
       drawFractionBar(filled, total);
       return 'What fraction is shaded?<br><small style="color:#718096">(e.g., 2/3)</small>';
@@ -493,7 +494,11 @@
     }
     
     function genPatterns() {
-      var start = rand(1, 10), diff = rand(1, 5) * (Math.random() < 0.3 ? -1 : 1);
+      var diff = rand(1, 5);
+      var isDecreasing = Math.random() < 0.3;
+      // For decreasing patterns, ensure start is high enough so answer stays positive
+      var start = isDecreasing ? rand(diff * 4, diff * 4 + 10) : rand(1, 10);
+      if (isDecreasing) diff = -diff;
       var seq = [start, start+diff, start+2*diff];
       answer = start + 3*diff;
       return 'Pattern: <strong>' + seq.join(', ') + ', ?</strong>';
