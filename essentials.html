@@ -110,6 +110,10 @@
   <header class="header">
     <div class="header-inner">
       <a href="index.html" class="logo"><div class="logo-icon">📚</div><span>Classical Kids</span></a>
+      <div class="lang-toggle">
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn active" data-lang="es" onclick="setLang('es')">ES</button>
+      </div>
       <nav class="header-nav">
         <a href="index.html" class="nav-link"><span class="nav-link-icon">🏠</span> Inicio</a>
         <a href="essentials.html" class="nav-link active"><span class="nav-link-icon">📝</span> Essentials</a>
@@ -273,6 +277,20 @@
 
   <script src="essentials-data.js"></script>
   <script>
+  // Language toggle
+  window.setLang = function(lang) {
+    localStorage.setItem('ck_lang', lang);
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+  };
+  (function() {
+    var lang = localStorage.getItem('ck_lang') || 'es'; // Default Spanish for Essentials
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+  })();
+  
   var currentWeek = 1;
   var pScore = 0, pTotal = 0, pStreak = 0, pQuestions = [], pIndex = 0;
   

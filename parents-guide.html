@@ -13,8 +13,8 @@
     <div class="header-inner">
       <a href="index.html" class="logo"><div class="logo-icon">📚</div><span>Classical Kids</span></a>
       <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="es">ES</button>
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
       </div>
       <nav class="header-nav">
         <a href="index.html" class="nav-link"><span class="nav-link-icon">🏠</span> Home</a>
@@ -125,6 +125,18 @@
         </div>
       </div>
 
+      <!-- Data Management -->
+      <div class="info-card">
+        <h3>⚙️ Data Management</h3>
+        <div class="info-content">
+          <p>All progress data is stored locally on this device. Use these options to manage your child's data:</p>
+          <div style="display: flex; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-lg);">
+            <button class="btn btn-ghost" onclick="exportData()">📤 Export Progress</button>
+            <button class="btn btn-ghost" onclick="resetProgress()" style="color: var(--coral);">🗑️ Reset All Progress</button>
+          </div>
+        </div>
+      </div>
+
       <!-- Footer Quote -->
       <div class="scripture-box">
         <p>"Train up a child in the way he should go; even when he is old he will not depart from it."</p>
@@ -148,5 +160,64 @@
       <a href="parents-guide.html" class="bottom-nav-item active"><span class="bottom-nav-icon">👨‍👩‍👧</span><span>Parents</span></a>
     </div>
   </nav>
+  <script>
+  window.setLang = function(lang) {
+    localStorage.setItem('ck_lang', lang);
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+  };
+  (function() {
+    var lang = localStorage.getItem('ck_lang') || 'en';
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+  })();
+  
+  window.exportData = function() {
+    var data = {
+      user: localStorage.getItem('ck_user'),
+      progress: localStorage.getItem('ck_progress'),
+      essentials: localStorage.getItem('ess_done'),
+      mathScores: {}
+    };
+    // Get math high scores
+    for (var i = 0; i < localStorage.length; i++) {
+      var key = localStorage.key(i);
+      if (key && key.startsWith('mathHigh_')) {
+        data.mathScores[key] = localStorage.getItem(key);
+      }
+    }
+    
+    var blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'classicalkid-progress-' + new Date().toISOString().split('T')[0] + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    alert('Progress exported! Save this file to backup your data.');
+  };
+  
+  window.resetProgress = function() {
+    if (!confirm('⚠️ Are you sure you want to reset ALL progress?\n\nThis will delete:\n• All lesson progress\n• All homework submissions\n• All math scores\n• Essentials completion\n\nThis cannot be undone!')) return;
+    if (!confirm('This is your FINAL warning. Delete everything?')) return;
+    
+    // Clear all ClassicalKid data
+    var keysToRemove = ['ck_user', 'ck_progress', 'ck_state', 'ess_done'];
+    keysToRemove.forEach(function(key) { localStorage.removeItem(key); });
+    
+    // Clear math scores
+    var mathKeys = [];
+    for (var i = 0; i < localStorage.length; i++) {
+      var key = localStorage.key(i);
+      if (key && key.startsWith('mathHigh_')) mathKeys.push(key);
+    }
+    mathKeys.forEach(function(key) { localStorage.removeItem(key); });
+    
+    alert('All progress has been reset. Redirecting to home...');
+    window.location.href = 'index.html';
+  };
+  </script>
 </body>
 </html>

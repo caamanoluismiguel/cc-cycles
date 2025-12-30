@@ -13,8 +13,8 @@
     <div class="header-inner">
       <a href="index.html" class="logo"><div class="logo-icon">📚</div><span>Classical Kids</span></a>
       <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="es">ES</button>
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
       </div>
       <nav class="header-nav">
         <a href="index.html" class="nav-link"><span class="nav-link-icon">🏠</span> Home</a>
@@ -85,6 +85,23 @@
   </nav>
 
   <script>
+  // Language toggle
+  window.setLang = function(lang) {
+    localStorage.setItem('ck_lang', lang);
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    // Reload to apply (simple approach for static pages)
+    location.reload();
+  };
+  (function() {
+    // Set active lang button on load
+    var lang = localStorage.getItem('ck_lang') || 'en';
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+  })();
+  
   (function() {
     var user = localStorage.getItem('ck_user') || 'Student';
     var progress = JSON.parse(localStorage.getItem('ck_progress') || '{"sessions":[],"completed":{},"homework":[]}');
