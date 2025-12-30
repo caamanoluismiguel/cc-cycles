@@ -1,7 +1,112 @@
 /**
  * Classical Kids Study Hub
- * Award-Winning Main Application
+ * Award-Winning Main Application with i18n
  */
+
+// ============================================
+// TRANSLATIONS
+// ============================================
+var translations = {
+  en: {
+    appName: 'Classical Kids',
+    welcomeBack: 'Welcome back',
+    readyToExplore: 'Ready to explore today?',
+    continueWhere: 'Continue where you left off',
+    chooseCycle: '📚 Choose Your Cycle',
+    cycle: 'Cycle',
+    week: 'Week',
+    cycle1Name: 'Ancient History',
+    cycle2Name: 'Medieval → Modern',
+    cycle3Name: 'US History',
+    minutes: 'Minutes',
+    lessons: 'Lessons',
+    dayStreak: 'Day Streak',
+    selectWeek: 'Select a week to begin studying',
+    backToCycles: '← Back to Cycles',
+    backToWeeks: '← Back to Weeks',
+    history: 'History', science: 'Science', geography: 'Geography',
+    math: 'Math', english: 'English', latin: 'Latin', fineArts: 'Fine Arts',
+    loading: 'Loading...',
+    homework: 'Homework & Reflection',
+    homeworkIntro: 'Take a moment to reflect on what you learned. Choose a creative activity and answer:',
+    question1: 'What is one key idea you learned today?',
+    question2: 'How will you apply this in your daily life?',
+    question3: 'Which creative activity did you choose and why?',
+    clear: 'Clear', submitContinue: '✓ Submit & Continue',
+    home: 'Home', resources: 'Resources', books: 'Books', progress: 'Progress', parents: 'Parents',
+    startLearning: 'Start Learning 🚀',
+    enterName: "What's your name?",
+    welcome: 'Welcome',
+    lessonComplete: 'Lesson Complete!',
+    weekComplete: 'Week complete!',
+    cleared: 'Cleared',
+    homeworkSubmitted: 'Homework submitted!',
+    answerAll: 'Please answer all questions'
+  },
+  es: {
+    appName: 'Classical Kids',
+    welcomeBack: 'Bienvenido de nuevo',
+    readyToExplore: '¿Listo para explorar hoy?',
+    continueWhere: 'Continúa donde lo dejaste',
+    chooseCycle: '📚 Elige Tu Ciclo',
+    cycle: 'Ciclo',
+    week: 'Semana',
+    cycle1Name: 'Historia Antigua',
+    cycle2Name: 'Medieval → Moderno',
+    cycle3Name: 'Historia de EE.UU.',
+    minutes: 'Minutos',
+    lessons: 'Lecciones',
+    dayStreak: 'Racha de Días',
+    selectWeek: 'Selecciona una semana para comenzar',
+    backToCycles: '← Volver a Ciclos',
+    backToWeeks: '← Volver a Semanas',
+    history: 'Historia', science: 'Ciencias', geography: 'Geografía',
+    math: 'Matemáticas', english: 'Inglés', latin: 'Latín', fineArts: 'Bellas Artes',
+    loading: 'Cargando...',
+    homework: 'Tarea y Reflexión',
+    homeworkIntro: 'Tómate un momento para reflexionar sobre lo que aprendiste:',
+    question1: '¿Cuál es una idea clave que aprendiste hoy?',
+    question2: '¿Cómo aplicarás esto en tu vida diaria?',
+    question3: '¿Qué actividad creativa elegiste y por qué?',
+    clear: 'Limpiar', submitContinue: '✓ Enviar y Continuar',
+    home: 'Inicio', resources: 'Recursos', books: 'Libros', progress: 'Progreso', parents: 'Padres',
+    startLearning: 'Comenzar a Aprender 🚀',
+    enterName: '¿Cómo te llamas?',
+    welcome: 'Bienvenido',
+    lessonComplete: '¡Lección Completa!',
+    weekComplete: '¡Semana completa!',
+    cleared: 'Limpiado',
+    homeworkSubmitted: '¡Tarea enviada!',
+    answerAll: 'Por favor responde todas las preguntas'
+  }
+};
+
+var currentLang = localStorage.getItem('ck_lang') || 'en';
+
+function t(key) {
+  return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
+}
+
+window.setLang = function(lang) {
+  currentLang = lang;
+  localStorage.setItem('ck_lang', lang);
+  
+  // Update toggle buttons
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+  
+  // Update all i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    var text = t(key);
+    if (text) el.textContent = text;
+  });
+  
+  // Update dynamic content
+  updateContinueCard();
+  if (state.cycle) buildWeekGrid();
+};
 
 // ============================================
 // CONFIGURATION
@@ -16,13 +121,13 @@ var CONFIG = {
   WEEKS: 24,
   TOPICS: ['history', 'science', 'geography', 'math', 'english', 'latin', 'finearts'],
   TOPIC_MAP: {
-    history: { key: 'History', icon: '📜', name: 'History' },
-    science: { key: 'Science', icon: '🔬', name: 'Science' },
-    geography: { key: 'Geography', icon: '🌍', name: 'Geography' },
-    math: { key: 'Math', icon: '🔢', name: 'Math' },
-    english: { key: 'English', icon: '📝', name: 'English' },
-    latin: { key: 'Latin', icon: '📚', name: 'Latin' },
-    finearts: { key: 'Fine_Arts', icon: '🎨', name: 'Fine Arts' }
+    history: { key: 'History', icon: '📜', nameKey: 'history' },
+    science: { key: 'Science', icon: '🔬', nameKey: 'science' },
+    geography: { key: 'Geography', icon: '🌍', nameKey: 'geography' },
+    math: { key: 'Math', icon: '🔢', nameKey: 'math' },
+    english: { key: 'English', icon: '📝', nameKey: 'english' },
+    latin: { key: 'Latin', icon: '📚', nameKey: 'latin' },
+    finearts: { key: 'Fine_Arts', icon: '🎨', nameKey: 'fineArts' }
   },
   SECTIONS: [
     { key: 'Introduction', label: 'Introduction', icon: '📖' },
@@ -59,6 +164,7 @@ var state = {
 document.addEventListener('DOMContentLoaded', function() {
   loadState();
   setupEventListeners();
+  setLang(currentLang); // Apply translations
   checkAuth();
 });
 
@@ -142,7 +248,7 @@ function handleLogin(e) {
   var input = document.getElementById('nameInput');
   var name = input ? input.value.trim() : '';
   
-  if (!name) { toast('Please enter your name', 'warning'); return; }
+  if (!name) { toast(t('enterName'), 'warning'); return; }
   
   state.user = name;
   saveState();
@@ -153,7 +259,7 @@ function handleLogin(e) {
   if (app) app.classList.remove('hidden');
   
   initApp();
-  toast('Welcome, ' + name + '! 🎉', 'success');
+  toast(t('welcome') + ', ' + name + '! 🎉', 'success');
   confetti(60);
 }
 
@@ -189,8 +295,11 @@ function updateContinueCard() {
     card.classList.remove('hidden');
     var title = document.getElementById('continueTitle');
     var topic = document.getElementById('continueTopic');
-    if (title) title.textContent = 'Cycle ' + state.cycle + ' • Week ' + state.week;
-    if (topic) topic.textContent = CONFIG.TOPIC_MAP[state.topic].name;
+    if (title) title.textContent = t('cycle') + ' ' + state.cycle + ' • ' + t('week') + ' ' + state.week;
+    if (topic) {
+      var topicData = CONFIG.TOPIC_MAP[state.topic];
+      topic.textContent = t(topicData.nameKey);
+    }
   } else {
     card.classList.add('hidden');
   }
@@ -223,8 +332,7 @@ function calcStreak() {
   });
   var streak = 0;
   for (var i = 0; i < 30; i++) {
-    var dayTime = today.getTime() - (i * 86400000);
-    if (days[dayTime]) streak++;
+    if (days[today.getTime() - i * 86400000]) streak++;
     else if (i > 0) break;
   }
   return streak;
@@ -252,7 +360,7 @@ function buildWeekGrid() {
   if (!grid) return;
   
   grid.innerHTML = '';
-  if (title) title.textContent = 'Cycle ' + state.cycle;
+  if (title) title.textContent = t('cycle') + ' ' + state.cycle;
   
   for (var w = 1; w <= CONFIG.WEEKS; w++) {
     var btn = document.createElement('button');
@@ -260,7 +368,7 @@ function buildWeekGrid() {
     btn.dataset.week = w;
     if (isWeekComplete(state.cycle, w)) btn.classList.add('completed');
     if (state.week === w) btn.classList.add('current');
-    btn.innerHTML = '<span class="week-label">Week</span><span class="week-num">' + w + '</span>';
+    btn.innerHTML = '<span class="week-label">' + t('week') + '</span><span class="week-num">' + w + '</span>';
     grid.appendChild(btn);
   }
 }
@@ -289,10 +397,10 @@ function loadLesson() {
   var lessonTitle = document.getElementById('lessonTitle');
   var lessonBody = document.getElementById('lessonBody');
   
-  if (timerCycle) timerCycle.textContent = 'Cycle ' + state.cycle;
-  if (timerWeek) timerWeek.textContent = 'Week ' + state.week;
-  if (lessonMeta) lessonMeta.textContent = 'Cycle ' + state.cycle + ' • Week ' + state.week;
-  if (lessonTitle) lessonTitle.innerHTML = '<span>' + topic.icon + '</span> ' + topic.name;
+  if (timerCycle) timerCycle.textContent = t('cycle') + ' ' + state.cycle;
+  if (timerWeek) timerWeek.textContent = t('week') + ' ' + state.week;
+  if (lessonMeta) lessonMeta.textContent = t('cycle') + ' ' + state.cycle + ' • ' + t('week') + ' ' + state.week;
+  if (lessonTitle) lessonTitle.innerHTML = '<span>' + topic.icon + '</span> ' + t(topic.nameKey);
   
   updateTopicTabs();
   resetTimer();
@@ -401,7 +509,7 @@ function updateTimerDisplay() {
 function completeLesson() {
   logSession();
   markComplete();
-  toast('Lesson Complete! ⭐', 'success');
+  toast(t('lessonComplete') + ' ⭐', 'success');
   confetti(80);
   
   setTimeout(function() {
@@ -413,7 +521,7 @@ function completeLesson() {
       loadLesson();
       resetTimer();
     } else {
-      toast('Week complete! 🏆', 'success');
+      toast(t('weekComplete') + ' 🏆', 'success');
       setTimeout(function() { updateContinueCard(); updateStats(); showScreen('home'); }, 1500);
     }
   }, 1500);
@@ -441,14 +549,14 @@ window.toggleHomework = function() {
 
 window.clearHomework = function() {
   ['hw1', 'hw2', 'hw3'].forEach(function(id) { var el = document.getElementById(id); if (el) el.value = ''; });
-  toast('Cleared', 'info');
+  toast(t('cleared'), 'info');
 };
 
 window.submitHomework = function() {
   var hw1 = document.getElementById('hw1'), hw2 = document.getElementById('hw2'), hw3 = document.getElementById('hw3');
   var v1 = hw1 ? hw1.value.trim() : '', v2 = hw2 ? hw2.value.trim() : '', v3 = hw3 ? hw3.value.trim() : '';
   
-  if (!v1 || !v2 || !v3) { toast('Please answer all questions', 'warning'); return; }
+  if (!v1 || !v2 || !v3) { toast(t('answerAll'), 'warning'); return; }
   
   state.progress.homework.push({ date: new Date().toISOString(), cycle: state.cycle, week: state.week, topic: state.topic, answers: [v1, v2, v3] });
   markComplete();
@@ -457,7 +565,7 @@ window.submitHomework = function() {
   var card = document.getElementById('homeworkCard');
   if (card) card.classList.remove('expanded');
   
-  toast('Homework submitted! 🎉', 'success');
+  toast(t('homeworkSubmitted') + ' 🎉', 'success');
   confetti(60);
   
   setTimeout(function() {
@@ -473,16 +581,6 @@ window.submitHomework = function() {
 };
 
 // ============================================
-// LANGUAGE (simple toggle)
-// ============================================
-window.setLang = function(lang) {
-  document.querySelectorAll('.lang-btn').forEach(function(btn) {
-    btn.classList.toggle('active', btn.dataset.lang === lang);
-  });
-  localStorage.setItem('ck_lang', lang);
-};
-
-// ============================================
 // UI UTILITIES
 // ============================================
 function toast(message, type) {
@@ -491,26 +589,26 @@ function toast(message, type) {
   if (!container) { console.log('Toast:', message); return; }
   
   var icons = { success: '✓', warning: '⚠️', error: '✕', info: 'ℹ️' };
-  var t = document.createElement('div');
-  t.className = 'toast ' + type;
-  t.innerHTML = '<span>' + (icons[type] || '') + '</span><span>' + message + '</span>';
-  container.appendChild(t);
+  var toastEl = document.createElement('div');
+  toastEl.className = 'toast ' + type;
+  toastEl.innerHTML = '<span>' + (icons[type] || '') + '</span><span>' + message + '</span>';
+  container.appendChild(toastEl);
   
   setTimeout(function() {
-    t.style.opacity = '0';
-    t.style.transform = 'translateY(-10px) scale(0.9)';
-    t.style.transition = 'all 0.3s ease';
-    setTimeout(function() { t.remove(); }, 300);
+    toastEl.style.opacity = '0';
+    toastEl.style.transform = 'translateY(-10px) scale(0.9)';
+    toastEl.style.transition = 'all 0.3s ease';
+    setTimeout(function() { toastEl.remove(); }, 300);
   }, 3000);
 }
 
-function confetti(count) {
-  count = count || 50;
-  var colors = ['#4A90D9', '#5DB075', '#F5C842', '#E8845F', '#9B5DE5', '#F28482'];
-  for (var i = 0; i < count; i++) {
+function confetti(n) {
+  n = n || 50;
+  var colors = ['#4A90D9','#5DB075','#F5C842','#E8845F','#9B5DE5','#F28482'];
+  for (var i = 0; i < n; i++) {
     var c = document.createElement('div');
-    c.className = 'confetti';
-    c.style.cssText = 'position:fixed;left:' + (Math.random()*100) + 'vw;top:-10px;width:' + (6 + Math.random()*8) + 'px;height:' + (6 + Math.random()*8) + 'px;background:' + colors[Math.floor(Math.random()*colors.length)] + ';z-index:9999;pointer-events:none;border-radius:' + (Math.random()>0.5?'50%':'2px') + ';animation:confetti-fall ' + (2+Math.random()*2) + 's linear forwards;animation-delay:' + (Math.random()*0.5) + 's;';
+    var size = 6 + Math.random() * 10;
+    c.style.cssText = 'position:fixed;width:' + size + 'px;height:' + size + 'px;top:-20px;left:' + (Math.random()*100) + 'vw;background:' + colors[Math.floor(Math.random()*6)] + ';z-index:9999;pointer-events:none;border-radius:' + (Math.random()>.5?'50%':'2px') + ';animation:confetti-fall ' + (2+Math.random()*2) + 's linear forwards;animation-delay:' + (Math.random()*0.5) + 's;';
     document.body.appendChild(c);
     setTimeout(function(el) { el.remove(); }, 4500, c);
   }
