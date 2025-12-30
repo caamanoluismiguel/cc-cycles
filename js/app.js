@@ -271,6 +271,20 @@ function initApp() {
   showScreen('home');
 }
 
+window.changeUser = function() {
+  if (!confirm('Switch to a different user? Your progress is saved.')) return;
+  state.user = null;
+  saveState();
+  
+  var welcome = document.getElementById('welcomeSection');
+  var app = document.getElementById('appSection');
+  var input = document.getElementById('nameInput');
+  
+  if (app) app.classList.add('hidden');
+  if (welcome) welcome.classList.remove('hidden');
+  if (input) { input.value = ''; input.focus(); }
+};
+
 // ============================================
 // NAVIGATION
 // ============================================
