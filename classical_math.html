@@ -238,6 +238,7 @@
   (function() {
     var mode = '', score = 0, streak = 0, level = 1, timeLeft = 900, qCount = 0, answer = null, timer = null;
     var maxQ = 50;
+    var waiting = false; // Prevent multiple submissions during transition
     
     var menuSection = document.getElementById('menuSection');
     var lessonSection = document.getElementById('lessonSection');
@@ -283,7 +284,7 @@
     document.getElementById('answerInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') checkAnswer(); });
     
     function startGame() {
-      score = 0; streak = 0; level = 1; timeLeft = 900; qCount = 0;
+      score = 0; streak = 0; level = 1; timeLeft = 900; qCount = 0; waiting = false;
       updateStats();
       document.getElementById('highVal').textContent = getHigh();
       document.getElementById('streakFire').classList.add('hidden');
@@ -329,6 +330,7 @@
     }
     
     function nextProblem() {
+      waiting = false; // Allow new submissions
       qCount++;
       if (qCount > maxQ) { endGame(); return; }
       
@@ -360,8 +362,11 @@
     }
     
     function checkAnswer() {
+      if (waiting) return; // Prevent multiple submissions
       var userAns = document.getElementById('answerInput').value.trim();
       if (!userAns) return;
+      
+      waiting = true; // Block further submissions until next problem
       
       var isCorrect = false;
       if (mode === 'fractions' || mode === 'time') {
