@@ -1125,6 +1125,137 @@ p:last-child { margin-bottom: 0; }
   border-left: 3px solid var(--meadow);
 }
 
+/* Creative Mission Styles */
+.mission-icon {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: var(--space-sm);
+}
+
+.mission-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  margin-bottom: var(--space-sm);
+}
+
+.mission-prompt {
+  font-size: 1rem;
+  color: var(--ink-light);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.mission-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.mission-option {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.mission-option:hover {
+  border-color: var(--meadow);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+}
+
+.mission-option:active {
+  transform: translateX(2px) scale(0.99);
+}
+
+.mission-option-icon {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.mission-option-content {
+  flex: 1;
+}
+
+.mission-option-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.mission-option-desc {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  line-height: 1.4;
+}
+
+.mission-option-arrow {
+  font-size: 1.25rem;
+  color: var(--ink-muted);
+  opacity: 0;
+  transition: opacity var(--duration-normal);
+}
+
+.mission-option:hover .mission-option-arrow {
+  opacity: 1;
+}
+
+.mission-upload {
+  margin-top: var(--space-md);
+}
+
+.upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--parchment);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  transition: all var(--duration-normal);
+}
+
+.upload-btn:hover {
+  border-color: var(--meadow);
+  background: white;
+}
+
+#photoPreview {
+  margin-top: var(--space-sm);
+}
+
+#photoPreview img {
+  max-width: 200px;
+  max-height: 150px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--meadow);
+}
+
+.mission-selected-label {
+  background: linear-gradient(135deg, var(--meadow), var(--meadow-dark));
+  color: white;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: var(--space-md);
+}
+
 .homework-textarea {
   width: 100%;
   min-height: 100px;

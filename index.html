@@ -6,8 +6,12 @@
   <meta name="theme-color" content="#4A90D9">
   <meta name="description" content="Classical Kids Study Hub - A beautiful companion for Classical Conversations homeschool curriculum">
   <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>Classical Kids Study Hub</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%234A90D9' width='100' height='100' rx='20'/><text y='.9em' x='10' font-size='80'>📚</text></svg>">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -116,14 +120,32 @@
           <div class="lesson-body" id="lessonBody"><div class="loading"><div class="loading-spinner"></div></div></div>
         </div>
         <div class="homework-card" id="homeworkCard">
-          <div class="homework-header" onclick="toggleHomework()"><div style="display:flex;align-items:center;gap:var(--space-sm);">✏️ <span>Homework & Reflection</span></div><span class="homework-toggle">▼</span></div>
+          <div class="homework-header" onclick="toggleHomework()"><div style="display:flex;align-items:center;gap:var(--space-sm);">🎨 <span>Creative Mission</span></div><span class="homework-toggle">▼</span></div>
           <div class="homework-body">
             <div class="homework-content">
-              <div class="homework-intro">Take a moment to reflect on what you learned:</div>
-              <div class="form-group"><label class="form-label">1. What is one key idea you learned?</label><textarea class="homework-textarea" id="hw1" placeholder="Your answer..."></textarea></div>
-              <div class="form-group"><label class="form-label">2. How will you apply this?</label><textarea class="homework-textarea" id="hw2" placeholder="Your answer..."></textarea></div>
-              <div class="form-group"><label class="form-label">3. Which creative activity did you choose?</label><textarea class="homework-textarea" id="hw3" placeholder="Your answer..."></textarea></div>
-              <div class="homework-actions"><button class="btn btn-ghost" onclick="clearHomework()">Clear</button><button class="btn btn-success btn-block" onclick="submitHomework()">✓ Submit</button></div>
+              <div class="homework-intro" id="missionIntro">
+                <div class="mission-icon">🎯</div>
+                <div class="mission-title">Your Mission</div>
+                <div class="mission-prompt" id="missionPrompt">Loading mission...</div>
+              </div>
+              <div class="mission-options" id="missionOptions">
+                <!-- Dynamic mission options will be inserted here -->
+              </div>
+              <div class="form-group" id="missionWorkArea" style="display:none;">
+                <label class="form-label" id="missionWorkLabel">Describe what you created:</label>
+                <textarea class="homework-textarea" id="missionWork" placeholder="Tell us about your creation..." rows="4"></textarea>
+                <div class="mission-upload" id="missionUpload">
+                  <label class="upload-btn">
+                    📷 Add Photo (optional)
+                    <input type="file" id="missionPhoto" accept="image/*" style="display:none;" onchange="previewMissionPhoto(this)">
+                  </label>
+                  <div id="photoPreview"></div>
+                </div>
+              </div>
+              <div class="homework-actions">
+                <button class="btn btn-ghost" onclick="resetMission()">← Back</button>
+                <button class="btn btn-success btn-block" id="submitMissionBtn" onclick="submitMission()" style="display:none;">✓ Complete Mission</button>
+              </div>
             </div>
           </div>
         </div>
@@ -143,5 +165,15 @@
 
   <div class="toast-container" id="toastContainer"></div>
   <script src="js/app.js"></script>
+  <script>
+    // Register Service Worker for offline support
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(reg) { console.log('📚 ClassicalKid: Offline ready!'); })
+          .catch(function(err) { console.log('SW registration failed:', err); });
+      });
+    }
+  </script>
 </body>
 </html>

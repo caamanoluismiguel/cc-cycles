@@ -17,6 +17,7 @@
     .mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-md); margin-bottom: var(--space-xl); }
     .mode-card { background: var(--warm-white); border-radius: var(--radius-xl); padding: var(--space-lg); text-align: center; cursor: pointer; transition: all 0.3s ease; border: 3px solid transparent; }
     .mode-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--ess); }
+    .mode-card:focus { outline: 3px solid var(--ess); outline-offset: 2px; }
     .mode-icon { font-size: 2.5rem; margin-bottom: var(--space-xs); display: block; }
     .mode-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--ink); }
     .mode-desc { font-size: 0.7rem; color: var(--ink-muted); margin-top: 2px; }
@@ -29,6 +30,7 @@
     .wk-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-sm); }
     .wk-card { background: var(--warm-white); border-radius: var(--radius-lg); padding: var(--space-md); cursor: pointer; transition: all 0.3s ease; border: 2px solid var(--border); }
     .wk-card:hover { border-color: var(--ess-light); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .wk-card:focus { outline: 3px solid var(--ess); outline-offset: 2px; }
     .wk-card.done { background: linear-gradient(135deg, rgba(93,176,117,0.1), rgba(93,176,117,0.05)); border-color: var(--meadow); }
     .wk-card.done::after { content: '✓'; position: absolute; top: 6px; right: 6px; background: var(--meadow); color: white; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; }
     .wk-card { position: relative; }
@@ -48,6 +50,29 @@
     .type-ex { font-style: italic; color: var(--ink-muted); }
     
     .ex-box { background: linear-gradient(135deg, rgba(155,93,229,0.08), rgba(155,93,229,0.02)); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-md) 0; }
+    
+    /* Print Worksheet Styles */
+    .print-btn { display: inline-flex; align-items: center; gap: var(--space-xs); }
+    
+    @media print {
+      body { background: white !important; }
+      .header, .bottom-nav, .btn-ghost, .print-btn, #practiceSection .btn, #nextBtn { display: none !important; }
+      .hidden { display: block !important; }
+      #printWorksheet { display: block !important; }
+      .container { max-width: 100% !important; padding: 0 !important; }
+      .prac-card { break-inside: avoid; page-break-inside: avoid; border: 2px solid #333 !important; margin-bottom: 20px !important; }
+      .worksheet-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 15px; }
+      .worksheet-header h1 { font-size: 24px; margin: 0; }
+      .worksheet-header p { margin: 5px 0 0; }
+      .worksheet-q { border: 1px solid #ccc; padding: 15px; margin: 15px 0; border-radius: 8px; }
+      .worksheet-q-num { font-weight: bold; }
+      .worksheet-sent { font-size: 18px; margin: 10px 0; font-style: italic; }
+      .worksheet-prompt { margin: 10px 0; }
+      .worksheet-opts { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 10px; }
+      .worksheet-opt { display: flex; align-items: center; gap: 8px; }
+      .worksheet-opt::before { content: '○'; font-size: 18px; }
+      .worksheet-line { border-bottom: 1px solid #999; height: 30px; margin: 10px 0; }
+    }
     .ex-sentence { font-size: 1.15rem; font-style: italic; color: var(--ink); margin-bottom: var(--space-sm); padding: var(--space-sm); background: white; border-radius: var(--radius-sm); border-left: 3px solid var(--ess-light); }
     .ex-analysis { font-size: 0.85rem; }
     .ex-item { display: flex; gap: var(--space-sm); margin: 4px 0; }
@@ -156,6 +181,7 @@
           <div class="mt-xl" style="display:flex;gap:var(--space-md);flex-wrap:wrap;">
             <button class="btn btn-ghost" onclick="prevWeek()">← Anterior</button>
             <button class="btn btn-primary" onclick="practiceThisWeek()" style="flex:1;">Practicar Esta Semana 🎯</button>
+            <button class="btn btn-ghost print-btn" onclick="printWorksheet()">🖨️ Imprimir</button>
             <button class="btn btn-ghost" onclick="nextWeek()">Siguiente →</button>
           </div>
         </div>
@@ -589,6 +615,76 @@
       document.body.appendChild(c);
       setTimeout(function(el) { el.remove(); }, 4000, c);
     }
+  }
+  
+  function printWorksheet() {
+    var w = ESSENTIALS_DATA[currentWeek];
+    if (!w || !w.practice) { alert('No hay ejercicios para esta semana.'); return; }
+    
+    // Create printable worksheet
+    var printWindow = window.open('', '_blank');
+    var html = '<!DOCTYPE html><html><head><title>Hoja de Práctica - Semana ' + currentWeek + '</title>';
+    html += '<style>';
+    html += 'body { font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; }';
+    html += '.header { text-align: center; border-bottom: 3px solid #9B5DE5; padding-bottom: 20px; margin-bottom: 30px; }';
+    html += '.header h1 { margin: 0; color: #9B5DE5; }';
+    html += '.header p { margin: 5px 0 0; color: #666; }';
+    html += '.student-info { display: flex; gap: 40px; margin-bottom: 30px; }';
+    html += '.student-info div { flex: 1; }';
+    html += '.student-info label { font-weight: bold; }';
+    html += '.student-info .line { border-bottom: 1px solid #333; height: 25px; margin-top: 5px; }';
+    html += '.question { border: 1px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 10px; page-break-inside: avoid; }';
+    html += '.q-num { font-weight: bold; color: #9B5DE5; font-size: 14px; }';
+    html += '.sentence { font-size: 20px; margin: 15px 0; padding: 15px; background: #f5f5f5; border-radius: 8px; text-align: center; font-style: italic; }';
+    html += '.prompt { font-weight: bold; margin: 15px 0; }';
+    html += '.options { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px; }';
+    html += '.option { display: flex; align-items: center; gap: 10px; padding: 8px 15px; border: 2px solid #ddd; border-radius: 20px; }';
+    html += '.option-circle { width: 18px; height: 18px; border: 2px solid #999; border-radius: 50%; }';
+    html += '.answer-line { border-bottom: 2px solid #333; height: 35px; margin: 15px 0; }';
+    html += '.footer { margin-top: 40px; text-align: center; color: #999; font-size: 12px; border-top: 1px solid #ddd; padding-top: 20px; }';
+    html += '@media print { .question { break-inside: avoid; } }';
+    html += '</style></head><body>';
+    
+    // Header
+    html += '<div class="header">';
+    html += '<h1>📝 Essentials - Semana ' + currentWeek + '</h1>';
+    html += '<p>' + w.title + '</p>';
+    html += '</div>';
+    
+    // Student info
+    html += '<div class="student-info">';
+    html += '<div><label>Nombre:</label><div class="line"></div></div>';
+    html += '<div><label>Fecha:</label><div class="line"></div></div>';
+    html += '</div>';
+    
+    // Questions (limit to 10 for printing)
+    var questions = w.practice.slice(0, 10);
+    questions.forEach(function(q, idx) {
+      html += '<div class="question">';
+      html += '<div class="q-num">Pregunta ' + (idx + 1) + '</div>';
+      html += '<div class="sentence">"' + q.sentence + '"</div>';
+      html += '<div class="prompt">' + (qLabels[q.q] || q.q) + '</div>';
+      html += '<div class="options">';
+      q.options.forEach(function(opt) {
+        html += '<div class="option"><div class="option-circle"></div><span>' + opt + '</span></div>';
+      });
+      html += '</div>';
+      html += '</div>';
+    });
+    
+    // Footer
+    html += '<div class="footer">';
+    html += '📚 Classical Kids Study Hub - Essentials<br>';
+    html += 'classicalkid.co';
+    html += '</div>';
+    
+    html += '</body></html>';
+    
+    printWindow.document.write(html);
+    printWindow.document.close();
+    printWindow.onload = function() {
+      printWindow.print();
+    };
   }
   </script>
 </body>
