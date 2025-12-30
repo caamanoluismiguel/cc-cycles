@@ -1,7 +1,7 @@
 /**
  * ESSENTIALS CURRICULUM DATA
  * Complete 24-week Spanish Grammar Course
- * Each week has: concepts, examples, practice sentences, and quiz questions
+ * Each week covers ALL topics with comprehensive practice
  */
 
 var ESSENTIALS_DATA = {
@@ -10,8 +10,8 @@ var ESSENTIALS_DATA = {
   // WEEK 1: Introduction to Grammar
   // ==========================================
   1: {
-    title: "Introducción a la Gramática y Estructura General",
-    subtitle: "La vista de pájaro - Clasificar cualquier oración",
+    title: "Introducción a la Gramática",
+    subtitle: "Estructura, Propósitos, Sujeto y Predicado",
     pattern: "S + V",
     concepts: [
       {
@@ -19,9 +19,9 @@ var ESSENTIALS_DATA = {
         icon: "🏗️",
         definition: "Se refiere a cómo está construida la oración.",
         types: [
-          { term: "Simple", desc: "Tiene un solo sujeto y un solo verbo (una sola cláusula independiente).", example: "El gato duerme." },
+          { term: "Simple", desc: "Un solo sujeto y un solo verbo.", example: "El gato duerme." },
           { term: "Compuesta", desc: "Dos oraciones simples unidas.", example: "Juan corre y Ana salta." },
-          { term: "Compleja", desc: "Una oración principal y una subordinada que depende de ella.", example: "Yo como cuando tengo hambre." }
+          { term: "Compleja", desc: "Una principal y una subordinada.", example: "Yo como cuando tengo hambre." }
         ]
       },
       {
@@ -34,66 +34,48 @@ var ESSENTIALS_DATA = {
           { term: "Exclamativo", desc: "Expresa emoción fuerte.", example: "¡Qué hermoso día!" },
           { term: "Imperativo", desc: "Da una orden o mandato.", example: "Cierra la puerta." },
           { term: "Desiderativo", desc: "Expresa un deseo.", example: "Ojalá llueva mañana." },
-          { term: "Dubitativo", desc: "Expresa duda o probabilidad.", example: "Quizás venga Pedro." }
+          { term: "Dubitativo", desc: "Expresa duda.", example: "Quizás venga Pedro." }
         ]
       },
       {
         name: "Sujeto (S)",
         icon: "👤",
-        definition: "¿Quién o qué realiza la acción o de quién se habla?",
+        definition: "¿Quién o qué realiza la acción?",
         tip: "Pregunta: ¿Quién + verbo? La respuesta es el sujeto.",
         example: { sentence: "El perro ladra.", answer: "El perro", explanation: "¿Quién ladra? → El perro" }
       },
       {
         name: "Predicado",
         icon: "💬",
-        definition: "Es todo lo que se dice del sujeto. Incluye el verbo y sus complementos.",
+        definition: "Todo lo que se dice del sujeto. Incluye el verbo y sus complementos.",
         example: { sentence: "María come una manzana.", subject: "María", predicate: "come una manzana" }
       }
     ],
     examples: [
-      {
-        sentence: "El gato duerme.",
-        analysis: {
-          subject: "El gato",
-          predicate: "duerme",
-          structure: "Simple",
-          purpose: "Declarativo"
-        },
-        explanation: "¿Quién duerme? El gato. Es simple porque tiene un solo verbo. Es declarativo porque afirma un hecho."
-      },
-      {
-        sentence: "¿Los niños juegan?",
-        analysis: {
-          subject: "Los niños",
-          predicate: "juegan",
-          structure: "Simple",
-          purpose: "Interrogativo"
-        },
-        explanation: "Aunque es una pregunta, el sujeto sigue siendo 'Los niños'. El propósito es interrogativo por los signos de pregunta."
-      },
-      {
-        sentence: "¡Qué bella es la luna!",
-        analysis: {
-          subject: "la luna",
-          predicate: "es bella",
-          structure: "Simple",
-          purpose: "Exclamativo"
-        },
-        explanation: "El propósito exclamativo expresa emoción. Los signos ¡! lo indican."
-      }
+      { sentence: "El gato duerme.", analysis: { sujeto: "El gato", predicado: "duerme", estructura: "Simple", propósito: "Declarativo" }, explanation: "¿Quién duerme? El gato. Simple porque tiene un verbo. Declarativo porque afirma." },
+      { sentence: "¿Los niños juegan?", analysis: { sujeto: "Los niños", predicado: "juegan", estructura: "Simple", propósito: "Interrogativo" }, explanation: "Es pregunta pero el sujeto sigue siendo 'Los niños'." },
+      { sentence: "¡Qué bella es la luna!", analysis: { sujeto: "la luna", predicado: "es bella", estructura: "Simple", propósito: "Exclamativo" }, explanation: "Expresa emoción con ¡!" }
     ],
     practice: [
-      { sentence: "El pájaro vuela.", q: "subject", options: ["El pájaro", "vuela", "El", "pájaro"], correct: "El pájaro" },
-      { sentence: "El pájaro vuela.", q: "predicate", options: ["El pájaro", "vuela", "El pájaro vuela", "pájaro"], correct: "vuela" },
+      // ESTRUCTURA
       { sentence: "El pájaro vuela.", q: "structure", options: ["Simple", "Compuesta", "Compleja"], correct: "Simple" },
-      { sentence: "El pájaro vuela.", q: "purpose", options: ["Declarativo", "Interrogativo", "Imperativo", "Exclamativo"], correct: "Declarativo" },
-      { sentence: "¿Dónde está tu hermano?", q: "purpose", options: ["Declarativo", "Interrogativo", "Imperativo", "Exclamativo"], correct: "Interrogativo" },
-      { sentence: "¡Cierra la ventana!", q: "purpose", options: ["Declarativo", "Interrogativo", "Imperativo", "Exclamativo"], correct: "Imperativo" },
+      { sentence: "Juan corre y Ana salta.", q: "structure", options: ["Simple", "Compuesta", "Compleja"], correct: "Compuesta" },
+      { sentence: "Como cuando tengo hambre.", q: "structure", options: ["Simple", "Compuesta", "Compleja"], correct: "Compleja" },
+      // PROPÓSITOS - todos los 6
+      { sentence: "El sol brilla.", q: "purpose", options: ["Declarativo", "Interrogativo", "Exclamativo", "Imperativo"], correct: "Declarativo" },
+      { sentence: "¿Dónde está tu hermano?", q: "purpose", options: ["Declarativo", "Interrogativo", "Exclamativo", "Imperativo"], correct: "Interrogativo" },
+      { sentence: "¡Qué lindo día!", q: "purpose", options: ["Declarativo", "Interrogativo", "Exclamativo", "Imperativo"], correct: "Exclamativo" },
+      { sentence: "Cierra la puerta.", q: "purpose", options: ["Declarativo", "Interrogativo", "Exclamativo", "Imperativo"], correct: "Imperativo" },
       { sentence: "Ojalá gane el equipo.", q: "purpose", options: ["Declarativo", "Desiderativo", "Dubitativo", "Exclamativo"], correct: "Desiderativo" },
       { sentence: "Tal vez llueva hoy.", q: "purpose", options: ["Declarativo", "Desiderativo", "Dubitativo", "Imperativo"], correct: "Dubitativo" },
-      { sentence: "María estudia y Pedro juega.", q: "structure", options: ["Simple", "Compuesta", "Compleja"], correct: "Compuesta" },
-      { sentence: "La maestra explica la lección.", q: "subject", options: ["La maestra", "explica", "la lección", "La"], correct: "La maestra" }
+      // SUJETO
+      { sentence: "El pájaro vuela.", q: "subject", options: ["El pájaro", "vuela", "El", "pájaro"], correct: "El pájaro" },
+      { sentence: "María come pizza.", q: "subject", options: ["María", "come", "pizza", "come pizza"], correct: "María" },
+      { sentence: "Los estudiantes estudian.", q: "subject", options: ["Los estudiantes", "estudian", "Los", "estudiantes"], correct: "Los estudiantes" },
+      // PREDICADO
+      { sentence: "El gato duerme.", q: "predicate", options: ["El gato", "duerme", "El gato duerme", "gato"], correct: "duerme" },
+      { sentence: "María come una manzana.", q: "predicate", options: ["María", "come una manzana", "una manzana", "come"], correct: "come una manzana" },
+      { sentence: "Mi hermano juega fútbol.", q: "predicate", options: ["Mi hermano", "juega fútbol", "fútbol", "juega"], correct: "juega fútbol" }
     ]
   },
 
@@ -102,17 +84,17 @@ var ESSENTIALS_DATA = {
   // ==========================================
   2: {
     title: "El Verbo y sus Tiempos",
-    subtitle: "El corazón de la oración - Sin verbo, no hay oración",
+    subtitle: "Tipos de verbo, tiempos simples y compuestos",
     pattern: "Tiempos Verbales",
     concepts: [
       {
         name: "¿Qué es el Verbo?",
         icon: "💪",
-        definition: "Es la palabra que indica acción, estado o proceso. Es el núcleo del predicado.",
+        definition: "Palabra que indica acción, estado o proceso. Es el núcleo del predicado.",
         types: [
-          { term: "Acción", desc: "Indica algo que se hace.", example: "correr, saltar, escribir, comer" },
-          { term: "Estado", desc: "Indica cómo está o es algo.", example: "ser, estar, parecer" },
-          { term: "Proceso", desc: "Indica un cambio o transformación.", example: "crecer, envejecer, mejorar" }
+          { term: "Acción", desc: "Algo que se hace", example: "correr, saltar, escribir" },
+          { term: "Estado", desc: "Cómo está o es algo", example: "ser, estar, parecer" },
+          { term: "Proceso", desc: "Cambio o transformación", example: "crecer, envejecer, mejorar" }
         ]
       },
       {
@@ -120,96 +102,72 @@ var ESSENTIALS_DATA = {
         icon: "1️⃣",
         definition: "El verbo es UNA SOLA palabra.",
         types: [
-          { term: "Presente", desc: "Acción que ocurre ahora.", example: "Yo canto" },
-          { term: "Pretérito (Pasado)", desc: "Acción que ya ocurrió.", example: "Yo canté" },
-          { term: "Futuro", desc: "Acción que ocurrirá.", example: "Yo cantaré" }
+          { term: "Presente", desc: "Ocurre ahora", example: "Yo canto" },
+          { term: "Pretérito", desc: "Ya ocurrió", example: "Yo canté" },
+          { term: "Futuro", desc: "Ocurrirá después", example: "Yo cantaré" }
         ]
       },
       {
         name: "Tiempos Compuestos",
         icon: "2️⃣",
-        definition: "Usan el verbo auxiliar HABER + Participio (-ado, -ido).",
+        definition: "Usan HABER + Participio (-ado, -ido).",
         types: [
-          { term: "Pretérito Perfecto", desc: "He + participio", example: "Yo he cantado" },
-          { term: "Pluscuamperfecto", desc: "Había + participio", example: "Yo había cantado" },
-          { term: "Futuro Perfecto", desc: "Habré + participio", example: "Yo habré cantado" }
+          { term: "Perfecto", desc: "He + participio", example: "He cantado" },
+          { term: "Pluscuamperfecto", desc: "Había + participio", example: "Había cantado" },
+          { term: "Futuro Perfecto", desc: "Habré + participio", example: "Habré cantado" }
         ]
       },
       {
-        name: "Cómo Identificar el Verbo",
+        name: "Identificar el Verbo",
         icon: "🔍",
-        definition: "Pregúntate: ¿Cuál palabra indica lo que está pasando? ¿Qué palabra cambia si cambio el tiempo?",
-        tip: "Cambia 'hoy' por 'ayer'. La palabra que cambia es el verbo.",
-        example: { sentence: "Los niños juegan. → Los niños jugaron.", answer: "juegan/jugaron", explanation: "La palabra que cambió es el verbo." }
+        definition: "Pregúntate: ¿Qué palabra indica lo que está pasando?",
+        tip: "Cambia 'hoy' por 'ayer'. La palabra que cambia es el verbo."
       }
     ],
     examples: [
-      {
-        sentence: "Nosotros hemos comido.",
-        analysis: {
-          verb: "hemos comido",
-          type: "Compuesto",
-          tense: "Pretérito Perfecto",
-          subject: "Nosotros"
-        },
-        explanation: "Es tiempo compuesto porque tiene el auxiliar 'haber' (hemos) + participio (comido)."
-      },
-      {
-        sentence: "El sol brilla.",
-        analysis: {
-          verb: "brilla",
-          type: "Simple",
-          tense: "Presente",
-          subject: "El sol"
-        },
-        explanation: "Es tiempo simple porque el verbo es una sola palabra. Indica acción en el presente."
-      },
-      {
-        sentence: "Mañana iré al parque.",
-        analysis: {
-          verb: "iré",
-          type: "Simple",
-          tense: "Futuro",
-          subject: "Yo (tácito)"
-        },
-        explanation: "El verbo 'iré' indica una acción futura. El sujeto 'yo' está implícito."
-      }
+      { sentence: "Los niños juegan.", analysis: { verbo: "juegan", tipo: "Simple", tiempo: "Presente", acción: "Acción" }, explanation: "Una sola palabra, indica acción presente." },
+      { sentence: "Nosotros hemos comido.", analysis: { verbo: "hemos comido", tipo: "Compuesto", tiempo: "Perfecto" }, explanation: "Auxiliar 'haber' + participio 'comido'." },
+      { sentence: "El árbol crece.", analysis: { verbo: "crece", tipo: "Simple", acción: "Proceso" }, explanation: "'Crecer' indica un proceso de cambio." }
     ],
     practice: [
+      // IDENTIFICAR VERBO
       { sentence: "El perro corre.", q: "verb", options: ["El perro", "corre", "El", "perro"], correct: "corre" },
       { sentence: "María ha llegado.", q: "verb", options: ["María", "ha llegado", "llegado", "ha"], correct: "ha llegado" },
-      { sentence: "María ha llegado.", q: "verbType", options: ["Simple", "Compuesto"], correct: "Compuesto" },
       { sentence: "Los pájaros cantan.", q: "verb", options: ["Los pájaros", "cantan", "Los", "pájaros"], correct: "cantan" },
-      { sentence: "Los pájaros cantan.", q: "tense", options: ["Presente", "Pasado", "Futuro"], correct: "Presente" },
+      // SIMPLE VS COMPUESTO
+      { sentence: "Juan come.", q: "verbType", options: ["Simple", "Compuesto"], correct: "Simple" },
+      { sentence: "María ha llegado.", q: "verbType", options: ["Simple", "Compuesto"], correct: "Compuesto" },
+      { sentence: "Ellos habían terminado.", q: "verbType", options: ["Simple", "Compuesto"], correct: "Compuesto" },
+      { sentence: "El sol brilla.", q: "verbType", options: ["Simple", "Compuesto"], correct: "Simple" },
+      // TIEMPOS
+      { sentence: "Yo canto.", q: "tense", options: ["Presente", "Pasado", "Futuro"], correct: "Presente" },
       { sentence: "Ayer estudié mucho.", q: "tense", options: ["Presente", "Pasado", "Futuro"], correct: "Pasado" },
       { sentence: "Mañana vendrán mis primos.", q: "tense", options: ["Presente", "Pasado", "Futuro"], correct: "Futuro" },
-      { sentence: "Ellos habían terminado.", q: "verbType", options: ["Simple", "Compuesto"], correct: "Compuesto" },
+      { sentence: "El niño duerme.", q: "tense", options: ["Presente", "Pasado", "Futuro"], correct: "Presente" },
+      // ACCIÓN, ESTADO, PROCESO
       { sentence: "La niña salta.", q: "verbAction", options: ["Acción", "Estado", "Proceso"], correct: "Acción" },
-      { sentence: "El árbol es alto.", q: "verbAction", options: ["Acción", "Estado", "Proceso"], correct: "Estado" }
+      { sentence: "El árbol es alto.", q: "verbAction", options: ["Acción", "Estado", "Proceso"], correct: "Estado" },
+      { sentence: "La planta crece.", q: "verbAction", options: ["Acción", "Estado", "Proceso"], correct: "Proceso" },
+      { sentence: "Juan corre.", q: "verbAction", options: ["Acción", "Estado", "Proceso"], correct: "Acción" },
+      { sentence: "María está feliz.", q: "verbAction", options: ["Acción", "Estado", "Proceso"], correct: "Estado" }
     ]
   },
 
   // ==========================================
-  // WEEK 3: Pattern S-Vi
+  // WEEK 3: Pattern S-Vi + Nouns + Articles
   // ==========================================
   3: {
-    title: "Patrón S-Vi (Sujeto - Verbo Intransitivo)",
-    subtitle: "La estructura más básica - La acción no pasa a nadie",
+    title: "Patrón S-Vi, Sustantivos y Artículos",
+    subtitle: "Verbos intransitivos y las palabras que forman el sujeto",
     pattern: "S-Vi",
     concepts: [
       {
-        name: "S = Sujeto",
-        icon: "👤",
-        definition: "La persona o cosa que realiza la acción o de quien se habla.",
-        tip: "Pregunta: ¿Quién + verbo?"
-      },
-      {
         name: "Vi = Verbo Intransitivo",
         icon: "🔒",
-        definition: "Es un verbo cuya acción es COMPLETA en sí misma. La acción NO PASA a nadie más. Se queda en el sujeto.",
-        tip: "Prueba: Si después del verbo NO necesitas preguntar '¿qué cosa?' o '¿a quién?', es intransitivo.",
+        definition: "Verbo cuya acción es COMPLETA en sí misma. NO pasa a nadie.",
+        tip: "Si después del verbo NO necesitas preguntar '¿qué?' o '¿a quién?', es intransitivo.",
         types: [
-          { term: "Verbos intransitivos comunes", desc: "dormir, correr, nadar, volar, llegar, salir, nacer, morir, crecer" }
+          { term: "Ejemplos", example: "dormir, correr, nadar, volar, llegar, nacer, morir" }
         ]
       },
       {
@@ -226,7 +184,7 @@ var ESSENTIALS_DATA = {
       {
         name: "Artículo",
         icon: "📎",
-        definition: "Palabras que acompañan al sustantivo para determinarlo.",
+        definition: "Palabras que acompañan al sustantivo.",
         types: [
           { term: "Definidos", desc: "Algo específico", example: "el, la, los, las" },
           { term: "Indefinidos", desc: "Algo no específico", example: "un, una, unos, unas" }
@@ -234,58 +192,29 @@ var ESSENTIALS_DATA = {
       }
     ],
     examples: [
-      {
-        sentence: "El pájaro vuela.",
-        analysis: {
-          pattern: "S-Vi",
-          subject: "El pájaro",
-          verb: "vuela",
-          verbType: "Intransitivo"
-        },
-        explanation: "¿El pájaro vuela 'algo'? NO. Simplemente vuela. La acción no se transfiere a nada.",
-        breakdown: [
-          { word: "El", role: "Artículo definido" },
-          { word: "pájaro", role: "Sustantivo (cosa)" },
-          { word: "vuela", role: "Verbo Intransitivo" }
-        ]
-      },
-      {
-        sentence: "Los niños duermen.",
-        analysis: {
-          pattern: "S-Vi",
-          subject: "Los niños",
-          verb: "duermen",
-          verbType: "Intransitivo"
-        },
-        explanation: "¿Duermen 'algo'? NO. Simplemente duermen. Es intransitivo.",
-        breakdown: [
-          { word: "Los", role: "Artículo definido" },
-          { word: "niños", role: "Sustantivo (persona)" },
-          { word: "duermen", role: "Verbo Intransitivo" }
-        ]
-      },
-      {
-        sentence: "Mi abuela camina.",
-        analysis: {
-          pattern: "S-Vi",
-          subject: "Mi abuela",
-          verb: "camina",
-          verbType: "Intransitivo"
-        },
-        explanation: "Caminar es intransitivo porque la acción no requiere un objeto."
-      }
+      { sentence: "El pájaro vuela.", analysis: { patrón: "S-Vi", sujeto: "El pájaro", verbo: "vuela", tipoVerbo: "Intransitivo" }, explanation: "¿Vuela algo? NO. La acción no pasa a nada." },
+      { sentence: "Un niño duerme.", analysis: { patrón: "S-Vi", artículo: "Un (indefinido)", sustantivo: "niño (persona)" }, explanation: "'Un' es artículo indefinido, 'niño' es sustantivo de persona." }
     ],
     practice: [
+      // PATRÓN S-Vi
       { sentence: "El pájaro vuela.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vi" },
-      { sentence: "El pájaro vuela.", q: "subject", options: ["El pájaro", "vuela", "El", "pájaro"], correct: "El pájaro" },
-      { sentence: "El pájaro vuela.", q: "verbType", options: ["Intransitivo", "Transitivo", "Copulativo"], correct: "Intransitivo" },
       { sentence: "La bebé llora.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vi" },
-      { sentence: "El avión aterrizó.", q: "verb", options: ["El avión", "aterrizó", "El", "avión"], correct: "aterrizó" },
-      { sentence: "Las flores crecen.", q: "subject", options: ["Las flores", "crecen", "Las", "flores"], correct: "Las flores" },
-      { sentence: "Mi hermano nada.", q: "verbType", options: ["Intransitivo", "Transitivo", "Copulativo"], correct: "Intransitivo" },
       { sentence: "El sol sale.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vi" },
+      { sentence: "Los niños duermen.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vi" },
+      // TIPO DE VERBO
+      { sentence: "El pájaro vuela.", q: "verbType", options: ["Intransitivo", "Transitivo", "Copulativo"], correct: "Intransitivo" },
+      { sentence: "Mi hermano nada.", q: "verbType", options: ["Intransitivo", "Transitivo", "Copulativo"], correct: "Intransitivo" },
+      // SUSTANTIVOS
+      { sentence: "El doctor llegó.", q: "nounType", options: ["Persona", "Lugar", "Cosa", "Idea"], correct: "Persona" },
+      { sentence: "La ciudad duerme.", q: "nounType", options: ["Persona", "Lugar", "Cosa", "Idea"], correct: "Lugar" },
+      { sentence: "El libro cayó.", q: "nounType", options: ["Persona", "Lugar", "Cosa", "Idea"], correct: "Cosa" },
+      { sentence: "El amor existe.", q: "nounType", options: ["Persona", "Lugar", "Cosa", "Idea"], correct: "Idea" },
+      // ARTÍCULOS
+      { sentence: "El pájaro vuela.", q: "article", options: ["Definido", "Indefinido"], correct: "Definido" },
       { sentence: "Un perro ladra.", q: "article", options: ["Definido", "Indefinido"], correct: "Indefinido" },
-      { sentence: "La luna brilla.", q: "article", options: ["Definido", "Indefinido"], correct: "Definido" }
+      { sentence: "La luna brilla.", q: "article", options: ["Definido", "Indefinido"], correct: "Definido" },
+      { sentence: "Una niña canta.", q: "article", options: ["Definido", "Indefinido"], correct: "Indefinido" },
+      { sentence: "Los pájaros vuelan.", q: "article", options: ["Definido", "Indefinido"], correct: "Definido" }
     ]
   },
 
@@ -293,83 +222,60 @@ var ESSENTIALS_DATA = {
   // WEEK 4: S-Vi + Interrogative/Exclamative + Pronouns
   // ==========================================
   4: {
-    title: "S-Vi + Interrogativo/Exclamativo y Pronombres",
-    subtitle: "El mismo patrón, pero cambiamos la intención y sustituimos nombres",
+    title: "S-Vi con Propósitos y Pronombres",
+    subtitle: "Interrogativo, Exclamativo y sustitución de sustantivos",
     pattern: "S-Vi",
     concepts: [
       {
         name: "Propósito Interrogativo",
         icon: "❓",
-        definition: "Hace una pregunta. Usa signos de interrogación ¿?",
-        tip: "Aunque sea pregunta, la estructura gramatical sigue igual. Solo cambia la intención.",
+        definition: "Hace una pregunta. Usa signos ¿?",
         types: [
           { term: "Pregunta total", desc: "Se responde sí/no", example: "¿Llegó Juan?" },
-          { term: "Pregunta parcial", desc: "Usa palabras interrogativas", example: "¿Cuándo llegó Juan?" }
+          { term: "Pregunta parcial", desc: "Usa palabras interrogativas", example: "¿Cuándo llegó?" }
         ]
       },
       {
         name: "Propósito Exclamativo",
         icon: "❗",
-        definition: "Expresa emoción fuerte: sorpresa, alegría, enojo, admiración. Usa signos ¡!",
+        definition: "Expresa emoción fuerte. Usa signos ¡!",
         example: { sentence: "¡El bebé camina!", explanation: "Expresa sorpresa o alegría" }
       },
       {
-        name: "Pronombres",
+        name: "Pronombres Personales",
         icon: "🔄",
-        definition: "Palabras que SUSTITUYEN al sustantivo para no repetirlo.",
+        definition: "Palabras que SUSTITUYEN al sustantivo.",
         types: [
-          { term: "Personales", desc: "yo, tú, él, ella, nosotros, ustedes, ellos, ellas" },
-          { term: "Demostrativos", desc: "este, ese, aquel, esta, esa, aquella" },
-          { term: "Posesivos", desc: "mío, tuyo, suyo, nuestro" }
-        ],
-        example: { sentence: "María corre. → Ella corre.", explanation: "'Ella' sustituye a 'María'" }
+          { term: "Yo, tú, él, ella", desc: "Singular" },
+          { term: "Nosotros, ustedes, ellos, ellas", desc: "Plural" }
+        ]
       }
     ],
     examples: [
-      {
-        sentence: "¿Ellos llegaron?",
-        analysis: {
-          pattern: "S-Vi",
-          subject: "Ellos",
-          verb: "llegaron",
-          purpose: "Interrogativo",
-          subjectType: "Pronombre personal"
-        },
-        explanation: "El pronombre 'Ellos' sustituye a un grupo de personas. El propósito es interrogativo (pregunta)."
-      },
-      {
-        sentence: "¡Ella canta!",
-        analysis: {
-          pattern: "S-Vi",
-          subject: "Ella",
-          verb: "canta",
-          purpose: "Exclamativo",
-          subjectType: "Pronombre personal"
-        },
-        explanation: "Expresa admiración o emoción. 'Ella' es pronombre que sustituye un nombre femenino."
-      },
-      {
-        sentence: "¿Tú nadas?",
-        analysis: {
-          pattern: "S-Vi",
-          subject: "Tú",
-          verb: "nadas",
-          purpose: "Interrogativo"
-        },
-        explanation: "'Tú' es pronombre personal de segunda persona."
-      }
+      { sentence: "¿Ellos llegaron?", analysis: { patrón: "S-Vi", sujeto: "Ellos (pronombre)", propósito: "Interrogativo" }, explanation: "'Ellos' sustituye un grupo de personas." },
+      { sentence: "¡Ella canta!", analysis: { patrón: "S-Vi", sujeto: "Ella (pronombre)", propósito: "Exclamativo" }, explanation: "Expresa admiración." }
     ],
     practice: [
+      // PROPÓSITOS
       { sentence: "¿Ellos llegaron?", q: "purpose", options: ["Declarativo", "Interrogativo", "Exclamativo", "Imperativo"], correct: "Interrogativo" },
-      { sentence: "¿Ellos llegaron?", q: "subject", options: ["Ellos", "llegaron", "¿Ellos?", "llegaron?"], correct: "Ellos" },
       { sentence: "¡Nosotros ganamos!", q: "purpose", options: ["Declarativo", "Interrogativo", "Exclamativo", "Imperativo"], correct: "Exclamativo" },
-      { sentence: "Ella duerme.", q: "subjectType", options: ["Sustantivo", "Pronombre", "Artículo"], correct: "Pronombre" },
-      { sentence: "María duerme.", q: "subjectType", options: ["Sustantivo", "Pronombre", "Artículo"], correct: "Sustantivo" },
+      { sentence: "Ella duerme.", q: "purpose", options: ["Declarativo", "Interrogativo", "Exclamativo", "Imperativo"], correct: "Declarativo" },
+      { sentence: "¿Cuándo llegas tú?", q: "purpose", options: ["Declarativo", "Interrogativo", "Exclamativo", "Imperativo"], correct: "Interrogativo" },
+      // SUJETO SUSTANTIVO VS PRONOMBRE
+      { sentence: "Ella duerme.", q: "subjectType", options: ["Sustantivo", "Pronombre"], correct: "Pronombre" },
+      { sentence: "María duerme.", q: "subjectType", options: ["Sustantivo", "Pronombre"], correct: "Sustantivo" },
+      { sentence: "Ellos corren.", q: "subjectType", options: ["Sustantivo", "Pronombre"], correct: "Pronombre" },
+      { sentence: "Los niños corren.", q: "subjectType", options: ["Sustantivo", "Pronombre"], correct: "Sustantivo" },
+      // IDENTIFICAR PRONOMBRE
+      { sentence: "Yo corro.", q: "pronoun", options: ["Yo", "Tú", "Él", "Nosotros"], correct: "Yo" },
+      { sentence: "Tú nadas.", q: "pronoun", options: ["Yo", "Tú", "Él", "Nosotros"], correct: "Tú" },
+      { sentence: "Nosotros llegamos.", q: "pronoun", options: ["Yo", "Tú", "Ellos", "Nosotros"], correct: "Nosotros" },
+      // PATRÓN
       { sentence: "¿Ustedes vienen?", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vi" },
-      { sentence: "Yo corro.", q: "pronoun", options: ["Yo", "corro", "Yo corro"], correct: "Yo" },
-      { sentence: "¡Él salta!", q: "verb", options: ["Él", "salta", "¡Él!", "salta!"], correct: "salta" },
-      { sentence: "¿Cuándo llegas tú?", q: "subject", options: ["Cuándo", "llegas", "tú", "¿Cuándo?"], correct: "tú" },
-      { sentence: "Este corre rápido.", q: "pronounType", options: ["Personal", "Demostrativo", "Posesivo"], correct: "Demostrativo" }
+      { sentence: "¡Él salta!", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vi" },
+      // SUJETO
+      { sentence: "¿Cuándo llegas tú?", q: "subject", options: ["Cuándo", "llegas", "tú"], correct: "tú" },
+      { sentence: "¡Ellas bailan!", q: "subject", options: ["Ellas", "bailan", "¡Ellas!"], correct: "Ellas" }
     ]
   },
 
@@ -377,87 +283,66 @@ var ESSENTIALS_DATA = {
   // WEEK 5: Pattern S-Vt-OD
   // ==========================================
   5: {
-    title: "Patrón S-Vt-OD (Sujeto - Verbo Transitivo - Objeto Directo)",
-    subtitle: "La acción ahora VIAJA del sujeto a otra cosa",
+    title: "Patrón S-Vt-OD",
+    subtitle: "Verbos transitivos y Objeto Directo",
     pattern: "S-Vt-OD",
     concepts: [
       {
         name: "Vt = Verbo Transitivo",
         icon: "➡️",
-        definition: "Es un verbo cuya acción TRANSITA (pasa) del sujeto hacia un objeto. La acción NO se queda en el sujeto; IMPACTA a algo más.",
-        tip: "Prueba: Di el Sujeto y el Verbo y pregunta ¿QUÉ? o ¿A QUIÉN? Si hay respuesta en la oración, es transitivo.",
+        definition: "Verbo cuya acción PASA del sujeto hacia un objeto.",
+        tip: "Pregunta: Sujeto + Verbo + ¿QUÉ? o ¿A QUIÉN? Si hay respuesta, es transitivo.",
         types: [
-          { term: "Verbos transitivos comunes", desc: "comer, beber, leer, escribir, ver, comprar, hacer, tener, querer" }
+          { term: "Ejemplos", example: "comer, beber, leer, escribir, ver, comprar" }
         ]
       },
       {
         name: "OD = Objeto Directo",
         icon: "🎯",
-        definition: "Es quien RECIBE directamente la acción del verbo. Es el 'golpe' de la acción.",
-        tip: "Pregunta: ¿Qué + verbo + sujeto? o ¿A quién + verbo + sujeto?",
+        definition: "Es quien RECIBE directamente la acción del verbo.",
+        tip: "Pregunta: ¿Qué + verbo + sujeto?",
         example: { sentence: "Juan come pizza.", question: "¿Qué come Juan?", answer: "pizza = OD" }
-      },
-      {
-        name: "Propósito Imperativo",
-        icon: "👆",
-        definition: "Da una ORDEN o MANDATO. El sujeto (Tú/Usted) suele ser tácito (no está escrito).",
-        example: { sentence: "¡Lava los platos!", explanation: "El sujeto (Tú) está implícito" }
       },
       {
         name: "Intransitivo vs Transitivo",
         icon: "⚖️",
-        definition: "La diferencia clave es si la acción PASA a algo o no.",
         types: [
-          { term: "Intransitivo", desc: "La acción NO pasa", example: "El pájaro vuela. (¿Vuela qué? Nada)" },
-          { term: "Transitivo", desc: "La acción SÍ pasa", example: "Juan come pizza. (¿Come qué? Pizza)" }
+          { term: "Intransitivo", desc: "No pasa", example: "El pájaro vuela. (¿Vuela qué? Nada)" },
+          { term: "Transitivo", desc: "Sí pasa", example: "Juan come pizza. (¿Come qué? Pizza)" }
         ]
+      },
+      {
+        name: "Propósito Imperativo",
+        icon: "👆",
+        definition: "Da una ORDEN. El sujeto (Tú) suele ser tácito.",
+        example: { sentence: "¡Lava los platos!", explanation: "Sujeto (Tú) implícito" }
       }
     ],
     examples: [
-      {
-        sentence: "¡Lava el plato!",
-        analysis: {
-          pattern: "S-Vt-OD",
-          subject: "(Tú) - tácito",
-          verb: "Lava",
-          directObject: "el plato",
-          purpose: "Imperativo"
-        },
-        explanation: "¿Lava qué? → El plato. Hay respuesta, entonces es Transitivo. El sujeto 'Tú' está implícito porque es una orden."
-      },
-      {
-        sentence: "María lee un libro.",
-        analysis: {
-          pattern: "S-Vt-OD",
-          subject: "María",
-          verb: "lee",
-          directObject: "un libro",
-          purpose: "Declarativo"
-        },
-        explanation: "¿Lee qué? → un libro. La acción de leer pasa al libro."
-      },
-      {
-        sentence: "El niño come una manzana.",
-        analysis: {
-          pattern: "S-Vt-OD",
-          subject: "El niño",
-          verb: "come",
-          directObject: "una manzana"
-        },
-        explanation: "¿Come qué? → una manzana. 'Comer' es transitivo porque requiere algo que se come."
-      }
+      { sentence: "María lee un libro.", analysis: { patrón: "S-Vt-OD", sujeto: "María", verbo: "lee", od: "un libro" }, explanation: "¿Lee qué? → un libro" },
+      { sentence: "¡Lava el plato!", analysis: { patrón: "S-Vt-OD", sujeto: "(Tú)", verbo: "Lava", od: "el plato", propósito: "Imperativo" }, explanation: "Orden con sujeto tácito." }
     ],
     practice: [
-      { sentence: "¡Lava el plato!", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vt-OD" },
-      { sentence: "¡Lava el plato!", q: "directObject", options: ["Lava", "el plato", "(Tú)", "¡Lava!"], correct: "el plato" },
+      // PATRÓN
+      { sentence: "María lee un libro.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vt-OD" },
+      { sentence: "El niño come una manzana.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vt-OD" },
+      { sentence: "El pájaro vuela.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vi" },
+      { sentence: "Ana compra flores.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vt-OD" },
+      // OBJETO DIRECTO
+      { sentence: "María lee un libro.", q: "directObject", options: ["María", "lee", "un libro"], correct: "un libro" },
+      { sentence: "El perro come carne.", q: "directObject", options: ["El perro", "come", "carne"], correct: "carne" },
+      { sentence: "Nosotros vemos la película.", q: "directObject", options: ["Nosotros", "vemos", "la película"], correct: "la película" },
+      { sentence: "¡Lava el plato!", q: "directObject", options: ["Lava", "el plato", "(Tú)"], correct: "el plato" },
+      // TIPO DE VERBO
+      { sentence: "Juan come pizza.", q: "verbType", options: ["Intransitivo", "Transitivo"], correct: "Transitivo" },
+      { sentence: "El bebé llora.", q: "verbType", options: ["Intransitivo", "Transitivo"], correct: "Intransitivo" },
+      { sentence: "Ella escribe cartas.", q: "verbType", options: ["Intransitivo", "Transitivo"], correct: "Transitivo" },
+      // IMPERATIVO
+      { sentence: "¡Cierra la puerta!", q: "purpose", options: ["Declarativo", "Interrogativo", "Imperativo", "Exclamativo"], correct: "Imperativo" },
       { sentence: "¡Lava el plato!", q: "purpose", options: ["Declarativo", "Interrogativo", "Imperativo", "Exclamativo"], correct: "Imperativo" },
-      { sentence: "María lee un libro.", q: "verb", options: ["María", "lee", "un libro", "libro"], correct: "lee" },
-      { sentence: "María lee un libro.", q: "directObject", options: ["María", "lee", "un libro", "libro"], correct: "un libro" },
-      { sentence: "El perro come carne.", q: "verbType", options: ["Intransitivo", "Transitivo", "Copulativo"], correct: "Transitivo" },
-      { sentence: "¡Cierra la puerta!", q: "subject", options: ["Cierra", "la puerta", "(Tú)", "¡Cierra!"], correct: "(Tú)" },
-      { sentence: "Nosotros vemos la película.", q: "directObject", options: ["Nosotros", "vemos", "la película", "película"], correct: "la película" },
-      { sentence: "El bebé llora.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vi" },
-      { sentence: "Ana compra flores.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vt-OD" }
+      // SUJETO TÁCITO
+      { sentence: "¡Cierra la puerta!", q: "subject", options: ["Cierra", "la puerta", "(Tú)"], correct: "(Tú)" },
+      { sentence: "Come tu comida.", q: "subject", options: ["Come", "tu comida", "(Tú)"], correct: "(Tú)" }
     ]
   },
 
@@ -465,17 +350,17 @@ var ESSENTIALS_DATA = {
   // WEEK 6: S-Vt-OD + Dubitative + Adverbs
   // ==========================================
   6: {
-    title: "S-Vt-OD + Propósito Dubitativo y Adverbios",
-    subtitle: "Añadimos duda y modificadores al verbo",
+    title: "S-Vt-OD con Dubitativo y Adverbios",
+    subtitle: "Expresar duda y modificar el verbo",
     pattern: "S-Vt-OD",
     concepts: [
       {
         name: "Propósito Dubitativo",
         icon: "🤔",
-        definition: "Expresa DUDA, probabilidad o incertidumbre sobre algo.",
-        tip: "Palabras clave: quizás, tal vez, probablemente, acaso, posiblemente",
+        definition: "Expresa DUDA o probabilidad.",
+        tip: "Palabras clave: quizás, tal vez, probablemente, acaso",
         types: [
-          { term: "Quizás", example: "Quizás Juan venga mañana." },
+          { term: "Quizás", example: "Quizás Juan venga." },
           { term: "Tal vez", example: "Tal vez llueva hoy." },
           { term: "Probablemente", example: "Probablemente ella estudie." }
         ]
@@ -483,70 +368,45 @@ var ESSENTIALS_DATA = {
       {
         name: "Adverbio",
         icon: "📍",
-        definition: "Palabras que MODIFICAN al verbo. Te dicen CÓMO, CUÁNDO, DÓNDE o CUÁNTO ocurre la acción.",
+        definition: "Palabras que MODIFICAN al verbo. Dicen CÓMO, CUÁNDO, DÓNDE o CUÁNTO.",
         types: [
-          { term: "De modo (¿Cómo?)", desc: "Describen la manera", example: "rápidamente, lentamente, bien, mal" },
-          { term: "De tiempo (¿Cuándo?)", desc: "Indican momento", example: "hoy, ayer, mañana, ahora, siempre" },
-          { term: "De lugar (¿Dónde?)", desc: "Indican ubicación", example: "aquí, allí, cerca, lejos, arriba" },
-          { term: "De cantidad (¿Cuánto?)", desc: "Indican intensidad", example: "mucho, poco, muy, bastante" },
-          { term: "De duda", desc: "Expresan incertidumbre", example: "quizás, tal vez, probablemente" }
+          { term: "Modo (¿Cómo?)", example: "rápidamente, lentamente, bien, mal" },
+          { term: "Tiempo (¿Cuándo?)", example: "hoy, ayer, mañana, ahora, siempre" },
+          { term: "Lugar (¿Dónde?)", example: "aquí, allí, cerca, lejos, arriba" },
+          { term: "Cantidad (¿Cuánto?)", example: "mucho, poco, muy, bastante" },
+          { term: "Duda", example: "quizás, tal vez, probablemente" }
         ]
       },
       {
         name: "El adverbio NO es el OD",
         icon: "⚠️",
         definition: "El adverbio modifica al verbo pero NO es el objeto directo.",
-        example: { sentence: "Juan come pizza rápidamente.", od: "pizza", adverb: "rápidamente", explanation: "El OD es 'pizza' (¿qué come?). 'Rápidamente' es adverbio (¿cómo come?)." }
+        example: { sentence: "Juan come pizza rápidamente.", od: "pizza", adverb: "rápidamente" }
       }
     ],
     examples: [
-      {
-        sentence: "Quizás Juan compre hoy pan.",
-        analysis: {
-          pattern: "S-Vt-OD",
-          subject: "Juan",
-          verb: "compre",
-          directObject: "pan",
-          purpose: "Dubitativo",
-          adverbs: ["Quizás (duda)", "hoy (tiempo)"]
-        },
-        explanation: "¿Compre qué? → pan (OD). 'Quizás' indica duda. 'Hoy' indica cuándo."
-      },
-      {
-        sentence: "Tal vez María escriba la carta mañana.",
-        analysis: {
-          pattern: "S-Vt-OD",
-          subject: "María",
-          verb: "escriba",
-          directObject: "la carta",
-          purpose: "Dubitativo",
-          adverbs: ["Tal vez (duda)", "mañana (tiempo)"]
-        },
-        explanation: "La duda se expresa con 'Tal vez'. El adverbio 'mañana' indica cuándo."
-      },
-      {
-        sentence: "El niño come lentamente su comida.",
-        analysis: {
-          pattern: "S-Vt-OD",
-          subject: "El niño",
-          verb: "come",
-          directObject: "su comida",
-          adverbs: ["lentamente (modo)"]
-        },
-        explanation: "'Lentamente' nos dice CÓMO come. El OD es 'su comida' (¿qué come?)."
-      }
+      { sentence: "Quizás Juan compre pan hoy.", analysis: { patrón: "S-Vt-OD", propósito: "Dubitativo", od: "pan", adverbios: "Quizás (duda), hoy (tiempo)" }, explanation: "'Quizás' indica duda, 'hoy' indica cuándo." }
     ],
     practice: [
+      // PROPÓSITO DUBITATIVO
       { sentence: "Quizás Juan compre pan.", q: "purpose", options: ["Declarativo", "Dubitativo", "Desiderativo", "Imperativo"], correct: "Dubitativo" },
-      { sentence: "Quizás Juan compre pan.", q: "directObject", options: ["Juan", "compre", "pan", "Quizás"], correct: "pan" },
-      { sentence: "María lee rápidamente.", q: "adverb", options: ["María", "lee", "rápidamente"], correct: "rápidamente" },
-      { sentence: "María lee rápidamente.", q: "adverbType", options: ["Modo", "Tiempo", "Lugar", "Cantidad"], correct: "Modo" },
-      { sentence: "Ayer comí pizza.", q: "adverb", options: ["Ayer", "comí", "pizza"], correct: "Ayer" },
-      { sentence: "Ayer comí pizza.", q: "adverbType", options: ["Modo", "Tiempo", "Lugar", "Cantidad"], correct: "Tiempo" },
-      { sentence: "El gato duerme aquí.", q: "adverbType", options: ["Modo", "Tiempo", "Lugar", "Cantidad"], correct: "Lugar" },
+      { sentence: "Tal vez María escriba la carta.", q: "purpose", options: ["Declarativo", "Dubitativo", "Desiderativo", "Interrogativo"], correct: "Dubitativo" },
       { sentence: "Probablemente ella venga.", q: "purpose", options: ["Declarativo", "Dubitativo", "Desiderativo", "Imperativo"], correct: "Dubitativo" },
-      { sentence: "Como mucho arroz.", q: "adverbType", options: ["Modo", "Tiempo", "Lugar", "Cantidad"], correct: "Cantidad" },
-      { sentence: "Tal vez llueva hoy.", q: "adverbCount", options: ["1", "2", "3"], correct: "2" }
+      // IDENTIFICAR ADVERBIO
+      { sentence: "María lee rápidamente.", q: "adverb", options: ["María", "lee", "rápidamente"], correct: "rápidamente" },
+      { sentence: "Ayer comí pizza.", q: "adverb", options: ["Ayer", "comí", "pizza"], correct: "Ayer" },
+      { sentence: "El gato duerme aquí.", q: "adverb", options: ["El gato", "duerme", "aquí"], correct: "aquí" },
+      { sentence: "Como mucho arroz.", q: "adverb", options: ["Como", "mucho", "arroz"], correct: "mucho" },
+      // TIPO DE ADVERBIO
+      { sentence: "Corre rápidamente.", q: "adverbType", options: ["Modo", "Tiempo", "Lugar", "Cantidad"], correct: "Modo" },
+      { sentence: "Llegó ayer.", q: "adverbType", options: ["Modo", "Tiempo", "Lugar", "Cantidad"], correct: "Tiempo" },
+      { sentence: "Vive cerca.", q: "adverbType", options: ["Modo", "Tiempo", "Lugar", "Cantidad"], correct: "Lugar" },
+      { sentence: "Estudia mucho.", q: "adverbType", options: ["Modo", "Tiempo", "Lugar", "Cantidad"], correct: "Cantidad" },
+      // OD VS ADVERBIO
+      { sentence: "Juan come pizza rápidamente.", q: "directObject", options: ["Juan", "pizza", "rápidamente"], correct: "pizza" },
+      { sentence: "María lee libros siempre.", q: "directObject", options: ["María", "libros", "siempre"], correct: "libros" },
+      // PATRÓN
+      { sentence: "Quizás compre pan.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vt-OD" }
     ]
   },
 
@@ -554,92 +414,61 @@ var ESSENTIALS_DATA = {
   // WEEK 7: Pattern S-Vc-A
   // ==========================================
   7: {
-    title: "Patrón S-Vc-A (Sujeto - Verbo Copulativo - Atributo)",
-    subtitle: "Dejamos los verbos de acción y pasamos a verbos de estado",
+    title: "Patrón S-Vc-A",
+    subtitle: "Verbos copulativos y Atributo",
     pattern: "S-Vc-A",
     concepts: [
       {
         name: "Vc = Verbo Copulativo",
         icon: "🔗",
-        definition: "Son verbos que sirven de PUENTE o CÓPULA (unión). NO indican acción, sino que el sujeto ES o ESTÁ de cierta manera.",
-        tip: "Prueba: Si puedes sustituir el verbo por un signo IGUAL (=), es copulativo.",
+        definition: "Verbos que sirven de PUENTE. NO indican acción, sino que el sujeto ES o ESTÁ de cierta manera.",
+        tip: "Si puedes sustituir el verbo por = (igual), es copulativo.",
         types: [
-          { term: "SER", desc: "Características permanentes o esenciales", example: "Juan ES alto." },
-          { term: "ESTAR", desc: "Estados temporales o condiciones", example: "Juan ESTÁ cansado." },
+          { term: "SER", desc: "Características permanentes", example: "Juan ES alto." },
+          { term: "ESTAR", desc: "Estados temporales", example: "Juan ESTÁ cansado." },
           { term: "PARECER", desc: "Apariencia", example: "Juan PARECE feliz." }
         ]
       },
       {
         name: "A = Atributo",
         icon: "🏷️",
-        definition: "Es la palabra que viene después del verbo copulativo y nos dice una CUALIDAD o ESTADO del sujeto.",
+        definition: "Palabra después del verbo copulativo que dice una CUALIDAD del sujeto.",
         tip: "Pregunta: ¿Cómo es? o ¿Qué es? el sujeto.",
         example: { sentence: "El cielo es azul.", question: "¿Cómo es el cielo?", answer: "azul = Atributo" }
       },
       {
         name: "Adjetivo",
         icon: "🎨",
-        definition: "Palabras que DESCRIBEN o MODIFICAN al sustantivo. Nos dicen color, tamaño, forma, personalidad, etc.",
+        definition: "Palabras que DESCRIBEN al sustantivo: color, tamaño, forma, etc.",
         types: [
-          { term: "Calificativos", example: "grande, pequeño, rojo, hermoso, inteligente" },
-          { term: "En el patrón S-Vc-A", desc: "El adjetivo funciona como ATRIBUTO" }
-        ]
-      },
-      {
-        name: "Diferencia clave",
-        icon: "⚖️",
-        definition: "En S-Vt-OD la acción PASA a algo. En S-Vc-A el verbo solo CONECTA sujeto con atributo.",
-        types: [
-          { term: "S-Vt-OD", example: "Juan come pizza. (La acción pasa a pizza)" },
-          { term: "S-Vc-A", example: "Juan es alto. (No hay acción, solo descripción)" }
+          { term: "Ejemplos", example: "grande, pequeño, rojo, hermoso, inteligente" }
         ]
       }
     ],
     examples: [
-      {
-        sentence: "El cielo es azul.",
-        analysis: {
-          pattern: "S-Vc-A",
-          subject: "El cielo",
-          verb: "es",
-          attribute: "azul",
-          verbType: "Copulativo (SER)"
-        },
-        explanation: "El cielo = azul. El verbo 'es' solo conecta. 'Azul' es el atributo que describe al cielo."
-      },
-      {
-        sentence: "María está cansada.",
-        analysis: {
-          pattern: "S-Vc-A",
-          subject: "María",
-          verb: "está",
-          attribute: "cansada",
-          verbType: "Copulativo (ESTAR)"
-        },
-        explanation: "María = cansada (temporalmente). 'Está' indica estado, 'cansada' es el atributo."
-      },
-      {
-        sentence: "Ojalá el cielo sea azul.",
-        analysis: {
-          pattern: "S-Vc-A",
-          subject: "el cielo",
-          verb: "sea",
-          attribute: "azul",
-          purpose: "Desiderativo"
-        },
-        explanation: "'Ojalá' indica deseo (propósito desiderativo). El patrón sigue siendo S-Vc-A."
-      }
+      { sentence: "El cielo es azul.", analysis: { patrón: "S-Vc-A", sujeto: "El cielo", verbo: "es", atributo: "azul" }, explanation: "El cielo = azul. 'Es' conecta, 'azul' describe." },
+      { sentence: "María está cansada.", analysis: { patrón: "S-Vc-A", verbo: "está (ESTAR)", atributo: "cansada" }, explanation: "Estado temporal." }
     ],
     practice: [
+      // PATRÓN
       { sentence: "El cielo es azul.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vc-A" },
-      { sentence: "El cielo es azul.", q: "attribute", options: ["El cielo", "es", "azul"], correct: "azul" },
-      { sentence: "El cielo es azul.", q: "verbType", options: ["Intransitivo", "Transitivo", "Copulativo"], correct: "Copulativo" },
-      { sentence: "La sopa está caliente.", q: "verb", options: ["La sopa", "está", "caliente"], correct: "está" },
-      { sentence: "La sopa está caliente.", q: "attribute", options: ["La sopa", "está", "caliente"], correct: "caliente" },
+      { sentence: "La sopa está caliente.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vc-A" },
       { sentence: "Tú pareces feliz.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vc-A" },
+      { sentence: "Juan come pizza.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vt-OD" },
+      // ATRIBUTO
+      { sentence: "El cielo es azul.", q: "attribute", options: ["El cielo", "es", "azul"], correct: "azul" },
+      { sentence: "La sopa está caliente.", q: "attribute", options: ["La sopa", "está", "caliente"], correct: "caliente" },
+      { sentence: "Mi hermano es alto.", q: "attribute", options: ["Mi hermano", "es", "alto"], correct: "alto" },
+      { sentence: "Ella parece triste.", q: "attribute", options: ["Ella", "parece", "triste"], correct: "triste" },
+      // TIPO DE VERBO COPULATIVO
       { sentence: "El perro es grande.", q: "copVerb", options: ["SER", "ESTAR", "PARECER"], correct: "SER" },
       { sentence: "Ella está triste.", q: "copVerb", options: ["SER", "ESTAR", "PARECER"], correct: "ESTAR" },
-      { sentence: "Juan come pizza.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vt-OD" },
+      { sentence: "Juan parece cansado.", q: "copVerb", options: ["SER", "ESTAR", "PARECER"], correct: "PARECER" },
+      { sentence: "La casa es grande.", q: "copVerb", options: ["SER", "ESTAR", "PARECER"], correct: "SER" },
+      // TIPO DE VERBO
+      { sentence: "El libro es interesante.", q: "verbType", options: ["Intransitivo", "Transitivo", "Copulativo"], correct: "Copulativo" },
+      { sentence: "María corre.", q: "verbType", options: ["Intransitivo", "Transitivo", "Copulativo"], correct: "Intransitivo" },
+      // SUJETO
       { sentence: "El libro es interesante.", q: "subject", options: ["El libro", "es", "interesante"], correct: "El libro" }
     ]
   },
@@ -649,233 +478,191 @@ var ESSENTIALS_DATA = {
   // ==========================================
   8: {
     title: "Estructura Compuesta Coordinada",
-    subtitle: "Aprendemos a SUMAR oraciones",
+    subtitle: "Unir oraciones con conjunciones",
     pattern: "Coordinada",
     concepts: [
       {
         name: "Estructura Compuesta",
         icon: "➕",
-        definition: "Ya no tenemos UNA sola oración, sino DOS (o más) unidas.",
-        tip: "Piensa en vagones de tren unidos por un gancho."
+        definition: "DOS oraciones (o más) unidas.",
+        tip: "Como vagones de tren unidos por un gancho."
       },
       {
         name: "Coordinada",
         icon: "⚖️",
-        definition: "Ambas partes tienen la MISMA importancia. Ninguna DEPENDE de la otra. Son 'hermanas'.",
-        tip: "Prueba: Si separas las oraciones, AMBAS tienen sentido completo por sí solas."
+        definition: "Ambas partes tienen IGUAL importancia. Ninguna depende de la otra.",
+        tip: "Si separas las oraciones, AMBAS tienen sentido solas."
       },
       {
         name: "Cláusula Independiente",
         icon: "🔲",
-        definition: "Una oración que tiene sentido COMPLETO por sí sola. Tiene su propio Sujeto + Verbo.",
-        example: { sentence: "Juan corre.", explanation: "Tiene sentido completo = cláusula independiente" }
+        definition: "Oración con sentido COMPLETO por sí sola. Tiene su propio S + V."
       },
       {
         name: "Conjunciones Coordinantes",
         icon: "🔗",
-        definition: "Son los 'ganchos' o NEXOS que unen las oraciones coordinadas.",
+        definition: "Los 'ganchos' que unen oraciones coordinadas.",
         types: [
-          { term: "Copulativas (suman)", example: "y, e, ni" },
-          { term: "Disyuntivas (elegir)", example: "o, u" },
-          { term: "Adversativas (contraste)", example: "pero, mas, sino, sin embargo" }
+          { term: "Copulativas", desc: "Suman", example: "y, e, ni" },
+          { term: "Disyuntivas", desc: "Elegir", example: "o, u" },
+          { term: "Adversativas", desc: "Contraste", example: "pero, mas, sino" }
         ]
       }
     ],
     examples: [
-      {
-        sentence: "Juan corre y Ana lee.",
-        analysis: {
-          structure: "Compuesta Coordinada",
-          clause1: "Juan corre (S-Vi)",
-          conjunction: "y",
-          clause2: "Ana lee (S-Vi)",
-          conjunctionType: "Copulativa"
-        },
-        explanation: "Si quitas la 'y', tienes dos oraciones que funcionan perfectamente solas. Eso es coordinación."
-      },
-      {
-        sentence: "Quiero ir pero estoy cansado.",
-        analysis: {
-          structure: "Compuesta Coordinada",
-          clause1: "Quiero ir",
-          conjunction: "pero",
-          clause2: "estoy cansado",
-          conjunctionType: "Adversativa"
-        },
-        explanation: "'Pero' une dos ideas que contrastan. Ambas cláusulas son independientes."
-      },
-      {
-        sentence: "¿Vienes o te quedas?",
-        analysis: {
-          structure: "Compuesta Coordinada",
-          clause1: "Vienes",
-          conjunction: "o",
-          clause2: "te quedas",
-          conjunctionType: "Disyuntiva"
-        },
-        explanation: "'O' presenta una elección entre dos opciones."
-      }
+      { sentence: "Juan corre y Ana lee.", analysis: { estructura: "Compuesta Coordinada", cláusula1: "Juan corre", conjunción: "y", cláusula2: "Ana lee", tipo: "Copulativa" }, explanation: "Ambas funcionan solas. 'Y' las suma." }
     ],
     practice: [
+      // ESTRUCTURA
       { sentence: "Juan corre y Ana lee.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada"], correct: "Compuesta Coordinada" },
+      { sentence: "El perro ladra.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada"], correct: "Simple" },
+      { sentence: "Llueve pero salgo.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada"], correct: "Compuesta Coordinada" },
+      { sentence: "María canta y Pedro baila.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada"], correct: "Compuesta Coordinada" },
+      // CONJUNCIÓN
       { sentence: "Juan corre y Ana lee.", q: "conjunction", options: ["Juan", "corre", "y", "Ana"], correct: "y" },
-      { sentence: "Juan corre y Ana lee.", q: "conjunctionType", options: ["Copulativa", "Disyuntiva", "Adversativa"], correct: "Copulativa" },
       { sentence: "Llueve pero salgo.", q: "conjunction", options: ["Llueve", "pero", "salgo"], correct: "pero" },
+      { sentence: "No como ni bebo.", q: "conjunction", options: ["No", "como", "ni", "bebo"], correct: "ni" },
+      { sentence: "¿Estudias o juegas?", q: "conjunction", options: ["Estudias", "o", "juegas"], correct: "o" },
+      // TIPO DE CONJUNCIÓN
+      { sentence: "Juan corre y Ana lee.", q: "conjunctionType", options: ["Copulativa", "Disyuntiva", "Adversativa"], correct: "Copulativa" },
       { sentence: "Llueve pero salgo.", q: "conjunctionType", options: ["Copulativa", "Disyuntiva", "Adversativa"], correct: "Adversativa" },
       { sentence: "¿Estudias o juegas?", q: "conjunctionType", options: ["Copulativa", "Disyuntiva", "Adversativa"], correct: "Disyuntiva" },
-      { sentence: "El perro ladra.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada"], correct: "Simple" },
-      { sentence: "No como ni bebo.", q: "conjunction", options: ["No", "como", "ni", "bebo"], correct: "ni" },
+      { sentence: "No canto ni bailo.", q: "conjunctionType", options: ["Copulativa", "Disyuntiva", "Adversativa"], correct: "Copulativa" },
+      // NÚMERO DE CLÁUSULAS
       { sentence: "María canta y Pedro baila.", q: "clauseCount", options: ["1", "2", "3"], correct: "2" },
-      { sentence: "Es tarde, sin embargo voy.", q: "conjunctionType", options: ["Copulativa", "Disyuntiva", "Adversativa"], correct: "Adversativa" }
+      { sentence: "El sol brilla.", q: "clauseCount", options: ["1", "2", "3"], correct: "1" },
+      // PROPÓSITO
+      { sentence: "¿Vienes o te quedas?", q: "purpose", options: ["Declarativo", "Interrogativo", "Imperativo"], correct: "Interrogativo" }
     ]
-  },
-
-  // Continue with weeks 9-24...
-  // (I'll add them in the next part due to length)
+  }
 };
 
-// Export for use
-if (typeof module !== 'undefined') module.exports = ESSENTIALS_DATA;
+console.log('✨ Essentials Data loaded: Weeks 1-8');
 
 // ==========================================
-// WEEKS 9-12: Advanced Patterns
+// WEEKS 9-12
 // ==========================================
 
 ESSENTIALS_DATA[9] = {
-  title: "Patrón S-Vt-OD-OI (Objeto Indirecto)",
-  subtitle: "¿Quién se beneficia de la acción?",
+  title: "Patrón S-Vt-OD-OI",
+  subtitle: "Objeto Indirecto y Preposiciones",
   pattern: "S-Vt-OD-OI",
   concepts: [
     {
       name: "OI = Objeto Indirecto",
       icon: "🎁",
-      definition: "Es la persona (o cosa) que RECIBE el Objeto Directo. Es el DESTINATARIO final de la acción.",
-      tip: "Pregunta: ¿A QUIÉN? o ¿PARA QUIÉN? se realiza la acción. Siempre va con preposición 'a' o 'para'.",
+      definition: "Persona que RECIBE el Objeto Directo. Es el destinatario final.",
+      tip: "Pregunta: ¿A QUIÉN? o ¿PARA QUIÉN? Siempre va con 'a' o 'para'.",
       example: { sentence: "Juan da flores a María.", question: "¿A quién da las flores?", answer: "a María = OI" }
     },
     {
       name: "Preposiciones",
       icon: "🔗",
-      definition: "Palabras que RELACIONAN elementos. El OI suele usar 'a' o 'para'.",
+      definition: "Palabras que relacionan elementos.",
       types: [
-        { term: "Lista común", example: "a, ante, bajo, con, contra, de, desde, en, entre, hacia, hasta, para, por, según, sin, sobre, tras" }
+        { term: "Comunes", example: "a, ante, bajo, con, de, desde, en, entre, hacia, hasta, para, por, sin, sobre" }
       ]
     },
     {
-      name: "Diferencia OD vs OI",
+      name: "OD vs OI",
       icon: "⚖️",
-      definition: "OD recibe la acción directamente. OI recibe el beneficio de esa acción.",
-      example: { sentence: "María entrega la carta a Juan.", od: "la carta (¿Qué entrega?)", oi: "a Juan (¿A quién la entrega?)" }
+      types: [
+        { term: "OD", desc: "Recibe la acción directamente", example: "la carta" },
+        { term: "OI", desc: "Recibe el beneficio", example: "a Juan" }
+      ]
     },
     {
       name: "Interjecciones",
       icon: "😮",
-      definition: "Expresiones de impresión súbita o emoción.",
-      types: [
-        { term: "Ejemplos", example: "¡Ay!, ¡Oh!, ¡Uy!, ¡Vaya!, ¡Caramba!" }
-      ]
+      definition: "Expresiones de emoción súbita: ¡Ay!, ¡Oh!, ¡Uy!, ¡Vaya!"
     }
   ],
   examples: [
-    {
-      sentence: "El cartero entregó la carta a mamá.",
-      analysis: {
-        pattern: "S-Vt-OD-OI",
-        subject: "El cartero",
-        verb: "entregó",
-        directObject: "la carta",
-        indirectObject: "a mamá"
-      },
-      explanation: "¿Qué entregó? → la carta (OD). ¿A quién se la entregó? → a mamá (OI)."
-    },
-    {
-      sentence: "Compré un regalo para mi hermana.",
-      analysis: {
-        pattern: "S-Vt-OD-OI",
-        subject: "(Yo)",
-        verb: "Compré",
-        directObject: "un regalo",
-        indirectObject: "para mi hermana"
-      },
-      explanation: "¿Qué compré? → un regalo (OD). ¿Para quién? → para mi hermana (OI)."
-    }
+    { sentence: "El cartero entregó la carta a mamá.", analysis: { patrón: "S-Vt-OD-OI", od: "la carta", oi: "a mamá" }, explanation: "¿Qué entregó? la carta. ¿A quién? a mamá." }
   ],
   practice: [
-    { sentence: "Juan da flores a María.", q: "directObject", options: ["Juan", "flores", "a María", "da"], correct: "flores" },
-    { sentence: "Juan da flores a María.", q: "indirectObject", options: ["Juan", "flores", "a María", "da"], correct: "a María" },
+    // PATRÓN
     { sentence: "Juan da flores a María.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vt-OD-OI"], correct: "S-Vt-OD-OI" },
-    { sentence: "Escribí una carta a mi abuela.", q: "indirectObject", options: ["una carta", "a mi abuela", "Escribí", "(Yo)"], correct: "a mi abuela" },
-    { sentence: "El profesor explica la lección a los estudiantes.", q: "directObject", options: ["El profesor", "la lección", "a los estudiantes", "explica"], correct: "la lección" },
-    { sentence: "Mamá prepara comida para nosotros.", q: "indirectObject", options: ["Mamá", "comida", "para nosotros", "prepara"], correct: "para nosotros" },
+    { sentence: "María come pizza.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vt-OD-OI"], correct: "S-Vt-OD" },
+    { sentence: "Escribí una carta a mi abuela.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vt-OD-OI"], correct: "S-Vt-OD-OI" },
+    // OBJETO DIRECTO
+    { sentence: "Juan da flores a María.", q: "directObject", options: ["Juan", "flores", "a María", "da"], correct: "flores" },
+    { sentence: "El profesor explica la lección a los estudiantes.", q: "directObject", options: ["El profesor", "la lección", "a los estudiantes"], correct: "la lección" },
+    // OBJETO INDIRECTO
+    { sentence: "Juan da flores a María.", q: "indirectObject", options: ["Juan", "flores", "a María", "da"], correct: "a María" },
+    { sentence: "Escribí una carta a mi abuela.", q: "indirectObject", options: ["una carta", "a mi abuela", "Escribí"], correct: "a mi abuela" },
+    { sentence: "Mamá prepara comida para nosotros.", q: "indirectObject", options: ["Mamá", "comida", "para nosotros"], correct: "para nosotros" },
+    // PREPOSICIÓN
+    { sentence: "Envié un mensaje a Pedro.", q: "preposition", options: ["Envié", "un", "mensaje", "a"], correct: "a" },
+    { sentence: "Compré flores para mamá.", q: "preposition", options: ["Compré", "flores", "para", "mamá"], correct: "para" },
+    // INTERJECCIÓN
     { sentence: "¡Ay! Me duele la cabeza.", q: "interjection", options: ["¡Ay!", "Me", "duele", "la cabeza"], correct: "¡Ay!" },
-    { sentence: "Envié un mensaje a Pedro.", q: "preposition", options: ["Envié", "un", "mensaje", "a"], correct: "a" }
+    { sentence: "¡Oh! Qué sorpresa.", q: "interjection", options: ["¡Oh!", "Qué", "sorpresa"], correct: "¡Oh!" },
+    // DIFERENCIAR OD Y OI
+    { sentence: "Dio el libro a Juan.", q: "whatIsElLibro", options: ["Objeto Directo", "Objeto Indirecto"], correct: "Objeto Directo" },
+    { sentence: "Dio el libro a Juan.", q: "whatIsAJuan", options: ["Objeto Directo", "Objeto Indirecto"], correct: "Objeto Indirecto" }
   ]
 };
 
 ESSENTIALS_DATA[10] = {
-  title: "Repaso con Propósito Imperativo",
-  subtitle: "Consolidación - Órdenes con objetos directos e indirectos",
+  title: "Repaso con Imperativo",
+  subtitle: "Órdenes con OD y OI",
   pattern: "S-Vt-OD-OI",
   concepts: [
     {
       name: "Imperativo con OD y OI",
       icon: "👆",
-      definition: "Cuando damos órdenes, el sujeto (Tú/Usted) suele ser tácito, pero los objetos siguen presentes.",
-      example: { sentence: "¡Dale el libro a tu hermano!", subject: "(Tú)", od: "el libro", oi: "a tu hermano" }
+      definition: "En órdenes, el sujeto (Tú) es tácito pero los objetos permanecen.",
+      example: { sentence: "¡Dale el libro a tu hermano!", od: "el libro", oi: "a tu hermano" }
     },
     {
-      name: "Identificar todas las partes",
-      icon: "🔍",
-      definition: "En una oración compleja, debemos identificar: Sujeto, Verbo, OD, OI, y cualquier modificador.",
-      tip: "Pregunta sistemáticamente: ¿Quién? (S), ¿Qué hace? (V), ¿Qué? (OD), ¿A quién/Para quién? (OI)"
+      name: "Pronombres de OI",
+      icon: "🔄",
+      definition: "me, te, le, nos, les pueden reemplazar al OI.",
+      types: [
+        { term: "me", example: "Dame el libro (a mí)" },
+        { term: "te", example: "Te doy el libro (a ti)" },
+        { term: "le", example: "Le doy el libro (a él/ella)" }
+      ]
     }
   ],
   examples: [
-    {
-      sentence: "Escribe una carta a tu abuela.",
-      analysis: {
-        pattern: "S-Vt-OD-OI",
-        subject: "(Tú) - tácito",
-        verb: "Escribe",
-        directObject: "una carta",
-        indirectObject: "a tu abuela",
-        purpose: "Imperativo"
-      },
-      explanation: "Es una orden. ¿Qué debes escribir? → una carta. ¿A quién va dirigida? → a tu abuela."
-    },
-    {
-      sentence: "¡Pásame la sal!",
-      analysis: {
-        pattern: "S-Vt-OD-OI",
-        subject: "(Tú)",
-        verb: "Pasa",
-        directObject: "la sal",
-        indirectObject: "me (a mí)"
-      },
-      explanation: "'Me' es el pronombre de OI. ¿Qué pasa? → la sal. ¿A quién? → a mí."
-    }
+    { sentence: "Escribe una carta a tu abuela.", analysis: { patrón: "S-Vt-OD-OI", sujeto: "(Tú)", od: "una carta", oi: "a tu abuela", propósito: "Imperativo" } }
   ],
   practice: [
+    // PROPÓSITO
     { sentence: "Escribe una carta a tu abuela.", q: "purpose", options: ["Declarativo", "Interrogativo", "Imperativo", "Exclamativo"], correct: "Imperativo" },
+    { sentence: "Dame el libro.", q: "purpose", options: ["Declarativo", "Interrogativo", "Imperativo", "Exclamativo"], correct: "Imperativo" },
+    // SUJETO TÁCITO
     { sentence: "Escribe una carta a tu abuela.", q: "subject", options: ["Escribe", "una carta", "a tu abuela", "(Tú)"], correct: "(Tú)" },
+    { sentence: "Pásame la sal.", q: "subject", options: ["Pásame", "la sal", "(Tú)", "me"], correct: "(Tú)" },
+    // OD
     { sentence: "Dame el libro.", q: "directObject", options: ["Dame", "el libro", "me", "(Tú)"], correct: "el libro" },
+    { sentence: "Trae agua para mamá.", q: "directObject", options: ["Trae", "agua", "para mamá"], correct: "agua" },
+    // OI / PRONOMBRE OI
     { sentence: "Dame el libro.", q: "indirectObject", options: ["Dame", "el libro", "me", "(Tú)"], correct: "me" },
-    { sentence: "Trae agua para mamá.", q: "indirectObject", options: ["Trae", "agua", "para mamá", "(Tú)"], correct: "para mamá" },
-    { sentence: "Cuéntale la historia al niño.", q: "directObject", options: ["Cuéntale", "la historia", "al niño", "le"], correct: "la historia" }
+    { sentence: "Cuéntale la historia.", q: "indirectObject", options: ["Cuéntale", "la historia", "le"], correct: "le" },
+    { sentence: "Trae agua para mamá.", q: "indirectObject", options: ["Trae", "agua", "para mamá"], correct: "para mamá" },
+    // PATRÓN
+    { sentence: "Dame el libro.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vt-OD-OI"], correct: "S-Vt-OD-OI" },
+    { sentence: "Cierra la puerta.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vt-OD-OI"], correct: "S-Vt-OD" },
+    // IDENTIFICAR PRONOMBRE
+    { sentence: "Te doy mi lápiz.", q: "pronounOI", options: ["Te", "doy", "mi", "lápiz"], correct: "Te" },
+    { sentence: "Nos contó una historia.", q: "pronounOI", options: ["Nos", "contó", "una", "historia"], correct: "Nos" }
   ]
 };
 
 ESSENTIALS_DATA[11] = {
-  title: "Patrón S-Vprep-ORég (Verbo Prepositivo)",
-  subtitle: "Verbos que EXIGEN una preposición específica",
+  title: "Patrón S-Vprep-ORég",
+  subtitle: "Verbos prepositivos y Objeto de Régimen",
   pattern: "S-Vprep-ORég",
   concepts: [
     {
       name: "Vprep = Verbo Prepositivo",
       icon: "🔐",
-      definition: "Son verbos que EXIGEN una preposición específica para tener sentido. No puedes usar el verbo sin esa preposición.",
+      definition: "Verbos que EXIGEN una preposición específica.",
       types: [
-        { term: "Confiar EN", example: "Yo confío en ti." },
+        { term: "Confiar EN", example: "Confío en ti." },
         { term: "Soñar CON", example: "Sueño con viajar." },
         { term: "Pensar EN", example: "Pienso en mi familia." },
         { term: "Hablar DE", example: "Hablamos de política." },
@@ -885,81 +672,71 @@ ESSENTIALS_DATA[11] = {
     {
       name: "ORég = Objeto de Régimen",
       icon: "📎",
-      definition: "Es la parte que sigue a la preposición. El verbo 'rige' (manda) que esa preposición esté ahí.",
-      tip: "A diferencia del OD, si quitas la preposición, la frase suena MAL.",
-      example: { wrong: "Yo confío tú", correct: "Yo confío EN ti", explanation: "La preposición 'en' es obligatoria." }
+      definition: "La parte que sigue a la preposición obligatoria.",
+      tip: "Sin la preposición, la frase suena MAL.",
+      example: { wrong: "Yo confío tú", correct: "Yo confío EN ti" }
     },
     {
       name: "Primera Conjugación (-ar)",
       icon: "1️⃣",
-      definition: "Verbos terminados en -AR: amar, cantar, bailar, estudiar, hablar, pensar, soñar, confiar",
-      tip: "Son los verbos más comunes en español."
+      definition: "Verbos terminados en -AR: amar, cantar, bailar, pensar, soñar, confiar"
     }
   ],
   examples: [
-    {
-      sentence: "El estudiante piensa en su tarea.",
-      analysis: {
-        pattern: "S-Vprep-ORég",
-        subject: "El estudiante",
-        verb: "piensa",
-        preposition: "en",
-        regimenObject: "su tarea"
-      },
-      explanation: "NO dices 'piensa la tarea'. Dices 'piensa EN la tarea'. La preposición es obligatoria."
-    },
-    {
-      sentence: "Confío en mis amigos.",
-      analysis: {
-        pattern: "S-Vprep-ORég",
-        subject: "(Yo)",
-        verb: "Confío",
-        preposition: "en",
-        regimenObject: "mis amigos"
-      },
-      explanation: "'Confiar' siempre pide 'en'. No puedes decir 'confío mis amigos'."
-    }
+    { sentence: "Pienso en mi familia.", analysis: { patrón: "S-Vprep-ORég", verbo: "pienso", preposición: "en", orég: "mi familia" }, explanation: "No dices 'pienso mi familia'. La preposición es obligatoria." }
   ],
   practice: [
+    // PATRÓN
     { sentence: "Pienso en mi familia.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vprep-ORég"], correct: "S-Vprep-ORég" },
-    { sentence: "Pienso en mi familia.", q: "preposition", options: ["Pienso", "en", "mi", "familia"], correct: "en" },
-    { sentence: "Sueño con viajar.", q: "regimenObject", options: ["Sueño", "con", "viajar", "con viajar"], correct: "viajar" },
-    { sentence: "Hablamos de política.", q: "preposition", options: ["Hablamos", "de", "política"], correct: "de" },
-    { sentence: "Me arrepiento de mis errores.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vprep-ORég"], correct: "S-Vprep-ORég" },
+    { sentence: "Confío en mis amigos.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vprep-ORég"], correct: "S-Vprep-ORég" },
     { sentence: "Juan come pizza.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vprep-ORég"], correct: "S-Vt-OD" },
-    { sentence: "Confío en ti.", q: "regimenObject", options: ["Confío", "en", "ti", "en ti"], correct: "ti" }
+    { sentence: "Me arrepiento de mis errores.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vprep-ORég"], correct: "S-Vprep-ORég" },
+    // PREPOSICIÓN
+    { sentence: "Pienso en mi familia.", q: "preposition", options: ["Pienso", "en", "mi", "familia"], correct: "en" },
+    { sentence: "Sueño con viajar.", q: "preposition", options: ["Sueño", "con", "viajar"], correct: "con" },
+    { sentence: "Hablamos de política.", q: "preposition", options: ["Hablamos", "de", "política"], correct: "de" },
+    // OBJETO DE RÉGIMEN
+    { sentence: "Confío en ti.", q: "regimenObject", options: ["Confío", "en", "ti"], correct: "ti" },
+    { sentence: "Sueño con viajar.", q: "regimenObject", options: ["Sueño", "con", "viajar"], correct: "viajar" },
+    { sentence: "Pienso en mi familia.", q: "regimenObject", options: ["Pienso", "en", "mi familia"], correct: "mi familia" },
+    // VERBO PREPOSITIVO
+    { sentence: "Confío en ti.", q: "prepVerb", options: ["Confiar EN", "Confiar DE", "Confiar CON"], correct: "Confiar EN" },
+    { sentence: "Sueño con viajar.", q: "prepVerb", options: ["Soñar EN", "Soñar DE", "Soñar CON"], correct: "Soñar CON" },
+    // CONJUGACIÓN
+    { sentence: "cantar", q: "conjugation", options: ["Primera (-ar)", "Segunda (-er)", "Tercera (-ir)"], correct: "Primera (-ar)" },
+    { sentence: "pensar", q: "conjugation", options: ["Primera (-ar)", "Segunda (-er)", "Tercera (-ir)"], correct: "Primera (-ar)" }
   ]
 };
 
 ESSENTIALS_DATA[12] = {
-  title: "Conjugaciones (-er, -ir) y Modo Subjuntivo",
+  title: "Conjugaciones y Modo Subjuntivo",
   subtitle: "El modo de la 'no-realidad'",
   pattern: "Subjuntivo",
   concepts: [
     {
       name: "Segunda Conjugación (-er)",
       icon: "2️⃣",
-      definition: "Verbos terminados en -ER: comer, beber, leer, correr, tener, hacer, ver"
+      definition: "Verbos en -ER: comer, beber, leer, correr, tener, hacer, ver"
     },
     {
       name: "Tercera Conjugación (-ir)",
       icon: "3️⃣",
-      definition: "Verbos terminados en -IR: vivir, escribir, dormir, salir, ir, decir, sentir"
+      definition: "Verbos en -IR: vivir, escribir, dormir, salir, ir, decir"
     },
     {
-      name: "Modo Indicativo vs Subjuntivo",
+      name: "Indicativo vs Subjuntivo",
       icon: "🔀",
-      definition: "El INDICATIVO habla de la REALIDAD (hechos). El SUBJUNTIVO habla de deseos, dudas, probabilidades o situaciones hipotéticas.",
+      definition: "INDICATIVO = realidad. SUBJUNTIVO = deseos, dudas, hipótesis.",
       types: [
-        { term: "Indicativo", desc: "Hechos reales", example: "Yo como (es real, está pasando)" },
-        { term: "Subjuntivo", desc: "No-realidad", example: "Ojalá yo coma (es un deseo, no es real todavía)" }
+        { term: "Indicativo", desc: "Hechos reales", example: "Yo como (está pasando)" },
+        { term: "Subjuntivo", desc: "No-realidad", example: "Ojalá yo coma (deseo)" }
       ],
-      tip: "Truco: Pon 'OJALÁ' antes del verbo. Si encaja, está en subjuntivo."
+      tip: "Truco: Pon 'OJALÁ' antes. Si encaja, es subjuntivo."
     },
     {
-      name: "Propósitos que usan Subjuntivo",
+      name: "Propósitos con Subjuntivo",
       icon: "🎯",
-      definition: "Desiderativo (deseo) y Dubitativo (duda) 'aman' el modo subjuntivo.",
+      definition: "Desiderativo y Dubitativo usan subjuntivo frecuentemente.",
       types: [
         { term: "Desiderativo", example: "¡Ojalá ganemos!" },
         { term: "Dubitativo", example: "Tal vez vayamos." }
@@ -967,184 +744,162 @@ ESSENTIALS_DATA[12] = {
     }
   ],
   examples: [
-    {
-      sentence: "Ojalá Juan coma bien.",
-      analysis: {
-        subject: "Juan",
-        verb: "coma",
-        mode: "Subjuntivo",
-        purpose: "Desiderativo"
-      },
-      explanation: "'Coma' es subjuntivo (deseo). Indicativo sería 'Juan come' (hecho real)."
-    },
-    {
-      sentence: "Tal vez María escriba la carta.",
-      analysis: {
-        subject: "María",
-        verb: "escriba",
-        mode: "Subjuntivo",
-        purpose: "Dubitativo"
-      },
-      explanation: "'Escriba' es subjuntivo porque hay duda. Indicativo sería 'María escribe'."
-    }
+    { sentence: "Ojalá Juan coma bien.", analysis: { verbo: "coma", modo: "Subjuntivo", propósito: "Desiderativo" }, explanation: "'Coma' es subjuntivo (deseo). Indicativo sería 'come'." }
   ],
   practice: [
+    // MODO
     { sentence: "Ojalá llueva mañana.", q: "mode", options: ["Indicativo", "Subjuntivo"], correct: "Subjuntivo" },
-    { sentence: "Ojalá llueva mañana.", q: "purpose", options: ["Declarativo", "Desiderativo", "Dubitativo", "Imperativo"], correct: "Desiderativo" },
     { sentence: "María come pizza.", q: "mode", options: ["Indicativo", "Subjuntivo"], correct: "Indicativo" },
     { sentence: "Tal vez venga Pedro.", q: "mode", options: ["Indicativo", "Subjuntivo"], correct: "Subjuntivo" },
+    { sentence: "Juan estudia mucho.", q: "mode", options: ["Indicativo", "Subjuntivo"], correct: "Indicativo" },
+    { sentence: "Quiero que estudies.", q: "modeOfEstudies", options: ["Indicativo", "Subjuntivo"], correct: "Subjuntivo" },
+    // PROPÓSITO
+    { sentence: "Ojalá llueva mañana.", q: "purpose", options: ["Declarativo", "Desiderativo", "Dubitativo", "Imperativo"], correct: "Desiderativo" },
     { sentence: "Tal vez venga Pedro.", q: "purpose", options: ["Declarativo", "Desiderativo", "Dubitativo", "Imperativo"], correct: "Dubitativo" },
-    { sentence: "Quiero que estudies.", q: "verbMode", options: ["estudies = Indicativo", "estudies = Subjuntivo"], correct: "estudies = Subjuntivo" },
+    { sentence: "Juan estudia mucho.", q: "purpose", options: ["Declarativo", "Desiderativo", "Dubitativo", "Imperativo"], correct: "Declarativo" },
+    // CONJUGACIÓN
     { sentence: "comer", q: "conjugation", options: ["Primera (-ar)", "Segunda (-er)", "Tercera (-ir)"], correct: "Segunda (-er)" },
-    { sentence: "vivir", q: "conjugation", options: ["Primera (-ar)", "Segunda (-er)", "Tercera (-ir)"], correct: "Tercera (-ir)" }
+    { sentence: "vivir", q: "conjugation", options: ["Primera (-ar)", "Segunda (-er)", "Tercera (-ir)"], correct: "Tercera (-ir)" },
+    { sentence: "escribir", q: "conjugation", options: ["Primera (-ar)", "Segunda (-er)", "Tercera (-ir)"], correct: "Tercera (-ir)" },
+    { sentence: "beber", q: "conjugation", options: ["Primera (-ar)", "Segunda (-er)", "Tercera (-ir)"], correct: "Segunda (-er)" },
+    { sentence: "cantar", q: "conjugation", options: ["Primera (-ar)", "Segunda (-er)", "Tercera (-ir)"], correct: "Primera (-ar)" },
+    // IDENTIFICAR VERBO EN SUBJUNTIVO
+    { sentence: "Espero que vengas.", q: "subjunctiveVerb", options: ["Espero", "vengas", "que"], correct: "vengas" },
+    { sentence: "Quiero que estudies.", q: "subjunctiveVerb", options: ["Quiero", "estudies", "que"], correct: "estudies" }
   ]
 };
 
+console.log('✨ Weeks 9-12 added');
+
 // ==========================================
-// WEEKS 13-18: Complex Structures
+// WEEKS 13-18
 // ==========================================
 
 ESSENTIALS_DATA[13] = {
   title: "Estructura Subordinada y Patrón S-Vp-CPS",
-  subtitle: "La relación de 'madre e hija' entre oraciones",
+  subtitle: "Oraciones dependientes y Complemento Predicativo del Sujeto",
   pattern: "S-Vp-CPS",
   concepts: [
     {
-      name: "Estructura Compuesta Subordinada",
+      name: "Estructura Subordinada",
       icon: "👩‍👧",
       definition: "Una oración DEPENDE de la otra. La 'hija' no tiene sentido sin la 'madre'.",
       types: [
-        { term: "Cláusula Principal (Madre)", desc: "Tiene sentido por sí sola" },
-        { term: "Cláusula Subordinada (Hija)", desc: "NO tiene sentido si la separas. Depende de la principal." }
+        { term: "Principal", desc: "Tiene sentido sola" },
+        { term: "Subordinada", desc: "Depende de la principal" }
       ],
-      tip: "Nexos de subordinación: que, cuando, donde, porque, quien, aunque"
+      tip: "Nexos: que, cuando, donde, porque, quien, aunque"
     },
     {
       name: "Vp = Verbo Predicativo",
       icon: "🏃",
-      definition: "Es cualquier verbo 'normal' de ACCIÓN (correr, llegar, dormir). NO es copulativo (no es ser/estar)."
+      definition: "Verbo de ACCIÓN (no copulativo). Ej: llegar, correr, dormir."
     },
     {
       name: "CPS = Complemento Predicativo del Sujeto",
       icon: "🏷️",
-      definition: "Es un adjetivo que hace DOS cosas: describe al SUJETO y complementa la acción del VERBO.",
-      tip: "Pregunta: ¿CÓMO realiza la acción? Si la respuesta es un adjetivo que concuerda con el sujeto, es CPS.",
-      example: { sentence: "El atleta llegó agotado.", question: "¿Cómo llegó?", answer: "agotado (describe al atleta mientras llega)" }
+      definition: "Adjetivo que describe al SUJETO mientras hace la acción.",
+      tip: "Pregunta: ¿CÓMO realiza la acción?",
+      example: { sentence: "El atleta llegó agotado.", question: "¿Cómo llegó?", answer: "agotado (describe al atleta)" }
     },
     {
-      name: "Diferencia: Atributo vs CPS",
+      name: "Atributo vs CPS",
       icon: "⚖️",
       types: [
-        { term: "Atributo (S-Vc-A)", desc: "Verbo copulativo (ser/estar)", example: "Juan ES alto." },
-        { term: "CPS (S-Vp-CPS)", desc: "Verbo de acción", example: "Juan llegó cansado." }
+        { term: "Atributo", desc: "Con verbo copulativo", example: "Juan ES alto." },
+        { term: "CPS", desc: "Con verbo de acción", example: "Juan llegó cansado." }
       ]
     }
   ],
   examples: [
-    {
-      sentence: "El atleta llegó agotado porque corrió mucho.",
-      analysis: {
-        structure: "Compuesta Subordinada",
-        mainClause: "El atleta llegó agotado (S-Vp-CPS)",
-        subordinate: "porque corrió mucho (Causal)",
-        subject: "El atleta",
-        verb: "llegó",
-        cps: "agotado"
-      },
-      explanation: "'Agotado' describe al atleta mientras llega. La subordinada explica la causa."
-    },
-    {
-      sentence: "El agua baja turbia.",
-      analysis: {
-        pattern: "S-Vp-CPS",
-        subject: "El agua",
-        verb: "baja",
-        cps: "turbia"
-      },
-      explanation: "'Turbia' describe al agua. Si fuera 'El río', sería 'turbio' (concuerda con el sujeto)."
-    }
+    { sentence: "El atleta llegó agotado.", analysis: { patrón: "S-Vp-CPS", sujeto: "El atleta", verbo: "llegó", cps: "agotado" }, explanation: "'Agotado' describe al atleta mientras llega." }
   ],
   practice: [
+    // ESTRUCTURA
+    { sentence: "Yo como cuando tengo hambre.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada"], correct: "Compuesta Subordinada" },
+    { sentence: "Juan corre y Ana lee.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada"], correct: "Compuesta Coordinada" },
+    { sentence: "Salí porque llovía.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada"], correct: "Compuesta Subordinada" },
+    // PATRÓN
     { sentence: "El atleta llegó agotado.", q: "pattern", options: ["S-Vi", "S-Vc-A", "S-Vp-CPS"], correct: "S-Vp-CPS" },
-    { sentence: "El atleta llegó agotado.", q: "cps", options: ["El atleta", "llegó", "agotado"], correct: "agotado" },
     { sentence: "Juan está cansado.", q: "pattern", options: ["S-Vi", "S-Vc-A", "S-Vp-CPS"], correct: "S-Vc-A" },
     { sentence: "La niña volvió feliz.", q: "pattern", options: ["S-Vi", "S-Vc-A", "S-Vp-CPS"], correct: "S-Vp-CPS" },
-    { sentence: "Yo como cuando tengo hambre.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada"], correct: "Compuesta Subordinada" },
-    { sentence: "Yo como cuando tengo hambre.", q: "subordinateType", options: ["Principal", "Subordinada"], correct: "Subordinada" },
-    { sentence: "El agua corre cristalina.", q: "cps", options: ["El agua", "corre", "cristalina"], correct: "cristalina" }
+    { sentence: "El agua corre cristalina.", q: "pattern", options: ["S-Vi", "S-Vc-A", "S-Vp-CPS"], correct: "S-Vp-CPS" },
+    // CPS
+    { sentence: "El atleta llegó agotado.", q: "cps", options: ["El atleta", "llegó", "agotado"], correct: "agotado" },
+    { sentence: "La niña volvió feliz.", q: "cps", options: ["La niña", "volvió", "feliz"], correct: "feliz" },
+    { sentence: "El agua corre cristalina.", q: "cps", options: ["El agua", "corre", "cristalina"], correct: "cristalina" },
+    // CLÁUSULA PRINCIPAL VS SUBORDINADA
+    { sentence: "Yo como cuando tengo hambre.", q: "mainClause", options: ["Yo como", "cuando tengo hambre"], correct: "Yo como" },
+    { sentence: "Yo como cuando tengo hambre.", q: "subordinateClause", options: ["Yo como", "cuando tengo hambre"], correct: "cuando tengo hambre" },
+    // NEXO
+    { sentence: "Salí porque llovía.", q: "nexus", options: ["Salí", "porque", "llovía"], correct: "porque" },
+    { sentence: "Yo como cuando tengo hambre.", q: "nexus", options: ["Yo", "como", "cuando", "tengo"], correct: "cuando" }
   ]
 };
 
 ESSENTIALS_DATA[14] = {
-  title: "Modo y Voz",
+  title: "Voz Activa y Voz Pasiva",
   subtitle: "¿Quién realiza la acción?",
   pattern: "Voz",
   concepts: [
     {
       name: "Voz Activa",
       icon: "➡️",
-      definition: "El SUJETO hace la acción. El sujeto es el 'actor'.",
-      example: { sentence: "Juan come la manzana.", explanation: "Juan (sujeto) hace la acción de comer." }
+      definition: "El SUJETO hace la acción.",
+      example: { sentence: "Juan come la manzana.", explanation: "Juan hace la acción." }
     },
     {
       name: "Voz Pasiva",
       icon: "⬅️",
-      definition: "El SUJETO recibe la acción. El sujeto es el 'paciente'.",
-      tip: "Formación: Verbo SER + Participio (-ado/-ido)",
-      example: { sentence: "La manzana es comida por Juan.", explanation: "La manzana (sujeto) recibe la acción." }
+      definition: "El SUJETO recibe la acción.",
+      tip: "Formación: SER + Participio (-ado/-ido)",
+      example: { sentence: "La manzana es comida por Juan.", explanation: "La manzana recibe la acción." }
     },
     {
-      name: "Transformación Activa → Pasiva",
+      name: "Transformación",
       icon: "🔄",
       types: [
-        { term: "Activa", example: "El perro (S) mordió (V) el hueso (OD)." },
-        { term: "Pasiva", example: "El hueso (S) fue mordido (V) por el perro (Agente)." }
+        { term: "Activa", example: "El perro mordió el hueso." },
+        { term: "Pasiva", example: "El hueso fue mordido por el perro." }
       ],
-      tip: "Lo que era OD se vuelve Sujeto. Lo que era Sujeto se vuelve 'Agente' (por + sustantivo)."
+      tip: "El OD se vuelve Sujeto. El Sujeto se vuelve Agente (por + sustantivo)."
     }
   ],
   examples: [
-    {
-      sentence: "La carta fue escrita por María.",
-      analysis: {
-        voice: "Pasiva",
-        subject: "La carta",
-        verb: "fue escrita",
-        agent: "por María"
-      },
-      explanation: "La carta RECIBE la acción de ser escrita. María es el agente que la escribió."
-    },
-    {
-      sentence: "María escribió la carta.",
-      analysis: {
-        voice: "Activa",
-        subject: "María",
-        verb: "escribió",
-        directObject: "la carta"
-      },
-      explanation: "María HACE la acción. Es voz activa."
-    }
+    { sentence: "La carta fue escrita por María.", analysis: { voz: "Pasiva", sujeto: "La carta", verbo: "fue escrita", agente: "por María" }, explanation: "La carta RECIBE la acción." }
   ],
   practice: [
+    // VOZ
     { sentence: "Juan come pizza.", q: "voice", options: ["Activa", "Pasiva"], correct: "Activa" },
     { sentence: "La pizza es comida por Juan.", q: "voice", options: ["Activa", "Pasiva"], correct: "Pasiva" },
     { sentence: "La casa fue construida.", q: "voice", options: ["Activa", "Pasiva"], correct: "Pasiva" },
+    { sentence: "Los niños cantan.", q: "voice", options: ["Activa", "Pasiva"], correct: "Activa" },
+    { sentence: "El libro fue leído.", q: "voice", options: ["Activa", "Pasiva"], correct: "Pasiva" },
+    { sentence: "María escribió la carta.", q: "voice", options: ["Activa", "Pasiva"], correct: "Activa" },
+    // AGENTE
     { sentence: "El libro fue leído por María.", q: "agent", options: ["El libro", "fue leído", "por María"], correct: "por María" },
+    { sentence: "La casa fue construida por los obreros.", q: "agent", options: ["La casa", "fue construida", "por los obreros"], correct: "por los obreros" },
+    // SUJETO PACIENTE
     { sentence: "La ventana fue rota.", q: "subject", options: ["La ventana", "fue", "rota"], correct: "La ventana" },
-    { sentence: "Los niños cantan.", q: "voice", options: ["Activa", "Pasiva"], correct: "Activa" }
+    { sentence: "El pastel fue comido.", q: "subject", options: ["El pastel", "fue", "comido"], correct: "El pastel" },
+    // PARTICIPIO
+    { sentence: "fue escrita", q: "participle", options: ["fue", "escrita"], correct: "escrita" },
+    { sentence: "fue leído", q: "participle", options: ["fue", "leído"], correct: "leído" },
+    // TRANSFORMAR (identificar)
+    { sentence: "El gato cazó el ratón.", q: "whatBecomesSubjectInPassive", options: ["El gato", "cazó", "el ratón"], correct: "el ratón" }
   ]
 };
 
 ESSENTIALS_DATA[15] = {
   title: "Patrón S-Vp-OD-CPO",
-  subtitle: "El adjetivo describe al OBJETO, no al sujeto",
+  subtitle: "Complemento Predicativo del Objeto",
   pattern: "S-Vp-OD-CPO",
   concepts: [
     {
       name: "CPO = Complemento Predicativo del Objeto",
       icon: "🎯",
-      definition: "Es un adjetivo que califica exclusivamente al OBJETO DIRECTO (no al sujeto).",
-      tip: "Pregunta: ¿Quién tiene la cualidad? ¿El sujeto o el objeto? Si es el objeto → CPO",
+      definition: "Adjetivo que califica al OBJETO DIRECTO (no al sujeto).",
+      tip: "Pregunta: ¿Quién tiene la cualidad? ¿El sujeto o el objeto?",
       types: [
         { term: "Verbos típicos", example: "considerar, llamar, nombrar, elegir, encontrar, dejar, declarar" }
       ]
@@ -1159,93 +914,73 @@ ESSENTIALS_DATA[15] = {
     }
   ],
   examples: [
-    {
-      sentence: "El juez declaró inocente al acusado.",
-      analysis: {
-        pattern: "S-Vp-OD-CPO",
-        subject: "El juez",
-        verb: "declaró",
-        directObject: "al acusado",
-        cpo: "inocente"
-      },
-      explanation: "¿Quién es inocente? ¿El juez o el acusado? EL ACUSADO (OD). Por tanto, 'inocente' es CPO."
-    },
-    {
-      sentence: "Juan compró baratos los zapatos.",
-      analysis: {
-        pattern: "S-Vp-OD-CPO",
-        subject: "Juan",
-        verb: "compró",
-        directObject: "los zapatos",
-        cpo: "baratos"
-      },
-      explanation: "¿Quién es barato? ¿Juan o los zapatos? LOS ZAPATOS (OD). 'Baratos' es CPO."
-    }
+    { sentence: "El juez declaró inocente al acusado.", analysis: { patrón: "S-Vp-OD-CPO", sujeto: "El juez", od: "al acusado", cpo: "inocente" }, explanation: "¿Quién es inocente? El acusado (OD), no el juez." }
   ],
   practice: [
-    { sentence: "El juez declaró inocente al acusado.", q: "cpo", options: ["El juez", "declaró", "inocente", "al acusado"], correct: "inocente" },
+    // PATRÓN
+    { sentence: "El juez declaró inocente al acusado.", q: "pattern", options: ["S-Vp-CPS", "S-Vp-OD-CPO", "S-Vc-A"], correct: "S-Vp-OD-CPO" },
     { sentence: "Encontré vacía la casa.", q: "pattern", options: ["S-Vp-CPS", "S-Vp-OD-CPO", "S-Vc-A"], correct: "S-Vp-OD-CPO" },
-    { sentence: "Encontré vacía la casa.", q: "directObject", options: ["Encontré", "vacía", "la casa"], correct: "la casa" },
-    { sentence: "Considero interesante el libro.", q: "cpo", options: ["Considero", "interesante", "el libro"], correct: "interesante" },
     { sentence: "Juan llegó cansado.", q: "pattern", options: ["S-Vp-CPS", "S-Vp-OD-CPO", "S-Vc-A"], correct: "S-Vp-CPS" },
-    { sentence: "Llamaron tonto a Pedro.", q: "directObject", options: ["Llamaron", "tonto", "a Pedro"], correct: "a Pedro" }
+    { sentence: "Considero interesante el libro.", q: "pattern", options: ["S-Vp-CPS", "S-Vp-OD-CPO", "S-Vc-A"], correct: "S-Vp-OD-CPO" },
+    // CPO
+    { sentence: "El juez declaró inocente al acusado.", q: "cpo", options: ["El juez", "declaró", "inocente", "al acusado"], correct: "inocente" },
+    { sentence: "Encontré vacía la casa.", q: "cpo", options: ["Encontré", "vacía", "la casa"], correct: "vacía" },
+    { sentence: "Considero interesante el libro.", q: "cpo", options: ["Considero", "interesante", "el libro"], correct: "interesante" },
+    // OD
+    { sentence: "El juez declaró inocente al acusado.", q: "directObject", options: ["El juez", "inocente", "al acusado"], correct: "al acusado" },
+    { sentence: "Encontré vacía la casa.", q: "directObject", options: ["Encontré", "vacía", "la casa"], correct: "la casa" },
+    { sentence: "Llamaron tonto a Pedro.", q: "directObject", options: ["Llamaron", "tonto", "a Pedro"], correct: "a Pedro" },
+    // CPS VS CPO
+    { sentence: "Juan llegó cansado.", q: "predicativeType", options: ["CPS", "CPO"], correct: "CPS" },
+    { sentence: "Encontré rota la silla.", q: "predicativeType", options: ["CPS", "CPO"], correct: "CPO" },
+    { sentence: "Ella volvió feliz.", q: "predicativeType", options: ["CPS", "CPO"], correct: "CPS" },
+    { sentence: "Dejé abierta la puerta.", q: "predicativeType", options: ["CPS", "CPO"], correct: "CPO" }
   ]
 };
 
 ESSENTIALS_DATA[16] = {
-  title: "Imperativo con S-Vp-OD-CPO",
+  title: "Imperativo con CPO",
   subtitle: "Órdenes con predicativo del objeto",
   pattern: "S-Vp-OD-CPO",
   concepts: [
     {
       name: "CPO en Órdenes",
       icon: "👆",
-      definition: "Cuando damos órdenes, a menudo describimos cómo queremos que quede el objeto.",
-      example: { sentence: "¡Mantén limpia tu habitación!", explanation: "Queremos que la habitación (OD) esté limpia (CPO)" }
+      definition: "En órdenes, describimos cómo queremos que quede el objeto.",
+      example: { sentence: "¡Mantén limpia tu habitación!", explanation: "La habitación (OD) debe estar limpia (CPO)" }
     }
   ],
   examples: [
-    {
-      sentence: "¡Mantén limpia tu habitación!",
-      analysis: {
-        pattern: "S-Vp-OD-CPO",
-        subject: "(Tú) - tácito",
-        verb: "Mantén",
-        directObject: "tu habitación",
-        cpo: "limpia",
-        purpose: "Imperativo"
-      },
-      explanation: "'Limpia' describe a la habitación (OD), no a 'tú'. Es el estado deseado del objeto."
-    },
-    {
-      sentence: "Deja abierta la puerta.",
-      analysis: {
-        pattern: "S-Vp-OD-CPO",
-        subject: "(Tú)",
-        verb: "Deja",
-        directObject: "la puerta",
-        cpo: "abierta"
-      },
-      explanation: "'Abierta' describe cómo debe quedar la puerta (OD)."
-    }
+    { sentence: "¡Mantén limpia tu habitación!", analysis: { sujeto: "(Tú)", od: "tu habitación", cpo: "limpia", propósito: "Imperativo" } }
   ],
   practice: [
+    // OD
     { sentence: "¡Mantén limpia tu habitación!", q: "directObject", options: ["Mantén", "limpia", "tu habitación"], correct: "tu habitación" },
+    { sentence: "Deja cerrada la ventana.", q: "directObject", options: ["Deja", "cerrada", "la ventana"], correct: "la ventana" },
+    { sentence: "Pinta roja la pared.", q: "directObject", options: ["Pinta", "roja", "la pared"], correct: "la pared" },
+    // CPO
     { sentence: "¡Mantén limpia tu habitación!", q: "cpo", options: ["Mantén", "limpia", "tu habitación"], correct: "limpia" },
+    { sentence: "Deja cerrada la ventana.", q: "cpo", options: ["Deja", "cerrada", "la ventana"], correct: "cerrada" },
+    { sentence: "Pinta roja la pared.", q: "cpo", options: ["Pinta", "roja", "la pared"], correct: "roja" },
+    // PROPÓSITO
+    { sentence: "¡Mantén limpia tu habitación!", q: "purpose", options: ["Declarativo", "Interrogativo", "Imperativo", "Exclamativo"], correct: "Imperativo" },
+    { sentence: "Deja abierta la puerta.", q: "purpose", options: ["Declarativo", "Interrogativo", "Imperativo", "Exclamativo"], correct: "Imperativo" },
+    // PATRÓN
     { sentence: "Deja cerrada la ventana.", q: "pattern", options: ["S-Vp-CPS", "S-Vp-OD-CPO", "S-Vc-A"], correct: "S-Vp-OD-CPO" },
-    { sentence: "Pinta roja la pared.", q: "cpo", options: ["Pinta", "roja", "la pared"], correct: "roja" }
+    // SUJETO
+    { sentence: "¡Mantén limpia tu habitación!", q: "subject", options: ["Mantén", "limpia", "tu habitación", "(Tú)"], correct: "(Tú)" }
   ]
 };
 
 ESSENTIALS_DATA[17] = {
   title: "Voz Pasiva + Cláusulas Adverbiales",
-  subtitle: "Transformaciones y subordinadas de tiempo/lugar/modo",
-  pattern: "Voz Pasiva + Adverbiales",
+  subtitle: "Subordinadas de tiempo, lugar, modo y causa",
+  pattern: "Adverbiales",
   concepts: [
     {
       name: "Cláusulas Adverbiales",
       icon: "📍",
-      definition: "Son oraciones subordinadas que funcionan como un ADVERBIO. Nos dicen cuándo, dónde, cómo o por qué.",
+      definition: "Oraciones subordinadas que funcionan como ADVERBIO.",
       types: [
         { term: "Temporales (cuándo)", example: "cuando, mientras, después de que" },
         { term: "Locativas (dónde)", example: "donde, adonde" },
@@ -1257,169 +992,185 @@ ESSENTIALS_DATA[17] = {
     }
   ],
   examples: [
-    {
-      sentence: "La carta fue escrita mientras tú dormías.",
-      analysis: {
-        mainClause: "La carta fue escrita (Pasiva)",
-        subordinate: "mientras tú dormías (Adverbial Temporal)",
-        subordinateFunction: "Indica CUÁNDO fue escrita"
-      },
-      explanation: "La subordinada 'mientras tú dormías' funciona como adverbio de tiempo."
-    }
+    { sentence: "La carta fue escrita mientras dormías.", analysis: { principal: "La carta fue escrita (Pasiva)", subordinada: "mientras dormías (Temporal)" } }
   ],
   practice: [
-    { sentence: "La carta fue escrita mientras dormías.", q: "subordinateType", options: ["Temporal", "Causal", "Condicional", "Modal"], correct: "Temporal" },
+    // TIPO DE SUBORDINADA
+    { sentence: "Salí cuando dejó de llover.", q: "subordinateType", options: ["Temporal", "Causal", "Condicional", "Concesiva"], correct: "Temporal" },
     { sentence: "Salí porque llovía.", q: "subordinateType", options: ["Temporal", "Causal", "Condicional", "Concesiva"], correct: "Causal" },
     { sentence: "Iré si me invitas.", q: "subordinateType", options: ["Temporal", "Causal", "Condicional", "Concesiva"], correct: "Condicional" },
+    { sentence: "Salí aunque llovía.", q: "subordinateType", options: ["Temporal", "Causal", "Condicional", "Concesiva"], correct: "Concesiva" },
     { sentence: "Trabajo donde vivo.", q: "subordinateType", options: ["Temporal", "Locativa", "Modal", "Causal"], correct: "Locativa" },
-    { sentence: "Salí aunque llovía.", q: "subordinateType", options: ["Temporal", "Causal", "Condicional", "Concesiva"], correct: "Concesiva" }
+    { sentence: "Lo hice como me dijiste.", q: "subordinateType", options: ["Temporal", "Locativa", "Modal", "Causal"], correct: "Modal" },
+    // VOZ EN LA PRINCIPAL
+    { sentence: "La carta fue escrita mientras dormías.", q: "voiceMainClause", options: ["Activa", "Pasiva"], correct: "Pasiva" },
+    { sentence: "Juan come cuando tiene hambre.", q: "voiceMainClause", options: ["Activa", "Pasiva"], correct: "Activa" },
+    // NEXO
+    { sentence: "Salí porque llovía.", q: "nexus", options: ["Salí", "porque", "llovía"], correct: "porque" },
+    { sentence: "Iré si me invitas.", q: "nexus", options: ["Iré", "si", "me", "invitas"], correct: "si" },
+    { sentence: "Voy aunque llueva.", q: "nexus", options: ["Voy", "aunque", "llueva"], correct: "aunque" },
+    // ESTRUCTURA
+    { sentence: "Salí porque llovía.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada"], correct: "Compuesta Subordinada" }
   ]
 };
 
 ESSENTIALS_DATA[18] = {
-  title: "Repaso del Trimestre",
-  subtitle: "Integración de CPS, CPO, Voz y Subordinadas",
+  title: "Repaso del Trimestre 3",
+  subtitle: "CPS, CPO, Voz y Subordinadas",
   pattern: "Integración",
   concepts: [
     {
-      name: "Resumen de Diferencias",
+      name: "Resumen",
       icon: "📋",
       types: [
-        { term: "CPS", desc: "Adjetivo que describe al SUJETO con verbo de acción" },
-        { term: "CPO", desc: "Adjetivo que describe al OBJETO DIRECTO" },
+        { term: "CPS", desc: "Describe al SUJETO con verbo de acción" },
+        { term: "CPO", desc: "Describe al OBJETO DIRECTO" },
+        { term: "Atributo", desc: "Describe al sujeto con verbo copulativo" },
         { term: "Voz Activa", desc: "El sujeto HACE la acción" },
         { term: "Voz Pasiva", desc: "El sujeto RECIBE la acción" }
       ]
     }
   ],
-  examples: [
-    {
-      sentence: "Ojalá consideres válida mi oferta aunque llegue tarde.",
-      analysis: {
-        structure: "Compuesta Subordinada",
-        purpose: "Desiderativo",
-        mainClause: "Ojalá consideres válida mi oferta (S-Vp-OD-CPO)",
-        subordinate: "aunque llegue tarde (Concesiva)",
-        subject: "(Tú)",
-        verb: "consideres",
-        directObject: "mi oferta",
-        cpo: "válida"
-      }
-    }
-  ],
   practice: [
+    // PREDICATIVO TYPE
     { sentence: "El niño llegó feliz.", q: "predicativeType", options: ["CPS", "CPO", "Atributo"], correct: "CPS" },
     { sentence: "Encontré rota la silla.", q: "predicativeType", options: ["CPS", "CPO", "Atributo"], correct: "CPO" },
     { sentence: "La silla está rota.", q: "predicativeType", options: ["CPS", "CPO", "Atributo"], correct: "Atributo" },
+    { sentence: "Juan es alto.", q: "predicativeType", options: ["CPS", "CPO", "Atributo"], correct: "Atributo" },
+    { sentence: "Dejé abierta la puerta.", q: "predicativeType", options: ["CPS", "CPO", "Atributo"], correct: "CPO" },
+    // VOZ
     { sentence: "La tarea fue hecha.", q: "voice", options: ["Activa", "Pasiva"], correct: "Pasiva" },
-    { sentence: "Aunque llueva, saldré.", q: "subordinateType", options: ["Temporal", "Causal", "Condicional", "Concesiva"], correct: "Concesiva" }
+    { sentence: "Juan escribió la carta.", q: "voice", options: ["Activa", "Pasiva"], correct: "Activa" },
+    // SUBORDINADA
+    { sentence: "Aunque llueva, saldré.", q: "subordinateType", options: ["Temporal", "Causal", "Condicional", "Concesiva"], correct: "Concesiva" },
+    { sentence: "Fui porque me llamaste.", q: "subordinateType", options: ["Temporal", "Causal", "Condicional", "Concesiva"], correct: "Causal" },
+    // PATRÓN
+    { sentence: "Juan llegó cansado.", q: "pattern", options: ["S-Vc-A", "S-Vp-CPS", "S-Vp-OD-CPO"], correct: "S-Vp-CPS" },
+    { sentence: "Considero válida tu idea.", q: "pattern", options: ["S-Vc-A", "S-Vp-CPS", "S-Vp-OD-CPO"], correct: "S-Vp-OD-CPO" },
+    { sentence: "Juan es alto.", q: "pattern", options: ["S-Vc-A", "S-Vp-CPS", "S-Vp-OD-CPO"], correct: "S-Vc-A" }
   ]
 };
 
-// WEEK 23
+// WEEKS 19-24: MASTERY
+
+ESSENTIALS_DATA[19] = {
+  title: "Cláusulas Adjetivas (Relativas)",
+  subtitle: "Oraciones que modifican sustantivos",
+  pattern: "Relativas",
+  concepts: [
+    { name: "Cláusula Adjetiva", icon: "📝", definition: "Oración completa que MODIFICA a un sustantivo.", tip: "Empiezan con: que, quien, el cual, cuyo" },
+    { name: "Pronombres Relativos", icon: "🔗", definition: "que, quien, el cual, cuyo conectan la cláusula." },
+    { name: "Antecedente", icon: "🎯", definition: "El sustantivo que la cláusula modifica." }
+  ],
+  practice: [
+    { sentence: "El niño que llora está triste.", q: "adjectiveClause", options: ["El niño", "que llora", "está triste"], correct: "que llora" },
+    { sentence: "La casa que compramos es grande.", q: "adjectiveClause", options: ["La casa", "que compramos", "es grande"], correct: "que compramos" },
+    { sentence: "El niño que llora está triste.", q: "antecedent", options: ["El niño", "que", "llora"], correct: "El niño" },
+    { sentence: "La mujer a quien vi es mi tía.", q: "relativePronoun", options: ["La mujer", "a quien", "vi"], correct: "a quien" },
+    { sentence: "El libro que leí es interesante.", q: "hasAdjectiveClause", options: ["Sí", "No"], correct: "Sí" },
+    { sentence: "El libro interesante está aquí.", q: "hasAdjectiveClause", options: ["Sí", "No"], correct: "No" },
+    { sentence: "El niño que llora está triste.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada"], correct: "Compuesta Subordinada" }
+  ]
+};
+
+ESSENTIALS_DATA[20] = {
+  title: "Preposiciones en Preguntas",
+  subtitle: "Orden invertido con verbos prepositivos",
+  pattern: "S-Vprep-ORég",
+  concepts: [
+    { name: "Orden en Preguntas", icon: "🔄", definition: "El Objeto de Régimen va AL PRINCIPIO con su preposición." }
+  ],
+  practice: [
+    { sentence: "¿De qué hablas?", q: "preposition", options: ["De", "qué", "hablas"], correct: "De" },
+    { sentence: "¿En quién confías?", q: "preposition", options: ["En", "quién", "confías"], correct: "En" },
+    { sentence: "¿Con qué sueñas?", q: "preposition", options: ["Con", "qué", "sueñas"], correct: "Con" },
+    { sentence: "¿De qué hablas?", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vprep-ORég"], correct: "S-Vprep-ORég" },
+    { sentence: "¿De qué hablas?", q: "regimenObject", options: ["De", "qué", "hablas"], correct: "qué" },
+    { sentence: "¿De qué hablas?", q: "purpose", options: ["Declarativo", "Interrogativo", "Exclamativo"], correct: "Interrogativo" },
+    { sentence: "¡De qué manera cantó!", q: "purpose", options: ["Declarativo", "Interrogativo", "Exclamativo"], correct: "Exclamativo" }
+  ]
+};
+
+ESSENTIALS_DATA[21] = {
+  title: "Estructura Compleja y Participio",
+  subtitle: "Coordinación + Subordinación",
+  pattern: "Compleja",
+  concepts: [
+    { name: "Estructura Compleja", icon: "🏰", definition: "Combina COORDINACIÓN y SUBORDINACIÓN." },
+    { name: "Participio", icon: "📋", definition: "Forma no personal: -ado, -ido, -to, -so, -cho" }
+  ],
+  practice: [
+    { sentence: "Juan cocina y María lee el libro que compró.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada", "Compleja"], correct: "Compleja" },
+    { sentence: "Llueve pero salgo porque tengo cita.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada", "Compleja"], correct: "Compleja" },
+    { sentence: "comido", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Participio" },
+    { sentence: "escrito", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Participio" },
+    { sentence: "La tarea terminada está en la mesa.", q: "participleFunction", options: ["Tiempo compuesto", "Adjetivo"], correct: "Adjetivo" },
+    { sentence: "He estudiado mucho.", q: "participleFunction", options: ["Tiempo compuesto", "Adjetivo"], correct: "Tiempo compuesto" }
+  ]
+};
+
+ESSENTIALS_DATA[22] = {
+  title: "Gerundio",
+  subtitle: "La acción en desarrollo",
+  pattern: "Gerundio",
+  concepts: [
+    { name: "Gerundio", icon: "🔄", definition: "Forma no personal: -ando, -iendo. Funciona como ADVERBIO." }
+  ],
+  practice: [
+    { sentence: "cantando", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Gerundio" },
+    { sentence: "comiendo", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Gerundio" },
+    { sentence: "Llegó corriendo.", q: "gerundFunction", options: ["Adverbio", "Adjetivo", "Sustantivo"], correct: "Adverbio" },
+    { sentence: "Estoy estudiando.", q: "hasGerund", options: ["Sí", "No"], correct: "Sí" },
+    { sentence: "He estudiado.", q: "hasGerund", options: ["Sí", "No"], correct: "No" },
+    { sentence: "comer", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Infinitivo" },
+    { sentence: "comido", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Participio" }
+  ]
+};
+
 ESSENTIALS_DATA[23] = {
   title: "Infinitivo Nominal",
-  subtitle: "Verbos que se creen sustantivos",
+  subtitle: "Verbos como sustantivos",
   pattern: "Infinitivo",
   concepts: [
-    {
-      name: "Infinitivo",
-      icon: "📖",
-      definition: "El NOMBRE del verbo. Terminaciones: -ar, -er, -ir",
-      tip: "Puede actuar como SUSTANTIVO (Sujeto u Objeto Directo)."
-    },
-    {
-      name: "Infinitivo como Sujeto",
-      icon: "👤",
-      example: { sentence: "Caminar es bueno.", explanation: "'Caminar' es el SUJETO de la oración." }
-    },
-    {
-      name: "Infinitivo como OD",
-      icon: "🎯",
-      example: { sentence: "Quiero comer.", explanation: "'Comer' es el OD. ¿Qué quiero? Comer." }
-    }
-  ],
-  examples: [
-    {
-      sentence: "Quiero comer.",
-      analysis: {
-        subject: "(Yo)",
-        verb: "Quiero",
-        directObject: "comer (Infinitivo)",
-        infinitiveFunction: "Objeto Directo"
-      },
-      explanation: "¿Qué quiero? → comer. El infinitivo funciona como OD."
-    },
-    {
-      sentence: "Cantar alegra el alma.",
-      analysis: {
-        subject: "Cantar (Infinitivo)",
-        verb: "alegra",
-        directObject: "el alma"
-      },
-      explanation: "'Cantar' es el SUJETO. ¿Qué alegra el alma? Cantar."
-    }
+    { name: "Infinitivo", icon: "📖", definition: "El NOMBRE del verbo: -ar, -er, -ir. Puede ser Sujeto u OD." }
   ],
   practice: [
     { sentence: "comer", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Infinitivo" },
-    { sentence: "Caminar es bueno.", q: "infinitiveFunction", options: ["Sujeto", "Objeto Directo", "Adverbio"], correct: "Sujeto" },
-    { sentence: "Quiero dormir.", q: "infinitiveFunction", options: ["Sujeto", "Objeto Directo", "Adverbio"], correct: "Objeto Directo" },
+    { sentence: "vivir", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Infinitivo" },
+    { sentence: "Caminar es bueno.", q: "infinitiveFunction", options: ["Sujeto", "Objeto Directo"], correct: "Sujeto" },
+    { sentence: "Quiero dormir.", q: "infinitiveFunction", options: ["Sujeto", "Objeto Directo"], correct: "Objeto Directo" },
     { sentence: "Leer es importante.", q: "subject", options: ["Leer", "es", "importante"], correct: "Leer" },
-    { sentence: "Prefiero estudiar.", q: "directObject", options: ["Prefiero", "estudiar", "(Yo)"], correct: "estudiar" }
+    { sentence: "Prefiero estudiar.", q: "directObject", options: ["Prefiero", "estudiar"], correct: "estudiar" },
+    { sentence: "bailar", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Infinitivo" },
+    { sentence: "bailado", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Participio" },
+    { sentence: "bailando", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Gerundio" }
   ]
 };
 
-// WEEK 24
 ESSENTIALS_DATA[24] = {
-  title: "La Gran Consolidación Final",
-  subtitle: "¡Graduación! Análisis completo de oraciones complejas",
+  title: "Consolidación Final",
+  subtitle: "¡Graduación! Análisis completo",
   pattern: "TODOS",
   concepts: [
-    {
-      name: "Análisis Integral",
-      icon: "🎓",
-      definition: "Aplicar TODAS las tareas analíticas a una oración compleja.",
-      types: [
-        { term: "Identificar", desc: "Estructura, Propósito, Patrón" },
-        { term: "Analizar", desc: "S, V, OD, OI, CPS, CPO, ORég" },
-        { term: "Clasificar", desc: "Cláusulas principales y subordinadas" },
-        { term: "Reconocer", desc: "Formas no personales (Infinitivo, Participio, Gerundio)" }
-      ]
-    },
-    {
-      name: "Resumen de Patrones",
-      icon: "📋",
-      types: [
-        { term: "S-Vi", desc: "Acción intransitiva" },
-        { term: "S-Vt-OD", desc: "Acción transitiva" },
-        { term: "S-Vt-OD-OI", desc: "Con destinatario" },
-        { term: "S-Vc-A", desc: "Verbo copulativo" },
-        { term: "S-Vprep-ORég", desc: "Verbo prepositivo" },
-        { term: "S-Vp-CPS", desc: "Predicativo del sujeto" },
-        { term: "S-Vp-OD-CPO", desc: "Predicativo del objeto" }
-      ]
-    }
-  ],
-  examples: [
-    {
-      sentence: "Cantar alegra el alma y, aunque llovía, los músicos tocaron.",
-      analysis: {
-        structure: "Compleja",
-        explanation: "Coordinación (y) + Subordinación (aunque) + Infinitivo nominal (Cantar)"
-      },
-      explanation: "Esta oración combina todos los elementos estudiados."
-    }
+    { name: "Análisis Integral", icon: "🎓", definition: "Aplicar TODAS las tareas: Estructura, Propósito, Patrón, S, V, OD, OI, CPS, CPO, ORég, Infinitivo, Participio, Gerundio" }
   ],
   practice: [
-    { sentence: "Cantar es divertido.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A"], correct: "S-Vc-A" },
-    { sentence: "Cantar es divertido.", q: "subject", options: ["Cantar", "es", "divertido"], correct: "Cantar" },
-    { sentence: "Juan corre y María lee aunque llueva.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada", "Compleja"], correct: "Compleja" },
-    { sentence: "El niño llegó llorando.", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Gerundio" },
-    { sentence: "La puerta cerrada está allí.", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Participio" },
-    { sentence: "Ojalá vengas.", q: "mode", options: ["Indicativo", "Subjuntivo"], correct: "Subjuntivo" },
+    { sentence: "El pájaro vuela.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A", "S-Vprep-ORég"], correct: "S-Vi" },
+    { sentence: "Juan come pizza.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A", "S-Vprep-ORég"], correct: "S-Vt-OD" },
+    { sentence: "El cielo es azul.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A", "S-Vprep-ORég"], correct: "S-Vc-A" },
+    { sentence: "Pienso en ti.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vc-A", "S-Vprep-ORég"], correct: "S-Vprep-ORég" },
+    { sentence: "Juan llegó cansado.", q: "pattern", options: ["S-Vc-A", "S-Vp-CPS", "S-Vp-OD-CPO"], correct: "S-Vp-CPS" },
+    { sentence: "Considero válida tu idea.", q: "pattern", options: ["S-Vc-A", "S-Vp-CPS", "S-Vp-OD-CPO"], correct: "S-Vp-OD-CPO" },
+    { sentence: "El sol brilla.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada", "Compleja"], correct: "Simple" },
+    { sentence: "Juan corre y Ana lee aunque llueva.", q: "structure", options: ["Simple", "Compuesta Coordinada", "Compuesta Subordinada", "Compleja"], correct: "Compleja" },
+    { sentence: "Ojalá llueva.", q: "purpose", options: ["Declarativo", "Interrogativo", "Desiderativo", "Dubitativo"], correct: "Desiderativo" },
+    { sentence: "Tal vez venga.", q: "purpose", options: ["Declarativo", "Interrogativo", "Desiderativo", "Dubitativo"], correct: "Dubitativo" },
+    { sentence: "comer", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Infinitivo" },
+    { sentence: "comido", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Participio" },
+    { sentence: "comiendo", q: "verbForm", options: ["Infinitivo", "Participio", "Gerundio"], correct: "Gerundio" },
     { sentence: "El libro fue leído.", q: "voice", options: ["Activa", "Pasiva"], correct: "Pasiva" },
-    { sentence: "Pienso en ti.", q: "pattern", options: ["S-Vi", "S-Vt-OD", "S-Vprep-ORég"], correct: "S-Vprep-ORég" }
+    { sentence: "Ojalá vengas.", q: "mode", options: ["Indicativo", "Subjuntivo"], correct: "Subjuntivo" }
   ]
 };
 
-console.log('✨ Essentials Data loaded: 24 weeks of content');
+console.log('✨ Essentials Data Complete: 24 weeks!');

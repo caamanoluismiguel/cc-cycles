@@ -250,51 +250,82 @@
   var currentWeek = 1;
   var pScore = 0, pTotal = 0, pStreak = 0, pQuestions = [], pIndex = 0;
   
-  // Question type labels
+  // Question type labels - ALL topics
   var qLabels = {
+    // Week 1
     subject: '¿Cuál es el SUJETO?',
     predicate: '¿Cuál es el PREDICADO?',
     structure: '¿Qué ESTRUCTURA tiene esta oración?',
     purpose: '¿Cuál es el PROPÓSITO de esta oración?',
+    // Week 2
     verb: '¿Cuál es el VERBO?',
     verbType: '¿Qué tipo de VERBO es?',
     tense: '¿En qué TIEMPO está el verbo?',
-    verbAction: '¿El verbo indica acción, estado o proceso?',
+    verbAction: '¿El verbo indica ACCIÓN, ESTADO o PROCESO?',
+    // Week 3
     pattern: '¿Cuál es el PATRÓN de esta oración?',
-    article: '¿El artículo es definido o indefinido?',
-    subjectType: '¿El sujeto es sustantivo o pronombre?',
+    article: '¿El artículo es DEFINIDO o INDEFINIDO?',
+    nounType: '¿Qué tipo de SUSTANTIVO es?',
+    // Week 4
+    subjectType: '¿El sujeto es SUSTANTIVO o PRONOMBRE?',
     pronoun: '¿Cuál es el PRONOMBRE?',
-    pronounType: '¿Qué tipo de pronombre es?',
-    directObject: '¿Cuál es el OBJETO DIRECTO?',
-    indirectObject: '¿Cuál es el OBJETO INDIRECTO?',
+    // Week 5-6
+    directObject: '¿Cuál es el OBJETO DIRECTO (OD)?',
     adverb: '¿Cuál es el ADVERBIO?',
-    adverbType: '¿Qué tipo de adverbio es?',
-    adverbCount: '¿Cuántos adverbios hay?',
+    adverbType: '¿Qué tipo de ADVERBIO es?',
+    // Week 7
     attribute: '¿Cuál es el ATRIBUTO?',
-    copVerb: '¿Qué verbo copulativo es?',
+    copVerb: '¿Qué VERBO COPULATIVO es (SER/ESTAR/PARECER)?',
+    // Week 8
     conjunction: '¿Cuál es la CONJUNCIÓN?',
-    conjunctionType: '¿Qué tipo de conjunción es?',
-    clauseCount: '¿Cuántas cláusulas independientes hay?',
+    conjunctionType: '¿Qué tipo de CONJUNCIÓN es?',
+    clauseCount: '¿Cuántas CLÁUSULAS INDEPENDIENTES hay?',
+    // Week 9
+    indirectObject: '¿Cuál es el OBJETO INDIRECTO (OI)?',
     preposition: '¿Cuál es la PREPOSICIÓN?',
     interjection: '¿Cuál es la INTERJECCIÓN?',
+    whatIsElLibro: '¿"el libro" es OD u OI?',
+    whatIsAJuan: '¿"a Juan" es OD u OI?',
+    // Week 10
+    pronounOI: '¿Cuál es el PRONOMBRE de OI?',
+    // Week 11
     regimenObject: '¿Cuál es el OBJETO DE RÉGIMEN?',
-    mode: '¿En qué MODO está el verbo?',
-    conjugation: '¿A qué CONJUGACIÓN pertenece?',
-    verbMode: '¿En qué modo está "estudies"?',
-    cps: '¿Cuál es el COMPLEMENTO PREDICATIVO DEL SUJETO?',
-    subordinateType: '¿Qué tipo de subordinada es?',
-    voice: '¿En qué VOZ está la oración?',
+    prepVerb: '¿Cuál es la combinación verbo + preposición?',
+    conjugation: '¿A qué CONJUGACIÓN pertenece (-ar/-er/-ir)?',
+    // Week 12
+    mode: '¿En qué MODO está (Indicativo/Subjuntivo)?',
+    modeOfEstudies: '¿En qué modo está "estudies"?',
+    subjunctiveVerb: '¿Cuál verbo está en SUBJUNTIVO?',
+    // Week 13
+    cps: '¿Cuál es el CPS (Complemento Predicativo del Sujeto)?',
+    mainClause: '¿Cuál es la CLÁUSULA PRINCIPAL?',
+    subordinateClause: '¿Cuál es la CLÁUSULA SUBORDINADA?',
+    nexus: '¿Cuál es el NEXO subordinante?',
+    // Week 14
+    voice: '¿En qué VOZ está (Activa/Pasiva)?',
     agent: '¿Cuál es el AGENTE?',
-    cpo: '¿Cuál es el COMPLEMENTO PREDICATIVO DEL OBJETO?',
+    participle: '¿Cuál es el PARTICIPIO?',
+    whatBecomesSubjectInPassive: '¿Qué se vuelve SUJETO en pasiva?',
+    // Week 15-16
+    cpo: '¿Cuál es el CPO (Complemento Predicativo del Objeto)?',
     predicativeType: '¿Es CPS, CPO o Atributo?',
+    // Week 17
+    subordinateType: '¿Qué tipo de SUBORDINADA es?',
+    voiceMainClause: '¿En qué voz está la cláusula principal?',
+    // Week 19
     adjectiveClause: '¿Cuál es la CLÁUSULA ADJETIVA?',
-    modifiedNoun: '¿Qué sustantivo modifica la cláusula?',
+    antecedent: '¿Cuál es el ANTECEDENTE?',
     relativePronoun: '¿Cuál es el PRONOMBRE RELATIVO?',
-    hasAdjectiveClause: '¿Tiene cláusula adjetiva?',
-    verbForm: '¿Es infinitivo, participio o gerundio?',
-    participleFunction: '¿Cómo funciona el participio?',
-    gerundFunction: '¿Cómo funciona el gerundio?',
-    infinitiveFunction: '¿Cómo funciona el infinitivo?'
+    hasAdjectiveClause: '¿Tiene CLÁUSULA ADJETIVA?',
+    // Week 21
+    coordinatingConj: '¿Cuál es la CONJUNCIÓN COORDINANTE?',
+    subordinatingNexus: '¿Cuál es el NEXO SUBORDINANTE?',
+    // Week 21-23
+    verbForm: '¿Es INFINITIVO, PARTICIPIO o GERUNDIO?',
+    participleFunction: '¿El participio funciona como TIEMPO COMPUESTO o ADJETIVO?',
+    gerundFunction: '¿Cómo funciona el GERUNDIO?',
+    hasGerund: '¿Tiene GERUNDIO?',
+    infinitiveFunction: '¿El infinitivo funciona como SUJETO u OBJETO DIRECTO?'
   };
   
   document.addEventListener('DOMContentLoaded', function() {
